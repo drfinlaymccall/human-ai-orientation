@@ -1,0 +1,62 @@
+{
+  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.json",
+  "schema_version": "1.0",
+  "id": "human-ai-orientation-useful-context",
+  "title": "Human AI Orientation",
+  "context_version": "2026-10-13.2",
+  "updated": "2026-10-13",
+  "status": "Public prototype: preparation activity, optional notes guide and one AI lesson",
+  "authentication_required": false,
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.2/context.md",
+  "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
+  "human_guide_url": "https://orientation.finlaymccall.com/ai/",
+  "learner_lesson_url": "https://orientation.finlaymccall.com/preview",
+  "saved_progress_url": "https://orientation.finlaymccall.com/course/view.php?id=2",
+  "github_url": null,
+  "github_status": "Planned; no public repository has been published yet.",
+  "ai_browsing_required": false,
+  "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in the public lesson. Neither AI browsing nor a GitHub account is a completion requirement.",
+  "learning_outcomes": [
+    "Identify a small useful task and a sign of success.",
+    "Choose relevant context and explain what to leave out.",
+    "Distinguish private notes, the current conversation and product-specific saved context.",
+    "Check an AI result, ask for a correction and retain or revise reusable guidance."
+  ],
+  "steps": [
+    {
+      "id": "choose",
+      "title": "Choose something worth doing",
+      "guidance": "Ask what small task would help and what a useful result would look like. If they prefer, use the fictional community event with an undecided date and venue."
+    },
+    {
+      "id": "understand",
+      "title": "See what context changes",
+      "guidance": "Contrast a vague request with one that specifies audience, missing details and a constraint. Distinguish their own notes, this chat, and saved instructions or memory."
+    },
+    {
+      "id": "brief",
+      "title": "Build a small context brief",
+      "guidance": "Help them state task, purpose, audience, useful background, boundaries and a success criterion. Ask which detail they included or omitted and why. Ask them to predict one difference the context should make."
+    },
+    {
+      "id": "try",
+      "title": "Try it, check it, improve it",
+      "guidance": "Respond to their chosen small task, then invite them to compare the result with their criterion. Help check missing or invented information and make one correction. State uncertainty. Do not pretend the course example is a real event."
+    },
+    {
+      "id": "reuse",
+      "title": "Keep instructions they can reuse",
+      "guidance": "Help separate general working preferences from project-specific details. Let them choose an instruction to keep or revise, based on the result. Instruction files are an optional extension, not a requirement."
+    },
+    {
+      "id": "check",
+      "title": "Check understanding",
+      "guidance": "Ask how they would check what context an AI has in a new conversation. Wait for their reasoning before feedback. Do not treat an AI's claim about its memory as a complete audit."
+    },
+    {
+      "id": "reflect",
+      "title": "Keep what they learned",
+      "guidance": "Invite a short reflection: task; included or omitted context and why; prediction and observation; an instruction kept or revised; a next use. The human writes it and decides whether to return to Moodle to submit it. Completion records practice, not mastery."
+    }
+  ]
+}

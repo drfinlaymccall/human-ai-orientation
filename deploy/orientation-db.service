@@ -1,0 +1,16 @@
+[Unit]
+Description=Orientation PostgreSQL (private Unix socket)
+
+[Service]
+Type=simple
+Environment=LD_LIBRARY_PATH=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/lib/x86_64-linux-gnu
+ExecStart=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/lib/postgresql/16/bin/postgres -D /home/finlay/apps/human-ai-orientation/trial/postgres
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=60
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

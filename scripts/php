@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+export LD_LIBRARY_PATH="$PROJECT_DIR/trial/runtime/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export PHP_INI_SCAN_DIR=
+exec "$PROJECT_DIR/trial/runtime/usr/bin/php8.3" -c "$PROJECT_DIR/trial/php.ini" "$@"

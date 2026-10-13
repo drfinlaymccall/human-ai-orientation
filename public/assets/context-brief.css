@@ -1,0 +1,21 @@
+:is(.context-brief,.context-trial){margin:1.5rem 0;font:inherit;color:inherit}
+:is(.context-brief,.context-trial) [hidden]{display:none!important}
+:is(.context-brief,.context-trial) fieldset{min-width:0;border:0;padding:0;margin:1.5rem 0}
+:is(.context-brief,.context-trial) legend{font-size:1.2rem;font-weight:700;margin-bottom:.7rem}
+:is(.context-brief,.context-trial) .brief-row{display:grid;grid-template-columns:minmax(9rem,1fr) minmax(0,2fr);gap:1rem;padding:1rem;border:1px solid #c9d6d0;border-bottom:0;background:#fff}
+:is(.context-brief,.context-trial) .brief-row:last-child{border-bottom:1px solid #c9d6d0}
+:is(.context-brief,.context-trial) label{font-weight:650;display:block;margin:0}
+:is(.context-brief,.context-trial) label small{display:block;font-size:.85rem;font-weight:400;line-height:1.5;margin-top:.35rem;color:#485b55}
+:is(.context-brief,.context-trial) textarea{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:.65rem;border:1px solid #829b91;border-radius:.3rem;font:inherit;line-height:1.5;background:#fff;color:#20332f;resize:vertical}
+:is(.context-brief,.context-trial) textarea[readonly]{background:#edf4f1;font-size:1rem;min-height:14rem;margin-top:.6rem}
+:is(.context-brief,.context-trial) .brief-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}
+:is(.context-brief,.context-trial) button{font:inherit;line-height:1.4;border:1px solid #176b60;border-radius:.35rem;padding:.65rem 1rem;background:#176b60;color:white;cursor:pointer;white-space:normal}
+:is(.context-brief,.context-trial) button.secondary{color:#176b60;background:white}
+:is(.context-brief,.context-trial) button:disabled{opacity:.5;cursor:default}
+:is(.context-brief,.context-trial) .example-note{margin:.65rem 0 0;font-size:.9rem;color:#485b55}
+:is(.context-brief,.context-trial) .brief-status{min-height:1.6em;font-size:.95rem}
+:is(.context-brief,.context-trial) .replace-prompt{padding:1rem;background:#fff4df;border:1px solid #b96622;margin:1rem 0}
+:is(.context-brief,.context-trial) :is(textarea,button):focus-visible{outline:3px solid #b96622;outline-offset:3px}
+@media(max-width:650px){:is(.context-brief,.context-trial) .brief-row{grid-template-columns:minmax(0,1fr);gap:.55rem}:is(.context-brief,.context-trial) .brief-actions button{flex:1 1 12rem}}
+
+.context-trial>div>textarea{margin:.6rem 0 1rem}.context-trial h3{margin-top:1.7rem}

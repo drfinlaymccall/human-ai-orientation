@@ -1,0 +1,10 @@
+[Unit]
+Description=Orientation Moodle scheduled tasks
+Requires=orientation-db.service
+After=orientation-db.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/finlay/apps/human-ai-orientation/scripts/php /home/finlay/apps/human-ai-orientation/trial/moodle/admin/cli/cron.php
+UMask=0077
+NoNewPrivileges=true

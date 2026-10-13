@@ -1,0 +1,17 @@
+# Private planning sources are not part of the public course or portfolio.
+docs/private/
+
+# Local trial runtime, learner data, secrets and browser dependencies.
+/trial/
+node_modules/
+test-results/
+
+# Secrets and generated local evidence are never publication inputs.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+playwright-report/
+docs/trial/*.png

@@ -1,0 +1,16 @@
+[Unit]
+Description=Orientation PHP-FPM
+Requires=orientation-db.service
+After=orientation-db.service
+
+[Service]
+Environment=LD_LIBRARY_PATH=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/lib/x86_64-linux-gnu
+Environment=PHP_INI_SCAN_DIR=
+ExecStart=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/sbin/php-fpm8.3 -c /home/finlay/apps/human-ai-orientation/trial/php.ini -y /home/finlay/apps/human-ai-orientation/deploy/php-fpm.conf -F
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

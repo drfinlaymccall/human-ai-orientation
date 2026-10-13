@@ -1,0 +1,87 @@
+{
+	admin off
+	auto_https off
+}
+
+:8789 {
+	bind 127.0.0.1
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Robots-Tag "noindex, nofollow"
+		-Server
+	}
+	request_body {
+		max_size 16MB
+	}
+	@private {
+		path_regexp private (^|/)(\.[^/]*|vendor|node_modules|tests|fixtures|behat)(/|$)|(^|/)(config\.php|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml.*|README.*|UPGRADING.*|Gruntfile\.js|.*\.(md|txt|lock|dist|bak|sql))$|^/admin/cli(/|$)
+		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /downloads/orientation-practice.md
+	}
+	handle @private {
+		respond "Not found" 404
+	}
+	redir /ai /ai/ 308
+	@aiPublic path /ai/ /ai/context.md /ai/course.json /ai/course.schema.json /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md
+	handle @aiPublic {
+		root * /home/finlay/apps/human-ai-orientation/public
+		file_server
+	}
+	handle / {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /index.html
+		file_server
+	}
+	handle /preview {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /preview.html
+		file_server
+	}
+	handle /free-tools {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /free-tools.html
+		file_server
+	}
+	handle /before-you-start {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /before-you-start.html
+		file_server
+	}
+	handle /notes {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /notes.html
+		file_server
+	}
+	handle /downloads/orientation-practice.md {
+		root * /home/finlay/apps/human-ai-orientation/public
+		header Content-Disposition "attachment; filename=orientation-practice.md"
+		header Content-Type "text/plain; charset=utf-8"
+		file_server
+	}
+	@privacy path /privacy /privacy.html
+	handle @privacy {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /privacy.html
+		file_server
+	}
+	handle /login/forgot_password.php {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /recovery.html
+		file_server
+	}
+	handle /assets/* {
+		root * /home/finlay/apps/human-ai-orientation/public
+		file_server
+	}
+	handle {
+		root * /home/finlay/apps/human-ai-orientation/trial/moodle
+		php_fastcgi 127.0.0.1:8788 {
+			# Moodle 4.5 recognises nginx FastCGI variables but not the Caddy name.
+			# See lib/setuplib.php setup_get_remote_url(); no core files are patched.
+			env SERVER_SOFTWARE nginx
+			env HTTPS on
+			env SERVER_PORT 443
+		}
+		file_server
+	}
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orientation.finlaymccall.com/ai/course.schema.json",
+  "title": "Human AI Orientation public context manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "id",
+    "title",
+    "context_version",
+    "updated",
+    "status",
+    "authentication_required",
+    "context_url",
+    "latest_context_url",
+    "human_guide_url",
+    "learner_lesson_url",
+    "saved_progress_url",
+    "github_url",
+    "github_status",
+    "ai_browsing_required",
+    "fallback",
+    "learning_outcomes",
+    "steps"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "context_version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "authentication_required": {
+      "const": false
+    },
+    "context_url": {
+      "type": "string"
+    },
+    "latest_context_url": {
+      "type": "string"
+    },
+    "human_guide_url": {
+      "type": "string"
+    },
+    "learner_lesson_url": {
+      "type": "string"
+    },
+    "saved_progress_url": {
+      "type": "string"
+    },
+    "github_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "github_status": {
+      "type": "string"
+    },
+    "ai_browsing_required": {
+      "type": "boolean"
+    },
+    "fallback": {
+      "type": "string"
+    },
+    "learning_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "guidance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "guidance": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

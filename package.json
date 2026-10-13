@@ -1,0 +1,26 @@
+{
+  "name": "human-ai-orientation",
+  "version": "0.1.0",
+  "description": "A short, self-guided course helping people who are not AI specialists build useful working relationships with AI. Learners bring their own AI tool, discover capabilities through personally relevant tasks, and develop a reusable context kit.",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test --config playwright.public.config.cjs",
+    "start": "systemctl --user start orientation-web.service",
+    "stop": "systemctl --user stop orientation-cron.timer orientation-web.service orientation-php.service orientation-db.service",
+    "status": "systemctl --user is-active orientation-db.service orientation-php.service orientation-web.service orientation-cron.timer",
+    "test:trial": "playwright test --config playwright.config.cjs",
+    "build:context": "python3 scripts/build-ai-context.py",
+    "build:preparation": "python3 scripts/build-preparation.py",
+    "build:brief": "python3 scripts/build-brief.py"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  },
+  "private": true
+}

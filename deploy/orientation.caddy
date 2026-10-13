@@ -1,0 +1,10 @@
+# Imported by the existing system Caddy. Other sites keep their own routes.
+orientation.finlaymccall.com {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		Cache-Control "no-store"
+		-Server
+	}
+	reverse_proxy 127.0.0.1:8789
+}

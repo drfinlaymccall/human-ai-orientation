@@ -1,0 +1,14 @@
+[Unit]
+Description=Orientation application web server (loopback)
+Requires=orientation-php.service
+After=orientation-php.service
+
+[Service]
+ExecStart=/usr/bin/caddy run --config /home/finlay/apps/human-ai-orientation/deploy/Caddyfile --adapter caddyfile
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target
