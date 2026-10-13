@@ -155,3 +155,24 @@ Finlay requested that “Try it, check it, improve it” bring forward the promp
 ## 2026-10-13 — Explore the AI interface before building a context brief
 
 After completing the course, Finlay requested that the introduction move from Finder/Explorer and copy/paste into the ways people can communicate with AI. Replaced free-tool cards with a four-input comparison and reused it in the initial preparation. Added four instruction-practice routes with editable examples, copy actions, source/response checking and a useful follow-up. Learners can use a personal task or a fictional invitation; the goal is practical communication and refinement rather than an ideal first prompt. Live voice is distinguished from transcription, and provider-specific access is qualified. The existing context-brief lesson follows this introduction; learner records and answers are preserved.
+
+
+## 2026-10-13 — Comparable courses and open-materials pathway
+
+Finlay requested a Moodle table of deeper introductory courses, including video/YouTube options and resources that could later be adapted. Researched official course outlines and licence notices; added seven resources with original summaries and specific next steps, plus the existing Be Connected foundations route. AI Fluency is a close collaboration-focused comparator; Code.org provides short conceptual videos; OpenLearn/Elements offer broader study; Khan Academy’s teacher series is a possible later cohort branch. Anthropic hosting is Skilljar, not Skillshare.
+
+The licence review found a material distinction: Microsoft’s OpenLearn AI fluency is explicitly proprietary, while the OU introduction has CC BY-NC-SA covered content with third-party exclusions. AI Fluency authors confirm CC BY-NC-SA course/video materials; Code.org differentiates ND videos from SA curriculum. External resources are linked only. Finlay intends his original course content to be Creative Commons; the exact variant has been asked, with no blanket grant applied while it remains undecided.
+
+
+### Licence choice confirmed — 13 October 2026
+
+Finlay chose CC BY 4.0 for widest reuse with credit. Applied it to original educational content and curriculum-design documentation with an explicit scoped notice and attribution example. Published learner-visible notices on public pages and Moodle; linked/credited third-party content, software, learner/private data and screenshots are excluded. Earlier pending-choice notes record the prior decision state.
+
+
+## 2026-10-13 — Portfolio journey, publication and owner-confirmed email
+
+Finlay approved the six progression-review recommendations and added a seventh: record how the design brief, control document, research, feedback and course were developed. Created the public drfinlaymccall/human-ai-orientation repository with a genuine baseline commit, seven issues and a feature branch. Historical dialogue is curated from the design chats; no fabricated early commit history, private authentication exchanges or learner data are included.
+
+Completed useful-task and check/continue activities and a three-document portfolio bridge, preserving the original Moodle Lesson and learner evidence. Chose browser-local temporary drafting with Markdown export and versioned JSON restore before considering account-backed portfolio storage. New manual completion records practice, not mastery; prior overall completion rules are preserved.
+
+Finlay selected hi@finlaymccall.com, entered Gmail app credentials privately in Moodle, and confirmed receipt of the test with the intended sender. SMTP and native recovery are enabled for invited accounts. Reviewed support uses an operator-assisted private draft queue with exact-message approval; no autonomous inbox or support responses are implied. The pilot protocol is prepared, but recruitment, real observations and evidence-led expansion remain open. See the dated release and operating records for checks and limits.

@@ -78,6 +78,36 @@ test('free input comparison leads to editable instruction practice with accessib
   } finally { await nojs.close(); }
 });
 
+test('deeper courses are public, readable without scripts and distinguish reuse permissions', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const page = await context.newPage();
+    await page.goto('https://orientation.finlaymccall.com/');
+    await page.getByRole('link', { name: 'Go deeper: courses and videos', exact: true }).click();
+    await expect(page).toHaveURL(/deeper-courses$/);
+    await expect(page.getByRole('heading', { name: 'Go deeper: courses and videos', exact: true })).toBeVisible();
+    await expect(page.locator('.resource-table tbody tr')).toHaveCount(7);
+    await expect(page.locator('.resource-table')).toContainText('Skilljar');
+    await expect(page.locator('.resource-table')).toContainText('sign in or join');
+    await page.locator('#reuse summary').click();
+    await expect(page.locator('#reuse')).toContainText('not Creative Commons');
+    await expect(page.locator('#reuse')).toContainText('CC BY-NC-ND 4.0');
+    await expect(page.locator('#reuse')).toContainText('CC BY-NC-SA 4.0');
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 950 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+      const region = page.getByRole('region', { name: 'Deeper courses comparison' });
+      await region.focus();
+      await page.keyboard.press('End');
+      if (width === 390) expect(await region.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+      else expect(await region.evaluate(el => el.scrollWidth > el.clientWidth + 1)).toBe(false);
+      await page.screenshot({ path: `docs/trial/deeper-courses-${width}.png`, fullPage: true });
+    }
+    await page.getByRole('link', { name: 'the context lesson', exact: true }).click();
+    await expect(page).toHaveURL(/preview$/);
+  } finally { await context.close(); }
+});
+
 test('brief builder copies selected context, protects drafts and supports examples and mobile', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/preview#page-2');
@@ -225,6 +255,12 @@ test('pilot login, policy, lesson completion and saved return visit', async ({ p
     await expect(page.locator('#user-menu-toggle')).toBeVisible();
   }
   await login();
+  await page.getByRole('link', { name: 'Go deeper: courses and videos', exact: false }).first().click();
+  await expect(page).toHaveURL(/\/mod\/page\/view.php\?id=/);
+  await expect(page.locator('.resource-table tbody tr')).toHaveCount(7);
+  await page.getByRole('link', { name: 'files, folders and AI-interface practice', exact: true }).click();
+  await expect(page).toHaveURL(/\/mod\/page\/view.php\?id=2/);
+  await page.goto('/course/view.php?id=2');
   await page.getByRole('link', { name: 'Start here: files and folders', exact: false }).first().click();
   await expect(page.locator('#region-main')).toContainText('The find-it-again scavenger hunt');
   await expect(page.getByRole('heading', { name: 'Next: get to know your AI’s interface' })).toBeVisible();
@@ -332,7 +368,7 @@ test('no open registration, clear recovery route and private files denied', asyn
   await page.goto('/login/signup.php');
   await expect(page.locator('#id_email')).toHaveCount(0);
   await page.goto('/login/forgot_password.php');
-  await expect(page.locator('body')).toContainText('Ask Finlay to reset your pilot login');
+  await expect(page.locator('body')).toContainText('Search by email address');
   for (const path of ['/.git/config', '/config.php', '/composer.json', '/vendor/autoload.php', '/admin/cli/cron.php']) {
     const response = await page.goto(path);
     expect(response.status(), path).toBe(404);
@@ -345,7 +381,11 @@ test('public AI context works without login, with copying and a manual fallback'
   await expect(page.getByRole('heading', { name: 'Give your AI a little course context.' })).toBeVisible();
   const manifest = await page.evaluate(async () => (await fetch('/ai/course.json')).json());
   expect(manifest.authentication_required).toBe(false);
-  expect(manifest.github_url).toBeNull();
+  expect(manifest.schema_version).toBe('1.1');
+  const schema = await page.evaluate(async url => (await fetch(url)).json(), manifest.$schema);
+  expect(schema.properties.schema_version.const).toBe(manifest.schema_version);
+  expect(schema.required).toContain('content_license');
+  expect(manifest.github_url).toBe('https://github.com/drfinlaymccall/human-ai-orientation');
   const read = await page.evaluate(async url => {
     const response = await fetch(url);
     return { status: response.status, text: await response.text() };
@@ -377,4 +417,76 @@ test('public AI context works without login, with copying and a manual fallback'
   await plain.getByText('Context text to read or paste', { exact: true }).click();
   await expect(plain.locator('#context-text')).toBeVisible();
   await nojs.close();
+});
+
+test('portfolio journey works publicly and in Moodle with saved manual progress', async ({ page }) => {
+  const ids = JSON.parse(fs.readFileSync('trial/journey.json'));
+  await page.goto('/journey');
+  await page.getByRole('link', { name: 'Make three small context documents', exact: true }).click();
+  await expect(page.locator('[data-portfolio-field="about"]')).toBeVisible();
+  await page.locator('[data-portfolio-field="about"]').fill('Synthetic learner: a neighbourhood book swap.');
+  await page.goto('/login/index.php');
+  await page.waitForLoadState('networkidle');
+  await page.waitForFunction(() => window.M?.util?.pending_js?.length === 0);
+  await page.locator('#username').fill(credentials.username);
+  await page.locator('#password').fill(credentials.password);
+  await Promise.all([page.waitForURL(url => !url.pathname.endsWith('/login/index.php')), page.locator('#loginbtn').click()]);
+  if (page.url().includes('/user/policy.php')) await page.getByRole('button', { name: 'Yes', exact: true }).click();
+  await page.goto(`/mod/page/view.php?id=${ids.journey}`);
+  if (page.url().includes('/user/policy.php')) {
+    await page.getByRole('button', { name: 'Yes', exact: true }).click();
+    await page.goto(`/mod/page/view.php?id=${ids.journey}`);
+  }
+  await expect(page.getByRole('link', { name: 'Make three small context documents', exact: true })).toHaveAttribute('href', `/mod/page/view.php?id=${ids.portfolio}`);
+  await page.getByRole('link', { name: 'Make three small context documents', exact: true }).click();
+  await expect(page.locator('[data-portfolio-field="about"]')).toHaveValue('Synthetic learner: a neighbourhood book swap.');
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+    if (width === 390) {
+      const close = page.locator('#theme_boost-drawers-courseindex').getByRole('button', { name: /Close/ });
+      if (await close.isVisible()) await close.click();
+    }
+    await page.screenshot({ path: `docs/trial/native-portfolio-${width}.png`, fullPage: true });
+  }
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download backup for restoring', exact: true }).click();
+  const backup = fs.readFileSync(await (await download).path(), 'utf8');
+  expect(JSON.parse(backup).fields.about).toContain('Synthetic learner');
+  await page.goto(`/mod/page/view.php?id=${ids['first-task']}`);
+  await page.getByRole('button', { name: /Mark .* as done/ }).click();
+  const completed = page.locator('[data-action="toggle-manual-completion"][data-toggletype="manual:undo"]');
+  await expect(completed).toBeVisible();
+  await page.reload();
+  await expect(completed).toBeVisible();
+  await page.goto(`/mod/page/view.php?id=${ids['check-and-continue']}`);
+  await expect(page.locator('[data-portfolio-field="nextGoal"]')).toBeVisible();
+  await page.locator('[data-portfolio-field="nextGoal"]').fill('Synthetic next goal.');
+  await page.reload();
+  await expect(page.locator('[data-portfolio-field="nextGoal"]')).toHaveValue('Synthetic next goal.');
+  await page.goto('/help');
+  await expect(page.getByRole('link', { name: 'hi@finlaymccall.com', exact: true })).toHaveAttribute('href', /^mailto:hi@finlaymccall.com/);
+});
+
+test('captured native reset link changes a synthetic password and permits sign-in', async ({ page, browser }) => {
+  const reset = JSON.parse(fs.readFileSync('trial/public-qa-reset.json'));
+  await page.goto('/login/forgot_password.php?token=' + encodeURIComponent(reset.token));
+  await page.locator('#id_password').fill(reset.password);
+  await page.locator('#id_password2').fill(reset.password);
+  await page.getByRole('button', { name: 'Save changes', exact: true }).click();
+  await page.waitForLoadState('networkidle');
+  const fresh = await browser.newContext();
+  try {
+    const login = await fresh.newPage();
+    await login.goto('https://orientation.finlaymccall.com/login/index.php');
+    await login.waitForLoadState('networkidle');
+    await login.waitForFunction(() => window.M?.util?.pending_js?.length === 0);
+    await login.locator('#username').fill(credentials.username);
+    await login.locator('#password').fill(reset.password);
+    await Promise.all([login.waitForURL(url => !url.pathname.endsWith('/login/index.php')), login.locator('#loginbtn').click()]);
+    if (login.url().includes('/user/policy.php')) await login.getByRole('button', { name: 'Yes', exact: true }).click();
+    await login.goto('https://orientation.finlaymccall.com/course/view.php?id=2');
+    if (login.url().includes('/user/policy.php')) await login.getByRole('button', { name: 'Yes', exact: true }).click();
+    await expect(login.locator('#user-menu-toggle')).toBeVisible();
+  } finally { await fresh.close(); }
 });

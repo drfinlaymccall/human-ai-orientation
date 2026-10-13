@@ -10,7 +10,7 @@ Status: **publicly reachable** at https://orientation.finlaymccall.com. Cloudfla
 - Native Moodle lesson, saved reflection and completion for individually provisioned pilot accounts.
 - Finlay's learner-view account in `trial/ACCESS.md`; administrator credentials remain in `trial/credentials.json`. Both are private and ignored by Git.
 - Public registration is disabled. Existing synthetic desktop/mobile accounts are suspended and their sessions invalidated. QA accounts use unique generated passwords and are suspended after verification.
-- Outbound email remains diverted into the private local test mailbox. The recovery link explains how to ask Finlay for help; it does not promise an email that cannot arrive.
+- Outbound Gmail SMTP is enabled for the invitation-only pilot. Finlay confirmed receipt of the owner-address test with the intended sender. Native password recovery is available; see [email and reviewed-support operations](../operations/email-and-support.md).
 - A short information-use notice explains saved progress, reflection, essential cookies and Finlay's access. Personal context portfolios stay in learners' own notes.
 
 This is one lesson and a platform trial, not the agreed three-activity MVP. Real email, open enrolment, the other two activities and the reviewed support-agent workflow remain work to complete.
@@ -81,4 +81,20 @@ To withdraw public access, remove only the orientation route from system Caddy, 
 
 ## Public AI-context route
 
-`/ai/` now provides learner-readable instructions for sharing course context with their own AI, with a pinned Markdown source and structured manifest. Public/current files derive from `content/ai/course-context.json`. The Caddy allowlist exposes only the intended context files; all private-runtime restrictions remain in place. See [design and release instructions](../curriculum/public-ai-context.md). These pages require no account and no JavaScript for reading. Public GitHub publication is pending.
+`/ai/` now provides learner-readable instructions for sharing course context with their own AI, with a pinned Markdown source and structured manifest. Public/current files derive from `content/ai/course-context.json`. The Caddy allowlist exposes only the intended context files; all private-runtime restrictions remain in place. See [design and release instructions](../curriculum/public-ai-context.md). These pages require no account and no JavaScript for reading. The public repository is [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation).
+
+
+### Optional deeper courses — 13 October 2026
+
+`/deeper-courses` is a public static route with the same original summaries and licence notes as native Moodle Page module 4. It uses the existing shared stylesheet, no new script or external embed. Build with `npm run build:preparation`, publish Moodle with `scripts/php scripts/sync-preparation.php`. The scoped Caddy route was validated and `orientation-web` restarted; existing private-route checks pass. Rights evidence is kept in `docs/research/deeper-courses.md`.
+
+
+## Portfolio release — 13 October 2026
+
+Course journey module 5, first-task module 6, portfolio module 7 and check/continue module 8 extend existing course 2. Context Lesson module 1 is retained. Public routes are `/journey`, `/first-task`, `/portfolio`, `/check-and-continue` and `/help`; AI context is version 2026-10-13.3 with the actual GitHub URL. Content sources build with `npm run build`; apply native additions using `scripts/php scripts/sync-journey.php` after preparation sync. Its before/after fingerprints cover historic attempts, answers, progress and course-completion definitions. Running it twice preserves IDs and records.
+
+Before these changes, a new private backup was taken at `trial/backups/portfolio-release/`. It contains the database and runtime config, including the earlier mail-diversion setting. Restoring a backup is a separate operator procedure: it can replace newer learner records and mail configuration. Do not use a database rollback casually to reverse a content change.
+
+For native browser verification: create a fresh synthetic user with `scripts/php scripts/public-qa-user.php`, generate a captured reset email with `scripts/php scripts/qa-password-reset.php`, run `npm test`, then run `scripts/php scripts/public-qa-user.php suspend`. The reset helper overrides mail only inside that CLI process; live SMTP configuration is unchanged. Never use a real learner for synthetic tests.
+
+Public source includes pinned Moodle core via a Git submodule, not a database/data-directory export. See [reproduction](../REPRODUCING.md) and the [release record](../releases/2026-10-13-portfolio.md).

@@ -1,6 +1,6 @@
-# Human AI Orientation — initial design brief
+# Human AI Orientation — course design brief
 
-Date: 2026-10-13. Stage: discovery. This is a working brief requested during the interview, not a settled product contract or implementation-ready plan. Confirmed intentions and proposals are distinguished below.
+Updated: 2026-10-13. Stage: working public course and invitation-only Moodle pilot. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
 
@@ -13,6 +13,18 @@ An equally explicit objective is to demonstrate that Finlay McCall can bring a w
 The priority order is: end-to-end delivery of a useful learning experience; coherent curriculum and experience design; practical platform, content, and support operations; and evidence-led improvement. This builds on Finlay's University of Canberra project work without implying university sponsorship or endorsement of this independent project.
 
 The project should become a working public course on a subdomain of Finlay's website, accompanied by a GitHub project and a readable design case study. Friends and family are the initial pilot audience. Finlay intends to write about the project and launch it on LinkedIn to invite enrolments; publication timing and copy remain to be developed.
+
+## Implemented progression and evidence
+
+| Step | Learner output | Current implementation |
+| --- | --- | --- |
+| Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
+| 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
+| 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
+| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | New portable builder with Markdown download, JSON backup/restore and optional AI interview |
+| 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
+
+The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
 
 ## Place in the broader learning journey
 
@@ -201,6 +213,8 @@ Each lesson should offer a plain-language purpose, an estimated time, a short ex
 - R29. Carry learner-created context, success criteria and predictions into the next activity. Provide an explicit copy-to-AI and return-with-response workflow, comparison prompts and a reusable practice record. Preserve the inputs associated with an existing attempt when earlier drafts change. Offer copy/paste and app-switching guidance, optional foundations resources, and a manual route when automatic carry-over is unavailable.
 
 - R30. After computer basics, introduce the AI interface and four input types: typed text, speech, files and pictures. Provide a dated free-provider comparison with platform/plan qualifications. Learners practise a useful instruction, inspect the result and clarify it; begin with one accessible input and explore a second where available. Distinguish dictation from live conversation and picture input from generation. Preserve a text and worked-example route, without requiring paid access or mastery of every input.
+
+- R31. Offer an optional, curated deeper-courses page with short summaries, format/access information, audience fit and a specific starting point. Link externally and invite learners to bring one idea back to their own task. Maintain item-specific reuse evidence; free access is not permission to adapt. Release original course materials under CC BY 4.0, selected by Finlay while preserving third-party and software licence boundaries.
 
 
 Accessibility criteria should include clear language, meaningful headings, keyboard use, readable layouts, captions or transcripts, visible feedback, and alternatives to audio or camera participation. Test with real users as well as technical checks.

@@ -1,0 +1,3 @@
+[submodule "vendor/moodle"]
+	path = vendor/moodle
+	url = https://github.com/moodle/moodle.git

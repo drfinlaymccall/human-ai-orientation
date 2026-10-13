@@ -16,7 +16,7 @@ These are delivery targets, not a measured effort estimate. Hosting capacity, pl
 
 ## Public trial deployment — 13 October
 
-Public deployment to `orientation.finlaymccall.com` is authorized. The server has managed PostgreSQL/PHP-FPM/web services, a Caddy HTTPS route, a public lesson preview and an individual reviewer account. Cloudflare MCP has created the proxied DNS record, and public HTTPS and independent external access are verified; see [deployment status](docs/trial/PUBLIC-DEPLOYMENT.md). Registration and external email stay disabled for this one-lesson trial. This does not replace the agreed three-activity MVP.
+Public deployment to `orientation.finlaymccall.com` is authorized. The server has managed PostgreSQL/PHP-FPM/web services, a Caddy HTTPS route, a public lesson preview and an individual reviewer account. Cloudflare MCP has created the proxied DNS record, and public HTTPS and independent external access are verified; see [deployment status](docs/trial/PUBLIC-DEPLOYMENT.md). This was the initial one-lesson deployment. The full journey and portfolio are now published; Gmail delivery is verified and password recovery enabled. Registration remains invitation-only. See the current state below.
 
 ## Agreed first release
 
@@ -40,14 +40,26 @@ The existing machine containing `/home/finlay/apps` is the confirmed hosting tar
 
 | Item | Completion evidence | Current state |
 | --- | --- | --- |
-| Choose and prove the platform | Same essential learner journey demonstrated in the chosen platform; explain fit and upkeep | Moodle private trial installed with one complete context lesson; see trial decision and verification record |
-| Confirm route and operating setup | Chosen subdomain works over HTTPS; secrets kept out of source; appropriate backup and recovery checked | Hosting machine confirmed; routing, email and deployment details pending |
-| Write three complete activities | Purpose, explanation/example, task, reflection and useful fallback in each; learner retains context, a next goal and a first step | Context lesson authored and loaded in Moodle; useful-task and broader check/continue activities still to author |
-| Implement learner journey | Preview, enrol, complete an activity, leave, sign in again and resume saved progress | Private Moodle journey implemented; public preview/enrolment still pending |
-| Deliver course email | Test recipient receives an appropriate course message and usable return link | Confirmation, welcome and recovery messages captured locally; real delivery pending |
-| Provide reviewed support | Help request produces an agent draft; approval sends the intended response; unapproved drafts remain unsent | Not implemented |
+| Choose and prove the platform | Same essential learner journey demonstrated in the chosen platform; explain fit and upkeep | Moodle retained; public reading plus native progress and portable portfolio implemented |
+| Confirm route and operating setup | Chosen subdomain works over HTTPS; secrets kept out of source; appropriate backup and recovery checked | HTTPS and services operating; Gmail receipt verified; on-server backup checked; off-server restore remains |
+| Write three complete activities | Purpose, explanation/example, task, reflection and useful fallback in each; learner retains context, a next goal and a first step | Three activities plus portfolio bridge authored and published; existing Lesson IDs/records preserved |
+| Implement learner journey | Preview, enrol, complete an activity, leave, sign in again and resume saved progress | Whole public journey available; invited Moodle accounts save progress; broad registration remains closed |
+| Deliver course email | Test recipient receives an appropriate course message and usable return link | Owner received real course email with intended sender; SMTP active and native recovery available |
+| Provide reviewed support | Help request produces an agent draft; approval sends the intended response; unapproved drafts remain unsent | Private draft/review/approve/send workflow implemented; synthetic approval-boundary checks pass |
 | Test and fix | Mobile/keyboard checks and labelled persona walkthrough; blocking findings resolved | Synthetic browser tests added for desktop/mobile journeys; physical-device and human checks pending |
-| Invite pilot and prepare public release | A small human trial where available; working public preview; concise project account and operating notes | Not started |
+| Invite pilot and prepare public release | A small human trial where available; working public preview; concise project account and operating notes | Human pilot protocol and invitation draft prepared; recruitment/observations pending |
+
+## Seven accepted next steps — current tracking
+
+1. **Control and outcome:** this file centres the portable personal context portfolio. [Issue #1](https://github.com/drfinlaymccall/human-ai-orientation/issues/1).
+2. **Complete the journey:** useful task → context lesson → portfolio bridge → check/continue. [Issue #2](https://github.com/drfinlaymccall/human-ai-orientation/issues/2).
+3. **Reliable take-away:** Markdown documents and versioned JSON backup/restore, local temporary drafts, selectable context, private practice notes. [Issue #3](https://github.com/drfinlaymccall/human-ai-orientation/issues/3).
+4. **Email and reviewed help:** Gmail delivery owner-confirmed; recovery restored; private operator-assisted draft/approval/send workflow. [Issue #4](https://github.com/drfinlaymccall/human-ai-orientation/issues/4), [operations](docs/operations/email-and-support.md).
+5. **Human pilot:** protocol, private observation template and invitation draft ready. Finlay selects/invites 3–5 people; no learner observations yet. [Issue #5](https://github.com/drfinlaymccall/human-ai-orientation/issues/5).
+6. **Expand from evidence:** choose no more than three improvements after pilot synthesis. Extra modalities, reminders and demonstrations stay on the wishlist until then. [Issue #6](https://github.com/drfinlaymccall/human-ai-orientation/issues/6).
+7. **Build in public:** repository, source pin, current and original brief, research, curated dialogue, decisions, checks and release history. [Issue #7](https://github.com/drfinlaymccall/human-ai-orientation/issues/7), [design history](docs/history/README.md).
+
+The core journey takes approximately 70–95 minutes including the portfolio extension, plus optional 20–30-minute preparation. Times are author estimates, not measured learner timings. New Page completion is learner-marked practice. The original Lesson retains its completion and reflection; no overall course-completion rule has been retroactively changed.
 
 ## Suggested delivery sequence
 
@@ -62,11 +74,11 @@ The platform trial determines whether this sequence is feasible. Do not postpone
 
 ## Public AI-context addition — 13 October
 
-Finlay requested public GitHub course materials and login-free pages that learners can share with their own AI. The first site context pack is implemented at `/ai/`, with a copyable starter, versioned Markdown, structured manifest and paste fallback. The public repository is still to prepare and publish from a reviewed allowlist; no GitHub URL is advertised yet. AI browsing remains optional. See [the design and acceptance requirements](docs/curriculum/public-ai-context.md) and R22–R24 in the brief.
+Finlay requested public GitHub course materials and login-free pages that learners can share with their own AI. The first site context pack is implemented at `/ai/`, with a copyable starter, versioned Markdown, structured manifest and paste fallback. The public repository is [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation). Curated source and history exclude runtime secrets and learner records. AI browsing remains optional. See [the design and acceptance requirements](docs/curriculum/public-ai-context.md) and R22–R24 in the brief.
 
 ## Preparation and Finlay’s tips — 13 October
 
-Added a files-and-folders entry activity before the existing AI lesson, with a short diagnostic, Mac/Windows scavenger hunt, real fictional practice download and self-check feedback. Added an optional Obsidian setup guide and inline Finlay’s tips, including beside “Keep three things separate”. Both guides are public and native Moodle resources. These add preparation, not another completed core AI activity; the other two agreed MVP activities remain outstanding. Self-check answers are not saved or graded. See [design and authoring notes](docs/curriculum/preparation-and-tips.md).
+Added a files-and-folders entry activity before the existing AI lesson, with a short diagnostic, Mac/Windows scavenger hunt, real fictional practice download and self-check feedback. Added an optional Obsidian setup guide and inline Finlay’s tips, including beside “Keep three things separate”. Both guides are public and native Moodle resources. These are preparation resources. The two remaining core activities were subsequently authored in the portfolio release. Self-check answers are not saved or graded. See [design and authoring notes](docs/curriculum/preparation-and-tips.md).
 
 ## Interactive activity pattern — 13 October
 
@@ -80,9 +92,13 @@ Step 4 carries the brief, criterion and prediction into an editable try/check/im
 
 The initial preparation now continues from files and controls into 10–15 minutes of AI instruction practice. It includes the same free-input comparison as `/free-tools`, editable/copied starters for text, speech, files and pictures, a follow-up check and a worked example. Total preparation is now approximately 20–30 minutes. Fixed quotas are avoided; review platform availability alongside the existing weekly provider check. A narrated demonstration of this exact workflow remains on the wishlist.
 
+## Optional deeper courses — 13 October
+
+Published a seven-resource comparison in Moodle and at `/deeper-courses`, with original summaries, suggested starting points and a return-to-practice loop. Rights evidence is in `docs/research/deeper-courses.md`; external materials are linked, not imported. Finlay selected CC BY 4.0 for original course materials. `LICENSE-CONTENT.md` defines scope and attribution; public and Moodle notices are published. External content, learner records and software are excluded.
+
 ## Next — improve the first release
 
-- Prepare and publish the public GitHub repository: reviewed course/source/design files, contributor instructions, ownership/licensing, version history and matching public AI context. Exclude private/runtime data; link the real repository only after publication.
+- Run the prepared human pilot; prioritise changes using retrieval/reuse observations, help requests and actual task results.
 - Progress-aware reminder and refresher emails, with pause and frequency controls.
 - Provider-specific memory and project-context guidance, verified against the learner's actual tool.
 - Optional challenges for experienced users.
@@ -96,7 +112,7 @@ The initial preparation now continues from files and controls into 10–15 minut
 
 - Voice, images, live-camera demonstrations and accessible alternatives.
 - Reminders, digests, browser assistance and computer-action activities.
-- Optional in-course context-kit editing or export; storage and privacy decisions first.
+- Optional account-backed portfolio storage only if learner evidence justifies it; current download/restore works without an account.
 - Additional curated learning resources and provider pathways.
 - Certificates if learners value them.
 - Richer personalisation or embedded AI assistance if there is a clear learning benefit and affordable operating model.
