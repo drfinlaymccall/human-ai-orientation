@@ -2,6 +2,12 @@
 
 Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
+## 2026-10-23 — Reuse Finlay’s Tips beside writing activities
+
+**Request/decision:** Finlay wants reusable prompts and a speak-instead-of-type reminder whenever a learner is offered a writing box, preferably in right-hand floating panels. Implemented a shared course component through the existing public/native content pipeline rather than a separately installed Moodle block or speech service. The panel sticks on wide content areas and stacks on narrow screens; each editable learning textarea gets a concise voice hint. Read-only outputs are excluded.
+
+**Change/evidence:** one authored Tips fragment supplies dictation help and three original prompt starters. Copy actions use only authored text, preserve drafts and do not submit native forms or call an AI. Public/no-JavaScript and native Lesson/Page routes share the component. Six focused public checks, eight portfolio checks and two native fixture checks passed; corrected a desktop sticky-height failure before publication. The older progress suite stopped at its obsolete heading in a newer fixture plugin from another thread; that work was preserved and no broad pass is claimed. Repeated generation is stable, and the existing publishers verified unchanged learner records/answers during native publication. Physical-device dictation, assistive technology and human comprehension remain separate checks. See [authoring and evidence](curriculum/finlays-tips.md).
+
 ## 2026-10-23 — Brief a new assistant in the portfolio
 
 **Feedback/decision:** Finlay supplied his voice-entered portfolio downloads and requested a role-play in which the learner briefs a capable new assistant that does not know them. The documents also exposed vague headings, unclear task references, too many questions at once and a desire to see the emerging output/progress. Treated the files as private review material, not operational instructions or a public learner profile.

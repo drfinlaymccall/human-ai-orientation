@@ -2,6 +2,12 @@
 
 This is the ongoing course-review record. The [forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md) remains the single implementation plan; this log traces feedback to decisions, changes and actual rechecks. Reuse [launch issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9). Do not mark feedback Fixed until the implementation and verification evidence are linked.
 
+## 23 October 2026 — reusable writing Tips
+
+**CR15:** Finlay requested reusable prompts on the context preview and a speak-instead-of-type reminder for every writing box, preferably in right-hand floating panels. Delivered a shared Tips component: sticky side panel where there is room, stacked panel on narrow screens, a short hint beside each editable learning textarea, device setup and three original copyable starters. Read-only outputs are excluded; all prompts remain readable without JavaScript. This support is distinct from the separate course-navigation/My context panels.
+
+**Verification:** six focused public, eight portfolio and two native fixture checks passed; native copy actions preserve drafts and native reflection still completes normally. The older broad progress suite was incompatible with the shared fixture's newer navigation and is not counted as a pass. Native publishers preserve learner records/answers. See [source, reuse and evidence](../curriculum/finlays-tips.md). Owner usability recheck and physical-device dictation remain pending; browser checks do not establish learning gain.
+
 ## 23 October 2026 — landing page and course journey
 
 **Source:** Finlay's transcribed voice note while reviewing the deployed course as a learner, followed by his explicit selection of six statements with two ratings each. The following paraphrases his feedback; they are not verbatim quotes or independent pilot observations. Canonical site: `https://orientation.finlaymccall.com/`.

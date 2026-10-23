@@ -8,7 +8,7 @@ require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
-if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802'], true)) {
+if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802', 'http://127.0.0.1:18812'], true)) {
     throw new RuntimeException('This update targets the existing public orientation trial.');
 }
 \core\session\manager::set_user(get_admin());
@@ -25,6 +25,13 @@ $definitions = [
     'notes' => ['source' => 'notes-guide', 'name' => 'Finlay’s guide: set up your notes with Obsidian',
         'intro' => 'Optional, about 10 minutes. Give your context portfolio a home in a folder you can find again.'],
 ];
+$compiled = [];
+foreach ($definitions as $slug => $definition) {
+    $path = $root . '/content/generated/' . $slug . '.html';
+    if (!is_file($path) || ($compiled[$slug] = file_get_contents($path)) === false) {
+        throw new RuntimeException('Build preparation fragments before publication.');
+    }
+}
 // Fingerprints stay in memory: no learner details are printed or exported.
 $state = function () use ($DB) {
     $result = [];
@@ -50,7 +57,7 @@ foreach ($definitions as $slug => $definition) {
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
             'name' => $definition['name'], 'idnumber' => 'orientation:' . $slug, 'section' => $definition['section'] ?? 0, 'visible' => 1,
             'intro' => '<p>' . $definition['intro'] . '</p>', 'introformat' => FORMAT_HTML,
-            'content' => file_get_contents($root . '/content/' . $definition['source'] . '.html'),
+            'content' => $compiled[$slug],
             'contentformat' => FORMAT_HTML, 'showdescription' => 1,
             'completion' => COMPLETION_TRACKING_NONE, 'display' => RESOURCELIB_DISPLAY_AUTO,
             'printintro' => 0, 'printlastmodified' => 0,
@@ -84,7 +91,7 @@ foreach ($definitions as $slug => $definition) {
     $record->coursemodule = $resources[$slug]['cmid'];
     $record->printintro = 0;
     $record->printlastmodified = 0;
-    $html = file_get_contents($root . '/content/' . $definition['source'] . '.html');
+    $html = $compiled[$slug];
     if ($slug !== 'deeper-courses') { $html .= '<p><a href="/deeper-courses">Go deeper: courses and videos</a></p>'; }
     $html .= '<p><a href="/preview">Continue to the AI lesson</a> · <a href="/course/view.php?id=' . $course->id . '">Return to the course</a></p>';
     $record->page = ['text' => $localise($html), 'format' => FORMAT_HTML, 'itemid' => 0];
@@ -92,11 +99,13 @@ foreach ($definitions as $slug => $definition) {
         page_update_instance($record, null);
     }
 }
-// These pages are explanatory content; keep IDs, order, branching and all answers unchanged.
-foreach (array_slice($spec['pages'], 0, 4) as $item) {
+// Update authored content and reflection guidance; preserve question types, IDs,
+// ordering, branching and every answer/attempt, including existing essays.
+foreach ([0, 1, 2, 3, 6] as $index) {
+    $item = $spec['pages'][$index];
     $page = $DB->get_record('lesson_pages', ['lessonid' => $lesson->id, 'title' => $item['title']], '*', MUST_EXIST);
-    if ((int)$page->qtype !== 20) {
-        throw new RuntimeException('Expected an explanatory lesson page.');
+    if ((int)$page->qtype !== ($item['type'] === 'essay' ? 10 : 20)) {
+        throw new RuntimeException('Unexpected lesson page type; preserve its question and answers.');
     }
     $html = $localise($item['html']);
     if ($page->contents !== $html) {
@@ -117,7 +126,7 @@ rebuild_course_cache($course->id, true);
 // Moodle's supported additional-HTML setting loads a narrowly scoped enhancement.
 // Preserve unrelated footer content; editors initialise only their own widgets.
 $footer = get_config('core', 'additionalhtmlfooter') ?: '';
-$assets = '<!-- orientation-context-brief --><link rel="stylesheet" href="/assets/context-brief.css"><script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script><!-- /orientation-context-brief -->';
+$assets = '<!-- orientation-context-brief --><link rel="stylesheet" href="/assets/context-brief.css"><script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script><link rel="stylesheet" href="/assets/finlay-tips.css"><script src="/assets/finlay-tips.js" defer></script><!-- /orientation-context-brief -->';
 $assets = str_replace('<!-- /orientation-context-brief -->', '<p class="small">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/mod/page/view.php?id=' . $resources['deeper-courses']['cmid'] . '#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p><!-- /orientation-context-brief -->', $assets);
 $updatedfooter = strpos($footer, '<!-- orientation-context-brief -->') === false
     ? $footer . "\n" . $assets

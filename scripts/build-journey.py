@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build public course pages from reusable Moodle HTML fragments, without services."""
 from pathlib import Path
+from course_tips import ASSETS, writing_support
 from html import escape
 import json
 
@@ -58,7 +59,8 @@ def activity_atlas():
 
 def fragment(name):
     """Use this same expansion when placing a fragment in a Moodle Page."""
-    return (ROOT / f'content/{name}.html').read_text().replace('<!-- portfolio-transfer -->', TRANSFER)
+    html = (ROOT / f'content/{name}.html').read_text().replace('<!-- portfolio-transfer -->', TRANSFER)
+    return writing_support(html, name)
 
 
 def render(title, content, slug):
@@ -69,7 +71,7 @@ def render(title, content, slug):
         'check-and-continue': 'Test selected context in a fresh conversation, check a result and choose a useful next goal.',
         'journey': 'Explore three practical activities and a portfolio bridge. Build, review and reuse your own personal context portfolio at your own pace.',
     }[slug]
-    script = '<script src="/assets/activity-atlas.js" defer></script>' if slug == 'journey' else ''
+    script = (ASSETS if 'class="finlay-writing-surface"' in content else '') + ('<script src="/assets/activity-atlas.js" defer></script>' if slug == 'journey' else '')
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{escape(description, quote=True)}"><meta property="og:title" content="{escape(title, quote=True)} — Human AI Orientation"><meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:type" content="website"><meta property="og:url" content="https://orientation.finlaymccall.com/{slug}"><meta name="twitter:card" content="summary"><title>{title} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="describedby" type="application/json" href="/ai/course.json"><link rel="stylesheet" href="/assets/portfolio.css"><script src="/assets/portfolio.js" defer></script>{script}</head><body><a class="skip" href="#main">Skip to content</a><header><a href="/">Human AI Orientation</a><a href="/journey">Course journey</a></header><main id="main" class="{'journey-reading' if slug == 'journey' else 'reading'}">{content}</main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">About your information</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>\n'''
 
 

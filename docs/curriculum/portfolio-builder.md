@@ -64,6 +64,8 @@ A backup file should be treated as personal material. The public repository and 
 
 ## Source and integration
 
+**23 October reusable writing support:** the generated portfolio now uses the [shared Finlay’s Tips component](finlays-tips.md), with a right-hand sticky panel where space permits and a voice hint beside each editable box. The earlier portfolio dictation callout is retained as optional detail inside that panel. Field keys, temporary storage, native completion and download/restore semantics are unchanged.
+
 - `content/first-task.html`, `content/portfolio.html`, `content/check-and-continue.html`: authored HTML fragments.
 - `scripts/build-journey.py`: public page wrapper, journey overview and shared save/restore controls; `fragment(name)` expands the shared controls for Moodle integration.
 - `public/assets/portfolio.js`: fixed schema, temporary state, selected-context output, downloads, validation and replacement confirmation.

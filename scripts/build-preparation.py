@@ -2,6 +2,7 @@
 """Render the same preparation content used by the Moodle page resources."""
 from pathlib import Path
 from html import escape
+from course_tips import ASSETS, writing_support
 
 ROOT = Path(__file__).resolve().parents[1]
 for slug, source, title in [
@@ -14,6 +15,10 @@ for slug, source, title in [
     body = body.replace('<!-- ai-interface -->', (ROOT / 'content/ai-interface.html').read_text())
     body = body.replace('<!-- free-tools-table -->', (ROOT / 'content/free-tools-table.html').read_text())
     body = body.replace('<!-- course-licence -->', (ROOT / 'content/licence-notice.html').read_text())
+    body = writing_support(body, slug)
+    generated = ROOT / 'content/generated'
+    generated.mkdir(exist_ok=True)
+    (generated / f'{slug}.html').write_text(body)
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script></head>
@@ -22,6 +27,8 @@ for slug, source, title in [
 {body}
 <div class="actions"><a class="button" href="/preview">Continue to the AI lesson</a><a class="button secondary" href="/{'notes' if slug == 'before-you-start' else 'before-you-start'}">{'Set up my notes' if slug == 'before-you-start' else 'Practise finding files'}</a></div>
 </main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">About your information</a> · <a href="/deeper-courses">Go deeper: courses and videos</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>'''
+    if 'class="finlay-writing-surface"' in body:
+        page = page.replace('</head>', ASSETS + '</head>')
     (ROOT / 'public' / f'{slug}.html').write_text(page)
     print(f'Built /{slug}')
 

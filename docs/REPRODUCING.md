@@ -31,6 +31,8 @@ These checks protect later edits to generated course pages, portfolio download/r
 
 ## Synthetic onboarding/progress fixture
 
+Reusable writing support has portable checks in `npm run test:tips` and native direct-module checks in `npm run test:tips:native`. The latter uses this isolated fixture and fresh synthetic users; it requires no production account or mail. Build preparation/brief/journey fragments before native publication. See [Finlay’s Tips authoring and verification](curriculum/finlays-tips.md).
+
 With the private local PHP/PostgreSQL runtime already available, `python3 scripts/prepare-launch-fixture.py` installs pinned Moodle source into ignored `trial/launch-fixture/` and creates a **new** database named `orientation_launch_fixture`. It never copies the live database, configuration, credentials or SMTP settings. It refuses an existing fixture rather than overwriting it. The installation is for synthetic localhost testing, not a public deployment recipe.
 
 Set `ORIENTATION_TRIAL_DIR` to the absolute `trial/launch-fixture` directory for CLI seed/sync/configuration commands. Run the initial `scripts/php scripts/seed-course.php`, then `scripts/php scripts/sync-preparation.php` and `scripts/php scripts/sync-journey.php` under that environment. Never run the seed script against the public course. Start `PHP_CLI_SERVER_WORKERS=4 scripts/fixture-php -S 127.0.0.1:18802 -t trial/launch-fixture/moodle scripts/serve-launch-fixture.php` for browser checks. The router serves the supported public reading routes and the fixture's native Moodle pages on one localhost origin.
