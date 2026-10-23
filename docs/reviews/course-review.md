@@ -27,3 +27,15 @@ This is the ongoing course-review record. The [forward plan](../plans/2026-10-23
 ## Adding the next review
 
 Append a dated section with the feedback source, new stable CR IDs, decision or open question, linked plan unit/issue, implementation reference and actual verification outcome. Keep reported behaviour, agent judgement and human pilot findings distinguishable. Preserve earlier evidence rather than rewriting it as if a later change already passed.
+
+## 23 October 2026 — portfolio briefing and question clarity
+
+**Source:** Finlay's voice-input review exported as three individual Markdown documents and a combined portfolio, followed by his request to frame the exercise as briefing a new assistant. This is owner feedback; the submitted documents remain private and are not published as a learner profile.
+
+| ID | Need / feedback | Change or next decision | Evidence state |
+| --- | --- | --- | --- |
+| CR10 | Help learners imagine whom they are briefing and why | New-assistant role-play; discuss interests, situation, communication and checks, with relevant detail and learner choice | Copy published publicly/native; owner usability recheck pending |
+| CR11 | Replace vague headings and unspecified references with answerable questions | All twelve boxes now ask clear questions with fictional examples; no-JavaScript/interview routes match; first three answers make a small first briefing | Eight existing portfolio checks passed; submitted individual/combined bodies match; native structure/evidence preserved |
+| CR12 | Form fatigue; wants visible output/progress and one step at a time | Small first pass and optional later sections delivered in guidance. Live preview/sidebar and guided progress remain an interaction improvement to scope from the recheck | Partial: wording delivered; preview/progression UI not implemented |
+
+The revision preserves field keys, existing drafts/backups, export headings and completion. A new field label does not reinterpret stored answers. Role-play copy avoids promising general AI competence, lasting memory or automatic computer access. See [portfolio authoring/evidence](../curriculum/portfolio-builder.md#implementation-and-verification-record). The broader landing/personal journey/check plan remains unchanged; this is focused portfolio clarity work within the existing activity audit.
