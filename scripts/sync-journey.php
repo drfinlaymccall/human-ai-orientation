@@ -8,7 +8,8 @@ require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
-if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802'], true)) {
+require_once __DIR__ . '/synthetic-fixture.php';
+if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com' && !orientation_is_synthetic_fixture($orientationtrial, $CFG)) {
     throw new RuntimeException('This update targets the existing orientation installation or isolated launch fixture.');
 }
 $map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -68,12 +69,12 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     $html = file_get_contents($root . '/content/generated/' . $slug . '.html');
     if ($slug === 'journey') {
         $html = str_replace('Your course journey · Free public activities', 'Your course journey · Moodle pilot', $html);
-        $nativeguidance = '<aside class="note"><h2>Returning to your work?</h2><p><a href="/local/orientation/index.php">Open my orientation progress</a> to continue or revisit an activity. Moodle saves your Lesson progress and submitted reflection. After doing a Page’s practical task, use its Mark as done control. These ticks record practice, not mastery or a graded assessment.</p><p>Your private portfolio fields stay in the browser: <a href="/portfolio">open the portfolio builder</a> and download a JSON backup before leaving. Restore that file on another browser or device, or download Markdown to reuse selected context.</p></aside>';
+        $nativeguidance = '<aside class="note"><h2>Returning to your work?</h2><p><a href="/local/orientation/index.php">Your course journey</a> to continue or revisit an activity. Moodle saves your Lesson progress and submitted reflection. After doing a Page’s practical task, use its Mark as done control. These ticks record practice, not mastery or a graded assessment.</p><p>Your private portfolio fields stay in the browser: <a href="/portfolio">open the portfolio builder</a> and download a JSON backup before leaving. Restore that file on another browser or device, or download Markdown to reuse selected context.</p></aside>';
         if (substr_count($html, '<!-- orientation-return-guidance -->') !== 1 || substr_count($html, '<!-- /orientation-return-guidance -->') !== 1) throw new RuntimeException('Journey return-guidance marker missing or ambiguous; rebuild before publishing.');
         $html = preg_replace('~<!-- orientation-return-guidance -->.*?<!-- /orientation-return-guidance -->~s', $nativeguidance, $html);
     }
     if ($completion) $html .= '<p><strong>When you have finished:</strong> use Moodle’s “Mark as done” control. Your portfolio fields stay in this tab; download your backup before leaving. Completion records practice, not mastery.</p>';
-    $html .= '<p><a href="/local/orientation/index.php">My orientation progress</a> · <a href="/journey">Public course journey</a> · <a href="/help">Ask for help</a> · <a href="/course/view.php?id=' . $course->id . '">Course activity list</a></p>';
+    $html .= '<p><a href="/local/orientation/index.php">Your course journey</a> · <a href="/journey">Public course journey</a> · <a href="/help">Ask for help</a> · <a href="/course/view.php?id=' . $course->id . '">Course activity list</a></p>';
     $html = $localise($html);
     if ($record->content !== $html) {
         $record->instance = $record->id;

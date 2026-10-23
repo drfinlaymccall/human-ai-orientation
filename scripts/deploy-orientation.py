@@ -35,6 +35,9 @@ def main():
     # Repository-owned files only; no runtime config/database copying or deletion.
     shutil.copytree(source, target, dirs_exist_ok=True)
     shutil.copyfile(ROOT / 'content/course-map.json', target / 'course-map.json')
+    shutil.copyfile(ROOT / 'content/generated/activity-atlas.html', target / 'activity-atlas.html')
+    for asset in ['activity-atlas.css', 'activity-atlas.js']:
+        shutil.copyfile(ROOT / 'public/assets' / asset, target / asset)
     if args.upgrade:
         env = dict(os.environ, ORIENTATION_TRIAL_DIR=str(trial))
         subprocess.run([str(ROOT / 'scripts/php'), str(runtime / 'admin/cli/upgrade.php'), '--non-interactive'], env=env, check=True)

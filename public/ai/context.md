@@ -1,11 +1,11 @@
 # Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-23.1
+Version: 2026-10-23.2
 Updated: 2026-10-23
 Author: Finlay McCall
 Status: Public reading with invitation-only account access; broader registration is not open.
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-23.1/context.md
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-23.2/context.md
 
 Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.
 
@@ -34,6 +34,7 @@ People who are not AI specialists. Do not assume low confidence or technical kno
 - The learner keeps their full context portfolio in their own notes. Only a brief non-sensitive reflection belongs in their course account. You cannot see that account or its progress.
 - Offer Files, notes and AI basics — optional help at https://orientation.finlaymccall.com/before-you-start only when useful; it is not a prerequisite or completion gate. The notes setup guide is https://orientation.finlaymccall.com/notes. A local path alone does not give you access. Never claim a file was saved without verifying its actual workspace and location. Let the learner do the file-finding practice; do not perform or certify it for them.
 - Activity editions describe the current published material, not which edition a learner previously completed. Only the signed-in human can inspect their saved native progress. Completion records practice, not mastery. The portfolio bridge belongs within the context activity and does not add a fourth baseline requirement.
+- The optional Find my starting point check uses six statements, each with separate 1–5 understanding and can-do self-ratings, plus Not sure or Skip. It suggests practice, not proficiency. The signed-in human can review their dated ratings and explained suggestion in Your course journey. You cannot retrieve those private records or submit ratings for them; they may skip the check and choose any activity.
 
 ## Activity map
 

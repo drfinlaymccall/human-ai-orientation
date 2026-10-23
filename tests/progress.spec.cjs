@@ -5,7 +5,12 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fixture = path.join(root, 'trial/launch-fixture');
-const base = 'http://127.0.0.1:18802';
+const base = process.env.ORIENTATION_FIXTURE_URL || 'http://127.0.0.1:18802';
+if (!['http://127.0.0.1:18802','http://127.0.0.1:18812'].includes(base)) throw new Error('Guarded synthetic fixture URL required.');
+if (base.endsWith(':18812')) {
+ const marker=JSON.parse(fs.readFileSync(path.join(fixture,'synthetic-fixture.json')));
+ if(fs.lstatSync(fixture).isSymbolicLink() || marker.synthetic!==true || marker.wwwroot!==base || marker.database!=='orientation_journey_fixture') throw new Error('Independent synthetic fixture marker required.');
+}
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
 if (!course.course_url.startsWith(base+'/')) throw new Error('Synthetic fixture required.');
 const env = {...process.env, ORIENTATION_TRIAL_DIR:fixture};
@@ -14,46 +19,119 @@ const stamp = Date.now();
 const users = ['one','two','unenrolled'].map(name=>({username:`progress${name}${stamp}`}));
 const overview = '/local/orientation/index.php';
 function php(code) {
- const prelude = `define('CLI_SCRIPT',true); require ${JSON.stringify(path.join(root,'scripts/moodle-environment.php'))}; if($CFG->wwwroot!=='${base}' || $orientationtrial!==realpath('${fixture}')) throw new RuntimeException('Fixture only'); `;
+ const prelude = `define('CLI_SCRIPT',true); require ${JSON.stringify(path.join(root,'scripts/moodle-environment.php'))}; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='${base}' || !orientation_is_synthetic_fixture($orientationtrial,$CFG)) throw new RuntimeException('Fixture only'); `;
  return execFileSync(path.join(root,'scripts/php'), ['-r',prelude+code], {cwd:root,env,encoding:'utf8'});
 }
-async function ready(page) { await page.waitForLoadState('networkidle'); await page.waitForFunction(()=>!window.M?.util?.pending_js?.length); }
-async function login(page,user) { await page.goto(overview); await ready(page); await page.locator('#username').fill(user.username); await page.locator('#password').fill(password); await page.locator('#loginbtn').click(); await ready(page); }
+async function ready(page) { await page.waitForLoadState('networkidle'); await page.waitForFunction(()=>!window.M?.util?.pending_js?.length); const tour=page.getByRole('button',{name:'Got it',exact:true}); if(await tour.isVisible()) await tour.click(); }
+async function login(page,user) { await page.goto(overview); await ready(page); await page.locator('#username').fill(user.username); await page.locator('#password').fill(password); await page.locator('#loginbtn').click({timeout:30000}); await ready(page); }
 function state() { return JSON.parse(php(`$out=[];foreach(['lesson_attempts','lesson_grades','lesson_branch','lesson_timer','lesson_answers','course_modules_completion','course_completions','course_completion_criteria'] as $t)$out[$t]=hash('sha256',serialize($DB->get_records($t,null,'id'))); $out['ids']=$DB->get_records_menu('course_modules',['course'=>${Number(course.course_id)}],'id','id,idnumber');echo json_encode($out);`)); }
 function sync() { return execFileSync(path.join(root,'scripts/php'),['scripts/sync-journey.php'],{cwd:root,env,encoding:'utf8'}); }
 test.describe.serial('native current-user activity progress',()=>{
  test.beforeAll(()=>{
   php(`require_once($CFG->dirroot.'/user/lib.php');require_once($CFG->libdir.'/enrollib.php');$c=$DB->get_record('course',['id'=>${Number(course.course_id)}],'*',MUST_EXIST);$p=enrol_get_plugin('manual');$i=$DB->get_record('enrol',['courseid'=>$c->id,'enrol'=>'manual'],'*',MUST_EXIST);$r=$DB->get_field('role','id',['shortname'=>'student'],MUST_EXIST);foreach(json_decode('${JSON.stringify(users)}') as $n=>$item){$u=(object)['username'=>$item->username,'email'=>$item->username.'@example.test','password'=>'${password}','auth'=>'manual','confirmed'=>1,'firstname'=>'Synthetic','lastname'=>'Progress','mnethostid'=>$CFG->mnet_localhost_id];$id=user_create_user($u);if($n<2)$p->enrol_user($i,$id,$r);}`);
  });
+ test('the real session endpoint is observational, private and never exposes account or progress details',async({page,request})=>{
+  test.setTimeout(90000);
+  const before=state();
+  for (const method of ['GET','HEAD']) {
+   const response=await request.fetch('/local/orientation/state.php?userid=1&courseid=1',{method,maxRedirects:0});
+   expect(response.status()).toBe(200);expect(response.headers()['cache-control']).toMatch(/private.*no-store/);
+   expect(response.headers()['access-control-allow-origin']).toBeUndefined();
+   expect(response.headers()['content-type']).toContain('application/json');
+   if(method==='GET')expect(await response.json()).toEqual({state:'signed-out',journey_url:overview});
+   else expect(await response.text()).toBe('');
+  }
+  const denied=await request.post('/local/orientation/state.php');expect(denied.status()).toBe(405);
+  expect(state()).toEqual(before);
+  await page.goto(course.lesson_url);await expect(page.locator('#loginbtn')).toBeVisible();
+  const pending=await page.request.get('/local/orientation/state.php?userid=1');expect(await pending.json()).toEqual({state:'signed-out',journey_url:overview});
+  await page.locator('#username').fill(users[1].username);await page.locator('#password').fill(password);await page.locator('#loginbtn').click({timeout:30000});await ready(page);
+  expect(page.url()).toContain('/mod/lesson/view.php');
+  const signedinBefore=state();
+  expect(await (await page.request.get('/local/orientation/state.php?userid=1')).json()).toEqual({state:'signed-in',journey_url:overview});
+  expect(state()).toEqual(signedinBefore);
+  await page.goto(overview);await expect(page.locator('[data-activity-atlas]')).toBeVisible();
+  await page.locator('.usermenu .dropdown-toggle').click();await page.getByRole('menuitem',{name:/Log out/}).click();await ready(page);
+  expect(await (await page.request.get('/local/orientation/state.php')).json()).toEqual({state:'signed-out',journey_url:overview});
+  await page.goBack();await ready(page);await expect(page.locator('[data-private-journey]')).not.toBeVisible();
+  await page.goto(overview);await expect(page.locator('#loginbtn')).toBeVisible();await expect(page.locator('[data-atlas-progress]')).toHaveCount(0);
+ });
+ test('ordinary login lands on journey; learner navigation persists across native pages and staff retain administration',async({page,browser})=>{
+  test.setTimeout(120000);
+  await page.goto('/login/index.php');await page.locator('#username').fill(users[0].username);await page.locator('#password').fill(password);await page.locator('#loginbtn').click({timeout:30000});await ready(page);
+  expect(new URL(page.url()).pathname).toBe(overview);
+  const userid=php(`echo $DB->get_field('user','id',['username'=>'${users[0].username}'],MUST_EXIST);`).trim();
+  const first=await page.locator('[data-atlas-open="first-task"]').getAttribute('href');
+  for(const url of [course.course_url,first,'/user/profile.php?id='+userid]){
+   await page.goto(url);await ready(page);const nav=page.locator('.primary-navigation');
+   await expect(nav.getByRole('menuitem',{name:'Your course journey',exact:true})).toBeVisible();
+   await expect(nav.getByRole('menuitem',{name:'Help',exact:true})).toBeVisible();
+   await expect(nav.getByRole('menuitem',{name:'Dashboard',exact:true})).toHaveCount(0);await expect(nav.getByRole('menuitem',{name:'My courses',exact:true})).toHaveCount(0);
+  }
+  const lessonContext=await browser.newContext();const lessonPage=await lessonContext.newPage();await login(lessonPage,users[1]);await lessonPage.goto(course.lesson_url);await ready(lessonPage);await expect(lessonPage.locator('.primary-navigation').getByRole('menuitem',{name:'Your course journey',exact:true})).toBeVisible();await expect(lessonPage.locator('.primary-navigation').getByRole('menuitem',{name:'My courses',exact:true})).toHaveCount(0);await lessonContext.close();
+  const staff=await browser.newContext();const admin=await staff.newPage();const credentials=JSON.parse(fs.readFileSync(path.join(fixture,'credentials.json')));
+  await admin.goto('/login/index.php');await admin.locator('#username').fill(credentials.admin_username);await admin.locator('#password').fill(credentials.admin_password);await admin.locator('#loginbtn').click({timeout:30000});await ready(admin);
+  await expect(admin.locator('.primary-navigation').getByRole('menuitem',{name:'Site administration',exact:true})).toBeVisible();
+  await expect(admin.locator('.primary-navigation').getByRole('menuitem',{name:'My courses',exact:true})).toBeVisible();await staff.close();
+ });
  test('anonymous gateway requires login; a signed-in learner gets a semantic continue and real destinations',async({page})=>{
   await page.goto(overview); await expect(page.locator('#loginbtn')).toBeVisible();
   await login(page,users[0]);
-  await expect(page.getByRole('heading',{name:'My orientation progress',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Your course journey',exact:true})).toBeVisible();
   await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
   await expect(page.locator('#region-main')).toContainText('Portfolio practice within activity 2');
   await expect(page.locator('#region-main')).toContainText('not the portfolio fields in your browser');
-  await expect(page.locator('#region-main').getByRole('link',{name:'Give AI the right background',exact:true})).toHaveAttribute('href',course.lesson_url);
+  await expect(page.locator('#region-main').locator('[data-atlas-open="useful-context"]')).toHaveAttribute('href',course.lesson_url);
+  await expect(page.locator('[data-activity-atlas]')).toBeVisible();
+  await expect(page.getByRole('button',{name:'Close course index',exact:true})).toHaveCount(0);
+  await expect(page.locator('[data-atlas-choice]')).toHaveCount(5);
+  await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
+  await expect(page.locator('link[href$="/assets/site.css"]')).toHaveCount(0);
   await expect(page.locator('#region-main')).not.toContainText('COMP-');
+  await page.screenshot({path:path.join(fixture,'native-journey-desktop.png'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});await page.locator('[data-atlas-choice="portfolio"]').click();
+  await expect(page.locator('[data-atlas-open="portfolio"]')).toBeVisible();await page.screenshot({path:path.join(fixture,'native-journey-mobile.png'),fullPage:true});
+ });
+ test('the private atlas remains a complete readable native activity list without JavaScript',async({browser})=>{
+  const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
+  await page.goto(overview);await page.locator('#username').fill(users[0].username);await page.locator('#password').fill(password);await page.locator('#loginbtn').click({timeout:30000});
+  await expect(page.locator('[data-atlas-detail]')).toHaveCount(5);
+  for(const link of await page.locator('[data-atlas-open]').all()){await expect(link).toBeVisible();await expect(link).toHaveAttribute('href',/\/mod\/(page|lesson)\/view\.php\?id=/);}
+  await expect(page.getByRole('link',{name:'Set up your notes',exact:true})).toHaveAttribute('href',/\/mod\/page\/view\.php\?id=/);
+  await context.close();
  });
  test('visits stay incomplete; native Mark as done persists across browsers and other-user parameters cannot change the current account',async({page,browser})=>{
-  await login(page,users[0]); await page.locator('#region-main').getByRole('link',{name:'Try AI on a useful task',exact:true}).click();
+  await login(page,users[0]); await page.locator('#region-main').locator('[data-atlas-open="first-task"]').click();
   await page.goto(overview); await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
-  await page.locator('#region-main').getByRole('link',{name:'Try AI on a useful task',exact:true}).click();
+  await page.locator('#region-main').locator('[data-atlas-open="first-task"]').click();
   await ready(page); await page.getByRole('button',{name:/^Mark .* as done$/}).click();
   const fresh=await browser.newContext();const returning=await fresh.newPage();await login(returning,users[0]);
   await expect(returning.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true})).toBeVisible();
+  await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
   const other=await browser.newContext();const p2=await other.newPage();await login(p2,users[1]);
   const id=php(`echo $DB->get_field('user','id',['username'=>'${users[0].username}'],MUST_EXIST);`).trim();
   await p2.goto(overview+'?userid='+id+'&courseid=1');
   await expect(p2.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
   await fresh.close();await other.close();
  });
+ test('a background journey hides private content and revalidates a same-browser account switch',async({page,context})=>{
+  test.setTimeout(90000);
+  await login(page,users[0]);await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+  await page.locator('.usermenu .dropdown-toggle').click();const logout=await page.getByRole('menuitem',{name:/Log out/}).getAttribute('href');
+  // Explicit lifecycle simulation is deterministic in headless Chromium; account changes use real native login/logout.
+  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));});
+  await expect(page.locator('[data-private-journey]')).not.toBeVisible();
+  const other=await context.newPage();await other.goto(logout);await login(other,users[1]);
+  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});
+  await expect(page.locator('[data-private-journey]')).toBeVisible();await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
+  await other.close();
+ });
  test('native Lesson keeps its own resume route after leaving and returning',async({page,browser})=>{
   await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('1. Choose something worth doing');
   await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('2. See what context changes');
-  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await fresh.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await expect(fresh.locator('[data-atlas-progress="useful-context"]')).toHaveText('In progress');await fresh.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
   await expect(fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true})).toBeVisible();
   await fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   await expect(fresh.locator('#region-main')).toContainText('2. See what context changes');
@@ -70,13 +148,15 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.locator('textarea').fill('Synthetic native progress verification. I used a fictional task, checked the result and kept a reusable instruction.');
   await page.getByRole('button',{name:'Submit',exact:true}).click();await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('Your lesson is complete');
-  await page.goto(overview);await page.locator('#region-main').getByRole('link',{name:'Check a result and plan your next step',exact:true}).click();await ready(page);await page.getByRole('button',{name:/^Mark .* as done$/}).click();
+  await page.goto(overview);await page.locator('[data-atlas-choice="check-and-continue"]').click();await page.locator('[data-atlas-open="check-and-continue"]').click();await ready(page);await page.getByRole('button',{name:/^Mark .* as done$/}).click();
   await page.goto(overview);await expect(page.locator('#region-main')).toContainText('Your three core activities are recorded as complete');
   const before=state();const mapfile=path.join(fixture,'moodle/local/orientation/course-map.json');const original=fs.readFileSync(mapfile,'utf8');
   try {
    const changed=JSON.parse(original);changed.activities[0].version='1.1.0';changed.activities[0].update_note='Synthetic current-version display check.';
    changed.activities.push({slug:'notes',idnumber:'orientation:notes',label:'Synthetic optional new practice',module_type:'page',public_url:'/notes',baseline:false,optional:true,version:'1.0.0',updated_at:'2026-10-23',update_note:'Synthetic optional addition.',outcomes:['Optional notes practice.']});
    fs.writeFileSync(mapfile,JSON.stringify(changed));await page.goto(overview);
+   await expect(page.locator('[data-journey-extra="notes"]')).toContainText('Synthetic optional new practice');
+   await expect(page.locator('[data-journey-extra="notes"] a')).toHaveAttribute('href',/\/mod\/page\/view\.php\?id=/);
    await expect(page.locator('#region-main')).toContainText('Current version 1.1.0');await expect(page.locator('#region-main')).toContainText('Synthetic optional new practice');
    await expect(page.locator('#region-main')).toContainText('Your three core activities are recorded as complete');expect(state()).toEqual(before);
    changed.activities[changed.activities.length-1].baseline=true;fs.writeFileSync(mapfile,JSON.stringify(changed));
@@ -102,10 +182,13 @@ test.describe.serial('native current-user activity progress',()=>{
  });
  test('unenrolled users, hidden activities, hidden courses and invalid module slugs do not expose personal progress',async({page,browser})=>{
   await login(page,users[2]);await expect(page.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');
-  const context=await browser.newContext();const enrolled=await context.newPage();await login(enrolled,users[0]);
+  const context=await browser.newContext();const enrolled=await context.newPage();await login(enrolled,users[1]);
   try {
    php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,0);`);
-   await enrolled.goto(overview);await expect(enrolled.locator('#region-main').getByRole('link',{name:'Try AI on a useful task',exact:true})).toHaveCount(0);
+   await enrolled.goto(overview);await expect(enrolled.locator('[data-atlas-open="first-task"]')).toHaveCount(0);
+   await expect(enrolled.locator('[data-atlas-choice="first-task"]')).toHaveCount(0);
+   await expect(enrolled.locator('#region-main')).toContainText('A core activity is currently unavailable');
+   await expect(enrolled.locator('[data-atlas-choice="useful-context"]')).toBeVisible();
    await enrolled.goto(overview+'?module=first-task');await expect(enrolled.locator('#region-main')).not.toContainText('Keep a useful result');
   } finally {php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,1);`);}
   try {
@@ -114,5 +197,10 @@ test.describe.serial('native current-user activity progress',()=>{
   } finally {php(`$DB->set_field('course','visible',1,['id'=>${Number(course.course_id)}]);rebuild_course_cache(${Number(course.course_id)},true);`);}
   await enrolled.goto(overview+'?module=not-a-module');await expect(enrolled.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');
   await context.close();
+ });
+ test('a learner enrolled in another course retains native Dashboard and My courses navigation',async({page})=>{
+  php(`require_once($CFG->dirroot.'/course/lib.php');require_once($CFG->libdir.'/enrollib.php');\\core\\session\\manager::set_user(get_admin());$c=create_course((object)['fullname'=>'Synthetic other course','shortname'=>'SYNTHETIC-NAV-${stamp}','category'=>$DB->get_field('course_categories','id',[],IGNORE_MULTIPLE)]);$p=enrol_get_plugin('manual');$i=$p->add_instance($c);$u=$DB->get_field('user','id',['username'=>'${users[1].username}'],MUST_EXIST);$r=$DB->get_field('role','id',['shortname'=>'student'],MUST_EXIST);$p->enrol_user($i,$u,$r);`);
+  await login(page,users[1]);await expect(page.locator('.primary-navigation').getByRole('menuitem',{name:'My courses',exact:true})).toBeVisible();
+  await expect(page.locator('.primary-navigation').getByRole('menuitem',{name:'Dashboard',exact:true})).toBeVisible();
  });
 });
