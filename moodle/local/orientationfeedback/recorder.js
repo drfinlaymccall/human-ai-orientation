@@ -12,7 +12,8 @@
         const upload = form.querySelector('input[name="audio"]');
         const message = form.querySelector('[name="message"]');
         const send = form.querySelector('[type="submit"]');
-        const limit = 4 * 1024 * 1024;
+        const limit = 10 * 1024 * 1024;
+        const maxSeconds = 5 * 60;
         if (!record || !stop || !discard || !playback || !timer || !status || !upload || !message || !send) return;
         if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder || !window.fetch || !window.AbortController) {
             status.textContent = 'Recording is unavailable in this browser. You can write a message or choose an audio file below.';
@@ -26,7 +27,7 @@
         const tracksOff = () => { stream?.getTracks().forEach(track => track.stop()); stream = null; };
         const clearTimers = () => { clearInterval(interval); clearTimeout(timeout); interval = timeout = null; };
         const elapsed = () => {
-            const seconds = Math.min(120, Math.floor((Date.now() - started) / 1000));
+            const seconds = Math.min(maxSeconds, Math.floor((Date.now() - started) / 1000));
             timer.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
         };
         const render = () => {
@@ -60,7 +61,7 @@
             // Release the device immediately; onstop assembles the final recording asynchronously.
             if (recorder?.state !== 'inactive') recorder.stop();
             tracksOff();
-            say(automatic ? 'Two-minute limit reached. Preparing your recording…' : 'Preparing your recording…');
+            say(automatic ? 'Five-minute limit reached. Preparing your recording…' : 'Preparing your recording…');
             render();
         };
         const cancel = () => {
@@ -98,7 +99,7 @@
                     const result = new Blob(chunks, { type: chunks[0]?.type || active.mimeType });
                     if (!result.size || result.size > limit) {
                         state = 'idle';
-                        say(result.size ? 'The recording is larger than 4 MiB. Try a shorter recording or write a message.' :
+                        say(result.size ? 'The recording is larger than 10 MiB. Try a shorter recording or write a message.' :
                             'No audio was captured. Try recording again or write a message.');
                     } else {
                         blob = result; objectURL = URL.createObjectURL(blob);
@@ -114,7 +115,7 @@
                 active.start();
                 state = 'recording'; started = Date.now(); elapsed();
                 interval = setInterval(elapsed, 250);
-                timeout = setTimeout(() => stopRecording(true), 120000);
+                timeout = setTimeout(() => stopRecording(true), maxSeconds * 1000);
                 say('Recording. Press Stop when you finish. Nothing is sent until you press Send.'); render();
             } catch (error) {
                 if (request !== generation) return;
@@ -129,7 +130,7 @@
         upload.addEventListener('change', () => {
             if (upload.files.length) {
                 clearAudio(); state = 'idle'; render();
-                say(upload.files[0].size > limit ? 'Choose an audio file no larger than 4 MiB.' :
+                say(upload.files[0].size > limit ? 'Choose an audio file no larger than 10 MiB.' :
                     'Audio file selected. It replaces any earlier recording. Nothing has been sent.');
             }
         });
@@ -140,7 +141,7 @@
                 say('Stop or discard your recording before sending.'); return;
             }
             const file = upload.files[0];
-            if ((file?.size || blob?.size || 0) > limit) { say('Audio must be no larger than 4 MiB. Choose a smaller file or a shorter recording.'); return; }
+            if ((file?.size || blob?.size || 0) > limit) { say('Audio must be no larger than 10 MiB. Choose a smaller file or a shorter recording.'); return; }
             if (!blob && !file?.size && !message.value.trim()) { say('Write a message, record audio, or choose an audio file before sending.'); message.focus(); return; }
             const data = new FormData(form);
             data.delete('audio'); // Native FormData includes an empty File when no file was chosen.

@@ -342,3 +342,7 @@ The minimum public prototype and hosting machine are now selected. Resolve befor
 Finlay requested browser voice input throughout the course, beginning with a short private recording about a particular lesson or website section. Giving specific feedback to people and AI supports the course's capability goals. The authorised first slice is contextual feedback to Finlay: record, review/discard, explicitly send, and retain a private reviewer inbox. Typed feedback and audio-file upload remain valid alternatives.
 
 The [implementation plan](plans/2026-10-23-002-feat-voice-feedback-plan.md) scopes enrolment, private files, context, safe retries, notifications and privacy handling. [Release evidence](releases/2026-10-23-voice-feedback.md) separates synthetic checks from human learning evidence and live activation. Transcription, speech-to-text in arbitrary fields and AI feedback coaching are future decisions; no AI provider is required by stage one. Existing course evidence and portfolio ownership stay intact.
+
+### Voice-feedback scope clarification — 23 October 2026
+
+Finlay confirmed the first flow as private voice feedback to the course owner, with a five-minute recording maximum. Keep record, listen, re-record and explicit Send as the minimum interaction. The five-minute limit supersedes the original two-minute implementation-plan setting; a 10 MiB file allowance supports the longer recordings. Transcription, dictation in arbitrary text boxes and AI coaching stay outside this slice. This is a paraphrase of the request, not a learner observation.

@@ -4,7 +4,7 @@ defined('MOODLE_INTERNAL') || die();
 
 /** Validation, storage and access decisions shared by the web and privacy interfaces. */
 final class service {
-    public const MAX_BYTES = 4194304;
+    public const MAX_BYTES = 10485760;
     public const SOURCES = ['journey', 'before-you-start', 'notes', 'free-tools', 'first-task',
         'preview', 'portfolio', 'check-and-continue', 'deeper-courses', 'help', 'glossary'];
     private const MEDIA = ['audio/webm' => 'webm', 'video/webm' => 'webm', 'audio/ogg' => 'ogg',

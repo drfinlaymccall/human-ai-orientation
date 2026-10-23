@@ -109,7 +109,7 @@ file_put_contents($badfile, '<?php echo "not audio";');
 rejected_feedback(fn() => service::submit($base, $badfile), 'filetype', 'Renamed executable content rejected by finfo');
 file_put_contents($badfile, str_repeat('x', service::MAX_BYTES + 1));
 clearstatcache(true, $badfile);
-rejected_feedback(fn() => service::submit($base, $badfile), 'filesize', 'More than 4 MiB rejected');
+rejected_feedback(fn() => service::submit($base, $badfile), 'filesize', 'More than 10 MiB rejected');
 unlink($badfile);
 // A valid 8 kHz mono PCM WAV, generated without a microphone or third-party data.
 $wav = 'RIFF' . pack('V', 8036) . 'WAVEfmt ' . pack('VvvVVvv', 16, 1, 1, 8000, 8000, 1, 8) .
@@ -133,6 +133,20 @@ foreach ($notifications as $notification) {
     check_feedback(strpos($notification->fullmessage, $base['message']) === false &&
         strpos($notification->fullmessage, $users['author']->username) === false, 'Notification contains no feedback text or author identifier');
 }
+// Five-minute 16 kHz 16-bit mono WAV exceeds the previous 4 MiB cap.
+$longsamples = 300 * 16000 * 2;
+$longwav = 'RIFF' . pack('V', $longsamples + 36) . 'WAVEfmt ' .
+    pack('VvvVVvv', 16, 1, 1, 16000, 32000, 2, 16) . 'data' . pack('V', $longsamples) .
+    str_repeat(chr(0), $longsamples);
+$longaudio = tempnam($CFG->tempdir, 'voiceqa');
+file_put_contents($longaudio, $longwav);
+$longrecord = service::submit(array_replace($base, ['submissiontoken' => bin2hex(random_bytes(16))]), $longaudio);
+$longstored = get_file_storage()->get_file($context->id, 'local_orientationfeedback', 'audio',
+    $longrecord->id, '/', $longrecord->filename);
+check_feedback($longrecord->filesize === strlen($longwav) && $longstored &&
+    $longstored->get_content() === $longwav, 'Five-minute synthetic WAV is accepted and stored exactly');
+service::delete($longrecord);
+unlink($longaudio);
 check_feedback((int)service::read($record->id)->userid === (int)$users['author']->id, 'Author can access receipt and playback record');
 as_feedback_user($users['peer']);
 rejected_feedback(fn() => service::read($record->id), 'accessdenied', 'Peer cannot access private receipt/playback record');

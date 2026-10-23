@@ -8,7 +8,7 @@ const form = `<!doctype html><meta charset="utf-8"><meta name="viewport" content
 <input type="hidden" name="courseid" value="12"><input type="hidden" name="sesskey" value="synthetic"><input type="hidden" name="submissiontoken" value="synthetic-token">
 <label for="message">Message</label><textarea id="message" name="message" rows="6"></textarea>
 <div class="voice-recorder"><button type="button" data-voice-record hidden>Record</button><button type="button" data-voice-stop hidden>Stop</button><button type="button" data-voice-discard hidden>Discard recording</button><span data-voice-timer hidden>0:00</span><audio data-voice-playback controls hidden></audio><p data-voice-status role="status" aria-live="polite"></p></div>
-<label for="audio">Audio file</label><input id="audio" type="file" name="audio" accept="audio/*"><p>Up to two minutes and 4 MiB.</p><button type="submit">Send feedback</button></form></main>`;
+<label for="audio">Audio file</label><input id="audio" type="file" name="audio" accept="audio/*"><p>Up to five minutes and 10 MiB.</p><button type="submit">Send feedback</button></form></main>`;
 
 async function openForm(page) {
   await page.route('http://127.0.0.1:8798/**', async route => {
@@ -116,7 +116,7 @@ test('discard and record again replace and revoke earlier recordings', async ({ 
   expect(await page.evaluate(() => window.revoked)).toContain(second);
 });
 
-test('automatically stops at 120 seconds and updates elapsed time', async ({ page }) => {
+test('automatically stops at five minutes and updates elapsed time', async ({ page }) => {
   await page.clock.install();
   await openForm(page);
   await page.locator('[data-voice-record]').click();
@@ -125,9 +125,15 @@ test('automatically stops at 120 seconds and updates elapsed time', async ({ pag
   await page.clock.fastForward(119000);
   await expect(page.locator('[data-voice-timer]')).toHaveText('1:59');
   await page.clock.fastForward(1000);
+  await expect(page.locator('[data-voice-timer]')).toHaveText('2:00');
+  await expect(page.locator('[data-voice-stop]')).toBeVisible();
+  await page.clock.fastForward(179000);
+  await expect(page.locator('[data-voice-timer]')).toHaveText('4:59');
+  await expect(page.locator('[data-voice-stop]')).toBeVisible();
+  await page.clock.fastForward(1000);
   await expect(page.locator('[data-voice-stop]')).toBeHidden();
   await expect(page.locator('audio')).toBeVisible();
-  await expect(page.locator('[data-voice-timer]')).toHaveText('2:00');
+  await expect(page.locator('[data-voice-timer]')).toHaveText('5:00');
 });
 
 test('pagehide stops capture and cached-page restoration keeps completed audio', async ({ page }) => {
@@ -193,9 +199,9 @@ test('text sends omit empty audio; selecting a file replaces a recording', async
 test('oversize files are blocked before network activity', async ({ page }) => {
   await openForm(page);
   let posts = 0; page.on('request', r => { if (r.method() === 'POST') posts++; });
-  await page.locator('input[type=file]').setInputFiles({ name: 'too-large.wav', mimeType: 'audio/wav', buffer: Buffer.alloc(4 * 1024 * 1024 + 1) });
+  await page.locator('input[type=file]').setInputFiles({ name: 'too-large.wav', mimeType: 'audio/wav', buffer: Buffer.alloc(10 * 1024 * 1024 + 1) });
   await page.getByRole('button', { name: 'Send feedback' }).click();
-  await expect(page.getByRole('status')).toContainText('no larger than 4 MiB');
+  await expect(page.getByRole('status')).toContainText('no larger than 10 MiB');
   expect(posts).toBe(0);
 });
 

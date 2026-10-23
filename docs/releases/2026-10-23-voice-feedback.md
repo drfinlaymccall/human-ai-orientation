@@ -56,6 +56,16 @@ The PHP check produces ignored `trial/feedback-fixtures.json`. Start the synthet
 
 ## Remaining limits and integration work
 
-Production installation and enablement are outside this feature build. Verify the configured reviewer, Moodle cron/retention and external notification receipt when integrating. Browser tests used synthetic microphone input in Chromium; physical microphones, iOS/Safari, assistive technologies and human feedback/learning outcomes remain unverified. Uploaded files have a server-enforced 4 MiB limit; only browser recordings have the two-minute client limit. Deletion does not promise immediate erasure from Moodle trash or existing backups.
+Production installation and enablement are outside this feature build. Verify the configured reviewer, Moodle cron/retention and external notification receipt when integrating. Browser tests used synthetic microphone input in Chromium; physical microphones, iOS/Safari, assistive technologies and human feedback/learning outcomes remain unverified. The initial verification used a server-enforced 4 MiB upload limit and a two-minute browser limit; the five-minute follow-up below supersedes those values. Deletion does not promise immediate erasure from Moodle trash or existing backups.
 
 Transcription, voice-to-text in arbitrary fields, AI feedback coaching and spoken AI replies are later scope. Public registration and launch work remain in issue #9. The GitHub Actions template now includes the isolated recorder checks, but activation still depends on the existing workflow-permission follow-up #10; local green checks are not a GitHub CI claim.
+
+## Five-minute minimum flow — 23 October follow-up
+
+Finlay confirmed the first useful flow as private course voice feedback and requested a five-minute maximum. This supersedes the initial plan's two-minute browser limit and 4 MiB allowance. Current operator guidance and learner form copy use five minutes and 10 MiB. Recording, listening, re-recording and explicit Send remain the flow; no transcription or other text-box voice input was added.
+
+The revised timer test first failed because the old recorder stopped at 2:00. It now verifies capture continues at 2:00 and 4:59 and stops at 5:00, using a controlled browser clock. All 15 recorder checks passed. A real five-minute, 16 kHz, 16-bit mono synthetic WAV (9,600,044 bytes) first failed the old size limit, then passed exact-byte private storage after the allowance increased. The complete backend/privacy suite passed, including rejection above 10 MiB and preservation of historic lesson attempts/completion/grades.
+
+The real Moodle browser run passed native text plus a five-minute WAV upload and actual microphone capture through receipt/reviewer playback. Its multi-user access journey exceeded the existing 60-second test budget on the first run then passed separately in 41 seconds without changing assertions. A scoped correctness, testing and repository-standards review found no issues in the follow-up. Physical devices and external mail receipt remain unverified; production installation and enablement remain separate.
+
+PHP and the web server must allow the larger request; the synthetic runtime reports both upload and POST limits at 16M. See the current operator guide for installation requirements.

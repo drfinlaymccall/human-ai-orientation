@@ -1,6 +1,6 @@
 # Private voice feedback to Finlay
 
-Stage one adds an optional signed-in feedback channel. Learners can record up to two minutes in the browser, listen, discard/re-record and explicitly send; they can also type feedback or upload an audio file. Feedback retains the course/activity and an optional heading. It does not transcribe, contact an AI provider, save portfolio fields or change course completion.
+Stage one adds an optional signed-in feedback channel. Learners can record up to five minutes in the browser, listen, discard/re-record and explicitly send; they can also type feedback or upload an audio file. Feedback retains the course/activity and an optional heading. It does not transcribe, contact an AI provider, save portfolio fields or change course completion.
 
 ## Install and enable
 
@@ -19,7 +19,7 @@ python3 scripts/install-feedback.py --moodle-root=trial/moodle --apply
 scripts/php trial/moodle/admin/cli/upgrade.php --non-interactive
 ```
 
-For another installation, substitute its Moodle directory and PHP runtime. The copy command does not upgrade Moodle, configure mail or enable feedback. It refuses symlinked plugin destinations. Re-run the copy when shipping updated plugin files; purge Moodle caches after updating strings/hooks.
+For another installation, substitute its Moodle directory and PHP runtime. Ensure PHP `upload_max_filesize` is at least `10M`, `post_max_size` is larger (for example `16M`), and any web-server request-body limit allows the multipart request. The copy command does not upgrade Moodle, configure mail or enable feedback. It refuses symlinked plugin destinations. Re-run the copy when shipping updated plugin files; purge Moodle caches after updating strings/hooks.
 
 In **Site administration → Plugins → Local plugins → Private course feedback**:
 
@@ -36,7 +36,7 @@ Public readers reach the signed-in form through `/help`. They can keep using ema
 
 Microphone access requires HTTPS (localhost is permitted for tests), a supporting browser and browser/OS permission. Permission is requested on Record, not page load. Nothing is uploaded until Send. The microphone is released on stop, discard, failure or leaving the page. Recordings stay in page memory until sent or discarded; they are not written to local/session storage. Failed enhanced requests retain the recording and the same submission token for a safe retry. Navigating away or reloading may lose an unsent recording.
 
-Text-only and file-upload submissions work without JavaScript. Uploaded files are verified by their content MIME type and limited to 4 MiB. Supported media containers are WebM, Ogg, WAV, MP3, M4A/MP4 and FLAC. Live recordings stop at 120 seconds in the browser; uploaded file duration is not verified on the server. This is an upload-size control, not proof of spoken duration or the content of a recording.
+Text-only and file-upload submissions work without JavaScript. Uploaded files are verified by their content MIME type and limited to 10 MiB. Supported media containers are WebM, Ogg, WAV, MP3, M4A/MP4 and FLAC. Live recordings stop at 300 seconds in the browser; uploaded file duration is not verified on the server. This is an upload-size control, not proof of spoken duration or the content of a recording.
 
 At least text or audio is required. Text is limited to 5,000 characters, optional heading to 160. Each learner can send five messages per hour. Repeating an existing submission token returns the existing receipt without using another allowance or sending another notification.
 

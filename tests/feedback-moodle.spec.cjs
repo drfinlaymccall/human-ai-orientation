@@ -62,7 +62,7 @@ test('private audio HTTP endpoint permits the author and denies peers, teachers 
   await guest.close();
 });
 
-test('without JavaScript, native text and valid WAV file submissions reach saved receipts', async ({ browser }) => {
+test('without JavaScript, native text and five-minute WAV submissions reach saved receipts', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await login(page, 'teacher');
@@ -74,12 +74,18 @@ test('without JavaScript, native text and valid WAV file submissions reach saved
   await expect(page.getByText('Synthetic native text feedback: the fictional example helped.', { exact: true })).toBeVisible();
   await expect(page.locator('audio')).toHaveCount(0);
   await page.goto(formPath);
-  await page.locator('input[name=audio]').setInputFiles({ name: 'fictional-feedback.wav', mimeType: 'audio/wav', buffer: wav });
+  const fiveMinuteWav = Buffer.alloc(44 + 300 * 16000 * 2);
+  wav.copy(fiveMinuteWav, 0, 0, 44);
+  fiveMinuteWav.writeUInt32LE(fiveMinuteWav.length - 8, 4);
+  fiveMinuteWav.writeUInt32LE(16000, 24); fiveMinuteWav.writeUInt32LE(32000, 28);
+  fiveMinuteWav.writeUInt16LE(2, 32); fiveMinuteWav.writeUInt16LE(16, 34);
+  fiveMinuteWav.writeUInt32LE(fiveMinuteWav.length - 44, 40);
+  await page.locator('input[name=audio]').setInputFiles({ name: 'fictional-five-minute-feedback.wav', mimeType: 'audio/wav', buffer: fiveMinuteWav });
   await page.getByRole('button', { name: 'Send feedback', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Feedback saved', exact: true })).toBeVisible();
   const audio = await page.request.get(await page.locator('audio').getAttribute('src'));
   expect(audio.ok()).toBe(true);
-  expect((await audio.body()).equals(wav)).toBe(true);
+  expect((await audio.body()).equals(fiveMinuteWav)).toBe(true);
   await context.close();
 });
 
@@ -92,6 +98,7 @@ test('activity context, actual MediaRecorder upload, playable private receipt an
   const form = page.locator('form[data-voice-feedback]');
   await expect(form.locator('input[name=courseid]')).toHaveValue(String(fixtures.courseid));
   await expect(form.locator('input[name=cmid]')).toHaveValue(String(fixtures.cmid));
+  await expect(form.getByText('Browser recording stops at five minutes', { exact: false })).toBeVisible();
   const marker = `Synthetic recorded activity feedback ${Date.now()}`;
   await form.locator('input[name=section]').fill('Fictional example heading');
   await form.locator('textarea[name=message]').fill(marker);
