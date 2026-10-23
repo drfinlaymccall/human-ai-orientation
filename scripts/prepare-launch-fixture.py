@@ -51,10 +51,10 @@ $_SERVER['argv'] = $argv; $_SERVER['argc'] = count($argv); require $argv[0];
     anchor = "require_once(__DIR__ . '/lib/setup.php');"
     if anchor not in text:
         raise SystemExit('Expected native setup anchor missing.')
-    # Config-owned capture transport applies to this new runtime only; never global SMTP diversion.
+    # fixture-php sets PHP mail()'s capture transport for this runtime only.
     capture = FIXTURE/'capture-mail.py'
     capture.write_text("import pathlib,sys,uuid,os\nos.umask(0o077)\n(pathlib.Path(__file__).parent/'mail'/f'{uuid.uuid4()}.eml').write_bytes(sys.stdin.buffer.read())\n")
-    config.write_text(text.replace(anchor, "$CFG->slasharguments = false;\n$CFG->smtphosts = '';\n$CFG->noemailever = false;\n$CFG->sendmailpath = '/usr/bin/python3 " + str(capture) + "';\n"+anchor))
+    config.write_text(text.replace(anchor, "$CFG->slasharguments = false;\n$CFG->smtphosts = '';\n$CFG->noemailever = false;\n"+anchor))
     config.chmod(0o600)
     print('Installed isolated launch fixture on localhost:18802. Only new synthetic data; mail captured locally.')
 

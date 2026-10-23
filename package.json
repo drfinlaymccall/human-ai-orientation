@@ -21,7 +21,8 @@
     "test:support": "python3 -m unittest discover -s tests -p test_support.py",
     "preview": "python3 scripts/serve-public.py",
     "check:public": "bash scripts/check-public.sh",
-    "test:entry": "playwright test --config playwright.launch.config.cjs"
+    "test:entry": "playwright test --config playwright.launch.config.cjs",
+    "test:onboarding": "playwright test --config playwright.onboarding.config.cjs"
   },
   "keywords": [],
   "author": "",

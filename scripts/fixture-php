@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+export ORIENTATION_TRIAL_DIR="$PROJECT_DIR/trial/launch-fixture"
+test -f "$ORIENTATION_TRIAL_DIR/moodle/config.php"
+test -f "$ORIENTATION_TRIAL_DIR/capture-mail.py"
+exec "$PROJECT_DIR/scripts/php" -d "sendmail_path=/usr/bin/python3 $ORIENTATION_TRIAL_DIR/capture-mail.py" "$@"
