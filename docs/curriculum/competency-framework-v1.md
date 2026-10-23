@@ -204,7 +204,9 @@ The main atlas opens activity details with plain-language practice outcomes. A l
 
 ## Self-assessment and evidence
 
-Keep the existing proposed response choices:
+**23 October entry-check decision:** Finlay chose six broad statements, each with separate **I understand this** and **I can do this** ratings from 1–5, plus uncertainty/skip. The [forward plan's instrument/rule contract](../plans/2026-10-23-002-feat-public-launch-plan.md#starting-point-instrument-and-recommendation-contract) supplies the implementation draft and versioning. This bounded optional native Moodle check is active U8 work; it is not yet delivered and does not assess all 18 bank competencies. Its ratings are self-report, separate from completed practice or demonstrated capability. The six-statement count and paired format are settled; wording/anchors remain subject to presentation review.
+
+The following older task-evidence response proposal remains a draft for richer later tracking; it does **not** define the new entry-check scale or reinterpret its numeric values:
 
 - **Not tried** — no judgement from an attempt yet.
 - **Can do with help** — attempted with step-by-step support; note the support used.
@@ -224,7 +226,7 @@ Keep these separate on screen and in storage:
 | Task evidence | A particular attempt/result and its stated basis | General competence in every setting |
 | Course evaluation | Whether the experience helped or was clear | Learner capability |
 
-For the optional starting-point check, a correct answer can suggest practice or a practical check. Let learners flag guesses, revise suggestions and visit any area. Knowledge questions cannot automatically award practical competence. Optional AI feedback uses an explicit task and criteria, waits for the learner's attempt and is reviewed by the learner. It does not silently update a rating or course completion.
+For the current optional starting-point check, the learner's paired ratings suggest practice using the explicit plan rules; there are no correct answers or awarded competencies. Learners can revise ratings and visit any area. A later knowledge/task check must retain guesses and evidence separately and cannot automatically award practical competence. Optional AI feedback uses an explicit task and criteria, waits for the learner's attempt and is reviewed by the learner. It does not silently update a rating or course completion.
 
 ## Text prototypes for the map
 
@@ -232,7 +234,7 @@ Shared heading: **What would you like to do with AI?**
 
 Shared introduction: **Choose an activity to explore. See what you'll do, what you'll keep and what you can practise. You can return to any activity.**
 
-Places use the five activity labels from the opening table. Each opens the activity detail described there, followed by an **Open this activity** link. Offer a suggested starting point and optional preparation. “Find my starting point” assessment and “My skills” remain proposed secondary features. Until self-assessment exists, prototype-only controls must be labelled as demonstrations rather than appearing to save live progress.
+Places use the five activity labels from the opening table. Each opens the activity detail described there, followed by an **Open this activity** link. The atlas is implemented; the 23 October review plans nearby details and a personal progress overlay. **Find my starting point** is now active U8 work; a full **My skills** view remains later. Until the check is implemented and verified, prototype-only controls must be labelled as demonstrations rather than appearing to save live ratings.
 
 ### A. The orientation atlas — recommended first visual prototype
 

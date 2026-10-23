@@ -2,6 +2,14 @@
 
 Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
+## 2026-10-23 — Plan the course-review landing and personal journey changes
+
+**Feedback/decision:** Finlay's learner-perspective voice note found account state unclear, competing home/progress/native destinations, distracting Dashboard/My courses navigation and selected atlas details too far below. He wants the accepted illustration and actual completion together in **Your course journey**. He confirmed **six statements, each with separate understanding and can-do 1–5 ratings**, for an optional native Moodle starting-point check and explained practice suggestions.
+
+**Planning change:** updated the single [forward plan](plans/2026-10-23-002-feat-public-launch-plan.md), preserving existing unit IDs, adding bounded U8/U9 check/QA work and leaving the full personal skills/evidence map later. Added the [ongoing review log](reviews/course-review.md), [portable local-agent guide](qa/course-review-agent.md) and report template; aligned CONTROL.md, the design brief and competency draft. Read repository issues plus #6/#9 comments; no dedicated competency-check issue was found, so reuse launch #9 rather than duplicate routine tracking.
+
+**Evidence/limits:** this is planning and source/API research, not implemented UI, a synthetic browser run or a human pilot. The existing genuine owner-controlled account check remains complete; the revised signup/check/return route still needs isolated captured-mail verification. No app code, runtime settings, real messages or backup work changed. Implementation must prove neutral native quiz rendering and protect attempts/completion; new saved-rating wording needs review before exposure.
+
 ## 2026-10-23 — Fold accepted activity atlas into HOC Forward plan
 
 **Request/decision:** Finlay approved the activity-led atlas preview and explicitly asked for it to be folded into the referenced **HOC Forward plan** chat. Read that chat and confirmed it is implementing the shared public-launch plan. It remains the canonical plan rather than creating a parallel roadmap or starting another implementation.
