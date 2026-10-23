@@ -13,7 +13,7 @@ Status: **publicly reachable** at https://orientation.finlaymccall.com. Cloudfla
 - Outbound Gmail SMTP is enabled for the invitation-only pilot. Finlay confirmed receipt of the owner-address test with the intended sender. Native password recovery is available; see [email and reviewed-support operations](../operations/email-and-support.md).
 - A short information-use notice explains saved progress, reflection, essential cookies and Finlay's access. Personal context portfolios stay in learners' own notes.
 
-This is one lesson and a platform trial, not the agreed three-activity MVP. Real email, open enrolment, the other two activities and the reviewed support-agent workflow remain work to complete.
+The description above records the original one-lesson deployment. The portfolio release below added the complete three-activity journey and reviewed support; current registration remains closed. See the 23 October current-status note below.
 
 ## Runtime and routing
 
@@ -98,3 +98,10 @@ Before these changes, a new private backup was taken at `trial/backups/portfolio
 For native browser verification: create a fresh synthetic user with `scripts/php scripts/public-qa-user.php`, generate a captured reset email with `scripts/php scripts/qa-password-reset.php`, run `npm test`, then run `scripts/php scripts/public-qa-user.php suspend`. The reset helper overrides mail only inside that CLI process; live SMTP configuration is unchanged. Never use a real learner for synthetic tests.
 
 Public source includes pinned Moodle core via a Git submodule, not a database/data-directory export. See [reproduction](../REPRODUCING.md) and the [release record](../releases/2026-10-13-portfolio.md).
+
+
+## Current backup position — 23 October 2026
+
+Finlay reports paid whole-server backups through Contabo and accepts that provision for the current demo, which has reviewer/test accounts and no public learner enrolments. No independent backup provider, account audit or restore rehearsal is required in the release-baseline batch. Provider settings, recent backup success and complete recovery have not been independently verified here. The earlier restoration results above remain historical and limited to their stated checks.
+
+GitHub preserves the public source, Moodle pin and design record; private Moodle configuration, database and data directory remain on the server and outside GitHub. A whole-server restore would affect the other applications on this machine as well, so no such restore was attempted. Revisit operating readiness when opening registration.

@@ -1,6 +1,6 @@
 # Project control and wishlist
 
-Updated: 2026-10-16. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-10-23. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
@@ -8,11 +8,15 @@ Deliver a useful digital learning experience and demonstrate Finlay's ability to
 
 The product is human orientation: build the person's capacity to work with an agent and identify meaningful goals. Learners leave with portable personal context and a next-goal brief they can take into the separate future human–agent curriculum-design programme or use independently. That later programme is outside this release and this project's wishlist.
 
-- **MVP target: 16 October 2026.** Working interpretation of “within the next few days”, subject to the initial platform and deployment checks.
-- **Public version target: 20 October 2026.** Finlay's requested “this time next week”. Earlier is welcome if the essential journey works.
-- **After launch: weekly review and improvement.** Expand the course from evidence and prioritised ideas.
+- **Current stage:** working public demo/reviewer course; no public learner enrolments, as confirmed by Finlay on 23 October. Public registration remains closed.
+- **Current batch:** preserve the course on GitHub main, improve the LMS showcase and current documentation, run existing checks, and reconcile issues.
+- **Next batch ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** improve the homepage, verified registration/self-enrolment and course progression, then run the human pilot and prepare the LinkedIn course/module series.
+- **Launch forecast:** set after onboarding work is scoped and checked. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
+- **After launch:** weekly review and improvement from actual learner evidence.
 
-These are delivery targets, not a measured effort estimate. Hosting capacity, platform setup, outgoing email, and support-agent access are the main initial uncertainties. Re-estimate after the first working account-to-lesson-to-return journey. If a target slips, record the cause and revised forecast here rather than quietly removing essential behaviour.
+Finlay authorises work in the current demo checkout. Separate integration worktrees, a backup audit and restore rehearsals are not requirements for this baseline. He reports paid whole-server Contabo backups and accepts that provision for now; settings and recoverability are not independently verified. GitHub preserves the public product source, not private runtime data.
+
+Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
 ## Public trial deployment — 13 October
 
@@ -36,12 +40,12 @@ The supporting journey includes accounts, saved progress, a course email, and a 
 
 The existing machine containing `/home/finlay/apps` is the confirmed hosting target. Moodle is installed for a private trial and is the provisional platform recommendation. The public subdomain is `orientation.finlaymccall.com`. The ten-session outline is an expansion direction, not a requirement to launch ten sessions by 20 October.
 
-## Now — deliver the MVP
+## Current product and launch readiness
 
 | Item | Completion evidence | Current state |
 | --- | --- | --- |
 | Choose and prove the platform | Same essential learner journey demonstrated in the chosen platform; explain fit and upkeep | Moodle retained; public reading plus native progress and portable portfolio implemented |
-| Confirm route and operating setup | Chosen subdomain works over HTTPS; secrets kept out of source; appropriate backup and recovery checked | HTTPS and services operating; Gmail receipt verified; on-server backup checked; off-server restore remains |
+| Confirm route and operating setup | Chosen subdomain works over HTTPS; secrets kept out of source; appropriate backup and recovery checked | HTTPS and services operating; Gmail receipt verified; owner-reported Contabo backups accepted for demo; no restore exercise in this batch |
 | Write three complete activities | Purpose, explanation/example, task, reflection and useful fallback in each; learner retains context, a next goal and a first step | Three activities plus portfolio bridge authored and published; existing Lesson IDs/records preserved |
 | Implement learner journey | Preview, enrol, complete an activity, leave, sign in again and resume saved progress | Whole public journey available; invited Moodle accounts save progress; broad registration remains closed |
 | Deliver course email | Test recipient receives an appropriate course message and usable return link | Owner received real course email with intended sender; SMTP active and native recovery available |
@@ -49,9 +53,9 @@ The existing machine containing `/home/finlay/apps` is the confirmed hosting tar
 | Test and fix | Mobile/keyboard checks and labelled persona walkthrough; blocking findings resolved | Synthetic browser tests added for desktop/mobile journeys; physical-device and human checks pending |
 | Invite pilot and prepare public release | A small human trial where available; working public preview; concise project account and operating notes | Human pilot protocol and invitation draft prepared; recruitment/observations pending |
 
-## Seven accepted next steps — current tracking
+## Seven accepted workstreams — evidence and remaining work
 
-1. **Control and outcome:** this file centres the portable personal context portfolio. [Issue #1](https://github.com/drfinlaymccall/human-ai-orientation/issues/1).
+1. **Control and outcome:** this file centres the portable personal context portfolio; baseline documentation is updated with each change. [Issue #1](https://github.com/drfinlaymccall/human-ai-orientation/issues/1).
 2. **Complete the journey:** useful task → context lesson → portfolio bridge → check/continue. [Issue #2](https://github.com/drfinlaymccall/human-ai-orientation/issues/2).
 3. **Reliable take-away:** Markdown documents and versioned JSON backup/restore, local temporary drafts, selectable context, private practice notes. [Issue #3](https://github.com/drfinlaymccall/human-ai-orientation/issues/3).
 4. **Email and reviewed help:** Gmail delivery owner-confirmed; recovery restored; private operator-assisted draft/approval/send workflow. [Issue #4](https://github.com/drfinlaymccall/human-ai-orientation/issues/4), [operations](docs/operations/email-and-support.md).
@@ -61,7 +65,7 @@ The existing machine containing `/home/finlay/apps` is the confirmed hosting tar
 
 The core journey takes approximately 70–95 minutes including the portfolio extension, plus optional 20–30-minute preparation. Times are author estimates, not measured learner timings. New Page completion is learner-marked practice. The original Lesson retains its completion and reflection; no overall course-completion rule has been retroactively changed.
 
-## Suggested delivery sequence
+## Original delivery schedule — superseded
 
 | Window | Focus |
 | --- | --- |
@@ -70,7 +74,7 @@ The core journey takes approximately 70–95 minutes including the portfolio ext
 | 17–19 October | Friends-and-family trial, fixes, accessibility checks, and public-facing explanation |
 | By 20 October | Public version and initial portfolio case study; launch writing ready for Finlay |
 
-The platform trial determines whether this sequence is feasible. Do not postpone all testing to the last day.
+This is the original October planning schedule, not the current forecast. The course is a working demo; broad enrolment and the human pilot remain open. Set the public launch date during the next onboarding batch.
 
 ## Public AI-context addition — 13 October
 
@@ -96,7 +100,11 @@ The initial preparation now continues from files and controls into 10–15 minut
 
 Published a seven-resource comparison in Moodle and at `/deeper-courses`, with original summaries, suggested starting points and a return-to-practice loop. Rights evidence is in `docs/research/deeper-courses.md`; external materials are linked, not imported. Finlay selected CC BY 4.0 for original course materials. `LICENSE-CONTENT.md` defines scope and attribution; public and Moodle notices are published. External content, learner records and software are excluded.
 
-## Next — improve the first release
+## Next — open the course to learners
+
+First improve the homepage call to action, email-confirmed registration and self-enrolment, module progress and return navigation. Keep experiential tasks and reflections as the assessment model. Plan the human pilot and course/module LinkedIn posts around a checked enrolment journey.
+
+### Subsequent improvements
 
 - Run the prepared human pilot; prioritise changes using retrieval/reuse observations, help requests and actual task results.
 - Progress-aware reminder and refresher emails, with pause and frequency controls.

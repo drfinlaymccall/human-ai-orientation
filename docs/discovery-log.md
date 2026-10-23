@@ -1,6 +1,6 @@
 # Discovery and decision log
 
-Updated: 2026-10-14. This is a living interview record. Proposals are not decisions until accepted.
+Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
 ## 2026-10-14 — Glossary and finding the agent's workspace
 
@@ -202,3 +202,12 @@ Finlay requested discovery of Day of AI after seeing its World Food Day trivia, 
 The [research ledger](research/day-of-ai.md) records 24 prioritised resource groups, additional candidates, attribution requirements, three original orientation question sketches and a proposed email-to-results flow. Recommended initial scope is a single untimed optional question with explanation and a next-practice link. A correct answer, a guess and demonstrated practical capability remain distinct, consistent with the proposed personal learning map. No new quiz, personal results service or email campaign is implemented by this research.
 
 The site's covered materials are CC BY-NC-SA 4.0, so credit alone does not allow unrestricted reuse or relabelling under the orientation's CC BY licence. Exact asset notices, partner media and intended commercial/noncommercial use need resolution before import. Day of AI's educator guide and privacy notice describe facilitated discussion without individual student assessment records; personalised outcomes must therefore be designed in the orientation. Full registered packs, other quiz age bands, partner game play-throughs and learner benefit remain unverified. CONTROL.md retains the idea and proposed sequence without making it a launch requirement.
+
+
+## 2026-10-23 — A proportionate release baseline and documentation upkeep
+
+Finlay reviewed the release plan and confirmed the course is still a demo with reviewer/test accounts and no public learners. He authorised using the current checkout and asked to reduce the isolation and backup work. The baseline therefore preserves and pushes existing work, presents the actual LMS product on GitHub, runs the existing portable checks and reconciles the PR/issues. No extra checkout, backup service, provider audit or restore rehearsal is required. His paid Contabo server backups are accepted as owner-reported provision; no new recoverability claim follows from that acceptance.
+
+Finlay also asked for help keeping GitHub and current documentation aligned. AGENTS.md and CONTRIBUTING.md now make documentation/status impact part of every plan and implementing PR. Reuse a relevant issue; a separate documentation issue is reserved for standalone work or deferred debt. Historical verification stays dated.
+
+The next product batch remains homepage conversion, verified registration/self-enrolment and clearer module progression, followed by the human pilot and LinkedIn course/module posts. Formal assessments are not a launch dependency. GitHub workflow publication remains a specific permission follow-up; local checks and remote Actions status are reported separately.

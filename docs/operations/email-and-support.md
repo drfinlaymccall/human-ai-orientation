@@ -28,4 +28,4 @@ For rehearsals, pass `--synthetic` to `draft`: dispatch captures locally and nev
 
 ## Remaining operating work
 
-Before broad registration: off-server backup and restore rehearsal, support capacity/retention decisions, pilot feedback, and account-onboarding review. Do not enable bulk reminders by enabling SMTP; reminders and consent/frequency controls remain future work. No automatic agent reply or inbox monitor is configured.
+For the demo baseline, Finlay accepts his owner-reported Contabo whole-server backup provision; account settings and whole-server recovery remain unverified, and no backup audit or restore exercise is required in this batch. Before broad registration: finish verified onboarding, support capacity/retention decisions, pilot feedback and a proportionate operating review. Do not enable bulk reminders by enabling SMTP; reminders and consent/frequency controls remain future work. No automatic agent reply or inbox monitor is configured.

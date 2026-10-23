@@ -1,6 +1,6 @@
 # Human AI Orientation — course design brief
 
-Updated: 2026-10-14. Stage: working public course and invitation-only Moodle pilot. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
+Updated: 2026-10-23. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
 
@@ -297,7 +297,7 @@ Bring-your-own-AI practice avoids a requirement to pay for inference on every le
 | WP3 — Complete and pilot the MVP | Three agreed activities, context-kit exercise, curated essential links, accessibility checks, support workflow, persona tests, and human pilot observations; expand the sequence after the first release | Friends-and-family participants attempt meaningful tasks; human and synthetic findings are reported separately; priority fixes are applied and rechecked |
 | WP4 — Publish and demonstrate | Public prototype on chosen subdomain, GitHub project, design case study, sample activity, operating guide, limitations, maintenance plan, and launch article/LinkedIn material | A visitor can inspect design and delivery evidence without an account; a learner can enrol and use the course; backup restoration, support ownership, and launch readiness are established |
 
-Finlay targets a working MVP within the next few days and a public version by 20 October 2026. The control file uses 16 October as the provisional MVP target and owns the current forecast. The four packages apply to the three-activity first release; the broader course grows through weekly improvement. Platform and deployment checks must establish a credible build estimate before treating targets as commitments.
+The original 16 October MVP and 20 October public-version targets are historical. The course is a working demo; the current baseline prepares GitHub and documentation, and the next batch addresses public onboarding. CONTROL.md owns the next launch forecast. The four packages apply to the three-activity first release; the broader course grows through weekly improvement. Platform and deployment checks must establish a credible build estimate before treating targets as commitments.
 
 Capture portfolio evidence in every package: WP1 shows scoping and design reasoning, WP2 integration and delivery decisions, WP3 quality assurance and improvement, and WP4 launch and operation. Maintain a lightweight milestone, decision, and cost record across all four. Use honest before/after evidence; do not imply pilot results exist before running the pilot.
 
