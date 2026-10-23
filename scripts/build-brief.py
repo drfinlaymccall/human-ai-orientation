@@ -2,6 +2,7 @@
 """Keep Moodle lesson source and public preview aligned with the shared widget."""
 import json
 from pathlib import Path
+from feedback_markup import decorate_feedback
 
 ROOT = Path(__file__).resolve().parents[1]
 spec_path = ROOT / 'content/useful-context.json'
@@ -18,5 +19,15 @@ for index, name in [(2, 'context-brief-widget'), (3, 'context-try-widget')]:
 if '/assets/context-try.js' not in text:
     text = text.replace('<script src="/assets/context-brief.js" defer></script>', '<script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script>')
 spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + '\n')
-preview.write_text(text)
+# The older preview omits optional head/body tags. Make them explicit so shared
+# page additions have the same insertion points as the other public renderers.
+if '</head>' not in text:
+    text = text.replace('<html lang="en">', '<html lang="en"><head>', 1)
+    if '<body' in text:
+        text = text.replace('<body', '</head><body', 1)
+    else:
+        text = text.replace('<main>', '</head><body><main>', 1)
+if '</body>' not in text:
+    text = text.replace('</html>', '</body></html>', 1)
+preview.write_text(decorate_feedback(text))
 print('Updated brief and try/check widgets in lesson source and public preview.')

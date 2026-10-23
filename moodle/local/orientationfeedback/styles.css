@@ -1,52 +1,42 @@
-form[data-voice-feedback] {
-    max-width: 46rem;
-    overflow-wrap: anywhere;
-}
-form[data-voice-feedback] label {
-    display: block;
-    font-weight: 600;
-    margin-top: 1rem;
-}
-form[data-voice-feedback] textarea,
-form[data-voice-feedback] input:not([type="hidden"]),
-form[data-voice-feedback] audio {
-    box-sizing: border-box;
-    max-width: 100%;
-    width: 100%;
-}
-form[data-voice-feedback] textarea,
-form[data-voice-feedback] input:not([type="hidden"]) {
-    padding: .6rem;
-    font: inherit;
-}
-form[data-voice-feedback] button {
-    min-height: 44px;
-    padding: .6rem 1rem;
-    margin: .25rem .25rem .25rem 0;
-    font: inherit;
-    cursor: pointer;
-}
-form[data-voice-feedback] button:disabled {
-    cursor: default;
-}
-form[data-voice-feedback] :focus-visible {
-    outline: 3px solid #1468a0;
-    outline-offset: 3px;
-}
-form[data-voice-feedback] .voice-recorder {
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 1px solid #718096;
-    border-radius: .4rem;
-}
-form[data-voice-feedback] [data-voice-timer] {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    margin-inline: .5rem;
-}
-form[data-voice-feedback] [data-voice-status] {
-    margin: .6rem 0 0;
-}
-form[data-voice-feedback] [hidden] {
-    display: none !important;
-}
+/* Scoped to the feedback page so the Moodle/course theme remains unchanged. */
+.orientation-feedback-page{--feedback-ink:#233d33;--feedback-green:#28624c;--feedback-line:#d9e5db;--feedback-muted:#65776b;background:#f8faf7;color:var(--feedback-ink)}
+.orientation-feedback-page #page-header{display:none}
+.orientation-feedback-embedded #page{padding:0!important;margin:0!important;background:#f8faf7}
+.orientation-feedback-embedded .embedded-main{padding:0!important;margin:0!important}
+.feedback-card{box-sizing:border-box;max-width:31rem;margin:1.5rem auto;padding:1.8rem;border:1px solid var(--feedback-line);border-radius:20px;background:#fff;box-shadow:0 10px 40px #1a412b0a;font:15px/1.5 system-ui,sans-serif;color:var(--feedback-ink);overflow-wrap:anywhere}
+.orientation-feedback-embedded .feedback-card{margin:0;padding:1.2rem;border:0;border-radius:0;box-shadow:none;background:#f8faf7}
+.feedback-card .feedback-eyebrow{margin:0 0 .5rem;color:#6c7d6f;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:.13em}
+.feedback-card h1{margin:0 0 .6rem!important;font:650 26px/1.16 system-ui,sans-serif!important;letter-spacing:-.035em;color:var(--feedback-ink)}
+.feedback-card .feedback-intro{margin:0 0 1rem;color:var(--feedback-muted);font-size:14px}
+.feedback-card .feedback-context{display:inline-block;margin:0 0 1rem;padding:.3rem .65rem;border:1px solid var(--feedback-line);border-radius:8px;background:#eef4ed;color:#526c59;font-size:11px;max-width:100%;overflow-wrap:anywhere}
+.feedback-card label{display:block;margin:1rem 0 .4rem;font-size:13px;font-weight:600;color:#3b5344}
+.feedback-card textarea,.feedback-card input:not([type=hidden]),.feedback-card audio{box-sizing:border-box;width:100%;max-width:100%;font:inherit}
+.feedback-card textarea,.feedback-card input:not([type=hidden]){border:1px solid #cbd9ce;border-radius:10px;padding:.65rem .75rem;background:#fff;color:#233d33}
+.feedback-card textarea{resize:vertical;min-height:5rem}
+.feedback-card textarea::placeholder{color:#87958b}
+.feedback-card button,.feedback-card .feedback-primary{min-height:44px;padding:.6rem .85rem;border:1px solid #d2dfd5;border-radius:10px;background:#fff;color:#375940;font:600 13px/1.4 system-ui,sans-serif;cursor:pointer;text-decoration:none;box-sizing:border-box}
+.feedback-card button:disabled{cursor:default;opacity:.6}
+.feedback-card :focus-visible{outline:3px solid #b96622;outline-offset:3px}
+.feedback-card .voice-recorder{padding:1rem;border:1px solid #d4e2d5;border-radius:14px;background:#eef5ed}
+.feedback-card .feedback-label{display:block;margin:0 0 .65rem;font-size:10px;font-weight:700;letter-spacing:.1em;color:#5f7b61}
+.feedback-card .feedback-record-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem}
+.feedback-card [data-voice-record],.feedback-card [data-voice-stop]{padding-inline:1.05rem;border-color:#28624c;background:#28624c;color:#fff}
+.feedback-card [data-voice-record]:before{content:'';display:inline-block;margin-right:.45rem;width:.55rem;height:.55rem;border-radius:50%;background:#d4eed9}
+.feedback-card [data-voice-stop]:before{content:'';display:inline-block;margin-right:.45rem;width:.55rem;height:.55rem;background:currentColor}
+.feedback-card [data-voice-discard]{background:transparent;font-size:11px;padding:.55rem .6rem}
+.feedback-card [data-voice-timer]{font-variant-numeric:tabular-nums;font-size:13px;font-weight:600;white-space:nowrap;color:#426147}
+.feedback-card .feedback-small{margin:.65rem 0 0;font-size:11px;line-height:1.5;color:var(--feedback-muted)}
+.feedback-card [data-voice-status]{margin:.65rem 0 0;font-size:12px;line-height:1.5;color:#3e6248}
+.feedback-card audio{display:block;margin:.8rem 0 .3rem;height:40px}
+.feedback-card .feedback-options{margin:1rem 0;border-top:1px solid var(--feedback-line);padding-top:.8rem;font-size:12px}
+.feedback-card .feedback-options summary{cursor:pointer;color:#5f7465;font-size:12px}
+.feedback-card .feedback-options label{font-size:12px}
+.feedback-card .feedback-options input[type=file]{font-size:11px;padding:.6rem}
+.feedback-card .feedback-privacy{margin:1rem 0 .7rem;color:#6b7d6d;font-size:10px;line-height:1.45}
+.feedback-card .feedback-primary{display:block;width:100%;text-align:center;padding:.8rem 1rem;border-color:#28624c;background:#28624c;color:#fff}
+.feedback-card .feedback-primary:hover{background:#1f513d;color:#fff}
+.feedback-card [hidden]{display:none!important}
+.feedback-card .feedback-saved-note{white-space:pre-wrap;padding:.85rem;border:1px solid var(--feedback-line);border-radius:12px;background:#f5f8f3}
+.feedback-card .feedback-saved-note:empty{display:none}
+.feedback-card.feedback-gate .feedback-primary{margin-top:1.2rem}
+@media(max-width:420px){.feedback-card{margin:1rem .5rem;padding:1.2rem}.feedback-card h1{font-size:24px!important}}

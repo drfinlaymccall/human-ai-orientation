@@ -69,3 +69,13 @@ scripts/php tests/feedback-integration.php --config=/absolute/path/to/synthetic/
 Run `npm run test:feedback` for isolated recorder checks and `npm run test:feedback:moodle` after provisioning and serving that synthetic Moodle site. The isolated recorder browser suite is separate from the real Moodle suite. See the feature release record for commands and observed evidence. Synthetic microphone input verifies browser behavior; it is not a human pilot, a physical-phone microphone check or confirmation of external email receipt.
 
 For a physical microphone/browser check, use the [copyable local Codex prompt](voice-feedback-local-test-prompt.md). Automated live verification used synthetic audio; no local speech model is required.
+
+## Find and use the compact panel
+
+Choose **Give feedback** at the bottom right of the homepage, journey or another public course page. Enrolled learners also see it on native Moodle activities. The panel opens over the current page and keeps its context. Record, stop and listen, add an optional note, then choose **Send feedback**. Upload and section-heading fields are under **Upload audio or add a heading**. The saved receipt stays inside the panel.
+
+Closing the panel stops microphone capture and pauses playback, while keeping an unsent recording/note in that page for reopening. It does not send feedback. Navigating away or reloading can lose the unsent draft. Signed-out visitors get a sign-in link that opens in the main page and returns to their original page with feedback open. The ordinary feedback link still works without JavaScript, and **Open feedback as a page** remains available.
+
+The launcher assets have one canonical copy in the Moodle plugin; `scripts/build-feedback.py` distributes them to public assets and decorates current public HTML idempotently. Public renderers use `scripts/feedback_markup.py`, so individual builds retain the button. When deploying alongside other work, run the decorator against the current live pages rather than copying older generated course pages. Moodle assets register through its head hook and the trigger through its footer hook; core remains unmodified.
+
+For signed-out visitors, the plugin’s `signin.php` accepts only a known source label and constructs an internal return path. It stores the destination in Moodle’s session before requiring login; a core login `wantsurl` query argument is not used. Purge Moodle caches after copying updated JavaScript or hook callbacks. Closing either a draft or a saved receipt stops audio playback.

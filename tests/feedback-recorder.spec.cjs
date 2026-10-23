@@ -4,7 +4,7 @@ const path = require('node:path');
 const source = path.join(__dirname, '../moodle/local/orientationfeedback/recorder.js');
 const css = path.join(__dirname, '../moodle/local/orientationfeedback/styles.css');
 const form = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Synthetic feedback fixture</title>
-<main><h1>Send feedback — synthetic test</h1><form method="post" enctype="multipart/form-data" action="/local/orientationfeedback/index.php" data-voice-feedback>
+<body class="orientation-feedback-page"><main class="feedback-card"><h1>Send feedback — synthetic test</h1><form method="post" enctype="multipart/form-data" action="/local/orientationfeedback/index.php" data-voice-feedback>
 <input type="hidden" name="courseid" value="12"><input type="hidden" name="sesskey" value="synthetic"><input type="hidden" name="submissiontoken" value="synthetic-token">
 <label for="message">Message</label><textarea id="message" name="message" rows="6"></textarea>
 <div class="voice-recorder"><button type="button" data-voice-record hidden>Record</button><button type="button" data-voice-stop hidden>Stop</button><button type="button" data-voice-discard hidden>Discard recording</button><span data-voice-timer hidden>0:00</span><audio data-voice-playback controls hidden></audio><p data-voice-status role="status" aria-live="polite"></p></div>
@@ -278,4 +278,46 @@ test('a recorder error releases tracks and restores recovery controls', async ({
   expect(await page.evaluate(() => window.errorTracks.every(t => t.readyState === 'ended'))).toBe(true);
   await expect(page.locator('[data-voice-record]')).toBeVisible();
   await expect(page.locator('input[type=file]')).toBeEnabled();
+});
+
+
+test('closing the feedback panel stops capture and keeps audio for reopening', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.panelTracks = [];
+    const get = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    navigator.mediaDevices.getUserMedia = async (...args) => {
+      const stream = await get(...args); window.panelTracks.push(...stream.getTracks()); return stream;
+    };
+  });
+  await openForm(page);
+  await page.locator('[data-voice-record]').click();
+  await expect(page.locator('[data-voice-stop]')).toBeVisible();
+  await page.waitForTimeout(400);
+  await page.evaluate(() => window.dispatchEvent(new MessageEvent('message', {
+    origin: location.origin, source: window.parent, data: { type: 'orientation-feedback-close' },
+  })));
+  await expect(page.locator('audio')).toBeVisible();
+  expect(await page.evaluate(() => window.panelTracks.every(t => t.readyState === 'ended'))).toBe(true);
+});
+
+test('embedded receipt stays embedded and foreign close messages are ignored', async ({ page }) => {
+  await openForm(page);
+  await page.locator('form').evaluate(form => {
+    form.dataset.feedbackEmbedded = '1';
+    const field = document.createElement('input'); field.type = 'hidden'; field.name = 'embedded'; field.value = '1'; form.append(field);
+  });
+  await page.locator('[data-voice-record]').click();
+  await expect(page.locator('[data-voice-stop]')).toBeVisible();
+  await page.waitForTimeout(400);
+  await page.evaluate(() => window.dispatchEvent(new MessageEvent('message', {
+    origin: 'https://example.com', source: window.parent, data: { type: 'orientation-feedback-close' },
+  })));
+  await expect(page.locator('[data-voice-stop]')).toBeVisible();
+  await page.locator('[data-voice-stop]').click();
+  await expect(page.locator('audio')).toBeVisible();
+  await page.route('**/local/orientationfeedback/index.php?format=json', route => route.fulfill({ json: {
+    id: 44, redirect: '/local/orientationfeedback/index.php?id=44&embedded=1',
+  } }));
+  await page.getByRole('button', { name: 'Send feedback' }).click();
+  await expect(page).toHaveURL(/index.php\?id=44&embedded=1$/);
 });

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build public course pages from reusable Moodle HTML fragments, without services."""
 from pathlib import Path
+from feedback_markup import feedback_page
 
 ROOT = Path(__file__).resolve().parents[1]
 TRANSFER = '''<section id="portfolio-save"><h2>Save or restore your work</h2>
@@ -29,6 +30,7 @@ def fragment(name):
     return (ROOT / f'content/{name}.html').read_text().replace('<!-- portfolio-transfer -->', TRANSFER)
 
 
+@feedback_page
 def render(title, content):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Build, review and reuse your own personal context portfolio with free course activities."><title>{title} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/portfolio.css"><script src="/assets/portfolio.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><a href="/">Human AI Orientation</a><a href="/journey">Course journey</a></header><main id="main" class="reading">{content}</main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">About your information</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>\n'''
 

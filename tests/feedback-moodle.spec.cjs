@@ -92,13 +92,14 @@ test('without JavaScript, native text and five-minute WAV submissions reach save
 test('activity context, actual MediaRecorder upload, playable private receipt and reviewer inbox agree', async ({ page, browser }) => {
   await login(page, 'peer');
   await page.goto(`/mod/page/view.php?id=${fixtures.cmid}`);
-  const link = page.getByRole('link', { name: 'Send private course feedback', exact: true });
+  const link = page.getByRole('link', { name: 'Give feedback', exact: true });
   await expect(link).toHaveAttribute('href', new RegExp(`courseid=${fixtures.courseid}.*cmid=${fixtures.cmid}`));
-  await link.click();
+  await page.goto(await link.getAttribute('href'));
   const form = page.locator('form[data-voice-feedback]');
   await expect(form.locator('input[name=courseid]')).toHaveValue(String(fixtures.courseid));
   await expect(form.locator('input[name=cmid]')).toHaveValue(String(fixtures.cmid));
-  await expect(form.getByText('Browser recording stops at five minutes', { exact: false })).toBeVisible();
+  await expect(form.getByText('Up to five minutes.', { exact: false })).toBeVisible();
+  await form.getByText('Upload audio or add a heading', { exact: true }).click();
   const marker = `Synthetic recorded activity feedback ${Date.now()}`;
   await form.locator('input[name=section]').fill('Fictional example heading');
   await form.locator('textarea[name=message]').fill(marker);
@@ -154,4 +155,81 @@ test('activity context, actual MediaRecorder upload, playable private receipt an
   expect(reviewed.ok()).toBe(true);
   expect((await reviewed.body()).equals(recorded)).toBe(true);
   await reviewerContext.close();
+});
+
+
+test('Moodle feedback panel preserves context and draft, stops the microphone on close and saves inside the panel', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!navigator.mediaDevices) return;
+    const get = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    window.panelTracks = [];
+    navigator.mediaDevices.getUserMedia = async (...args) => {
+      const stream = await get(...args); window.panelTracks.push(...stream.getTracks()); return stream;
+    };
+  });
+  await login(page, 'author');
+  await page.goto(`/mod/page/view.php?id=${fixtures.cmid}`);
+  const original = page.url();
+  const launch = page.getByRole('link', { name: 'Give feedback', exact: true });
+  await launch.click();
+  const dialog = page.getByRole('dialog', { name: 'Give feedback', exact: true });
+  await expect(dialog).toBeVisible();
+  const frame = page.frameLocator('iframe[title="Private feedback to Finlay"]');
+  await expect(frame.getByRole('heading', { name: 'What would you like to share?', exact: true })).toBeVisible();
+  await expect(frame.locator('nav.navbar')).toHaveCount(0);
+  await expect(frame.locator('input[name=cmid]')).toHaveValue(String(fixtures.cmid));
+  await frame.locator('textarea').fill('Synthetic compact-panel feedback');
+  await frame.getByRole('button', { name: 'Record', exact: true }).click();
+  await expect(frame.getByRole('button', { name: 'Stop', exact: true })).toBeVisible();
+  await page.waitForTimeout(400);
+  await page.getByRole('button', { name: 'Close feedback', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect.poll(() => frame.locator('body').evaluate(() => window.panelTracks.every(t => t.readyState === 'ended'))).toBe(true);
+  await launch.click();
+  await expect(frame.locator('textarea')).toHaveValue('Synthetic compact-panel feedback');
+  await expect(frame.locator('audio')).toBeVisible();
+  expect(page.url()).toBe(original);
+  await page.screenshot({ path: '/tmp/orientation-feedback-panel-desktop.png', fullPage: false });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: '/tmp/orientation-feedback-panel-mobile.png', fullPage: false });
+  await frame.getByRole('button', { name: 'Send feedback', exact: true }).click();
+  await expect(frame.getByRole('heading', { name: 'Feedback saved', exact: true })).toBeVisible();
+  await expect(page.locator('iframe')).toHaveAttribute('src', /embedded=1/);
+  expect(page.url()).toBe(original);
+  const receiptAudio = frame.locator('audio');
+  await expect.poll(() => receiptAudio.evaluate(a => a.readyState)).toBeGreaterThanOrEqual(2);
+  await receiptAudio.evaluate(async a => { a.loop = true; await a.play(); });
+  expect(await receiptAudio.evaluate(a => a.paused)).toBe(false);
+  await page.getByRole('button', { name: 'Close feedback', exact: true }).click();
+  await expect.poll(() => receiptAudio.evaluate(a => a.paused)).toBe(true);
+});
+
+test('embedded signed-out feedback offers sign-in without loading a full login form inside the panel', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('/local/orientationfeedback/index.php?embedded=1&source=home');
+  await expect(page.getByRole('heading', { name: 'Help make the course better', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Sign in to give feedback', exact: true })).toHaveAttribute('target', '_top');
+  await expect(page.locator('input[type=password]')).toHaveCount(0);
+  await context.close();
+});
+
+
+test('normal Moodle sign-in redirects to the allowlisted public page and rejects external destinations', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('/local/orientationfeedback/signin.php?source=journey');
+  await expect(page).toHaveURL(/\/login\/index.php/);
+  await page.locator('#username').fill(fixtures.users.author.username);
+  await page.locator('#password').fill(fixtures.password);
+  // Assert core's actual HTTP return; this isolated host does not serve the public
+  // router. The complete rendered public round trip is checked against live HTTPS.
+  const returned = page.waitForResponse(r => [302, 303].includes(r.status()) &&
+    r.headers()['location'] === `${fixtures.wwwroot}/journey#feedback`);
+  await page.locator('#loginbtn').click();
+  expect((await returned).headers()['location']).toBe(`${fixtures.wwwroot}/journey#feedback`);
+  await page.goto('/local/orientationfeedback/signin.php?source=https%3A%2F%2Fexample.test');
+  await expect(page).toHaveURL(/\/local\/orientationfeedback\/index.php$/);
+  await expect(page.getByRole('heading', { name: 'What would you like to share?' })).toBeVisible();
+  await context.close();
 });

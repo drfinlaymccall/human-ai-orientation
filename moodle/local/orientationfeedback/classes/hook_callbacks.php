@@ -7,6 +7,15 @@ final class hook_callbacks {
             \context_course::instance($hook->course->id));
     }
 
+    public static function head_assets(\core\hook\output\before_standard_head_html_generation $hook): void {
+        global $PAGE;
+        if (!isloggedin() || isguestuser() || !get_config('local_orientationfeedback', 'enabled') ||
+                (int)$PAGE->course->id !== (int)get_config('local_orientationfeedback', 'courseid') ||
+                strpos($PAGE->url->get_path(), '/local/orientationfeedback/') !== false) { return; }
+        $PAGE->requires->js(new \moodle_url('/local/orientationfeedback/launcher.js'));
+        $PAGE->requires->css(new \moodle_url('/local/orientationfeedback/launcher.css'));
+    }
+
     public static function footer(\core\hook\output\before_footer_html_generation $hook): void {
         global $PAGE;
         if (!isloggedin() || isguestuser() ||
@@ -20,8 +29,8 @@ final class hook_callbacks {
             $url = new \moodle_url('/local/orientationfeedback/index.php', [
                 'courseid' => $PAGE->course->id, 'cmid' => $cmid,
             ]);
-            $hook->add_html(\html_writer::div(\html_writer::link($url,
-                get_string('sendfeedback', 'local_orientationfeedback')), 'orientation-feedback-link container my-3'));
+            $hook->add_html(\html_writer::link($url, get_string('launcher', 'local_orientationfeedback'),
+                ['class' => 'of-trigger', 'data-feedback-launcher' => '']));
         } catch (\moodle_exception $e) {
             // A hidden or unavailable activity must not expose a feedback entry.
         }

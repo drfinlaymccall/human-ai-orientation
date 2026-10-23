@@ -15,16 +15,20 @@ clearly synthetic phrase: "Synthetic microphone test. The example helped me,
 but I would like the instructions to explain the next step more clearly."
 
 Check:
-1. From a signed-in Moodle activity, find "Send private course feedback" and
+1. On the homepage and journey page, find “Give feedback” at the bottom right.
+   Open it and confirm a compact panel appears without leaving the page. From
+   a signed-in Moodle activity, find the same “Give feedback” button and
    confirm the feedback form identifies that activity. The direct link above
-   is an alternative entry point.
+   remains a full-page alternative. Close/reopen an unsent panel: the microphone
+   should stop and the draft should remain.
 2. Recording starts only after Record and microphone permission. Confirm the
    form states a five-minute recording maximum and 10 MiB upload allowance.
 3. Record about ten seconds, stop and listen through my actual speakers or
    headphones. Nothing should be submitted yet. Check Discard and Record again.
 4. Send one clearly labelled synthetic test recording. Confirm "Feedback saved"
    and replay it from the saved receipt. A receipt confirms storage, not email
-   delivery. Do not assume a notification email arrived.
+   delivery. Do not assume a notification email arrived. Close the panel during
+   receipt playback and confirm the audio stops.
 5. Let me switch to my owner administrator account, then open
    https://orientation.finlaymccall.com/local/orientationfeedback/inbox.php
    and find/play only the synthetic test submission. Ordinary learner accounts

@@ -1,6 +1,6 @@
 const { defineConfig } = require('@playwright/test');
 module.exports = defineConfig({
-  testDir: './tests', testMatch: 'feedback-recorder.spec.cjs', timeout: 20000,
+  testDir: './tests', testMatch: ['feedback-recorder.spec.cjs', 'feedback-widget.spec.cjs'], timeout: 20000,
   workers: 1, retries: 0, outputDir: '/tmp/orientation-feedback-results',
   use: {
     baseURL: 'http://127.0.0.1:8798', permissions: ['microphone'],

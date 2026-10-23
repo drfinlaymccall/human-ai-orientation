@@ -10,6 +10,7 @@ $string['reviewerid'] = 'Reviewer user ID';
 $string['reviewerid_desc'] = 'An active user with local/orientationfeedback:review at system context. Site administrators can review by default; teachers do not receive access automatically.';
 $string['retentiondays'] = 'Retention in days';
 $string['retentiondays_desc'] = 'Daily cleanup permanently deletes older feedback and audio. Default 90 days; zero disables automatic deletion. Moodle cron must run.';
+$string['launcher'] = 'Give feedback';
 $string['sendfeedback'] = 'Send private course feedback';
 $string['receipt'] = 'Feedback saved';
 $string['stored'] = 'Your feedback is saved in the private reviewer inbox. This confirms storage; it does not confirm email delivery.';

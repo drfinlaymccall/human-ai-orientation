@@ -346,3 +346,13 @@ The [implementation plan](plans/2026-10-23-002-feat-voice-feedback-plan.md) scop
 ### Voice-feedback scope clarification — 23 October 2026
 
 Finlay confirmed the first flow as private voice feedback to the course owner, with a five-minute recording maximum. Keep record, listen, re-record and explicit Send as the minimum interaction. The five-minute limit supersedes the original two-minute implementation-plan setting; a 10 MiB file allowance supports the longer recordings. Transcription, dictation in arbitrary text boxes and AI coaching stay outside this slice. This is a paraphrase of the request, not a learner observation.
+
+### Findable, compact feedback — 23 October 2026
+
+Finlay reported that recording worked but the form looked unattractive, occupied a full page and was difficult to find again from the homepage or journey. This paraphrases direct owner feedback; it is not a learner study. Use a consistent “Give feedback” button at the bottom of public course pages and native Moodle activities. Open a compact panel in place, remember the page/activity context and lead with Record plus an optional note. Hide upload/heading details until requested. Preserve unsent drafts across panel close/reopen, release microphone access on close, and retain explicit Send.
+
+Signed-out visitors receive a compact sign-in explanation and can return to the same page/panel after authentication. Keep the full-page/no-JavaScript route. Use the existing private storage and reviewer controls; do not expand this into transcription or anonymous uploads. Documentation impact: update CONTROL, feedback operations and the local test prompt, and record browser/layout/access evidence and live rollout limits in the release record.
+
+### Optional local voice transcription — 24 October 2026
+
+Finlay requested an optional install-your-own voice-model reference in voice notes and voice feedback, for learners with a suitable desktop Mac or PC. His preferred candidate is Fluid Voice using Parakeet for on-device transcription. Record this as a queued voice-channel improvement; verify the tool and per-platform hardware support before recommending it. The [feature request](requests/2026-10-24-local-voice-transcription.md) defines the learner flow and acceptance checks. Existing voice recording and typed input remain sufficient.

@@ -193,3 +193,11 @@ Finlay clarified the first feedback flow on 23 October: keep voice feedback as t
 ## Live voice feedback — 23 October 2026
 
 Finlay authorised installation and enablement. Five-minute private audio/text feedback is now enabled for course 2; the owner administrator reviews the private inbox. Public help/privacy explain the channel. Public HTTPS browser checks verified record/listen/Send, exact private playback, reviewer access, peer/guest denial and a five-minute native upload. A generic notification email was captured locally; external receipt and physical microphones remain checks. Synthetic feedback was removed, temporary accounts suspended and pre-existing learner evidence preserved. See the [live release](docs/releases/2026-10-23-voice-feedback-live.md) and [local Codex test prompt](docs/operations/voice-feedback-local-test-prompt.md). PR #11 remains the integration record; newer launch work in the live checkout was preserved.
+
+## Compact feedback entry — 23 October 2026
+
+Finlay found the working feedback form unattractive and difficult to find from the homepage/journey. Replace the full-page-first experience with a consistent bottom-right “Give feedback” button and compact panel on public course pages and native Moodle activities. Keep record/listen/re-record/explicit Send, page context, private storage, and the full-page/no-JavaScript fallback. Closing releases the microphone and retains the draft on that page. The panel is live. Six isolated Moodle journeys and the public HTTPS flow passed, including sign-in return, close cleanup and private audio. Normal notifications are restored, synthetic data cleaned up and existing evidence preserved. See the [compact-panel release](docs/releases/2026-10-24-compact-feedback.md); operations and the local Codex test prompt describe the entry point.
+
+## Voice-channel request — 24 October 2026
+
+Queued: add optional local transcription guidance beside voice notes/dictation and voice feedback for learners with a suitable Mac or PC. Finlay prefers Fluid Voice with Parakeet and on-device transcription. Verify the exact app, platform support, hardware needs and local-processing claims before publishing a recommendation; this is a request, not a delivered integration. See the [request and acceptance checks](docs/requests/2026-10-24-local-voice-transcription.md).

@@ -1,7 +1,20 @@
 /* Audio stays in this page's memory until the learner explicitly sends the form. */
 (() => {
     'use strict';
-    const start = () => document.querySelectorAll('form[data-voice-feedback]').forEach(enhance);
+    const start = () => {
+        // Receipts also play audio, even though they no longer contain a form.
+        window.addEventListener('message', event => {
+            if (event.origin !== location.origin || event.source !== window.parent ||
+                    event.data?.type !== 'orientation-feedback-close') return;
+            document.querySelectorAll('audio').forEach(audio => audio.pause());
+        });
+        document.querySelectorAll('[data-feedback-signin]').forEach(link => link.addEventListener('click', event => {
+            if (window.parent === window) return;
+            event.preventDefault();
+            window.parent.postMessage({ type: 'orientation-feedback-signin' }, location.origin);
+        }));
+        document.querySelectorAll('form[data-voice-feedback]').forEach(enhance);
+    };
 
     function enhance(form) {
         if (form.dataset.voiceReady) return;
@@ -168,8 +181,10 @@
                     throw new Error(failure);
                 }
                 const receipt = new URL(result.redirect, location.href);
+                const expectedQuery = new URLSearchParams({ id: String(result.id) });
+                if (form.dataset.feedbackEmbedded === '1') expectedQuery.set('embedded', '1');
                 if (!Number.isSafeInteger(result.id) || result.id < 1 || receipt.origin !== location.origin ||
-                    receipt.pathname !== endpoint.pathname || receipt.search !== `?id=${result.id}` || receipt.hash || receipt.username || receipt.password) {
+                    receipt.pathname !== endpoint.pathname || receipt.search !== `?${expectedQuery}` || receipt.hash || receipt.username || receipt.password) {
                     failure = 'The server returned an unexpected receipt.';
                     throw new Error(failure);
                 }
@@ -194,6 +209,12 @@
         window.addEventListener('pagehide', () => {
             generation++;
             if (state === 'requesting') { state = 'idle'; say('Recording cancelled. You can try again.'); render(); }
+            stopRecording(false); tracksOff(); playback.pause();
+        });
+        window.addEventListener('message', event => {
+            if (event.origin !== location.origin || event.source !== window.parent ||
+                    event.data?.type !== 'orientation-feedback-close') return;
+            if (state === 'requesting') { cancel(); say('Recording cancelled. You can try again.'); }
             stopRecording(false); tracksOff(); playback.pause();
         });
         window.addEventListener('pageshow', () => { render(); });
