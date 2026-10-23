@@ -2,7 +2,7 @@
 // Add the course journey without rewriting existing completion or lesson evidence.
 define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
-require $root . '/trial/moodle/config.php';
+require __DIR__ . '/moodle-environment.php';
 require_once $CFG->dirroot . '/course/lib.php';
 require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
@@ -44,9 +44,9 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     }
     $ids[$slug] = (int)get_coursemodule_from_instance('page', $page->id, $course->id, false, MUST_EXIST)->id;
 }
-$localise = function ($html) use ($ids, $lessoncm, $root) {
+$localise = function ($html) use ($ids, $lessoncm, $root, $orientationtrial) {
     $links = $ids;
-    if (file_exists($root . '/trial/preparation.json')) $links += json_decode(file_get_contents($root . '/trial/preparation.json'), true);
+    if (file_exists($orientationtrial . '/preparation.json')) $links += json_decode(file_get_contents($orientationtrial . '/preparation.json'), true);
     foreach ($links as $slug => $id) $html = str_replace('href="/' . $slug . '"', 'href="/mod/page/view.php?id=' . $id . '"', $html);
     return str_replace('href="/preview"', 'href="/mod/lesson/view.php?id=' . $lessoncm->id . '"', $html);
 };
@@ -88,7 +88,7 @@ $assets = '<!-- orientation-portfolio --><link rel="stylesheet" href="/assets/po
 if (strpos($footer, '<!-- orientation-portfolio -->') === false) set_config('additionalhtmlfooter', $footer . "\n" . $assets);
 rebuild_course_cache($course->id, true);
 $manifest = json_encode($ids, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-$manifestpath = $root . '/trial/journey.json';
+$manifestpath = $orientationtrial . '/journey.json';
 $temporary = tempnam(dirname($manifestpath), '.journey-');
 if ($temporary === false) throw new RuntimeException('Course published, but module manifest could not be prepared; rerun sync.');
 try {

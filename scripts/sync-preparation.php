@@ -2,12 +2,12 @@
 // Publish preparation resources and explanatory lesson edits. Preserve attempts and answers.
 define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
-require $root . '/trial/moodle/config.php';
+require __DIR__ . '/moodle-environment.php';
 require_once $CFG->dirroot . '/course/lib.php';
 require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
-if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com') {
+if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802'], true)) {
     throw new RuntimeException('This update targets the existing public orientation trial.');
 }
 \core\session\manager::set_user(get_admin());
@@ -119,5 +119,5 @@ if (strpos($scss, '/* orientation-preparation */') === false) {
     theme_reset_all_caches();
 }
 $manifest = array_map(fn($resource) => $resource['cmid'], $resources);
-file_put_contents($root . '/trial/preparation.json', json_encode($manifest, JSON_PRETTY_PRINT));
+file_put_contents($orientationtrial . '/preparation.json', json_encode($manifest, JSON_PRETTY_PRINT));
 echo 'Preparation published. Learner records and lesson answers unchanged. Module IDs: ' . json_encode($manifest) . "\n";
