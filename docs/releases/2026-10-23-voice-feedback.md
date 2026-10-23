@@ -41,6 +41,8 @@ npm run check:public
 npm run test:feedback
 ```
 
+If the default portfolio-test port is occupied, set `ORIENTATION_PORTFOLIO_PORT` to a free port when running `check:public`. The final run used port 18896 because an unrelated app already owned 8796; its server was left running.
+
 `check:public` requires generated content to be committed. The isolated recorder suite uses intercepted synthetic form/transport routes and real browser media APIs; it does not claim to exercise Moodle storage.
 
 For the real integration suite, provision a separate Moodle site with its own database/dataroot and captured mail. Set `$CFG->local_orientationfeedback_synthetic = true` in that site's private config and use a localhost wwwroot. Install the source plugin there, then run:
