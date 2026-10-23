@@ -4,7 +4,7 @@ Stage one adds an optional signed-in feedback channel. Learners can record up to
 
 ## Install and enable
 
-The source plugin is `moodle/local/orientationfeedback`. Moodle core stays pinned and unmodified. Install this plugin before publishing its new public help link. These are operator instructions, not a claim that the live site has been changed.
+The source plugin is `moodle/local/orientationfeedback`. Moodle core stays pinned and unmodified. Install this plugin before publishing its new public help link. Finlay authorised live installation and enablement on 23 October 2026; the feature is enabled for course 2 with the owner administrator as reviewer. See the [live verification record](../releases/2026-10-23-voice-feedback-live.md). The commands below are for installation/reproduction, not instructions to reinstall the already-enabled live site.
 
 From the repository root, inspect the destination first:
 
@@ -67,3 +67,5 @@ scripts/php tests/feedback-integration.php --config=/absolute/path/to/synthetic/
 ```
 
 Run `npm run test:feedback` for isolated recorder checks and `npm run test:feedback:moodle` after provisioning and serving that synthetic Moodle site. The isolated recorder browser suite is separate from the real Moodle suite. See the feature release record for commands and observed evidence. Synthetic microphone input verifies browser behavior; it is not a human pilot, a physical-phone microphone check or confirmation of external email receipt.
+
+For a physical microphone/browser check, use the [copyable local Codex prompt](voice-feedback-local-test-prompt.md). Automated live verification used synthetic audio; no local speech model is required.
