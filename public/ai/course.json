@@ -1,28 +1,37 @@
 {
-  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.json",
-  "schema_version": "1.0",
+  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.v1.1.json",
+  "schema_version": "1.1",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-13.2",
+  "context_version": "2026-10-13.3",
   "updated": "2026-10-13",
-  "status": "Public prototype: preparation activity, optional notes guide and one AI lesson",
+  "status": "Public course journey with an invitation-only Moodle pilot",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.2/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
-  "learner_lesson_url": "https://orientation.finlaymccall.com/preview",
+  "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
   "saved_progress_url": "https://orientation.finlaymccall.com/course/view.php?id=2",
-  "github_url": null,
-  "github_status": "Planned; no public repository has been published yet.",
+  "github_url": "https://github.com/drfinlaymccall/human-ai-orientation",
+  "content_license": "https://creativecommons.org/licenses/by/4.0/",
+  "license_scope_url": "https://orientation.finlaymccall.com/deeper-courses#course-licence",
+  "github_status": "Public source, design history and issue tracking.",
   "ai_browsing_required": false,
   "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in the public lesson. Neither AI browsing nor a GitHub account is a completion requirement.",
   "learning_outcomes": [
     "Identify a small useful task and a sign of success.",
     "Choose relevant context and explain what to leave out.",
     "Distinguish private notes, the current conversation and product-specific saved context.",
-    "Check an AI result, ask for a correction and retain or revise reusable guidance."
+    "Check an AI result, ask for a correction and retain or revise reusable guidance.",
+    "Build and review working preferences, project context and knowledge/source notes; download and restore them.",
+    "Select useful context for a fresh conversation, check its result, and retain a next goal and first step."
   ],
   "steps": [
+    {
+      "id": "first-task",
+      "title": "Get one useful result",
+      "guidance": "At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example."
+    },
     {
       "id": "choose",
       "title": "Choose something worth doing",
@@ -57,6 +66,16 @@
       "id": "reflect",
       "title": "Keep what they learned",
       "guidance": "Invite a short reflection: task; included or omitted context and why; prediction and observation; an instruction kept or revised; a next use. The human writes it and decides whether to return to Moodle to submit it. Completion records practice, not mastery."
+    },
+    {
+      "id": "portfolio",
+      "title": "Build three portable context documents",
+      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it."
+    },
+    {
+      "id": "continue",
+      "title": "Test, improve and choose a next goal",
+      "guidance": "At /check-and-continue retrieve the backup, select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
     }
   ]
 }

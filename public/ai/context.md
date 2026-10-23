@@ -1,11 +1,11 @@
-# Give your AI useful context
+# Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-13.2
+Version: 2026-10-13.3
 Updated: 2026-10-13
 Author: Finlay McCall
-Status: Public prototype: preparation activity, optional notes guide and one AI lesson
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-13.2/context.md
+Status: Public course journey with an invitation-only Moodle pilot
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md
 
 Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.
 
@@ -17,6 +17,8 @@ People who are not AI specialists. Do not assume low confidence or technical kno
 - Choose relevant context and explain what to leave out.
 - Distinguish private notes, the current conversation and product-specific saved context.
 - Check an AI result, ask for a correction and retain or revise reusable guidance.
+- Build and review working preferences, project context and knowledge/source notes; download and restore them.
+- Select useful context for a fresh conversation, check its result, and retain a next goal and first step.
 
 ## Guidance for the learner’s AI
 
@@ -34,33 +36,45 @@ People who are not AI specialists. Do not assume low confidence or technical kno
 
 ## Lesson steps
 
-### 1. Choose something worth doing
+### 1. Get one useful result
+
+At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example.
+
+### 2. Choose something worth doing
 
 Ask what small task would help and what a useful result would look like. If they prefer, use the fictional community event with an undecided date and venue.
 
-### 2. See what context changes
+### 3. See what context changes
 
 Contrast a vague request with one that specifies audience, missing details and a constraint. Distinguish their own notes, this chat, and saved instructions or memory.
 
-### 3. Build a small context brief
+### 4. Build a small context brief
 
 Help them state task, purpose, audience, useful background, boundaries and a success criterion. Ask which detail they included or omitted and why. Ask them to predict one difference the context should make.
 
-### 4. Try it, check it, improve it
+### 5. Try it, check it, improve it
 
 Respond to their chosen small task, then invite them to compare the result with their criterion. Help check missing or invented information and make one correction. State uncertainty. Do not pretend the course example is a real event.
 
-### 5. Keep instructions they can reuse
+### 6. Keep instructions they can reuse
 
 Help separate general working preferences from project-specific details. Let them choose an instruction to keep or revise, based on the result. Instruction files are an optional extension, not a requirement.
 
-### 6. Check understanding
+### 7. Check understanding
 
 Ask how they would check what context an AI has in a new conversation. Wait for their reasoning before feedback. Do not treat an AI's claim about its memory as a complete audit.
 
-### 7. Keep what they learned
+### 8. Keep what they learned
 
 Invite a short reflection: task; included or omitted context and why; prediction and observation; an instruction kept or revised; a next use. The human writes it and decides whether to return to Moodle to submit it. Completion records practice, not mastery.
+
+### 9. Build three portable context documents
+
+At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it.
+
+### 10. Test, improve and choose a next goal
+
+At /check-and-continue retrieve the backup, select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private.
 
 ## Fictional worked example
 
@@ -80,5 +94,5 @@ If your AI cannot read a link, paste the context text below into the chat. If yo
 
 ## Return to the course
 
-Public lesson: https://orientation.finlaymccall.com/preview
+Public lesson: https://orientation.finlaymccall.com/journey
 Saved progress (human sign-in required): https://orientation.finlaymccall.com/course/view.php?id=2

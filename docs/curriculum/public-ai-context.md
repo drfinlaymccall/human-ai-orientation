@@ -31,9 +31,9 @@ The live public entry is `/ai/`. It contains a copyable starter and the entire i
 
 The starter links to `/ai/releases/2026-10-13.1/context.md`. Published release text is not overwritten: subsequent context changes receive a new version, and older lesson prompts retain their matching context. Updating a version also requires adding its exact public route to Caddy. Manifest and HTML are generated from `content/ai/course-context.json`; the build does not scan private documents or LMS data.
 
-**A public GitHub repository is a committed part of the course design, but has not been published yet.** It will carry reviewed course sources, public AI context, build instructions, design rationale, version history and labelled synthetic evidence. Use a deliberate publication allowlist. Do not publish `trial/`, `docs/private/`, learner submissions, captured emails, credentials, database dumps, operational logs or raw account-bearing browser reports. Repository-wide `.gitignore` is useful but does not replace reviewing the initial publication set.
+The public repository is [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation). It carries reviewed course sources, public AI context, build instructions, design rationale, curated dialogue and version history. Do not publish `trial/`, `docs/private/`, learner submissions, captured emails, credentials, database dumps, operational logs or raw account-bearing browser reports. Ignore rules supplement a deliberate publication review.
 
-Once published, link the repository from the site and manifest. Use commit/tag-specific raw GitHub links for reproducible references and the course site for a readable stable entry point. Generate both representations from the same source; do not maintain divergent GitHub and site instructions. Repository name, final publication set and licensing are decisions for repository preparation, not learner prerequisites.
+Version 2026-10-13.3 describes the complete portfolio journey and links the real repository in the site and manifest. Earlier pinned context remains immutable. Original educational materials and curriculum documentation are CC BY 4.0 under `LICENSE-CONTENT.md`; software licensing is separate. None of these choices are learner prerequisites.
 
 Contributor `AGENTS.md` files describe maintaining the software repository. Learner-facing AI context describes supporting the human’s course activity. Do not assume that an ordinary chatbot automatically discovers or applies repository instruction-file conventions. Learners explicitly share a URL or paste content.
 
@@ -63,3 +63,13 @@ Verification for this first version: validate the generated manifest against its
 Post-deployment validation owner: Finlay. At publication and the next weekly review, fetch the public context and manifest, compare the pinned version with the starter, inspect `journalctl --user -u orientation-web` for route errors, and confirm `/config.php` still returns 404. Broken or mismatched context links trigger correction or withdrawal of the starter link; they do not justify exposing private runtime paths.
 
 Sources for the metadata vocabulary: [Schema.org Course](https://schema.org/Course) and [LearningResource](https://schema.org/LearningResource), checked 13 October 2026. The manifest is our own documented format, not a universal agent protocol.
+
+
+### Content licence metadata — 13 October 2026
+
+The public manifest now includes `content_license` (CC BY 4.0) and `license_scope_url`; its generated schema and Course JSON-LD are aligned. The guide links to the scope/attribution notice. Existing pinned context text remains byte-for-byte unchanged; the external scoped grant covers Finlay’s original published context versions without rewriting their content.
+
+
+### Schema compatibility
+
+The manifest is now schema version **1.1**, using `/ai/course.schema.v1.1.json` for the added licence fields. The originally published strict 1.0 schema remains at `/ai/course.schema.json` unchanged, so old manifests can still validate against it. New readers should follow the manifest's `$schema` URL. Context-content versions and manifest schema versions are separate.

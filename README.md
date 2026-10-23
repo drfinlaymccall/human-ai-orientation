@@ -1,32 +1,51 @@
 # Human AI Orientation
 
-A short, self-guided course helping people who are not AI specialists build useful working relationships with AI. Learners bring their own AI tool, discover capabilities through personally relevant tasks, and develop a reusable context kit.
+A short, self-guided course helping people who are not AI specialists do something useful with their own AI, judge its work, and keep context they can reuse.
 
-The course builds human capability and goal awareness. Learners leave with personal context and a next-goal brief they can use independently or take into Finlay's separate future human–agent curriculum-design programme. Developing that later programme is outside this project.
+**[Try the course](https://orientation.finlaymccall.com/journey) · [Inspect the LMS case study](docs/case-study.md) · [See current priorities](CONTROL.md)**
 
-The project has two explicit objectives: deliver a worthwhile learning experience and demonstrate Finlay McCall's ability to bring a complete digital learning project together. Project management and delivery lead the portfolio story, with curriculum design connecting the experience and proportionate evaluation supporting its quality.
+## What the learner does
 
-This folder contains the design work and a working Moodle trial with one complete lesson. The public trial is live at [orientation.finlaymccall.com](https://orientation.finlaymccall.com): anyone can read the lesson, and individually provided pilot accounts save progress. See the [deployment and operations guide](docs/trial/PUBLIC-DEPLOYMENT.md). The [private trial guide](docs/trial/RUNBOOK.md) records the original experiment.
+1. **Do one useful thing.** Choose a meaningful task, decide what a useful result would look like, and try it.
+2. **Give AI useful context.** Select relevant background, test a better brief, and build a reviewed personal context portfolio.
+3. **Check, improve and continue.** Retrieve that context, use it on a fresh task, correct the result and choose a next goal.
 
-- [Public context for your AI](https://orientation.finlaymccall.com/ai/): inspectable guidance, a copyable starter, versioned Markdown and a paste fallback.
-- [Public AI-context design](docs/curriculum/public-ai-context.md): purpose, source/publication boundaries, GitHub plan and acceptance criteria.
-- [Trial verification](docs/trial/verification.md): browser journeys, persisted evidence, screenshots and remaining checks.
-- [Platform trial decision](docs/trial/platform-decision.md): what the Moodle experiment establishes, observed friction and the next decision.
-- [Project control and wishlist](CONTROL.md): agreed three-activity MVP, launch targets, priorities, brain-dump inbox, and weekly review.
-- [Initial design brief](docs/design-brief.md): purpose, learning approach, proposed course, requirements, and four work packages.
-- [Platform and resource research](docs/research/platform-and-resource-scan.md): checked sources, candidate platforms, and unresolved feasibility questions.
-- [Scholarly design rationale](docs/research/scholarly-design-rationale.md): thesis and curriculum-design lineage, revised Bloom and metacognition, supporting instructional-design influences, and checked references for the later write-up.
-- [Discovery and decision log](docs/discovery-log.md): confirmed decisions, interview evidence, and questions to work through next.
-- [Draft learner takeaway](docs/curriculum/orientation-takeaway.md): copyable personal context, future goals, learning needs, and a first step.
-- [From context to instructions](docs/curriculum/context-to-instructions.md): derive, test and revise personal/project guidance, with optional `CLAUDE.md` and `AGENTS.md` files.
+Optional preparation covers files, folders, notes and AI interfaces. The core journey and portfolio extension take an estimated 70–95 minutes, plus optional 20–30-minute preparation. These are author estimates, not measured learner timings. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
-Working title: **Human AI Orientation**. Selected address: `orientation.finlaymccall.com`. Public deployment is authorized; current DNS and verification status are recorded in the deployment guide.
+## Current status — 23 October 2026
 
-Target: working MVP within the next few days (planning target 16 October 2026), public version by 20 October 2026, then weekly improvement. Hosting target: the existing machine containing this project. See the control file for current scope and uncertainties.
+The complete public journey and portfolio builder are available without an account. Moodle reviewer accounts save activity progress and submitted reflections. Finlay confirms the site is still a demo/review environment with no public learner enrolments; **self-registration is closed**. [The next batch](https://github.com/drfinlaymccall/human-ai-orientation/issues/9) is the landing page, email-confirmed enrolment and clearer progress/return navigation, followed by a small human pilot and launch writing. The earlier 16/20 October planning dates are historical, not current commitments.
 
-Keep identifying learner details, personal context portfolios, support messages, and credentials out of any future public repository. Publish original design materials and consented or synthetic examples.
+Moodle progress and personal portfolios are separate. Portfolio drafts are temporary browser-session data; learners retain Markdown documents and a versioned JSON backup themselves. The builder does not upload the portfolio to Moodle or an AI service.
 
+The repository preserves the product source, Moodle source pin, design/build history and tests. Private runtime configuration and learner data are excluded. Finlay reports paid Contabo whole-server backups and accepts that provision for the demo baseline; provider account settings and whole-server recovery have not been independently verified here. See [operating status](docs/trial/PUBLIC-DEPLOYMENT.md#current-backup-position--23-october-2026).
 
-### Preparation and notes
+## What this demonstrates about LMS delivery
 
-The [files-and-folders activity](https://orientation.finlaymccall.com/before-you-start) leads into [AI interface and instruction practice](https://orientation.finlaymccall.com/before-you-start#meet-your-ai), before the context lesson. A shared [free-tools table](https://orientation.finlaymccall.com/free-tools) compares text, voice, files and pictures. The [Obsidian guide](https://orientation.finlaymccall.com/notes) supports Finlay’s inline tips. Shared source fragments live in `content/computer-basics.html` , `content/notes-guide.html`, `content/ai-interface.html` and `content/free-tools-table.html`; build the public pages with `npm run build:preparation` and update the existing public Moodle resources with `scripts/php scripts/sync-preparation.php`. See [design and authoring notes](docs/curriculum/preparation-and-tips.md) for the preservation checks, source links and validation limits.
+Finlay McCall owns the learning purpose, pedagogy, platform and operating choices, learner-experience review and publication decisions. Codex assists with research, authoring, implementation and synthetic verification. The [case study](docs/case-study.md) connects those responsibilities to inspectable evidence:
+
+| Capability | Evidence |
+| --- | --- |
+| Learning and course design | [Design brief](docs/design-brief.md), [original brief](docs/history/initial-design-brief.md), [research rationale](docs/research/scholarly-design-rationale.md) |
+| Moodle course integration | [Course synchronisation](scripts/sync-journey.php), supported APIs, stable activity IDs and preserved answer/completion records |
+| Content production and reuse | [Shared content](content/), [public builders](scripts/build-preparation.py), native Moodle resources and portable portfolio |
+| Learning operations | [Email, recovery and reviewed support](docs/operations/email-and-support.md), [deployment guide](docs/trial/PUBLIC-DEPLOYMENT.md) |
+| Quality and iteration | [Release evidence](docs/releases/2026-10-13-portfolio.md), [tests](tests/), [decisions](docs/discovery-log.md), [pilot protocol](docs/pilot/PROTOCOL.md) |
+| Project management | [Current control](CONTROL.md), [GitHub Issues](https://github.com/drfinlaymccall/human-ai-orientation/issues), focused commits/PRs and [design history](docs/history/README.md) |
+
+Synthetic checks establish specific software behaviour. Human learning outcomes, physical-device and assistive-technology evaluation remain unmeasured. The separate future human–agent curriculum-design programme is outside this course.
+
+## Run and inspect it
+
+For the public course, install Node and Python 3, then run `npm ci`, `npm run build` and `npm run preview`. Open `http://127.0.0.1:8090/journey`. No Moodle account or AI API key is required for public reading and portfolio export/restore.
+
+[Reproduction and checks](docs/REPRODUCING.md) explain the pinned Moodle submodule and separate native installation. `npm run check:public` rebuilds committed outputs and runs the existing support/portfolio tests. The [Actions template](docs/operations/course-checks.workflow.yml) is prepared; GitHub automation remains inactive because publishing access lacks workflow permission ([setup follow-up #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10)). Local results and this limit belong in the [baseline release record](docs/releases/2026-10-23-baseline.md).
+
+## Explore the materials
+
+- [Course journey](https://orientation.finlaymccall.com/journey), [portfolio builder](https://orientation.finlaymccall.com/portfolio), [preparation](https://orientation.finlaymccall.com/before-you-start) and [notes guide](https://orientation.finlaymccall.com/notes).
+- [Public context for your AI](https://orientation.finlaymccall.com/ai/): inspectable instructions, versioned Markdown, a JSON manifest/schema and a paste fallback.
+- [Optional deeper courses](https://orientation.finlaymccall.com/deeper-courses), [free tools](https://orientation.finlaymccall.com/free-tools) and their [rights ledger](docs/research/deeper-courses.md).
+- [Contributing and documentation upkeep](CONTRIBUTING.md), [design history](docs/history/README.md) and [release-baseline plan](docs/plans/2026-10-23-001-feat-release-baseline-plan.md).
+
+Original educational materials are © 2026 Finlay McCall, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Licence scope](LICENSE-CONTENT.md) excludes software, third-party material and private learner records. Moodle retains its own GPL licence. Keep credentials, support messages and personal portfolios out of public GitHub.

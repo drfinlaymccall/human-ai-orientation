@@ -112,3 +112,24 @@ No project lint/typecheck command is configured; Python parsing, JS syntax, Cadd
 - New public check covers all four provider rows and input headers, the practice navigation link, editing/copying all four route examples, entered text remaining text, denied-clipboard manual selection, 1440px/390px layouts, and no-JavaScript expansion/readability. No document overflow; table has its own labelled, focusable horizontal-scroll region.
 - Screenshots `input-table-1440.png` and `input-practice-390.png` visually inspected; additional opposite-viewport screenshots retained. The desktop comparison and mobile practice controls remain readable.
 - Synthetic QA accounts suspended. No learner data, recordings, uploads, AI-provider messages or external emails involved. Actual device microphone/file-picker operation and human learning outcomes remain for the pilot.
+
+
+## Deeper courses and reuse notices — 2026-10-13
+
+- Added native Moodle Page module 4 in lesson section 1 and public `/deeper-courses`, sharing `content/deeper-courses.html`. Preparation/notes links resolve to native modules in Moodle; public footer links remain public. Caddy configuration validation and PHP syntax passed. Course service restarted successfully; existing learner/answer fingerprints unchanged on sync.
+- Full public HTTPS suite: **10 passed (1.8 minutes)**. New checks verify seven comparison rows, licence distinctions, access qualifications, no-JavaScript reading, desktop/mobile overflow, return-to-lesson navigation and native Moodle links. Existing lesson completion, saved return, private-file protections and interactive widgets still pass.
+- Desktop screenshot visually inspected. Adjusted table minimum widths so all four columns fit the desktop reading width; small screens retain a labelled keyboard-focusable horizontal-scroll region. Targeted desktop/mobile rerun passed (6.4 seconds), including an explicit check that the desktop table needs no horizontal scroll.
+- Synthetic QA accounts suspended and web service confirmed active. No external enrolments, messaging, media downloads or third-party content imports. Resource fit and permissions are based on fetched provider/rights-holder documentation; we did not complete the courses or test every media player.
+
+
+## CC BY 4.0 publication — 13 October 2026
+
+- Finlay explicitly selected CC BY 4.0. Added `LICENSE-CONTENT.md`, public scope/attribution text, public-page and Moodle footer notices, and machine-readable licence/scope links. Original educational content is covered; software, third-party assets, learner/private records and screenshots are excluded. Published context versions were not rewritten.
+- Shared builds and PHP syntax passed. Moodle sync preserved learner and lesson-answer fingerprints. AI manifest validates against its generated JSON Schema.
+- Existing AI-context browser check passed. The deeper-courses check caught a long attribution URL overflowing on mobile; scoped wrapping fixed it and the targeted desktop/mobile/no-JavaScript rerun passed.
+- Direct public HTTPS checks verified notices on 12 public pages plus the Moodle login footer, and the manifest licence URL. The lesson preview needed a footer added because it previously had none. Newly present journey-page footers and their generator also retain the notice without changing activity content. No new accounts, licence changes to software or external messages.
+
+
+## Portfolio journey and email release — 2026-10-13
+
+See [the complete release record](../releases/2026-10-13-portfolio.md) for scope, evidence and limitations. Eight isolated portfolio checks and six support approval-boundary checks pass. The combined twelve public HTTPS checks passed; the three affected context/native checks passed again after review fixes, with strict persisted manual-completion and fresh-session password sign-in assertions. Native sync preserved existing evidence and module IDs across two runs. Finlay confirmed real owner-address mail receipt and intended sender. Human pilot, assistive-technology/physical-device checks and off-server restore remain open.

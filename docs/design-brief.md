@@ -1,6 +1,6 @@
-# Human AI Orientation — initial design brief
+# Human AI Orientation — course design brief
 
-Date: 2026-10-13. Stage: discovery. This is a working brief requested during the interview, not a settled product contract or implementation-ready plan. Confirmed intentions and proposals are distinguished below.
+Updated: 2026-10-23. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
 
@@ -13,6 +13,18 @@ An equally explicit objective is to demonstrate that Finlay McCall can bring a w
 The priority order is: end-to-end delivery of a useful learning experience; coherent curriculum and experience design; practical platform, content, and support operations; and evidence-led improvement. This builds on Finlay's University of Canberra project work without implying university sponsorship or endorsement of this independent project.
 
 The project should become a working public course on a subdomain of Finlay's website, accompanied by a GitHub project and a readable design case study. Friends and family are the initial pilot audience. Finlay intends to write about the project and launch it on LinkedIn to invite enrolments; publication timing and copy remain to be developed.
+
+## Implemented progression and evidence
+
+| Step | Learner output | Current implementation |
+| --- | --- | --- |
+| Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
+| 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
+| 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
+| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | New portable builder with Markdown download, JSON backup/restore and optional AI interview |
+| 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
+
+The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
 
 ## Place in the broader learning journey
 
@@ -202,8 +214,63 @@ Each lesson should offer a plain-language purpose, an estimated time, a short ex
 
 - R30. After computer basics, introduce the AI interface and four input types: typed text, speech, files and pictures. Provide a dated free-provider comparison with platform/plan qualifications. Learners practise a useful instruction, inspect the result and clarify it; begin with one accessible input and explore a second where available. Distinguish dictation from live conversation and picture input from generation. Preserve a text and worked-example route, without requiring paid access or mastery of every input.
 
+- R31. Offer an optional, curated deeper-courses page with short summaries, format/access information, audience fit and a specific starting point. Link externally and invite learners to bring one idea back to their own task. Maintain item-specific reuse evidence; free access is not permission to adapt. Release original course materials under CC BY 4.0, selected by Finlay while preserving third-party and software licence boundaries.
+
 
 Accessibility criteria should include clear language, meaningful headings, keyboard use, readable layouts, captions or transcripts, visible feedback, and alternatives to audio or camera participation. Test with real users as well as technical checks.
+
+## Course-wide objectives and competencies — 14 October feedback
+
+**Status:** Finlay requested this direction while reviewing `/notes`. This is a learning-design exploration; tracking, assessment controls and the personal map are proposed, not implemented. Priority is held in the [control-file inbox](../CONTROL.md#brain-dump-inbox).
+
+Every course page and resource should explain what the learner will be able to do after using it, connect that purpose to their own learning objective, and link to a shared course bank of objectives and competencies. Linked external resources need the same purpose and mapping in their course description. Use observable verbs informed by revised Bloom; learners see plain-language can-do statements rather than taxonomy jargon.
+
+Connect the page's intended outcome, the reusable capability and the learner's personal reason for developing it. For example, “I can create and retrieve a useful note” may serve “I want to keep my project context somewhere I can find it.” A competency can have several supporting resources without creating duplicate skills. Learners should be able to link an existing personal goal or write their own, without inventing a new goal on every page.
+
+### Worked example: `/notes`
+
+Proposed objective: **After following this guide and trying the steps, you can set up Obsidian, create and reopen a useful note, and choose relevant text to share with your AI.** Preserve another-notes-app alternatives; Obsidian installation is an optional tool-specific accomplishment, not a universal completion requirement.
+
+| Proposed can-do statement | Self-check or task | Return to instruction |
+| --- | --- | --- |
+| I can install and open Obsidian, if I choose that route | Have you installed and opened it? Yes / Not yet / Using another app | `/notes#install` |
+| I can choose and locate the folder holding my notes | Find the vault folder in Finder or File Explorer | `/notes#vault` |
+| I can create, save and reopen a useful note | Create “My context”, close it and find it again | `/notes#note` |
+| I can select relevant context to share with an AI | Choose a useful excerpt and explain what you left out | `/notes#share` |
+
+Default assessment is the learner's own judgement. Proposed choices for practical skills are “Not tried”, “Can do with help” and “Can do independently”, each linked to practice guidance. Yes/no questions suit factual setup checks; multiple-choice questions can check understanding. Neither an installation tick nor a recall answer establishes every practical skill. “Did you find this useful?” belongs to course evaluation and does not award competence.
+
+### Progress, evidence and the personal map
+
+Finlay wants automatic reading progress without a completion click. Proposed interpretation: record observable resource engagement separately from capability and describe honestly what was detected. Opening a page, scrolling or leaving it open cannot establish comprehension. The trigger and label need design; an AI fetching a public resource or a learner following an external link cannot establish human learning.
+
+The map should show course modules, linked competencies, personal objectives, completed activity, continuing practice and useful next steps, with backlinks to teaching resources. Show whether a capability claim rests on self-assessment, task evidence or optional AI feedback. Offer the map during the course and at the end, with a readable list alternative and a portable copy alongside the context portfolio. Individual records should remain private. Public reading and no-JavaScript routes remain useful; durable progress requires an explicit storage/return design rather than assuming a page visit identifies a learner.
+
+### Optional entry self-assessment: find your starting point
+
+Finlay confirmed that the map should recognise prior capability and proposed an optional short quiz based on course material. Explain its purpose before entry: discover a useful starting point, identify possible practice needs and choose a route. Learners can take it or start the course directly. “Find your starting point” is proposed learner-facing wording; “audit mode” and “placement test” are working descriptions, not settled labels or a compulsory gate.
+
+The quiz produces provisional suggestions for linked competencies, which the learner reviews before treating them as their own capability claims. Let them distinguish “I can do this”, “I think I can”, “Not sure” and “I want to practise”, and flag a correct answer as a guess. A correct answer does not automatically establish practical independence. Where the intended outcome is performance, offer a small task or self-check alongside knowledge questions. Skipping the quiz leaves capability unknown rather than recording failure.
+
+Preserve the difference between the quiz answer and the learner's interpretation: “answered correctly; guessed; practice chosen” is a useful result. The learner can revise their judgement, visit any resource, or practise an apparently familiar skill. Suggestions guide the route without locking modules or marking skipped learning as newly achieved. Show prior self-reported capability separately from development during the course.
+
+This also introduces a metacognitive can-do statement: **I can compare evidence of my current ability with a task's requirements and choose what to practise next.** Reviewing an answer, recognising uncertainty and choosing practice are opportunities to develop that capability; merely agreeing that one can self-evaluate does not demonstrate it. The exact quiz, length, coverage and recommendation rules remain to be designed.
+
+### Queued experiment: ask your AI to help assess you
+
+Offer a copyable task and rubric for the learner's own AI. Ask it to wait for an attempt, compare that attempt with the criteria, explain the evidence and uncertainty, and suggest one practice task. Example: ask the learner to reopen a note and explain how they found it; distinguish reported actions from anything the AI actually observed. The learner reviews the feedback and decides whether to update their self-assessment. AI feedback must not silently certify capability or overwrite course completion.
+
+Keep the ordinary self-check route complete without AI and permit fictional material. The prompt should wait for the learner's attempt before giving a worked answer; repeating an AI-generated answer is not evidence of independent performance.
+
+**Basis and open decisions:** this extends R6, R14, R20 and the [scholarly rationale](research/scholarly-design-rationale.md). Carnegie Mellon's [alignment guidance](https://www.cmu.edu/teaching/assessment/basics/alignment.html), checked 14 October 2026, supports matching objectives to practice and assessment; it does not validate this tracking or AI-assessment proposal. Resolve initial competency and quiz coverage, automatic engagement labels/triggers, durable storage/export and a small pilot of whether learners can use the map. No human pilot evidence for this addition has been collected.
+
+## Linked course glossary — 14 October feedback
+
+Finlay requested a course glossary linking important concepts to plain-language definitions, examples and practical help finding them. The [pre-populated proposal](curriculum/glossary.md) supplies a starter bank with sources, including personal context/portfolio, settings files, memory, instructions, workspaces, paths, hidden folders and the new learning/progress terms. This is a proposed course resource, not a published page.
+
+Give each entry a stable link, related concepts and a route back to practice. Where location matters, name the product, mode and operating system, explain how to find it, and add a real annotated screenshot with a text alternative. Distinguish an agent's working folder from its configuration folder, a local folder from a remote environment, and a web project's knowledge collection from a filesystem directory. Explain `.claude/` and `.codex/` separately from `CLAUDE.md`, `AGENTS.md`, `settings.json` and `config.toml`, including user/project scope and Mac/Windows visibility differences.
+
+The glossary follows the objective/competency pattern above: learners should be able to explain a term, locate the relevant item and return to their task. Finding and reopening an example result is a practical check; reading a definition alone does not establish capability. Preserve the ordinary chat, alternative notes-app and no-JavaScript routes. Screenshots, glossary publication and inline course links are queued in CONTROL.md.
 
 ## Public context for learners and their AI
 
@@ -230,7 +297,7 @@ Bring-your-own-AI practice avoids a requirement to pay for inference on every le
 | WP3 — Complete and pilot the MVP | Three agreed activities, context-kit exercise, curated essential links, accessibility checks, support workflow, persona tests, and human pilot observations; expand the sequence after the first release | Friends-and-family participants attempt meaningful tasks; human and synthetic findings are reported separately; priority fixes are applied and rechecked |
 | WP4 — Publish and demonstrate | Public prototype on chosen subdomain, GitHub project, design case study, sample activity, operating guide, limitations, maintenance plan, and launch article/LinkedIn material | A visitor can inspect design and delivery evidence without an account; a learner can enrol and use the course; backup restoration, support ownership, and launch readiness are established |
 
-Finlay targets a working MVP within the next few days and a public version by 20 October 2026. The control file uses 16 October as the provisional MVP target and owns the current forecast. The four packages apply to the three-activity first release; the broader course grows through weekly improvement. Platform and deployment checks must establish a credible build estimate before treating targets as commitments.
+The original 16 October MVP and 20 October public-version targets are historical. The course is a working demo; the current baseline prepares GitHub and documentation, and the next batch addresses public onboarding. CONTROL.md owns the next launch forecast. The four packages apply to the three-activity first release; the broader course grows through weekly improvement. Platform and deployment checks must establish a credible build estimate before treating targets as commitments.
 
 Capture portfolio evidence in every package: WP1 shows scoping and design reasoning, WP2 integration and delivery decisions, WP3 quality assurance and improvement, and WP4 launch and operation. Maintain a lightweight milestone, decision, and cost record across all four. Use honest before/after evidence; do not imply pilot results exist before running the pilot.
 

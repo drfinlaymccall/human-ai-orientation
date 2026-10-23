@@ -18,6 +18,8 @@ $spec = json_decode(file_get_contents($root . '/content/useful-context.json'), t
 $lesson = $DB->get_record('lesson', ['course' => $course->id, 'name' => $spec['title']], '*', MUST_EXIST);
 $lessoncm = get_coursemodule_from_instance('lesson', $lesson->id, $course->id, false, MUST_EXIST);
 $definitions = [
+    'deeper-courses' => ['source' => 'deeper-courses', 'name' => 'Go deeper: courses and videos', 'section' => 1,
+        'intro' => 'Optional courses and short videos: choose one question to explore, then bring an idea back to your own task.'],
     'before-you-start' => ['source' => 'computer-basics', 'name' => 'Start here: files and folders',
         'intro' => '10–15 minutes of computer basics, then 10–15 minutes exploring AI inputs and giving instructions. Already familiar? Use the self-check and move on.'],
     'notes' => ['source' => 'notes-guide', 'name' => 'Finlay’s guide: set up your notes with Obsidian',
@@ -39,7 +41,7 @@ foreach ($definitions as $slug => $definition) {
     if (!$existing) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
-            'name' => $definition['name'], 'section' => 0, 'visible' => 1,
+            'name' => $definition['name'], 'section' => $definition['section'] ?? 0, 'visible' => 1,
             'intro' => '<p>' . $definition['intro'] . '</p>', 'introformat' => FORMAT_HTML,
             'content' => file_get_contents($root . '/content/' . $definition['source'] . '.html'),
             'contentformat' => FORMAT_HTML, 'showdescription' => 1,
@@ -53,6 +55,7 @@ foreach ($definitions as $slug => $definition) {
 }
 $briefpageid = $DB->get_field('lesson_pages', 'id', ['lessonid' => $lesson->id, 'title' => $spec['pages'][2]['title']], MUST_EXIST);
 $localise = function ($html) use ($resources, $lessoncm, $briefpageid, $root) {
+    $html = str_replace('<!-- course-licence -->', file_get_contents($root . '/content/licence-notice.html'), $html);
     $html = str_replace('<!-- ai-interface -->', file_get_contents($root . '/content/ai-interface.html'), $html);
     $html = str_replace('<!-- free-tools-table -->', file_get_contents($root . '/content/free-tools-table.html'), $html);
     $html = str_replace('<!-- computer-controls -->', file_get_contents($root . '/content/computer-controls.html'), $html);
@@ -71,6 +74,7 @@ foreach ($definitions as $slug => $definition) {
     $record->printintro = 0;
     $record->printlastmodified = 0;
     $html = file_get_contents($root . '/content/' . $definition['source'] . '.html');
+    if ($slug !== 'deeper-courses') { $html .= '<p><a href="/deeper-courses">Go deeper: courses and videos</a></p>'; }
     $html .= '<p><a href="/preview">Continue to the AI lesson</a> · <a href="/course/view.php?id=' . $course->id . '">Return to the course</a></p>';
     $record->page = ['text' => $localise($html), 'format' => FORMAT_HTML, 'itemid' => 0];
     if ($record->content !== $record->page['text'] || $resources[$slug]['record']->intro !== $record->intro) {
@@ -93,7 +97,7 @@ course_update_section($course, $section, (object)[
     'name' => 'Before the AI lesson', 'summaryformat' => FORMAT_HTML,
     'summary' => '<p>Start with a quick files-and-folders check. Practise anything unfamiliar, then set up your notes if useful. Then explore text, voice, files and pictures with your AI. These preparation pages are self-guided; answers are not submitted or graded.</p>',
 ]);
-$DB->set_field('course', 'summary', '<p>Find your way around files and notes, then choose useful context, try it with your own AI and keep guidance you can reuse.</p><p>Early prototype · 20–30-minute preparation · optional notes setup · one 25–35-minute AI lesson.</p>', ['id' => $course->id]);
+if (!$DB->record_exists('page', ['course' => $course->id, 'name' => 'Your course journey'])) $DB->set_field('course', 'summary', '<p>Find your way around files and notes, then choose useful context, try it with your own AI and keep guidance you can reuse.</p><p>Early prototype · 20–30-minute preparation · optional notes setup · one 25–35-minute AI lesson.</p>', ['id' => $course->id]);
 if ($before !== $state()) {
     throw new RuntimeException('Learner records or lesson answers changed; rolling back.');
 }
@@ -103,6 +107,7 @@ rebuild_course_cache($course->id, true);
 // Preserve unrelated footer content; editors initialise only their own widgets.
 $footer = get_config('core', 'additionalhtmlfooter') ?: '';
 $assets = '<!-- orientation-context-brief --><link rel="stylesheet" href="/assets/context-brief.css"><script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script><!-- /orientation-context-brief -->';
+$assets = str_replace('<!-- /orientation-context-brief -->', '<p class="small">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/mod/page/view.php?id=' . $resources['deeper-courses']['cmid'] . '#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p><!-- /orientation-context-brief -->', $assets);
 $updatedfooter = strpos($footer, '<!-- orientation-context-brief -->') === false
     ? $footer . "\n" . $assets
     : preg_replace('~<!-- orientation-context-brief -->.*?<!-- /orientation-context-brief -->~s', $assets, $footer);

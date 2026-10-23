@@ -14,7 +14,13 @@
     "test:trial": "playwright test --config playwright.config.cjs",
     "build:context": "python3 scripts/build-ai-context.py",
     "build:preparation": "python3 scripts/build-preparation.py",
-    "build:brief": "python3 scripts/build-brief.py"
+    "build:brief": "python3 scripts/build-brief.py",
+    "build:journey": "python3 scripts/build-journey.py",
+    "build": "npm run build:preparation && npm run build:brief && npm run build:journey && npm run build:context",
+    "test:portfolio": "playwright test --config playwright.portfolio.config.cjs",
+    "test:support": "python3 -m unittest discover -s tests -p test_support.py",
+    "preview": "python3 scripts/serve-public.py",
+    "check:public": "bash scripts/check-public.sh"
   },
   "keywords": [],
   "author": "",
