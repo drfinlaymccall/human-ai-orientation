@@ -95,7 +95,7 @@ Course journey module 5, first-task module 6, portfolio module 7 and check/conti
 
 Before these changes, a new private backup was taken at `trial/backups/portfolio-release/`. It contains the database and runtime config, including the earlier mail-diversion setting. Restoring a backup is a separate operator procedure: it can replace newer learner records and mail configuration. Do not use a database rollback casually to reverse a content change.
 
-For native browser verification: create a fresh synthetic user with `scripts/php scripts/public-qa-user.php`, generate a captured reset email with `scripts/php scripts/qa-password-reset.php`, run `npm test`, then run `scripts/php scripts/public-qa-user.php suspend`. The reset helper overrides mail only inside that CLI process; live SMTP configuration is unchanged. Never use a real learner for synthetic tests.
+For native browser verification: create a fresh synthetic user with `scripts/php scripts/public-qa-user.php`, generate a captured reset email with `scripts/php scripts/qa-password-reset.php`, run `ORIENTATION_EXPECTED_ACQUISITION=pilot npm test` for the current exact-address pilot mode (use `closed` or `public` only when that is the observed release mode), then run `scripts/php scripts/public-qa-user.php suspend`. The reset helper overrides mail only inside that CLI process; live SMTP configuration is unchanged. Never use a real learner for synthetic tests.
 
 Public source includes pinned Moodle core via a Git submodule, not a database/data-directory export. See [reproduction](../REPRODUCING.md) and the [release record](../releases/2026-10-13-portfolio.md).
 

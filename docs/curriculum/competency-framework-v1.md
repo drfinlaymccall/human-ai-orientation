@@ -254,11 +254,11 @@ The atlas is the current proposed learner entry. Earlier capability-led constell
 
 ### One clickable area, in words
 
-> **Give AI the right background**  
-> **You'll do:** choose helpful details, write a brief and try it with your AI.  
-> **You'll keep:** a brief you can reuse.  
-> **What you'll practise:** selecting information, explaining your intention and working through a misunderstanding.  
-> **Open this activity**  
+> **Give AI the right background**\
+> **You'll do:** choose helpful details, write a brief and try it with your AI.\
+> **You'll keep:** a brief you can reuse.\
+> **What you'll practise:** selecting information, explaining your intention and working through a misunderstanding.\
+> **Open this activity**\
 > **Check what I can do** — expand to review the relevant knowledge and practical self-checks.
 
 This is proposed interface copy, not a real learner record. On a visitor map, show “What you'll practise” without personal ratings. On the eventual signed-in map, the same activity destinations remain, with actual completion separately labelled; detailed skill judgements appear in self-checks or “My skills”. A portable skills view can retain reviewed self-assessments, next practice and public resource links without exposing private Moodle records.

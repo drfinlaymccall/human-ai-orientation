@@ -57,7 +57,7 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     set_coursemodule_name($ids[$slug], $displayname);
     $pages[$slug] = $page->id;
 }
-$localise = function ($html) use ($ids, $lessoncm, $root, $orientationtrial) {
+$localise = function ($html) use ($ids, $lessoncm, $orientationtrial) {
     $links = $ids;
     if (file_exists($orientationtrial . '/preparation.json')) $links += json_decode(file_get_contents($orientationtrial . '/preparation.json'), true);
     foreach ($links as $slug => $id) $html = str_replace('href="/' . $slug . '"', 'href="/mod/page/view.php?id=' . $id . '"', $html);
@@ -93,7 +93,7 @@ $beforemod = $optional ? $optional->id : null;
 foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-continue']] as $cmid) {
     moveto_module($DB->get_record('course_modules', ['id' => $cmid]), $section, $beforemod);
 }
-course_update_section($course, $section, (object)['name' => 'Your three activities and portfolio', 'summaryformat' => FORMAT_HTML,
+course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
     'summary' => '<p>Choose and try a useful task, give context and build your portfolio, then check and continue. Mark the new activities done yourself. The original context lesson retains its own saved progress and reflection.</p><p><a href="/mod/page/view.php?id=' . $ids['journey'] . '">See the full journey and saving guidance</a></p>']);
 $DB->set_field('course', 'summary', '<p>A useful task → a better context brief → your own portable portfolio → a checked result and next goal.</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');

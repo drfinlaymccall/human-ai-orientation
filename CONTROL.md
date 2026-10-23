@@ -8,11 +8,12 @@ Deliver a useful digital learning experience and demonstrate Finlay's ability to
 
 The product is human orientation: build the person's capacity to work with an agent and identify meaningful goals. Learners leave with portable personal context and a next-goal brief they can take into the separate future human–agent curriculum-design programme or use independently. That later programme is outside this release and this project's wishlist.
 
-- **Current stage:** working public demo/reviewer course; no public learner enrolments, as confirmed by Finlay on 23 October. Public registration remains closed.
+- **Current stage:** working public demo/reviewer course; no human pilot participants yet. Broad registration remains closed. The exact-address pilot gate is active only for owner-controlled confirmation/recovery checks; actual learner confirmation is pending.
 - **Completed baseline:** PR #8 merged the course, preserved local feedback/research, improved the LMS showcase and current documentation, passed existing local checks and reconciled the original issues. See the [23 October release record](docs/releases/2026-10-23-baseline.md).
 - **Current forward plan:** [Demo to public course and next releases](docs/plans/2026-10-23-002-feat-public-launch-plan.md) is the single delivery plan for the remaining launch work, supporting CI task, competency/map design and sequenced later improvements.
 - **First delivery slice ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** clarify the homepage offer and implement the accepted activity-led orientation atlas, then deliver verified registration/self-enrolment, saved return/progression using the same activity labels, and the matching public AI map. Pilot and LinkedIn release follow the checked learner journey. Saved competency ratings, a personal skills map and starting-point quiz remain later work.
-- **Launch forecast:** set after onboarding work is scoped and checked. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
+- **Implementation status:** clear offer/activity atlas, native verified-account flow/current-user progress and matching public AI metadata are implemented. [Current evidence and limits](docs/releases/2026-10-23-launch-implementation.md) records verification and live state.
+- **Launch forecast:** choose T0 after genuine mail/recovery, retention review and the human pilot; [release handoff](docs/launch/readiness.md) and five LinkedIn drafts are prepared. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
 - **After launch:** weekly review and improvement from actual learner evidence.
 
 Finlay authorises work in the current demo checkout. Separate integration worktrees, a backup audit and restore rehearsals are not requirements for this baseline. He reports paid whole-server Contabo backups and accepts that provision for now; settings and recoverability are not independently verified. GitHub preserves the public product source, not private runtime data.
@@ -75,7 +76,7 @@ The core journey takes approximately 70–95 minutes including the portfolio ext
 | 17–19 October | Friends-and-family trial, fixes, accessibility checks, and public-facing explanation |
 | By 20 October | Public version and initial portfolio case study; launch writing ready for Finlay |
 
-This is the original October planning schedule, not the current forecast. The course is a working demo; broad enrolment and the human pilot remain open. Set the public launch date during the next onboarding batch.
+This is the original October planning schedule, not the current forecast. The course is a working demo; broad enrolment and the human pilot remain open. Choose the public launch date from the current release-readiness evidence.
 
 ## Public AI-context addition — 13 October
 

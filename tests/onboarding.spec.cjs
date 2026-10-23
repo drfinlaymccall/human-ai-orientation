@@ -14,6 +14,7 @@ const password = 'Synthetic-Only-74!';
 const stamp = Date.now();
 const learner = { username: `onboard${stamp}`, email: `onboard${stamp}@example.test` };
 let confirmLink;
+let priorSitePolicy;
 function configure(mode, options = []) {
   const result = spawnSync(path.join(root, 'scripts/php'), ['scripts/configure-onboarding.php', mode, ...options], { cwd: root, env, encoding: 'utf8' });
   return { status: result.status, output: result.stdout + result.stderr };
@@ -42,9 +43,10 @@ async function ready(page) {
   await page.waitForLoadState('networkidle');
   await page.waitForFunction(() => !window.M?.util?.pending_js?.length);
 }
-async function signup(page, user) {
+async function signup(page, user, acceptPolicy = true) {
   await page.goto('/login/signup.php'); await ready(page);
   for (const [id,value] of Object.entries({username:user.username,password,email:user.email,email2:user.email,firstname:'Synthetic',lastname:'Onboarding'})) await page.locator('#id_'+id).fill(value);
+  if (acceptPolicy) await page.locator('#id_policyagreed').check();
   await page.locator('#id_submitbutton').click();
 }
 async function login(page, user, pass = password) {
@@ -57,7 +59,15 @@ async function recover(page, user) {
   await expect(page.locator('body')).toContainText('If you supplied a correct username');
 }
 test.describe.serial('isolated native onboarding', () => {
-  test.afterAll(() => { configure('configure-closed'); });
+  test.beforeAll(() => {
+    priorSitePolicy = JSON.parse(fixturePhp(`echo json_encode(get_config(null,'sitepolicy'));`));
+    fixturePhp(`set_config('sitepolicy',$CFG->wwwroot.'/privacy');`);
+  });
+  test.afterAll(() => {
+    configure('configure-closed');
+    if (priorSitePolicy === false) fixturePhp(`unset_config('sitepolicy');`);
+    else fixturePhp(`set_config('sitepolicy',${JSON.stringify(priorSitePolicy)});`);
+  });
   test('requires a valid private receipt; closed setup is additive, idempotent and keeps existing enrolments', async ({ page }) => {
     const before = snapshot();
     const missing = configure('open', ['--receipt='+path.join(fixture,'missing-readiness.json')]);
@@ -97,7 +107,12 @@ test.describe.serial('isolated native onboarding', () => {
   });
   test('signup sends captured confirmation and unconfirmed access is denied; missing mail can be resent', async ({ page }) => {
     await page.goto(course.lesson_url);
-    await signup(page, learner); await expect(page.locator('body')).toContainText('An email should have been sent');
+    await signup(page, learner, false);
+    await expect(page.locator('#id_error_policyagreed')).toBeVisible();
+    expect(fixturePhp(`echo $DB->record_exists('user',['username'=>'${learner.username}'])?'created':'not-created';`)).toBe('not-created');
+    await page.locator('#id_policyagreed').check();
+    await page.locator('#id_submitbutton').click();
+    await expect(page.locator('body')).toContainText('An email should have been sent');
     confirmLink = messageLink(learner.username, '/login/confirm.php');
     const countBefore = fs.readdirSync(path.join(fixture,'mail')).length;
     await login(page, learner); await expect(page.locator('body')).toContainText('confirm');

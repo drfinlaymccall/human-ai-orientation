@@ -1,0 +1,13 @@
+# Activity atlas authoring
+
+The homepage and public journey use the accepted activity-led map: four places for practical work plus optional preparation. Selecting a place reveals what the learner will do, keep and practise, an optional reflection check and the working activity link. Portfolio practice belongs within the second core activity; the baseline remains the three core activities in `content/course-map.json`. The illustration suggests exploration and does not lock a route.
+
+`content/course-map.json` owns activity labels, public destinations, versions, outcomes, roles and the `atlas` descriptions/checks. Edit `content/home.html` for the homepage offer and account wording. `scripts/build-journey.py` expands its `<!-- activity-atlas -->` marker and the journey marker using that same manifest. Run `npm run build:journey` and commit the source and generated public/content files together. Do not edit `public/index.html` or generated journey fragments directly.
+
+`public/assets/activity-atlas.js` only selects among existing HTML panels. It saves no selections, answers or competency ratings and does not mark Moodle completion. Without JavaScript, all five descriptions, reflection disclosures and activity links remain readable; the inactive map controls stay hidden. The native Moodle journey also retains this complete reading route when frontend enhancement is unavailable. The native publisher localises ordinary activity links using existing module IDs; keep public paths in the source.
+
+Preserve exactly one `<!-- orientation-return-guidance -->` / `<!-- /orientation-return-guidance -->` pair in the generated journey. The Moodle publisher replaces only this region with account-specific saving guidance. Public portfolio fields remain temporary browser drafts with private downloads/JSON restore; they must not be described as account-backed storage.
+
+Allow entry at any destination with an existing task/context or a clearly labelled fictional example. Preparation is optional. Learner labels use ordinary language, with no capability codes or taxonomy jargon. The preserved [design prototype](../prototypes/orientation-activity-atlas.html) retains the author relationship view; its host-widget controls and author-only toggle are not deployed.
+
+Run `npm run test:entry` after rebuilding. Focused synthetic browser checks cover both entry maps, all five destinations, selection and self-check disclosures, keyboard use, 320/390px layouts, no-JavaScript reading, the full primary journey and direct entry to the final practice. Screenshot review checks the actual desktop/mobile layout. These checks demonstrate navigation and saving behaviour, not human learning or usability outcomes; the human pilot remains separate.

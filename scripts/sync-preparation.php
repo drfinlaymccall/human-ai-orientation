@@ -105,7 +105,7 @@ foreach (array_slice($spec['pages'], 0, 4) as $item) {
 }
 $section = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 0], '*', MUST_EXIST);
 course_update_section($course, $section, (object)[
-    'name' => 'Course overview and optional preparation', 'summaryformat' => FORMAT_HTML,
+    'name' => 'Introduction', 'summaryformat' => FORMAT_HTML,
     'summary' => '<p>Use the course overview to choose any activity. Optional preparation offers a files-and-folders check, notes setup and ways to give your AI input. Practise anything unfamiliar or go straight to a core activity. These preparation pages are self-guided; answers are not submitted or graded.</p>',
 ]);
 if (!$DB->record_exists('course_modules', ['course' => $course->id, 'idnumber' => 'orientation:journey'])) $DB->set_field('course', 'summary', '<p>Find your way around files and notes, then choose useful context, try it with your own AI and keep guidance you can reuse.</p><p>Early prototype · 20–30-minute preparation · optional notes setup · one 25–35-minute AI lesson.</p>', ['id' => $course->id]);

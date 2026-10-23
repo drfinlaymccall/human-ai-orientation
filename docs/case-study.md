@@ -1,6 +1,6 @@
 # Delivering Human AI Orientation with Moodle
 
-Finlay McCall designed and built a self-guided orientation for people who want to work usefully with AI without specialising in it. The intended outcome is a reviewed, retrievable personal context portfolio and a meaningful next goal. The course is a working public demo with reviewer accounts; broad registration and human-pilot evidence remain next steps.
+Finlay McCall designed and built a self-guided orientation for people who want to work usefully with AI without specialising in it. The intended outcome is a reviewed, retrievable personal context portfolio and a meaningful next goal. The course is a working public demo with native saved progress and an owner-controlled email pilot gate; broad registration and human-pilot evidence remain next steps.
 
 [Try the public journey](https://orientation.finlaymccall.com/journey) or follow the implementation evidence below.
 
@@ -16,7 +16,8 @@ Evidence: [current design brief](design-brief.md), [initial brief](history/initi
 
 | Delivery decision | How it works | Inspect |
 | --- | --- | --- |
-| Use Moodle for native accounts, lesson interaction and progress | Retain the seven-page Lesson and add native Page resources for the wider journey | [Journey sync](../scripts/sync-journey.php), [lesson design](trial/lesson-design.md) |
+| Use Moodle for native accounts, lesson interaction and progress | Retain the seven-page Lesson and native Page resources; an additive current-user overview suggests unfinished core practice and supports native Lesson resume | [Progress plugin](../moodle/local/orientation/), [progress guide](operations/progress.md), [lesson design](trial/lesson-design.md) |
+| Check new-account acquisition without prematurely opening enrolment | Native email confirmation/recovery, canonical activity return and exact-address pilot registration; broader opening requires actual mail and operating evidence | [Onboarding configuration](../scripts/configure-onboarding.php), [guide](operations/onboarding.md), [isolated checks](../tests/onboarding.spec.cjs) |
 | Preserve existing evidence during iteration | Update existing activities through supported APIs, retain module IDs, and compare fingerprints for answers, attempts and completion definitions | [Journey sync](../scripts/sync-journey.php), [preparation sync](../scripts/sync-preparation.php), [October verification](releases/2026-10-13-portfolio.md) |
 | Author once for public reading and native Moodle resources | Shared fragments and builders produce matching public and LMS content | [Content](../content/), [preparation builder](../scripts/build-preparation.py), [journey builder](../scripts/build-journey.py) |
 | Keep learner context portable | Browser-local editing, selected context copying, Markdown export and validated versioned JSON restore | [Portfolio implementation](../public/assets/portfolio.js), [portfolio design](curriculum/portfolio-builder.md), [browser tests](../tests/portfolio.spec.cjs) |
@@ -38,6 +39,6 @@ For the current demo, Finlay accepts his paid Contabo server backup provision. G
 
 Finlay sets audience, learning goals, pedagogy, priorities, platform/publication choices and content licence; reviews the experience; supplies corrections; and confirmed real email receipt. Codex supports research, drafting, implementation and labelled synthetic testing. The [design history](history/README.md) identifies this collaboration and preserves the initial recorded state without invented earlier commits.
 
-The immediate next work is a clearer homepage, verified registration/self-enrolment and visible progression. A small consenting human pilot will test whether learners can complete a meaningful task, retrieve their context and use it again. Accessibility checks on physical devices and assistive technology, learner timings and learning outcomes remain open. [GitHub Issues](https://github.com/drfinlaymccall/human-ai-orientation/issues) track that work.
+The homepage now includes the accepted activity atlas, and native registration/return/progress are implemented. The [23 October implementation record](releases/2026-10-23-launch-implementation.md) distinguishes synthetic checks, live deployment and pending genuine-mail evidence. A small consenting human pilot will test whether learners can complete a meaningful task, retrieve their context and use it again. The [release handoff](launch/readiness.md) and [five draft posts](launch/linkedin-series.md) prepare publication without claiming a completed launch. Accessibility checks on physical devices and assistive technology, learner timings and learning outcomes remain open. [GitHub Issues](https://github.com/drfinlaymccall/human-ai-orientation/issues) track that work.
 
 For ongoing delivery, documentation/status changes are part of every implementation plan and PR. Current priorities live in CONTROL.md; design rationale lives in the brief; verification lives in dated release records. This keeps the showcase connected to the actual product as it evolves.
