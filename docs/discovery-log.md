@@ -211,3 +211,11 @@ Finlay reviewed the release plan and confirmed the course is still a demo with r
 Finlay also asked for help keeping GitHub and current documentation aligned. AGENTS.md and CONTRIBUTING.md now make documentation/status impact part of every plan and implementing PR. Reuse a relevant issue; a separate documentation issue is reserved for standalone work or deferred debt. Historical verification stays dated.
 
 The next product batch remains homepage conversion, verified registration/self-enrolment and clearer module progression, followed by the human pilot and LinkedIn course/module posts. Formal assessments are not a launch dependency. GitHub workflow publication remains a specific permission follow-up; local checks and remote Actions status are reported separately.
+
+## 23 October 2026 - Voice feedback, stage one
+
+**Need and authority:** Finlay proposed voice input across Moodle, with contextual audio feedback to Finlay as the minimum. He then authorised planning, building stage one and opening an integration PR while the baseline agent worked separately. This is a paraphrase of the feature-request chat, not a verbatim transcript.
+
+**Decision and change:** use a disabled-by-default local Moodle plugin with private File API storage, enrolment/context checks, a record/review/send flow, text/file alternatives, a private reviewer inbox and generic notifications. This avoids introducing transcription or a new service for a recording-only requirement. Notification failure preserves saved feedback; retry tokens prevent duplicate sends.
+
+**Verification and questions:** the [feature release](releases/2026-10-23-voice-feedback.md) records real isolated Moodle API/browser tests with fictional users and synthetic audio, plus preserved course evidence. Installation and enablement, physical device/microphone checks, Safari and real external notification receipt remain integration work. The baseline checkout and its release changes were preserved, with this feature rebased after PR #8 merged.

@@ -2,9 +2,14 @@
 namespace local_orientationfeedback;
 defined('MOODLE_INTERNAL') || die();
 final class hook_callbacks {
+    public static function before_course_deleted(\core_course\hook\before_course_deleted $hook): void {
+        \local_orientationfeedback\privacy\provider::delete_data_for_all_users_in_context(
+            \context_course::instance($hook->course->id));
+    }
+
     public static function footer(\core\hook\output\before_footer_html_generation $hook): void {
-        global $PAGE, $USER;
-        if (!isloggedin() || isguestuser() || !service::configured() ||
+        global $PAGE;
+        if (!isloggedin() || isguestuser() ||
                 (int)$PAGE->course->id !== (int)get_config('local_orientationfeedback', 'courseid') ||
                 strpos($PAGE->url->get_path(), '/local/orientationfeedback/') !== false) {
             return;

@@ -151,8 +151,11 @@ final class service {
 
     public static function delete(\stdClass $record): void {
         global $DB;
-        get_file_storage()->delete_area_files(\context_course::instance($record->courseid)->id,
-            'local_orientationfeedback', 'audio', $record->id);
+        // Core course deletion already removes its context and files. Still retire our metadata.
+        $context = \context_course::instance($record->courseid, IGNORE_MISSING);
+        if ($context) {
+            get_file_storage()->delete_area_files($context->id, 'local_orientationfeedback', 'audio', $record->id);
+        }
         $DB->delete_records('local_orientationfeedback', ['id' => $record->id]);
     }
 }

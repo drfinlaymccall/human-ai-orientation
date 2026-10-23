@@ -178,6 +178,12 @@ Hold the first review within seven days of pilot launch, then weekly. Choose the
 - Costs, support load, and revised forecast if needed:
 - Completed changes and validation:
 
+## Voice feedback - 23 October 2026
+
+Finlay authorised building stage one of the voice-input request in a separate branch alongside release-baseline work. The standalone Moodle plugin provides contextual private audio/text feedback, reviewed playback before Send, a private inbox and notifications. Transcription, voice in arbitrary answer fields and AI coaching remain later options.
+
+Source and synthetic verification are recorded in the [feature release](docs/releases/2026-10-23-voice-feedback.md); [operator setup](docs/operations/voice-feedback.md) covers explicit installation, course/reviewer enablement, retention and rollback. The release baseline was merged before this feature branch was rebased. No live activation is claimed by the feature build. Physical microphones/phones, Safari and an external notification receipt remain integration checks. Public registration and the launch batch in issue #9 are unchanged by this work.
+
 ## Source of truth
 
 This file owns dates, current priorities, the wishlist, and review records. The [design brief](docs/design-brief.md) owns the learning and product rationale; the [discovery log](docs/discovery-log.md) records decisions and unresolved questions. Update superseded decisions in place and preserve a short explanation in the discovery log.

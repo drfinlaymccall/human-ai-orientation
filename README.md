@@ -39,7 +39,11 @@ Synthetic checks establish specific software behaviour. Human learning outcomes,
 
 For the public course, install Node and Python 3, then run `npm ci`, `npm run build` and `npm run preview`. Open `http://127.0.0.1:8090/journey`. No Moodle account or AI API key is required for public reading and portfolio export/restore.
 
-[Reproduction and checks](docs/REPRODUCING.md) explain the pinned Moodle submodule and separate native installation. `npm run check:public` rebuilds committed outputs and runs the existing support/portfolio tests. The [Actions template](docs/operations/course-checks.workflow.yml) is prepared; GitHub automation remains inactive because publishing access lacks workflow permission ([setup follow-up #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10)). Local results and this limit belong in the [baseline release record](docs/releases/2026-10-23-baseline.md).
+[Reproduction and checks](docs/REPRODUCING.md) explain the pinned Moodle submodule and separate native installation. `npm run check:public` rebuilds committed outputs and runs the support, portfolio and isolated recorder tests. The [Actions template](docs/operations/course-checks.workflow.yml) is prepared; GitHub automation remains inactive because publishing access lacks workflow permission ([setup follow-up #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10)). Local results and this limit belong in the [baseline release record](docs/releases/2026-10-23-baseline.md).
+
+## Optional private feedback
+
+Stage-one [voice and written feedback](docs/operations/voice-feedback.md) is packaged as a standalone Moodle local plugin, disabled until a course and reviewer are configured. It keeps recordings private, supports text/file alternatives, and uses Moodle notifications without an AI service. See the [feature plan](docs/plans/2026-10-23-002-feat-voice-feedback-plan.md) and [synthetic release evidence](docs/releases/2026-10-23-voice-feedback.md). Production installation and activation are separate from this source release.
 
 ## Explore the materials
 

@@ -201,6 +201,30 @@ set_config('retentiondays', 90, 'local_orientationfeedback');
 check_feedback(!$DB->record_exists('local_orientationfeedback', ['id' => $expired->id]) &&
     !get_file_storage()->get_area_files($context->id, 'local_orientationfeedback', 'audio', $expired->id),
     'Retention task removes expired metadata and audio');
+// Course deletion must immediately remove private data even when timed retention is disabled.
+$generator->enrol_user($users['author']->id, $othercourse->id, 'student');
+set_config('courseid', $othercourse->id, 'local_orientationfeedback');
+$orphan = service::submit(array_replace($base, ['courseid' => $othercourse->id,
+    'cmid' => $otherpage->cmid, 'submissiontoken' => bin2hex(random_bytes(16))]), $audio);
+$othercontextid = context_course::instance($othercourse->id)->id;
+set_config('courseid', $course->id, 'local_orientationfeedback');
+set_config('retentiondays', 0, 'local_orientationfeedback');
+as_feedback_user(get_admin());
+delete_course($othercourse, false);
+context_helper::reset_caches();
+check_feedback(!$DB->record_exists('local_orientationfeedback', ['id' => $orphan->id]) &&
+    !get_file_storage()->get_area_files($othercontextid, 'local_orientationfeedback', 'audio', $orphan->id),
+    'Course deletion immediately removes unexpired feedback and audio with timed retention disabled');
+// Legacy orphan metadata must not prevent cleanup of the remaining expired records.
+$legacyorphan = clone $orphan;
+unset($legacyorphan->id);
+$legacyorphan->timecreated = time() - 100 * DAYSECS;
+$legacyorphan->id = $DB->insert_record('local_orientationfeedback', $legacyorphan);
+set_config('retentiondays', 90, 'local_orientationfeedback');
+(new \local_orientationfeedback\task\cleanup())->execute();
+check_feedback(!$DB->record_exists('local_orientationfeedback', ['id' => $legacyorphan->id]),
+    'Retention handles legacy feedback metadata after its course context is deleted');
+as_feedback_user($users['author']);
 check_feedback(evidence_feedback() === $before, 'Historic completion, lesson attempts and grades fingerprint unchanged');
 // Leave one author-owned audio record for authenticated browser/HTTP checks.
 $browserrecord = service::submit(array_replace($base, ['submissiontoken' => bin2hex(random_bytes(16))]), $audio);

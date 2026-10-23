@@ -13,11 +13,19 @@ echo $OUTPUT->heading(get_string('inbox', 'local_orientationfeedback'));
 echo html_writer::tag('p', get_string('inboxintro', 'local_orientationfeedback'));
 $total = $DB->count_records('local_orientationfeedback');
 $records = $DB->get_records('local_orientationfeedback', null, 'timecreated DESC, id DESC', '*', $page * 20, 20);
+$authors = [];
+$courses = [];
 foreach ($records as $record) {
-    $author = core_user::get_user($record->userid);
+    if (!array_key_exists($record->userid, $authors)) {
+        $authors[$record->userid] = core_user::get_user($record->userid);
+    }
+    $author = $authors[$record->userid];
     echo html_writer::start_tag('article', ['class' => 'card card-body mb-3']);
     echo html_writer::tag('h2', s($author ? fullname($author) : get_string('deleteduser', 'local_orientationfeedback')) . ' — ' . s(userdate($record->timecreated)), ['class' => 'h5']);
-    $course = $DB->get_record('course', ['id' => $record->courseid]);
+    if (!array_key_exists($record->courseid, $courses)) {
+        $courses[$record->courseid] = $DB->get_record('course', ['id' => $record->courseid]);
+    }
+    $course = $courses[$record->courseid];
     $contexturl = new moodle_url('/course/view.php', ['id' => $record->courseid]);
     $contextlabel = $course ? $course->fullname : get_string('deletedcourse', 'local_orientationfeedback');
     if ($record->cmid && $course) {
