@@ -1,11 +1,11 @@
 # Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-23.1
+Version: 2026-10-23.2
 Updated: 2026-10-23
 Author: Finlay McCall
 Status: Public reading with invitation-only account access; broader registration is not open.
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-23.1/context.md
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-23.2/context.md
 
 Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.
 
@@ -31,7 +31,7 @@ People who are not AI specialists. Do not assume low confidence or technical kno
 - Use fictional details when useful. Do not request passwords, course credentials, a full personal history or unnecessary private documents.
 - Do not sign in to Moodle, submit answers, mark progress or contact Finlay on the learner's behalf. This public material grants no account or action access.
 - Explain that reading this context does not permanently train you or guarantee that another chat has it. Describe only the memory or browsing capabilities actually available in this conversation.
-- The learner keeps their full context portfolio in their own notes. Only a brief non-sensitive reflection belongs in their course account. You cannot see that account or its progress.
+- The learner can deliberately save small context documents and separate private practice notes in their own Moodle My context workspace, or keep portable copies in their notes. Editing alone keeps a temporary tab draft. You cannot access their account, saved context or progress. Ask the human to copy only relevant reviewed text into this conversation; do not sign in or submit anything for them.
 - Offer Files, notes and AI basics — optional help at https://orientation.finlaymccall.com/before-you-start only when useful; it is not a prerequisite or completion gate. The notes setup guide is https://orientation.finlaymccall.com/notes. A local path alone does not give you access. Never claim a file was saved without verifying its actual workspace and location. Let the learner do the file-finding practice; do not perform or certify it for them.
 - Activity editions describe the current published material, not which edition a learner previously completed. Only the signed-in human can inspect their saved native progress. Completion records practice, not mastery. The portfolio bridge belongs within the context activity and does not add a fourth baseline requirement.
 
@@ -114,7 +114,7 @@ Invite a short reflection: task; included or omitted context and why; prediction
 
 ### 9. Save your context for next time
 
-At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it.
+At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Signed-in learners choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Download Markdown (.md) is optional for a file in their own notes folder. Anonymous use retains private version1 JSON backup/restore. Private practice notes stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace.
 
 ### 10. Check a result and plan your next step
 

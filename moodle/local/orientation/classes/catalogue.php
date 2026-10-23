@@ -32,4 +32,35 @@ class catalogue {
         $type = $DB->get_field('modules', 'name', ['id' => $cm->module]);
         return $type === $activity['module_type'] && !$cm->deletioninprogress ? $cm : null;
     }
+    /** Read native completion for the signed-in learner; reading does not award completion. */
+    public static function progress(\stdClass $course): array {
+        global $CFG, $USER;
+        require_once($CFG->libdir . '/completionlib.php');
+        $info = get_fast_modinfo($course, $USER->id);
+        $completion = new \completion_info($course);
+        global $DB;
+        $baseline = array_filter(self::modules(), fn($activity) => $activity['baseline']);
+        [$insql, $params] = $DB->get_in_or_equal(array_column($baseline, 'idnumber'), SQL_PARAMS_NAMED);
+        $records = $DB->get_records_sql('SELECT cm.id, cm.idnumber, cm.deletioninprogress, m.name AS modname
+            FROM {course_modules} cm JOIN {modules} m ON m.id = cm.module
+            WHERE cm.course = :courseid AND cm.idnumber ' . $insql, ['courseid' => $course->id] + $params);
+        $byidentity = [];
+        foreach ($records as $record) $byidentity[$record->idnumber][] = $record;
+        $complete = 0; $next = null; $chosen = false; $unavailable = false;
+        foreach ($baseline as $activity) {
+            $matches = $byidentity[$activity['idnumber']] ?? [];
+            $record = count($matches) === 1 ? reset($matches) : null;
+            if ($record && ($record->modname !== $activity['module_type'] || $record->deletioninprogress)) $record = null;
+            $cm = $record && isset($info->cms[$record->id]) ? $info->cms[$record->id] : null;
+            if (!$cm || !$cm->uservisible || !$cm->url) {
+                $unavailable = true;
+                if (!$chosen) $chosen = true;
+                continue;
+            }
+            $state = $cm->completion ? (int)$completion->get_data($cm, false, $USER->id)->completionstate : 0;
+            if (in_array($state, [COMPLETION_COMPLETE, COMPLETION_COMPLETE_PASS, COMPLETION_COMPLETE_FAIL], true)) $complete++;
+            else if (!$chosen) { $next = ['label' => $activity['label'], 'url' => (string)$cm->url]; $chosen = true; }
+        }
+        return ['complete' => $complete, 'total' => 3, 'next' => $next, 'unavailable' => $unavailable];
+    }
 }

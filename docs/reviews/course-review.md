@@ -45,3 +45,18 @@ Append a dated section with the feedback source, new stable CR IDs, decision or 
 | CR12 | Form fatigue; wants visible output/progress and one step at a time | Small first pass and optional later sections delivered in guidance. Live preview/sidebar and guided progress remain an interaction improvement to scope from the recheck | Partial: wording delivered; preview/progression UI not implemented |
 
 The revision preserves field keys, existing drafts/backups, export headings and completion. A new field label does not reinterpret stored answers. Role-play copy avoids promising general AI competence, lasting memory or automatic computer access. See [portfolio authoring/evidence](../curriculum/portfolio-builder.md#implementation-and-verification-record). The broader landing/personal journey/check plan remains unchanged; this is focused portfolio clarity work within the existing activity audit.
+
+## 23 October 2026 — course panels and saved creations
+
+**Source:** Finlay's screenshot question about unused side margins, followed by acceptance of course/lesson panels and an explicit request to store small learner-created context files inside Moodle rather than connect an external drive. This is owner direction, not an observed learner outcome.
+
+| ID | Need / feedback | Decision and planned acceptance | Evidence state |
+| --- | --- | --- | --- |
+| CR13 | Use side space for lesson navigation and course progress | Keep readable lesson width; use responsive collapsible/sticky panels on desktop and compact mobile controls. Course progress reflects native completion; reading position is separate | Delivered responsive course panel with native progress/Continue and course-guide links; within-lesson reading-position tracking remains separate |
+| CR14 | Carry creations throughout the course and return to their courseware | Private Moodle **My context** workspace: save, open, edit, copy, download and source-activity links; cross-visit/device availability; visible save state, isolation and recoverable failures | Delivered U10; [synthetic and live release evidence](../releases/2026-10-23-context-workspace.md), including privacy, conflict and failed-save recovery |
+
+Moodle is the primary store; Google Drive/Dropbox are optional later extensions. Copy is primary and optional Markdown download remains available. Existing portable backups remain compatible; editing alone keeps a temporary draft, while Save to My context persists it. Personal creations remain distinguishable from shared course references. Opening/saving work does not imply completion, proficiency or automatic AI access.
+
+## 23 October 2026 — course profile follow channels
+
+**CR16:** Finlay wants people to keep up with course changes, new educational offerings and human–AI collaboration ideas. He prefers LinkedIn and potentially X, and does not plan a Substack newsletter. Published a shared Keep in touch section on the public course profile and native course summary with the existing verified LinkedIn URL and website. No email subscription is added. X remains optional pending its profile URL. See the [release record](../releases/2026-10-23-context-workspace.md).

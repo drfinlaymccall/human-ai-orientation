@@ -1,0 +1,46 @@
+# My context: saved course creations
+
+My context adds private Moodle storage for the learner's small context documents. Its primary action is **Copy**; **Download Markdown (.md)** is a secondary option. Copying/downloading does not save edits. It does not connect to an AI provider or an external drive.
+
+## Learner workflow
+
+1. Sign in with an enrolled course account. Anonymous public reading still works.
+2. In the portfolio or private practice builder, choose **Save to My context**. Editing alone keeps a temporary browser-tab draft.
+3. Open **My context** from the course panel/navigation. Choose Working with me, My goals and projects, Useful knowledge and examples, or the separate private practice record.
+4. Edit and choose **Save changes**. Use the large **Copy** button to copy reviewed text; paste only relevant parts into an AI conversation. A Markdown download is optional: find the .md file in Downloads and move it into the learner's notes folder if useful.
+5. Use the source-activity link to return to instructions. New context notes can retain a short task output or other useful text. The brief and try/check widgets have deliberate save controls for their readable output.
+
+Saved work is attached to the current account and returns in a fresh browser/device after sign-in. The workspace provides normal HTML forms without JavaScript; its text-to-copy box supports manual selection/Copy. Existing version 1 portfolio JSON backups remain an advanced portable restore route, including private practice fields. Restoring a backup changes the draft; a later Save updates Moodle. Replacement and deletion require deliberate confirmation.
+
+## Storage and access
+
+- The additive `local_orientation_context` table stores a portfolio snapshot plus owner/course-scoped text notes, title, source activity, revision and timestamps. It stores text in Moodle's database rather than arbitrary uploaded files. There are no core patches or new activity-completion conditions.
+- The portfolio uses the existing 20 field keys, 2,000 UTF-16 units per field, review flag, fictional provenance and version 1 backup envelope. The three context documents stay separate from private practice notes in copies/Markdown context exports.
+- Notes are limited to 20,000 UTF-16 units and a 160-unit title, with at most 50 notes per learner/course and a separately reserved portfolio. The JSON endpoint accepts at most 256 KB per request.
+- Every read/write/download resolves the signed-in user. Enrolment/course visibility/capability checks apply. Writes require a session key; no caller can select another learner's workspace. Responses are private/no-store, with no cross-origin sharing.
+- An owner/course lock and revision comparison protect initial inserts and updates against concurrent/stale saves. On a conflict, keep/copy the draft before loading the newer saved revision. Do not introduce automatic last-write-wins replacement.
+- These are private workspace records, not public course-reference files. Finlay administers the server and can access stored records for support/records requests. There is no separate teacher browsing interface for learner documents.
+- Context has no automatic retention period: it remains until cleared/deleted or removed through Moodle privacy/account/course deletion. Privacy metadata, export and single/bulk deletion are implemented. Server backups and copies the learner downloaded have separate lifecycles. The public privacy/help wording must travel with the feature.
+
+## Deployment and verification
+
+Use `python3 scripts/deploy-orientation.py --trial-dir <installed-runtime> --upgrade` for the supported additive plugin install/upgrade. It copies only repository-owned plugin files and the course map. Build shared public assets/fragments with the existing build commands; publish changed native Page/lesson content through supported APIs, preserving course/module identities, attempts, answers and completion. Never reseed the released course.
+
+The dedicated synthetic fixture avoids the launch fixture and live data:
+
+```bash
+python3 scripts/prepare-launch-fixture.py --context-workspace
+ORIENTATION_TRIAL_DIR="$PWD/trial/context-fixture" scripts/php scripts/seed-course.php
+ORIENTATION_TRIAL_DIR="$PWD/trial/context-fixture" scripts/php scripts/sync-preparation.php
+ORIENTATION_TRIAL_DIR="$PWD/trial/context-fixture" scripts/php scripts/sync-journey.php
+python3 scripts/deploy-orientation.py --trial-dir trial/context-fixture --upgrade
+npx playwright test --config playwright.context.config.cjs
+```
+
+The fixture uses only new synthetic data, port 18842 and captured mail. Existing fixture directories are never overwritten. Run the existing portfolio regression suite too; use a separate static-preview port if another chat owns the usual port. Tests and screenshots use fictional/synthetic content only and stay under ignored `trial/context-fixture/`.
+
+## Operating checks
+
+After a release, Finlay/implementer checks an anonymous gateway and an enrolled synthetic account: save → navigate → reopen → edit → Copy/.md → return to source; repeat in a fresh browser and with a second account. Check 390px and a wide desktop, account changes, no-JavaScript forms, failed-save recovery and stale-revision refusal. Fingerprint activity identities and existing Lesson/completion evidence before/after publication. Functional checks do not establish learning outcomes or a physical-device/screen-reader trial.
+
+During the first review session, inspect private web/PHP logs for `/local/orientation/context.php`, `/local/orientation/workspace.php`, unexpected 5xx responses and repeated failed saves. Expected signals are successful owner saves/reloads and 401/403 for anonymous/unenrolled users; 409 is an intentional stale-edit refusal. Do not log document bodies, session keys or personal screenshots. If ownership, save/reload or draft preservation fails, stop exposing the affected action and correct it before further learner use. Preserve the saved table and versioned schema during mitigation; do not roll back by deleting learner data or downgrading Moodle's plugin version.

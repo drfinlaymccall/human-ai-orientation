@@ -14,7 +14,7 @@ The first implementation uses three documents: **Working with me**, **My goals a
 | --- | --- | --- | --- |
 | Get one useful result | Choose a small task, set a criterion, make a first attempt and identify a gap | Task, criterion, request, result excerpt and observation | 10–15 minutes |
 | Give useful context (existing activity) | Select relevant details, predict a change and inspect the result | Improved brief and useful instruction | 25–30 minutes |
-| Build your portfolio | Write or use an AI interview, edit three documents and download them | Reviewed context Markdown plus restorable JSON backup | 20–30 minutes |
+| Build your portfolio | Write or use an AI interview, edit three documents and save/copy them | Saved context, optional Markdown and restorable JSON backup | 20–30 minutes |
 | Test, improve and continue | Retrieve the portfolio, select context for a fresh chat, correct a result, choose a next goal | Private practice record and revised instruction | 15–20 minutes |
 
 The full guide time is 70–95 minutes, plus optional 20–30-minute preparation. These are author estimates, not measured completion times. The three core activities remain a choose/context/check journey, with the portfolio as the context extension. All activities provide a fictional route for someone without a usable AI account. The shared scenario is a neighbourhood book swap, with date and venue deliberately undecided. It is authored course material, not a transcript or evidence about a real learner.
@@ -40,9 +40,11 @@ This changes guidance, not the portfolio format: the same field IDs/keys, limits
 
 ## Storage, privacy and robustness
 
-The widget reads and writes only `sessionStorage` under `orientation.portfolio.v1`. This enables same-tab continuation between public course pages and Moodle pages on the same origin. It is **not account storage**, server submission, synchronization, a permanent save or a guarantee after closing a tab. Browser settings can make temporary storage unavailable; the interface then tells the learner to download before leaving.
+**23 October My context:** [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15) and forward-plan U10 extend the existing local Moodle plugin with private account storage. Learners explicitly choose **Save to My context** in the portfolio or brief/practice builder; typing alone keeps a temporary tab draft. The course panel links the three documents, separate private practice, saved notes and source activities, plus actual Moodle progress/Continue. The normal private workspace works without JavaScript. **Copy** is the primary reuse action; **Download Markdown (.md)** is secondary. External drive integration remains optional later work. Saving context does not give any AI access or complete an activity.
 
-Fields have no `name` attributes and controls have `type="button"`, so embedding the fragment inside an existing Moodle form does not automatically submit portfolio text. The runtime makes no fetch, analytics or AI requests. Normal page and asset requests still occur. Imports are read with the browser File API. User text is assigned through text-safe DOM properties rather than interpreted as HTML. Downloads use local Blob URLs, subsequently revoked.
+Signed-in temporary drafts use an account-scoped sessionStorage envelope; anonymous drafts retain the version 1 key. Fresh signed-in browsers load saved work. Writes require the current session key, matching opening account, expected row identity and revision. Conflicts preserve the draft instead of silently overwriting newer work. Account changes clear private presentation and invalidate old save controls and pending imports. The workspace uses supported Moodle enrolment/capability checks, privacy export/deletion and user/course-deletion observers. See [storage, limits, retention and operating checks](../operations/context-workspace.md).
+
+Portfolio fields have no `name` attributes and controls use `type="button"`, so embedding the builder in another Moodle form does not submit text automatically. Explicit saves send documents to this Moodle site; the client makes no AI-provider requests. Text uses text-safe DOM properties. Imports use the browser File API and downloads use local Blob URLs. Shared public course references remain distinct from private creations.
 
 Version 1 backups use an exact shape:
 
@@ -66,6 +68,8 @@ A backup file should be treated as personal material. The public repository and 
 
 **23 October reusable writing support:** the generated portfolio now uses the [shared Finlay’s Tips component](finlays-tips.md), with a right-hand sticky panel where space permits and a voice hint beside each editable box. The earlier portfolio dictation callout is retained as optional detail inside that panel. Field keys, temporary storage, native completion and download/restore semantics are unchanged.
 
+**23 October dictation tip:** the shared portfolio fragment now includes “Finlay’s tip · Say it first, then tidy it up” above the text fields. Learners practise speaking one short answer, stopping, reading and correcting it. Expandable Mac/Windows setup guidance links official guides, and Claude mobile is a documented free AI-app example. See the [source ledger and device-testing limits](../research/voice-dictation.md). The tip is available in the public and native Moodle Page and without JavaScript; existing portfolio fields and completion rules are preserved.
+
 - `content/first-task.html`, `content/portfolio.html`, `content/check-and-continue.html`: authored HTML fragments.
 - `scripts/build-journey.py`: public page wrapper, journey overview and shared save/restore controls; `fragment(name)` expands the shared controls for Moodle integration.
 - `public/assets/portfolio.js`: fixed schema, temporary state, selected-context output, downloads, validation and replacement confirmation.
@@ -73,7 +77,7 @@ A backup file should be treated as personal material. The public repository and 
 - `public/first-task.html`, `public/portfolio.html`, `public/check-and-continue.html`, `public/journey.html`: generated public output.
 - `tests/portfolio.spec.cjs`, `playwright.portfolio.config.cjs`: isolated browser regression suite using synthetic content and a local static server, without live Moodle credentials.
 
-Build with `python3 scripts/build-journey.py`. The build only writes the four public generated pages. Embed `fragment(name)` in Moodle rather than the unexpanded source marker. Supply the shared CSS and JavaScript assets once per page. Extensionless routing, the existing preview's continuation link, home navigation and Moodle resource creation belong to the integration step; this unit does not change live services.
+Build with `python3 scripts/build-journey.py`. The build writes the shared public/generated journey pages. Embed `fragment(name)` in Moodle rather than the unexpanded source marker. Supply the shared CSS and JavaScript assets once per page. Extensionless routing, the existing preview's continuation link, home navigation and Moodle resource creation belong to the integration step; this unit does not change live services.
 
 ## Implementation and verification record
 
@@ -87,4 +91,4 @@ Screenshots are generated into the isolated Playwright output directory under `/
 
 ## Pilot questions
 
-Can a learner choose one relevant context document, explain that selection, retrieve the downloaded files, restore a backup and use it in a fresh conversation without help? Can they distinguish a reviewed portfolio from a verified AI answer? Can they tell what Moodle saves and what remains in their own files? Observe these actions before expanding to additional portfolio categories or automatic account storage.
+Can a learner choose one relevant context document, explain that selection, retrieve the downloaded files, restore a backup and use it in a fresh conversation without help? Can they distinguish a reviewed portfolio from a verified AI answer? Can they tell what Moodle saves and what remains in their own files? Observe these actions and apply the findings to accepted U10's saved/unsaved states, storage explanation and reuse workflow; automatic saving is not yet specified or implemented.

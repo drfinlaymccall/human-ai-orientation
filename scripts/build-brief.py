@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from course_tips import ASSETS, writing_support
+from course_context import course_context
 
 ROOT = Path(__file__).resolve().parents[1]
 spec_path = ROOT / 'content/useful-context.json'
@@ -38,5 +39,6 @@ if '<body class="finlay-preview">' not in text:
 if '/assets/context-try.js' not in text:
     text = text.replace('<script src="/assets/context-brief.js" defer></script>', '<script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script>')
 spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + '\n')
-preview.write_text(text)
+text = text.replace('This reading version does not save progress or submit answers. The brief builder keeps a temporary draft in this browser tab; copy work you want to keep into your own notes.', 'This reading version does not mark activities complete or submit lesson reflections. Typing keeps a temporary tab draft. When signed in, choose Save to My context to keep your brief or private try/check record in Moodle; otherwise copy useful work into your notes.')
+preview.write_text(course_context(text))
 print('Updated brief and try/check widgets in lesson source and public preview.')

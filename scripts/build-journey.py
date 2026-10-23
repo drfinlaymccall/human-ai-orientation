@@ -2,6 +2,7 @@
 """Build public course pages from reusable Moodle HTML fragments, without services."""
 from pathlib import Path
 from course_tips import ASSETS, writing_support
+from course_context import course_context
 from html import escape
 import json
 
@@ -19,7 +20,7 @@ JOURNEY = '''<p class="eyebrow">Your course journey · Free public activities</p
 <p class="intro">Start with a useful task. Learn what context helps, then build a small portfolio you can find, review and reuse in another conversation.</p>
 <p>Work at your own pace. Allow roughly 70–95 minutes for the three activities and portfolio bridge, split across visits if useful. Times are guides, not deadlines. A free AI tool is enough; fictional examples let you practise without an AI account.</p>
 <!-- activity-atlas -->
-<!-- orientation-return-guidance --><aside class="note"><h2>Returning to your work?</h2><p><a href="/portfolio">Open the portfolio builder</a> in the same tab to resume its temporary draft, or restore your downloaded JSON backup. Public activities do not save progress to an account. <a href="/local/orientation/index.php">Open my course progress</a> to sign in for Moodle activity progress; your private portfolio remains separate.</p><p>The outcome is practical: retrieve your reviewed documents, select relevant context and use it to begin a worthwhile task.</p></aside><!-- /orientation-return-guidance -->
+<!-- orientation-return-guidance --><aside class="note"><h2>Returning to your work?</h2><p>Signed-in learners can open <a href="/local/orientation/workspace.php">My context</a> to edit and copy work they deliberately saved to Moodle, including on another device. <a href="/local/orientation/index.php">Your course progress</a> keeps activity completion separate from your documents. In anonymous use, <a href="/portfolio">open the portfolio builder</a> in the same tab to resume its temporary draft, or restore your private JSON backup.</p><p>The outcome is practical: retrieve your reviewed documents, select relevant context and use it to begin a worthwhile task.</p></aside><!-- /orientation-return-guidance -->
 <nav class="actions" aria-label="Start the course"><a class="button" href="/first-task">Start with a useful task</a><a class="button secondary" href="/before-you-start">Try optional preparation</a></nav>'''
 
 
@@ -85,14 +86,14 @@ def main():
         if source.count('<!-- activity-atlas -->') != 1:
             raise ValueError('Each entry source must contain exactly one activity-atlas marker.')
     journey = JOURNEY.replace('<!-- activity-atlas -->', atlas)
-    home = home_source.replace('<!-- activity-atlas -->', atlas)
-    (ROOT / 'public/index.html').write_text(home)
+    home = home_source.replace('<!-- activity-atlas -->', atlas).replace('<!-- keep-in-touch -->', (ROOT / 'content/keep-in-touch.html').read_text())
+    (ROOT / 'public/index.html').write_text(course_context(home))
     (generated / 'journey.html').write_text(journey)
     for name, title in pages.items():
         content = fragment(name)
         (generated / f'{name}.html').write_text(content)
-        (ROOT / f'public/{name}.html').write_text(render(title, content, name))
-    (ROOT / 'public/journey.html').write_text(render('Your course journey', journey, 'journey'))
+        (ROOT / f'public/{name}.html').write_text(course_context(render(title, content, name)))
+    (ROOT / 'public/journey.html').write_text(course_context(render('Your course journey', journey, 'journey')))
     print('Built home, activity atlas, first-task, portfolio, check-and-continue and journey pages.')
 
 

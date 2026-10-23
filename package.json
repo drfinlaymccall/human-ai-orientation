@@ -18,6 +18,7 @@
     "build:journey": "python3 scripts/build-journey.py",
     "build": "npm run build:preparation && npm run build:brief && npm run build:journey && npm run build:context",
     "test:portfolio": "playwright test --config playwright.portfolio.config.cjs",
+    "test:context": "node tests/context-client-races.test.cjs && playwright test --config playwright.context.config.cjs",
     "test:support": "python3 -m unittest discover -s tests -p test_support.py",
     "preview": "python3 scripts/serve-public.py",
     "check:public": "bash scripts/check-public.sh",

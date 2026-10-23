@@ -11,6 +11,7 @@ The product is human orientation: build the person's capacity to work with an ag
 - **Current stage:** working public demo/reviewer course; no human pilot participants yet. Broad registration remains closed. The exact-address pilot gate is active only for owner-controlled confirmation/recovery checks; owner-controlled email confirmation, enrolment, fresh-browser return and genuine password recovery are verified.
 - **Completed baseline:** PR #8 merged the course, preserved local feedback/research, improved the LMS showcase and current documentation, passed existing local checks and reconciled the original issues. See the [23 October release record](docs/releases/2026-10-23-baseline.md).
 - **Current forward plan:** [Demo to public course and next releases](docs/plans/2026-10-23-002-feat-public-launch-plan.md) is the single delivery plan for the remaining launch work, supporting CI task, competency/map design and sequenced later improvements.
+- **Delivered context workspace ([issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15)):** private Moodle **My context** storage and a responsive course panel keep learners’ small creations across visits/devices, with edit, large **Copy**, optional **Download Markdown (.md)** and source-activity links. Saving is deliberate; temporary drafts and existing portable backups remain supported. See the [release evidence and limits](docs/releases/2026-10-23-context-workspace.md).
 - **Next course-review slice ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** clarify account state and navigation, make **Your course journey** the illustrated personal hub with real completion, and move selected activity details beside/near the map. Then add the optional native starting-point check: six statements, each with separate understanding/can-do 1–5 ratings, plus uncertainty/skip and explained suggestions. Full personal skills/evidence tracking remains later work. See the [review log](docs/reviews/course-review.md) and [local-agent walkthrough](docs/qa/course-review-agent.md). These review changes are planned, not delivered.
 - **Implementation status:** clear offer/activity atlas, native verified-account flow/current-user progress and matching public AI metadata are implemented. [Current evidence and limits](docs/releases/2026-10-23-launch-implementation.md) records verification and live state.
 - **Launch forecast:** choose T0 after genuine mail/recovery, retention review and the human pilot; [release handoff](docs/launch/readiness.md) and five LinkedIn drafts are prepared. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
@@ -21,6 +22,8 @@ Finlay authorises work in the current demo checkout. Separate integration worktr
 Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
 ## Public trial deployment — 13 October
+
+**23 October My context and course profile:** published the private workspace and shared course panels, with Copy primary and optional Markdown download. Existing activity identities, Lesson evidence and completion rules/records are preserved. Public/native course profiles now link Finlay’s LinkedIn and website for updates; no newsletter subscription is introduced. See the [release record](docs/releases/2026-10-23-context-workspace.md).
 
 **23 October reusable Finlay’s Tips:** writing activities now share a right-hand panel where space permits, compact voice-input reminders beside editable boxes and three copyable prompt starters. Public preview, portfolio, practice, optional input preparation and native Lesson reflection use the same support. Six focused public checks, eight portfolio checks and two direct native checks passed; the older broad progress suite was incompatible with newer navigation in the shared fixture. See [reuse, verification and limits](docs/curriculum/finlays-tips.md). Voice input remains the learner's device/app, with typing/paste alternatives.
 
@@ -126,7 +129,7 @@ First improve the homepage call to action, email-confirmed registration and self
 
 - Voice, images, live-camera demonstrations and accessible alternatives.
 - Reminders, digests, browser assistance and computer-action activities.
-- Optional account-backed portfolio storage only if learner evidence justifies it; current download/restore works without an account.
+- Optional external Google Drive/Dropbox export or connection after the delivered Moodle context workspace; current download/restore already works without an account.
 - Additional curated learning resources and provider pathways.
 - Certificates if learners value them.
 - Richer personalisation or embedded AI assistance if there is a clear learning benefit and affordable operating model.
@@ -138,6 +141,11 @@ Wishlist items are possibilities, not delivery commitments. Move an item into No
 Put rough ideas here without needing to design them first. During weekly review, turn worthwhile ideas into Next/Later items or retire them.
 
 For each idea, capture only what is known: **idea; who it helps; desired result; an example/link; urgency**. Missing fields are fine.
+
+### 23 October — My context: creations stored in Moodle
+
+Accepted [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15) and forward-plan U10: store small learner-created context documents on the Moodle server, attached to the learner's account and accessible across course pages, visits and devices. A persistent **My context** panel lists creations with their source activity; learners can open, edit, copy and download them and return to the course instructions. Begin with the three portfolio documents, then deliberate saves from activity work. Keep portable backups and clear saved/unsaved/error states; preserve drafts on failure and handle conflicting edits. This supersedes the undecided cloud-provider direction: Google Drive/Dropbox are possible later options. Shared course references remain distinguishable from personal creations. “AI memory” means reviewed files deliberately reused, not automatic AI access. Implemented and published with explicit saving, Copy primary and optional Markdown; verification and remaining human/device checks are in the release record linked above.
+
 
 ### 14 October — Objectives, competencies and a personal learning map
 
