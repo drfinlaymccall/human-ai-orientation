@@ -211,3 +211,9 @@ Finlay reviewed the release plan and confirmed the course is still a demo with r
 Finlay also asked for help keeping GitHub and current documentation aligned. AGENTS.md and CONTRIBUTING.md now make documentation/status impact part of every plan and implementing PR. Reuse a relevant issue; a separate documentation issue is reserved for standalone work or deferred debt. Historical verification stays dated.
 
 The next product batch remains homepage conversion, verified registration/self-enrolment and clearer module progression, followed by the human pilot and LinkedIn course/module posts. Formal assessments are not a launch dependency. GitHub workflow publication remains a specific permission follow-up; local checks and remote Actions status are reported separately.
+
+## 2026-10-23 — One forward plan after the release baseline
+
+Finlay asked to consolidate the outstanding work into one plan. The [public-launch and next-releases plan](plans/2026-10-23-002-feat-public-launch-plan.md) connects homepage clarity, verified onboarding, actual progress/return, safe module updates and public AI context to the human pilot and course/module LinkedIn series. GitHub check permission remains a supporting task, with existing local checks used meanwhile.
+
+The current competency framework and visual-map briefs are included as a review workstream, without choosing a metaphor or treating the proposed capability ratings as implemented. Glossary, resources/side quizzes, reminders, demonstration/media, reporting/expansion and later portfolio/personalisation ideas have a sequenced backlog in the same plan. The accepted demo checkout, experiential assessment and existing backup provision are unchanged. The completed release-baseline plan remains historical; CONTROL.md owns current state/dates and the forward plan owns delivery order. No new feature, account opening, invitation or post is claimed by this consolidation.

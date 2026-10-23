@@ -18,7 +18,7 @@ After bootstrap, run the trial installation and seed steps in the runbook, build
 
 ## Verification and limits
 
-Use `npm run test:portfolio` for isolated portfolio browser tests, `npm run test:support` for approval-boundary tests, and `npm test` only for a deliberately provisioned synthetic account against the public pilot (see deployment guide). Screenshots/reports are kept private by default; publish reviewed synthetic evidence only. Full clean-host public deployment and human pilot evidence remain unverified. Finlay accepts his owner-reported Contabo server backups for the demo; no restore audit is required by this baseline. See the current backup note in the deployment guide.
+Use `npm run test:entry` for isolated homepage/navigation checks, `npm run test:portfolio` for isolated portfolio browser tests, `npm run test:support` for approval-boundary tests, and `npm test` only for a deliberately provisioned synthetic account against the public pilot (see deployment guide). Screenshots/reports are kept private by default; publish reviewed synthetic evidence only. Full clean-host public deployment and human pilot evidence remain unverified. Finlay accepts his owner-reported Contabo server backups for the demo; no restore audit is required by this baseline. See the current backup note in the deployment guide.
 
 
 ## Automated checks and the current permission limit

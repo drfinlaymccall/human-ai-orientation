@@ -2,7 +2,7 @@
 
 A short, self-guided course helping people who are not AI specialists do something useful with their own AI, judge its work, and keep context they can reuse.
 
-**[Try the course](https://orientation.finlaymccall.com/journey) · [Inspect the LMS case study](docs/case-study.md) · [See current priorities](CONTROL.md)**
+**[Try the course](https://orientation.finlaymccall.com/journey) · [Inspect the LMS case study](docs/case-study.md) · [See the forward plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md) · [Current priorities](CONTROL.md)**
 
 ## What the learner does
 
@@ -13,6 +13,8 @@ A short, self-guided course helping people who are not AI specialists do somethi
 Optional preparation covers files, folders, notes and AI interfaces. The core journey and portfolio extension take an estimated 70–95 minutes, plus optional 20–30-minute preparation. These are author estimates, not measured learner timings. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
 ## Current status — 23 October 2026
+
+The homepage now leads with a useful task, the portable takeaway and three activities; preparation stays optional. [Launch implementation evidence](docs/releases/2026-10-23-launch-implementation.md) tracks verified changes and remaining launch gates.
 
 The complete public journey and portfolio builder are available without an account. Moodle reviewer accounts save activity progress and submitted reflections. Finlay confirms the site is still a demo/review environment with no public learner enrolments; **self-registration is closed**. [The next batch](https://github.com/drfinlaymccall/human-ai-orientation/issues/9) is the landing page, email-confirmed enrolment and clearer progress/return navigation, followed by a small human pilot and launch writing. The earlier 16/20 October planning dates are historical, not current commitments.
 

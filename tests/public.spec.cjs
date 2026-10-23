@@ -25,7 +25,9 @@ test('public introduction, reading route and mobile layout', async ({ page }) =>
     await expect(page.locator('body')).toContainText('Accounts are currently provided by Finlay');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.screenshot({ path: `docs/trial/public-home-${width}.png`, fullPage: true });
-    await page.getByRole('link', { name: 'Read the first lesson', exact: true }).click();
+    await page.getByRole('link', { name: 'Start with a useful task', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Get one useful result.', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Give your AI useful context', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('7. Save what you learned');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
@@ -342,7 +344,7 @@ test('preparation and notes guide work without JavaScript and provide a real pra
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('https://orientation.finlaymccall.com/');
-      await page.getByRole('link', { name: 'Start with files and folders', exact: true }).click();
+      await page.getByRole('link', { name: 'Find your way around files, notes and your AI', exact: true }).click();
       await expect(page.getByRole('heading', { name: 'Find your way around files and folders', exact: true })).toBeVisible();
       await page.getByText('Windows: use File Explorer', { exact: true }).click();
       await page.getByText('Check your answer: access', { exact: true }).click();
