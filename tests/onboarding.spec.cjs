@@ -96,7 +96,7 @@ test.describe.serial('isolated native onboarding', () => {
     expect(configure('open', ['--receipt='+receipt]).status).toBe(0);
   });
   test('signup sends captured confirmation and unconfirmed access is denied; missing mail can be resent', async ({ page }) => {
-    await page.goto(course.course_url);
+    await page.goto(course.lesson_url);
     await signup(page, learner); await expect(page.locator('body')).toContainText('An email should have been sent');
     confirmLink = messageLink(learner.username, '/login/confirm.php');
     const countBefore = fs.readdirSync(path.join(fixture,'mail')).length;
@@ -114,8 +114,8 @@ test.describe.serial('isolated native onboarding', () => {
     await page.getByRole('button',{name:'Continue',exact:true}).click();
     await expect(page.getByRole('button',{name:'Enrol me',exact:true})).toBeVisible();
     await page.getByRole('button',{name:'Enrol me',exact:true}).click();
-    await expect(page.getByRole('link',{name:'Give your AI useful context',exact:false})).toBeVisible();
-    await page.goto(course.lesson_url);
+    // No explicit GET workaround: confirmation POST must survive native enrolment.
+    await expect(page).toHaveURL(course.lesson_url);
     await expect(page.locator('body')).toContainText('1. Choose something worth doing');
     await page.goto(course.course_url); await expect(page.getByRole('button',{name:'Enrol me',exact:true})).toHaveCount(0);
     await context.close();
@@ -161,4 +161,20 @@ test.describe.serial('isolated native onboarding', () => {
     await expect(page.locator('body')).toContainText('1. Choose something worth doing');
     const status = JSON.parse(configure('status').output); expect(status.registration_open).toBe(false); expect(status.new_enrolments_open).toBe(false); expect(status.self_instance_enabled).toBe(true);
   });
+  test('pilot acquisition admits only exact private addresses while broad registration stays closed', async ({page})=>{
+    const invited={username:`pilot${stamp}`,email:`pilot${stamp}@example.test`};
+    const pilotReceipt=path.join(fixture,'pilot-readiness-synthetic.json');const addressFile=path.join(fixture,'pilot-addresses-synthetic.json');
+    fs.writeFileSync(addressFile,JSON.stringify([invited.email]));
+    fs.writeFileSync(pilotReceipt,JSON.stringify({site:base,course_id:Number(course.course_id),synthetic:true,pilot_only:true,reviewed_by:'Synthetic test only',reviewed_at:new Date().toISOString(),evidence_note:'Synthetic pilot gate only; no owner approval or genuine delivery',privacy_reviewed:true,support_reviewed:true,operating_reviewed:true,retention_before_broad_launch:true}));
+    expect(configure('pilot',['--receipt='+path.join(fixture,'missing.json'),'--pilot-emails='+addressFile]).status).not.toBe(0);
+    expect(configure('pilot',['--receipt='+pilotReceipt,'--pilot-emails='+addressFile]).status).toBe(0);
+    const status=JSON.parse(configure('status',['--receipt='+pilotReceipt]).output);expect(status.acquisition_mode).toBe('pilot');expect(status.broad_registration_open).toBe(false);
+    await signup(page,{username:`outside${stamp}`,email:`outside${stamp}@example.test`});await expect(page.locator('#region-main')).toContainText('limited to invited pilot learners');
+    await expect(page.locator('#region-main')).not.toContainText(invited.email);
+    await signup(page,invited);await expect(page.locator('body')).toContainText('An email should have been sent');
+    await page.goto(messageLink(invited.username,'/login/confirm.php'));await expect(page.locator('body')).toContainText('registration has been confirmed');
+    // An unapproved broader opening remains gated by genuine representative mail evidence.
+    expect(configure('open',['--receipt='+pilotReceipt]).status).not.toBe(0);
+  });
+
 });

@@ -7,6 +7,7 @@ require_once $CFG->dirroot . '/course/lib.php';
 require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
+require_once __DIR__ . '/course-module-identity.php';
 if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802'], true)) {
     throw new RuntimeException('This update targets the existing public orientation trial.');
 }
@@ -15,8 +16,7 @@ $course = $DB->get_record('course', ['shortname' => 'AI-ORIENTATION-TRIAL'], '*'
 $PAGE->set_course($course);
 $PAGE->set_context(context_course::instance($course->id));
 $spec = json_decode(file_get_contents($root . '/content/useful-context.json'), true, 512, JSON_THROW_ON_ERROR);
-$lesson = $DB->get_record('lesson', ['course' => $course->id, 'name' => $spec['title']], '*', MUST_EXIST);
-$lessoncm = get_coursemodule_from_instance('lesson', $lesson->id, $course->id, false, MUST_EXIST);
+
 $definitions = [
     'deeper-courses' => ['source' => 'deeper-courses', 'name' => 'Go deeper: courses and videos', 'section' => 1,
         'intro' => 'Optional courses and short videos: choose one question to explore, then bring an idea back to your own task.'],
@@ -28,20 +28,27 @@ $definitions = [
 // Fingerprints stay in memory: no learner details are printed or exported.
 $state = function () use ($DB) {
     $result = [];
-    foreach (['lesson_attempts', 'lesson_grades', 'lesson_branch', 'lesson_timer', 'lesson_answers', 'course_modules_completion'] as $table) {
+    foreach (['lesson_attempts', 'lesson_grades', 'lesson_branch', 'lesson_timer', 'lesson_answers', 'course_modules_completion', 'course_completions', 'course_completion_criteria'] as $table) {
         $result[$table] = hash('sha256', serialize($DB->get_records($table, null, 'id')));
     }
     return $result;
 };
 $before = $state();
 $transaction = $DB->start_delegated_transaction();
+$lessoncm = orientation_existing_module($course, 'useful-context', 'lesson', $spec['title'], $orientationtrial . '/course.json', 'lesson_cmid');
+if (!$lessoncm) throw new RuntimeException('Original context Lesson required.');
+$lesson = $DB->get_record('lesson', ['id' => $lessoncm->instance], '*', MUST_EXIST);
+$map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
+orientation_validate_baseline($map);
+$activities = array_column($map['activities'], null, 'slug');
 $resources = [];
 foreach ($definitions as $slug => $definition) {
-    $existing = $DB->get_record('page', ['course' => $course->id, 'name' => $definition['name']]);
+    $adopted = orientation_existing_module($course, $slug, 'page', $definition['name'], $orientationtrial . '/preparation.json');
+    $existing = $adopted ? $DB->get_record('page', ['id' => $adopted->instance], '*', MUST_EXIST) : null;
     if (!$existing) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
-            'name' => $definition['name'], 'section' => $definition['section'] ?? 0, 'visible' => 1,
+            'name' => $definition['name'], 'idnumber' => 'orientation:' . $slug, 'section' => $definition['section'] ?? 0, 'visible' => 1,
             'intro' => '<p>' . $definition['intro'] . '</p>', 'introformat' => FORMAT_HTML,
             'content' => file_get_contents($root . '/content/' . $definition['source'] . '.html'),
             'contentformat' => FORMAT_HTML, 'showdescription' => 1,
@@ -51,6 +58,10 @@ foreach ($definitions as $slug => $definition) {
         $existing = $DB->get_record('page', ['id' => $module->instance], '*', MUST_EXIST);
     }
     $cm = get_coursemodule_from_instance('page', $existing->id, $course->id, false, MUST_EXIST);
+    if (isset($activities[$slug])) {
+        set_coursemodule_name($cm->id, $activities[$slug]['label']);
+        $existing->name = $activities[$slug]['label'];
+    }
     $resources[$slug] = ['record' => $existing, 'cmid' => (int)$cm->id];
 }
 $briefpageid = $DB->get_field('lesson_pages', 'id', ['lessonid' => $lesson->id, 'title' => $spec['pages'][2]['title']], MUST_EXIST);
@@ -94,10 +105,10 @@ foreach (array_slice($spec['pages'], 0, 4) as $item) {
 }
 $section = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 0], '*', MUST_EXIST);
 course_update_section($course, $section, (object)[
-    'name' => 'Before the AI lesson', 'summaryformat' => FORMAT_HTML,
-    'summary' => '<p>Start with a quick files-and-folders check. Practise anything unfamiliar, then set up your notes if useful. Then explore text, voice, files and pictures with your AI. These preparation pages are self-guided; answers are not submitted or graded.</p>',
+    'name' => 'Course overview and optional preparation', 'summaryformat' => FORMAT_HTML,
+    'summary' => '<p>Use the course overview to choose any activity. Optional preparation offers a files-and-folders check, notes setup and ways to give your AI input. Practise anything unfamiliar or go straight to a core activity. These preparation pages are self-guided; answers are not submitted or graded.</p>',
 ]);
-if (!$DB->record_exists('page', ['course' => $course->id, 'name' => 'Your course journey'])) $DB->set_field('course', 'summary', '<p>Find your way around files and notes, then choose useful context, try it with your own AI and keep guidance you can reuse.</p><p>Early prototype · 20–30-minute preparation · optional notes setup · one 25–35-minute AI lesson.</p>', ['id' => $course->id]);
+if (!$DB->record_exists('course_modules', ['course' => $course->id, 'idnumber' => 'orientation:journey'])) $DB->set_field('course', 'summary', '<p>Find your way around files and notes, then choose useful context, try it with your own AI and keep guidance you can reuse.</p><p>Early prototype · 20–30-minute preparation · optional notes setup · one 25–35-minute AI lesson.</p>', ['id' => $course->id]);
 if ($before !== $state()) {
     throw new RuntimeException('Learner records or lesson answers changed; rolling back.');
 }

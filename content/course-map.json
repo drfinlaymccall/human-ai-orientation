@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "course_shortname": "AI-ORIENTATION-TRIAL",
+  "progress_description": "Activity practice, not a graded assessment or a statement of mastery.",
+  "activities": [
+    {
+      "slug": "first-task",
+      "idnumber": "orientation:first-task",
+      "label": "Try AI on a useful task",
+      "module_type": "page",
+      "public_url": "/first-task",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A first result and a way to judge it."
+      ],
+      "role": "core"
+    },
+    {
+      "slug": "useful-context",
+      "idnumber": "orientation:useful-context",
+      "label": "Give AI the right background",
+      "module_type": "lesson",
+      "public_url": "/preview",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A reusable context brief."
+      ],
+      "role": "core"
+    },
+    {
+      "slug": "portfolio",
+      "idnumber": "orientation:portfolio",
+      "label": "Save your context for next time",
+      "module_type": "page",
+      "public_url": "/portfolio",
+      "baseline": false,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A reviewed personal context portfolio."
+      ],
+      "role": "portfolio-bridge"
+    },
+    {
+      "slug": "check-and-continue",
+      "idnumber": "orientation:check-and-continue",
+      "label": "Check a result and plan your next step",
+      "module_type": "page",
+      "public_url": "/check-and-continue",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A checked result, an improvement and a next-step plan."
+      ],
+      "role": "core"
+    },
+    {
+      "slug": "before-you-start",
+      "idnumber": "orientation:before-you-start",
+      "label": "Files, notes and AI basics — optional help",
+      "module_type": "page",
+      "public_url": "/before-you-start",
+      "baseline": false,
+      "optional": true,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "Files and notes you can find again, and an available AI input route."
+      ],
+      "support_links": [
+        {
+          "label": "Set up your notes",
+          "url": "/notes",
+          "slug": "notes"
+        }
+      ],
+      "role": "optional-preparation"
+    }
+  ],
+  "baseline_version": 1,
+  "baseline_slugs": [
+    "first-task",
+    "useful-context",
+    "check-and-continue"
+  ]
+}

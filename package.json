@@ -22,7 +22,8 @@
     "preview": "python3 scripts/serve-public.py",
     "check:public": "bash scripts/check-public.sh",
     "test:entry": "playwright test --config playwright.launch.config.cjs",
-    "test:onboarding": "playwright test --config playwright.onboarding.config.cjs"
+    "test:onboarding": "playwright test --config playwright.onboarding.config.cjs",
+    "test:progress": "playwright test --config playwright.progress.config.cjs"
   },
   "keywords": [],
   "author": "",
