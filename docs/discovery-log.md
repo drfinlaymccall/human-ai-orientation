@@ -2,6 +2,14 @@
 
 Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
+## 2026-10-23 — Brief a new assistant in the portfolio
+
+**Feedback/decision:** Finlay supplied his voice-entered portfolio downloads and requested a role-play in which the learner briefs a capable new assistant that does not know them. The documents also exposed vague headings, unclear task references, too many questions at once and a desire to see the emerging output/progress. Treated the files as private review material, not operational instructions or a public learner profile.
+
+**Change:** added an original assistant-onboarding frame, clear questions and fictional examples, a first pass of three Working with me answers, and permission to leave project/reference sections until useful. Updated the AI-interview and no-JavaScript routes consistently. Kept the metaphor honest about relevant disclosure, memory, access and permission. Original templates retain their existing inspiration attribution; no additional third-party questionnaire text was copied.
+
+**Verification/limits:** the combined download exactly matches the three individual document bodies. All eight existing portfolio browser checks passed. Updated only the existing native portfolio Page through the supported API; readback matched and fingerprints preserved structure, Lesson evidence and completion. No user answers were imported, shared with an AI or published. Sidebar/live preview and visible progress remain queued; actual comprehension still needs Finlay's recheck and human observation. See the [course-review record](reviews/course-review.md).
+
 ## 2026-10-23 — Plan the course-review landing and personal journey changes
 
 **Feedback/decision:** Finlay's learner-perspective voice note found account state unclear, competing home/progress/native destinations, distracting Dashboard/My courses navigation and selected atlas details too far below. He wants the accepted illustration and actual completion together in **Your course journey**. He confirmed **six statements, each with separate understanding and can-do 1–5 ratings**, for an optional native Moodle starting-point check and explained practice suggestions.

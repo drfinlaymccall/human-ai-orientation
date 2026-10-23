@@ -316,6 +316,7 @@ These remain visible work, not hidden launch dependencies. Detail the selected i
 | L6 | Demonstrations, richer input and optional challenges | One short captioned/transcribed demonstration; experienced-user challenges; voice/images/live camera and accessible alternatives; browser/computer-action practice only where useful. |
 | L7 | Reporting and course expansion | Separate real/test accounts; use a modest progress/help/usefulness report to select improvements. Expand toward the earlier ten-session outline from actual need rather than making ten sessions a launch obligation. |
 | L8 | Account-backed portfolios, certificates and embedded assistance | Consider only if learners value them and privacy/portability/operating cost are acceptable. Include personalisation and further provider/resource pathways here; the separate human–agent curriculum-design programme remains outside this project. |
+| L9 | Guided portfolio steps, visible draft/progress and optional side preview | Follow CR12 in the course-review log: test the smaller first-pass briefing and clearer questions, then choose a compact interaction that shows the learner's own emerging documents without making every field compulsory. Preserve existing drafts, backup keys, selective sharing and no-JavaScript use. This UI is not delivered by the role-play copy revision. |
 
 ## Verification Contract
 
@@ -330,7 +331,7 @@ For this review batch, satisfy AE6–AE10 and every U1/U3/U8/U9 scenario, check 
 
 The public-launch slice is complete when R1–R10 and R12–R15's product and pilot outcomes are evidenced, the full V1 can be joined and resumed, and launch/post materials are ready for Finlay to publish.
 The CI permission task may remain explicitly open without blocking the course; local checks and remote CI must never be conflated.
-Later items L1–L8 are consolidated and sequenced, not falsely marked implemented; the competency/map draft remains subject to review.
+Later items L1–L9 are consolidated and sequenced, not falsely marked implemented; the competency/map draft remains subject to review.
 The current course is self-contained, retains earlier records and portable work, and has an operating owner, a useful help path and a dated improvement/release trail.
 The course-review batch is ready for Finlay's recheck when the home states the account/next action honestly, Your course journey is the illustrated personal hub, selected activity details/actions are easy to find, the six paired ratings and optional skip work neutrally, and recommendations are private/explained/overridable. A fresh synthetic full journey and two-user preservation checks must have actual evidence. Until then, the review log says Planned rather than Fixed.
 

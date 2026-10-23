@@ -23,6 +23,8 @@ Documentation/status updates are part of each change under AGENTS.md and CONTRIB
 
 ## Public trial deployment — 13 October
 
+**23 October portfolio role-play:** reframed the portfolio as briefing a new assistant, with explicit questions and fictional examples in every box. Learners can answer the first three, save Working with me and add project/reference material later. Public and native portfolio copy are updated; eight portfolio checks passed and native publication preserved course structure/evidence. Preview/sidebar and visible-progress suggestions remain queued. See the [review log](docs/reviews/course-review.md) and [portfolio authoring notes](docs/curriculum/portfolio-builder.md).
+
 Public deployment to `orientation.finlaymccall.com` is authorized. The server has managed PostgreSQL/PHP-FPM/web services, a Caddy HTTPS route, a public lesson preview and an individual reviewer account. Cloudflare MCP has created the proxied DNS record, and public HTTPS and independent external access are verified; see [deployment status](docs/trial/PUBLIC-DEPLOYMENT.md). This was the initial one-lesson deployment. The full journey and portfolio are now published; Gmail delivery is verified and password recovery enabled. Registration remains invitation-only. See the current state below.
 
 ## Agreed first release

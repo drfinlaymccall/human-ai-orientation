@@ -23,6 +23,10 @@ The fresh-conversation activity explicitly notes that account memory and instruc
 
 ## Learner experience and ownership
 
+**23 October role-play revision:** Finlay downloaded the three documents separately and as one combined file while reviewing the form with voice input. His entries described unclear headings, an unspecified task and fatigue as the form continued. The opening now frames the learner as briefing a new assistant. Each box asks an explicit question with an original fictional book-swap example; the first three Working with me questions make a useful first pass, and project/reference material can wait. The AI-interview prompt follows the same one-question-at-a-time briefing and offers a stopping point after three answers. The no-JavaScript template uses the same questions. The metaphor does not promise competence, lasting memory, computer access or automatic obedience, and it encourages relevant detail rather than exhaustive disclosure.
+
+This changes guidance, not the portfolio format: the same field IDs/keys, limits, export headings, review control, download/restore and temporary storage remain. The actual submitted documents stay outside the repository. Finlay's live-preview/sidebar and visible-progress suggestions remain queued in the [review log](../reviews/course-review.md); neither is implemented by this copy revision.
+
 - Every field is optional; short notes are enough. Each is limited to 2,000 characters.
 - Manual and AI-interview routes lead to the same editable documents.
 - A review checkbox records the learner's review and is cleared when context changes. It does not assess factual correctness.
@@ -70,6 +74,8 @@ A backup file should be treated as personal material. The public repository and 
 Build with `python3 scripts/build-journey.py`. The build only writes the four public generated pages. Embed `fragment(name)` in Moodle rather than the unexpanded source marker. Supply the shared CSS and JavaScript assets once per page. Extensionless routing, the existing preview's continuation link, home navigation and Moodle resource creation belong to the integration step; this unit does not change live services.
 
 ## Implementation and verification record
+
+**23 October role-play checks:** all eight existing portfolio browser checks passed on an isolated local port, covering download/restore, preservation, privacy separation, mobile fit and no-JavaScript access. The provided combined Markdown exactly matched the three individual document bodies. Published only the existing native portfolio Page using Moodle's supported Page API; content readback matched, and before/after fingerprints preserved module/section structure, Lesson evidence and completion records/criteria. Six anonymous live checks at 1440/390/320px with JavaScript enabled/disabled verified the final role-play, questions/plain-text fallback, Start my first briefing anchor and horizontal fit. Reviewed fictional/blank mobile screenshots; private screenshots remain outside GitHub. These are functional checks, not evidence that the new wording improves learner comprehension; Finlay's recheck and the human pilot remain.
 
 The tests were authored first. The initial focused run, before the public portfolio page and runtime existed, observed HTTP 404 for `/portfolio.html`, followed by a timeout waiting for the `about` field. The first attempt to start the static test server was blocked by the execution sandbox's socket restriction; the same isolated test ran with approved local-server permissions. This was an environment restriction, not a course failure.
 
