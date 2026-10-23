@@ -178,6 +178,26 @@ Hold the first review within seven days of pilot launch, then weekly. Choose the
 - Costs, support load, and revised forecast if needed:
 - Completed changes and validation:
 
+## Voice feedback - 23 October 2026
+
+Finlay authorised building stage one of the voice-input request in a separate branch alongside release-baseline work. The standalone Moodle plugin provides contextual private audio/text feedback, reviewed playback before Send, a private inbox and notifications. Transcription, voice in arbitrary answer fields and AI coaching remain later options.
+
+Source and synthetic verification are recorded in the [feature release](docs/releases/2026-10-23-voice-feedback.md); [operator setup](docs/operations/voice-feedback.md) covers explicit installation, course/reviewer enablement, retention and rollback. The release baseline was merged before this feature branch was rebased. No live activation is claimed by the feature build. Physical microphones/phones, Safari and an external notification receipt remain integration checks. Public registration and the launch batch in issue #9 are unchanged by this work.
+
 ## Source of truth
 
 This file owns dates, current priorities, the wishlist, and review records. The [design brief](docs/design-brief.md) owns the learning and product rationale; the [discovery log](docs/discovery-log.md) records decisions and unresolved questions. Update superseded decisions in place and preserve a short explanation in the discovery log.
+
+Finlay clarified the first feedback flow on 23 October: keep voice feedback as the minimum useful course feature, with a five-minute browser recording maximum. PR #11 now uses a 10 MiB upload allowance; no transcription or voice input in other fields is included. Updated verification is recorded in the feature release.
+
+## Live voice feedback — 23 October 2026
+
+Finlay authorised installation and enablement. Five-minute private audio/text feedback is now enabled for course 2; the owner administrator reviews the private inbox. Public help/privacy explain the channel. Public HTTPS browser checks verified record/listen/Send, exact private playback, reviewer access, peer/guest denial and a five-minute native upload. A generic notification email was captured locally; external receipt and physical microphones remain checks. Synthetic feedback was removed, temporary accounts suspended and pre-existing learner evidence preserved. See the [live release](docs/releases/2026-10-23-voice-feedback-live.md) and [local Codex test prompt](docs/operations/voice-feedback-local-test-prompt.md). PR #11 remains the integration record; newer launch work in the live checkout was preserved.
+
+## Compact feedback entry — 23 October 2026
+
+Finlay found the working feedback form unattractive and difficult to find from the homepage/journey. Replace the full-page-first experience with a consistent bottom-right “Give feedback” button and compact panel on public course pages and native Moodle activities. Keep record/listen/re-record/explicit Send, page context, private storage, and the full-page/no-JavaScript fallback. Closing releases the microphone and retains the draft on that page. The panel is live. Six isolated Moodle journeys and the public HTTPS flow passed, including sign-in return, close cleanup and private audio. Normal notifications are restored, synthetic data cleaned up and existing evidence preserved. See the [compact-panel release](docs/releases/2026-10-24-compact-feedback.md); operations and the local Codex test prompt describe the entry point.
+
+## Voice-channel request — 24 October 2026
+
+Queued: add optional local transcription guidance beside voice notes/dictation and voice feedback for learners with a suitable Mac or PC. Finlay prefers Fluid Voice with Parakeet and on-device transcription. Verify the exact app, platform support, hardware needs and local-processing claims before publishing a recommendation; this is a request, not a delivered integration. See the [request and acceptance checks](docs/requests/2026-10-24-local-voice-transcription.md).
