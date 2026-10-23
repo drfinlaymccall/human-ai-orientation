@@ -1,0 +1,52 @@
+form[data-voice-feedback] {
+    max-width: 46rem;
+    overflow-wrap: anywhere;
+}
+form[data-voice-feedback] label {
+    display: block;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+form[data-voice-feedback] textarea,
+form[data-voice-feedback] input:not([type="hidden"]),
+form[data-voice-feedback] audio {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+}
+form[data-voice-feedback] textarea,
+form[data-voice-feedback] input:not([type="hidden"]) {
+    padding: .6rem;
+    font: inherit;
+}
+form[data-voice-feedback] button {
+    min-height: 44px;
+    padding: .6rem 1rem;
+    margin: .25rem .25rem .25rem 0;
+    font: inherit;
+    cursor: pointer;
+}
+form[data-voice-feedback] button:disabled {
+    cursor: default;
+}
+form[data-voice-feedback] :focus-visible {
+    outline: 3px solid #1468a0;
+    outline-offset: 3px;
+}
+form[data-voice-feedback] .voice-recorder {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #718096;
+    border-radius: .4rem;
+}
+form[data-voice-feedback] [data-voice-timer] {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    margin-inline: .5rem;
+}
+form[data-voice-feedback] [data-voice-status] {
+    margin: .6rem 0 0;
+}
+form[data-voice-feedback] [hidden] {
+    display: none !important;
+}
