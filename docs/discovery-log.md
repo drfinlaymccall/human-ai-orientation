@@ -2,6 +2,40 @@
 
 Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
+## 2026-10-23 — Fold accepted activity atlas into HOC Forward plan
+
+**Request/decision:** Finlay approved the activity-led atlas preview and explicitly asked for it to be folded into the referenced **HOC Forward plan** chat. Read that chat and confirmed it is implementing the shared public-launch plan. It remains the canonical plan rather than creating a parallel roadmap or starting another implementation.
+
+**Change:** updated the [forward plan](plans/2026-10-23-002-feat-public-launch-plan.md) with the accepted direction, exact five destination labels, activity/task/competency distinction, details on what learners do/keep/practise, author-view purpose and public versus authenticated behaviour. U1 now owns atlas navigation; U3 reuses it with native completion and Continue. Added acceptance for readable/mobile/no-JavaScript choices, plain-language labels, correct links, revisiting and supported later-activity entry. Removed the obsolete visual-choice blocker and moved personal rating/storage/quiz work into the existing later workstreams. Preserved the exact [inline preview source](prototypes/orientation-activity-atlas.html) for the implementation chat. Updated CONTROL.md, design brief and framework acceptance notes; no learner/operator runtime guidance changes because this handoff changes planning only.
+
+**Verification/limits:** compared the preserved source with the original preview, checked plan/document links and whitespace, and reviewed U1/U3/L1/L2 consistency. Existing prototype browser evidence remains synthetic and is not substituted for production checks or a human pilot. The forward-plan chat is active; shared plan/source updates are available in its checkout. No course runtime, completion criteria, learner records or registration settings were changed by this integration.
+
+## 2026-10-23 — Explain the learner's activities before technical competency mapping
+
+**Feedback:** Finlay liked the orientation-atlas direction but found its labels, groupings and coded module/competency mapping confusing. He asked what the modules, tasks and competencies represent and how the front end will make the experience clear to learners and to him. The complaint concerns presentation; it does not reject the knowledge/capability design.
+
+**Proposal/change:** V1.2 of the [framework](curriculum/competency-framework-v1.md) opens with a plain-language activity map, purpose, takeaways and a worked detail view. Four principal destinations expose the three existing core activities and the portfolio bridge, with optional basics. The map's places are activities, tasks are actions inside them, and competencies are the knowledge and capabilities those tasks develop. The six capability groups and codes now sit in clearly labelled author references; a secondary skills map is a later option. Replaced the primary atlas's workshop/library/lookout names with labels saying what learners do. An in-chat clickable mockup explores activity selection and a readable course-design view; no mock assessments or learner outcomes are represented as saved records.
+
+**Verification/limits:** checked selection/detail updates, both viewpoint controls, public destinations, responsive layout and document references. This verifies prototype behaviour and editorial consistency, not human usability or a production Moodle integration. The preview opens existing public activities; no public course page, Moodle module, completion condition or learner data was changed. Wording and the activity-led layout await Finlay's judgement. Independent entry into later activities still needs appropriate existing/example context and production checks.
+
+## 2026-10-23 — Pair knowledge and capability; make misunderstanding diagnosis explicit
+
+**Feedback/requirement:** Finlay broadly supported the six-area draft but said “clarify a misunderstanding” concealed identifying and analysing the misunderstanding. He requested better competency verbs across revised Bloom, a knowledge component and a skills/capability component for each competency, and inspection of the publishing knowledge base and his thesis. This requirement is confirmed; the particular V1.1 wordings/mappings remain draft.
+
+**Change:** revised the [framework](curriculum/competency-framework-v1.md) to V1.1, retaining the 18 core and four optional foundations IDs. Each now has a paired knowledge outcome, knowledge-type mapping, and cognitive-process mapping for both knowledge and practical checks. TALK-02 makes diagnosis, repair and evaluation separately reviewable. A worked communication example covers all six cognitive categories; author guidance distinguishes Bloom's two dimensions from support/independence ratings, prohibits verb-only classification and records partial knowledge/performance evidence separately. Updated the design brief and CONTROL.md; current learner/operator guidance needs no change because the revision is design documentation only.
+
+**Source verification:** inspected the publishing knowledge base's curriculum-competence account, Appendix B extraction and taxonomy/competency table samples; checked original thesis PDF pp. 310–333 (printed 291–314) via Zotero `S7EIG9TW`, including human and shared-agent competency examples. Original page labels take precedence over the conflicting locator in the generated knowledge-base competency-table note. Retrieved Krathwohl (2002) and inspected the two-dimensional account, Tables 2–3 and worked classification (pp. 213–216). The bank applies these methods to orientation, rather than importing the thesis's domain outcomes or accreditation requirements. No external library or knowledge-base source was edited.
+
+**Verification/limits:** checked unique IDs, matching knowledge/capability coverage, Bloom-category coverage, links/anchors and documentation whitespace. These are editorial/structural checks, not validation of the proposed classifications or learner outcomes. No live page, map, quiz, saved rating or completion rule changed. Content/pilot review and images remain subsequent work.
+
+## 2026-10-23 — Competency bank and non-linear course map, text first
+
+**Feedback:** Finlay requested prototypes of a pretty, clickable, non-linear learner map, grounded in the earlier competency and self-evaluation discussion and research on experiential courseware. He asked to start with text before producing courseware images and supplied the six-area outline from **Plan Human AI course launch**.
+
+**Draft:** [V1 competency framework](curriculum/competency-framework-v1.md) retains those six areas, proposes 18 core can-do statements and four optional foundations statements, maps them to the existing activities, and separates engagement, completion, self-assessment, task evidence and course evaluation. It preserves Finlay's curriculum lineage and distinguishes that from Bloom, experiential practice and external competency frameworks. The atlas, constellation and garden are alternative visual briefs for the same bank. An additional “Not sure yet” response is proposed, not accepted.
+
+**Verification/limits:** read the existing design/rationale and activity sources, and retrieved **General feedback - high level** and **Plan Human AI course launch**. Inspected Council of Europe guidance, author-hosted experiential-learning cycle passages, Andrade's formative self-assessment account, Carnegie Mellon alignment guidance, UNESCO's publication overview and the AI Fluency course outline; source boundaries are recorded in the draft. Checked local documentation links and mapped public route/anchor targets. This is design documentation, not a validated framework or learner pilot. No images, live map, quiz, saved assessments, runtime changes or new completion requirements were produced. Labels, missing assessment prompts, complete resource coverage, storage/export and visual choice remain open.
+
 ## 2026-10-14 — Glossary and finding the agent's workspace
 
 **Feedback:** Finlay requested a glossary page for important course concepts, pre-populated in the proposal with likely terms and good definition links. He highlighted the agent's workspace, personal context/portfolio, settings and hidden `.codex`/Claude-related files, with Mac/Windows navigation and possible images of actual product interfaces.
@@ -211,6 +245,7 @@ Finlay reviewed the release plan and confirmed the course is still a demo with r
 Finlay also asked for help keeping GitHub and current documentation aligned. AGENTS.md and CONTRIBUTING.md now make documentation/status impact part of every plan and implementing PR. Reuse a relevant issue; a separate documentation issue is reserved for standalone work or deferred debt. Historical verification stays dated.
 
 The next product batch remains homepage conversion, verified registration/self-enrolment and clearer module progression, followed by the human pilot and LinkedIn course/module posts. Formal assessments are not a launch dependency. GitHub workflow publication remains a specific permission follow-up; local checks and remote Actions status are reported separately.
+
 
 ## 2026-10-23 — One forward plan after the release baseline
 
