@@ -1,6 +1,24 @@
 # Discovery and decision log
 
-Updated: 2026-10-13. This is a living interview record. Proposals are not decisions until accepted.
+Updated: 2026-10-14. This is a living interview record. Proposals are not decisions until accepted.
+
+## 2026-10-14 — Glossary and finding the agent's workspace
+
+**Feedback:** Finlay requested a glossary page for important course concepts, pre-populated in the proposal with likely terms and good definition links. He highlighted the agent's workspace, personal context/portfolio, settings and hidden `.codex`/Claude-related files, with Mac/Windows navigation and possible images of actual product interfaces.
+
+**Change:** added `curriculum/glossary.md` with original draft definitions, official sources, stable proposed term anchors, practical workspace/file-location guidance, screenshot requirements and connections to objectives/competencies. Linked it from the design brief and control-file queue. The proposal distinguishes working files, app configuration and instruction files, as well as local, remote and web-project contexts.
+
+**Verification/limits:** reviewed current course fragments and official OpenAI, Anthropic, Apple, Microsoft and Obsidian documentation on 14 October. Product guidance is documentation-checked, not an executed Mac/Windows walkthrough. No screenshots, live glossary, new tracking or learner capability evidence are claimed. Delivery priority and final visual treatment remain open.
+
+## 2026-10-14 — Page objectives, competencies and the learner's own map
+
+**Feedback:** while reviewing `/notes`, Finlay requested clear objectives and personal-goal connections for every page/resource, a course-wide objective/competency bank, individual can-do self-assessments, automatic reading progress and backlinks to instruction. He also proposed optional assessment by the learner's own AI and a portable visual competence map available during and after the course. This is owner feedback, not a learner-pilot finding.
+
+**Direction and proposals:** capture the course-wide intention and queue delivery. Recommend separating observable resource engagement, self-reported capability and task evidence; usefulness feedback is course evaluation. Use `/notes` as the worked example while preserving other notes apps. Exact engagement triggers, persistence/export and delivery priority remain open. AI-assisted assessment is an optional later experiment, with learner-reviewed feedback against explicit criteria.
+
+**Follow-up confirmed:** Finlay wants prior capability represented through an optional initial self-assessment, moving from the tentative “audit mode” idea toward a short course-based quiz. It proposes a starting competence map that learners can qualify: a correct answer might have been luck, and they may still choose practice. The intended progression is learner-directed. Added this entry route and a proposed metacognitive can-do statement about judging evidence and choosing practice. Exact wording, quiz coverage and recommendation rules remain open; this is not a validated placement instrument.
+
+**Change and verification:** added the exploration to the design brief and control-file inbox. Checked the current notes fragment and its four section anchors, existing completion/portability requirements, and Carnegie Mellon's alignment guidance. This is documentation only; no learning controls, tracking, records or deployed pages changed, and no learning-outcome validation is claimed.
 
 ## Confirmed from the conversation
 
@@ -176,3 +194,11 @@ Finlay approved the six progression-review recommendations and added a seventh: 
 Completed useful-task and check/continue activities and a three-document portfolio bridge, preserving the original Moodle Lesson and learner evidence. Chose browser-local temporary drafting with Markdown export and versioned JSON restore before considering account-backed portfolio storage. New manual completion records practice, not mastery; prior overall completion rules are preserved.
 
 Finlay selected hi@finlaymccall.com, entered Gmail app credentials privately in Moodle, and confirmed receipt of the test with the intended sender. SMTP and native recovery are enabled for invited accounts. Reviewed support uses an operator-assisted private draft queue with exact-message approval; no autonomous inbox or support responses are implied. The pilot protocol is prepared, but recruitment, real observations and evidence-led expansion remain open. See the dated release and operating records for checks and limits.
+
+## 2026-10-16 — Day of AI discovery and optional side quizzes
+
+Finlay requested discovery of Day of AI after seeing its World Food Day trivia, with interest in homepage side quests and email answer links leading to personalised outcomes. Reviewed public curriculum outlines, the trivia collection, reuse terms, family/professional-learning resources and the linked Australian games catalogue. Played the anonymous ages 11–13 World Food Day route through five questions using a browser research tool; no account was created or leaderboard score submitted.
+
+The [research ledger](research/day-of-ai.md) records 24 prioritised resource groups, additional candidates, attribution requirements, three original orientation question sketches and a proposed email-to-results flow. Recommended initial scope is a single untimed optional question with explanation and a next-practice link. A correct answer, a guess and demonstrated practical capability remain distinct, consistent with the proposed personal learning map. No new quiz, personal results service or email campaign is implemented by this research.
+
+The site's covered materials are CC BY-NC-SA 4.0, so credit alone does not allow unrestricted reuse or relabelling under the orientation's CC BY licence. Exact asset notices, partner media and intended commercial/noncommercial use need resolution before import. Day of AI's educator guide and privacy notice describe facilitated discussion without individual student assessment records; personalised outcomes must therefore be designed in the orientation. Full registered packs, other quiz age bands, partner game play-throughs and learner benefit remain unverified. CONTROL.md retains the idea and proposed sequence without making it a launch requirement.

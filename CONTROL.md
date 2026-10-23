@@ -1,6 +1,6 @@
 # Project control and wishlist
 
-Updated: 2026-10-13. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-10-16. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
@@ -125,7 +125,29 @@ Put rough ideas here without needing to design them first. During weekly review,
 
 For each idea, capture only what is known: **idea; who it helps; desired result; an example/link; urgency**. Missing fields are fine.
 
-No additional unsorted ideas yet. Existing ideas are captured above and in the design brief.
+### 14 October — Objectives, competencies and a personal learning map
+
+- **Idea:** attach a clear objective, a connection to the learner's personal objective and linked can-do statements to every course page/resource. Maintain a shared objective and competency bank, with individual self-assessment and links back to instruction.
+- **Who/result:** self-guided learners can see why a resource matters, what they can do, what needs practice and where to return. A personal competence map connects goals, progress and course modules and becomes a portable takeaway.
+- **Example:** `/notes` supports setting up a notes app, creating and reopening a note, and selecting context to share. See the [worked example and design exploration](docs/design-brief.md#course-wide-objectives-and-competencies--14-october-feedback).
+- **Entry route confirmed:** offer an optional course-based self-assessment quiz to suggest the learner's starting map, including prior capability. Learners review suggestions, can flag guesses or uncertainty, and choose practice even after correct answers. Skipping the quiz remains valid; the map guides a learner-directed route rather than locking modules.
+- **Sequence proposed for review:** author the bank and pilot the page pattern on `/notes`; then add saved self-assessments, automatic resource-engagement records and the personal map. Queue optional bring-your-own-AI assessment as a later experiment using explicit tasks and criteria.
+- **Urgency/status:** course-wide direction requested by Finlay; priority and implementation details remain open. No new launch deadline or claim that these features are live. Keep reading progress distinct from capability and preserve historic completion and alternative notes apps.
+
+### 14 October — Linked course glossary and workspace guides
+
+- **Idea/result:** a shared glossary page lets learners follow unfamiliar terms to a plain-language definition, concrete example, official guidance and a link back to their activity. Include the glossary's own objective and competency connections.
+- **Proposal populated:** [starter glossary and finding your workspace](docs/curriculum/glossary.md), covering files/paths, hidden folders, agent workspaces, context/portfolio, instructions/settings/memory and learning/progress terms. Includes Mac/Windows navigation and product-specific Claude Code/Codex file locations.
+- **Visuals and integration queued:** real annotated app/OS screenshots, public and Moodle glossary pages, and definition links through the course. Distinguish local files, remote environments and web-project knowledge; use exact `.claude/`, `.codex/`, `CLAUDE.md` and `AGENTS.md` names.
+- **Status:** source-backed proposal only. Publishing, screenshots, physical OS walkthroughs and delivery priority remain open; no requirement to install an agent or edit hidden configuration to complete orientation.
+
+### 16 October — Day of AI resources and optional side quizzes
+
+- **Idea:** Finlay proposed optional homepage side quests and one-question course emails that return learners to personalised outcomes, inspired by [World Food Day trivia](https://dayofai.org/games/trivia/world-food-day).
+- **Discovery:** [Day of AI resource and integration ledger](docs/research/day-of-ai.md) records 24 prioritised resource groups, further catalogue leads, six Australian games, access checks and item-level reuse follow-ups. Strong matches include choosing AI tasks, context/data judgement, verification, short activities, vocabulary cards and workplace/portfolio exercises.
+- **Proposed first slice:** one untimed, original orientation question with explanatory feedback and a next-practice link; three question sketches are recorded. Keep it optional and separate from course completion and practical competence claims.
+- **Later dependency:** personal results and email return links need confirmed-response storage, learner identity, learning-map links and subscription/frequency controls. A link visit must not itself save an answer. The service's own game score is not a student analytics integration.
+- **Rights/status:** Day of AI covered material is CC BY-NC-SA 4.0, not this project's CC BY 4.0. Inspect exact assets and intended use before adaptation; partner resources have separate checks. Discovery is complete to the documented scope; implementation, publication and learner email delivery remain proposals, with no new launch commitment.
 
 ## Weekly review
 

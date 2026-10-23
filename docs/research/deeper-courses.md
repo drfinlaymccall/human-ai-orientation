@@ -59,3 +59,7 @@ Finlay selected **CC BY 4.0** on 13 October 2026 for original course materials. 
 - [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/): attribution, adaptation and licence conditions.
 
 Review access, links, outlines, interface age and licence notices during weekly maintenance before any deeper integration. Keep documentation-based recommendations separate from eventual first-hand course and learner evaluations.
+
+## Day of AI discovery — 16 October 2026
+
+See the [Day of AI resource and integration ledger](day-of-ai.md) for optional trivia, short activities, verification and oversight scenarios, vocabulary cards, workplace/portfolio lessons, family resources and Australian games. It includes a tested anonymous World Food Day route, priority and access notes, attribution templates and a proposed homepage/email flow. Covered Day of AI materials use CC BY-NC-SA 4.0; item-level and partner exclusions still require inspection before import. Original question sketches are distinguished from potential adaptations. No learner-facing resources were imported or published by this discovery.

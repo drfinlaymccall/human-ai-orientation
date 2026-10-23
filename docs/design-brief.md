@@ -1,6 +1,6 @@
 # Human AI Orientation — course design brief
 
-Updated: 2026-10-13. Stage: working public course and invitation-only Moodle pilot. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
+Updated: 2026-10-14. Stage: working public course and invitation-only Moodle pilot. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
 
@@ -218,6 +218,59 @@ Each lesson should offer a plain-language purpose, an estimated time, a short ex
 
 
 Accessibility criteria should include clear language, meaningful headings, keyboard use, readable layouts, captions or transcripts, visible feedback, and alternatives to audio or camera participation. Test with real users as well as technical checks.
+
+## Course-wide objectives and competencies — 14 October feedback
+
+**Status:** Finlay requested this direction while reviewing `/notes`. This is a learning-design exploration; tracking, assessment controls and the personal map are proposed, not implemented. Priority is held in the [control-file inbox](../CONTROL.md#brain-dump-inbox).
+
+Every course page and resource should explain what the learner will be able to do after using it, connect that purpose to their own learning objective, and link to a shared course bank of objectives and competencies. Linked external resources need the same purpose and mapping in their course description. Use observable verbs informed by revised Bloom; learners see plain-language can-do statements rather than taxonomy jargon.
+
+Connect the page's intended outcome, the reusable capability and the learner's personal reason for developing it. For example, “I can create and retrieve a useful note” may serve “I want to keep my project context somewhere I can find it.” A competency can have several supporting resources without creating duplicate skills. Learners should be able to link an existing personal goal or write their own, without inventing a new goal on every page.
+
+### Worked example: `/notes`
+
+Proposed objective: **After following this guide and trying the steps, you can set up Obsidian, create and reopen a useful note, and choose relevant text to share with your AI.** Preserve another-notes-app alternatives; Obsidian installation is an optional tool-specific accomplishment, not a universal completion requirement.
+
+| Proposed can-do statement | Self-check or task | Return to instruction |
+| --- | --- | --- |
+| I can install and open Obsidian, if I choose that route | Have you installed and opened it? Yes / Not yet / Using another app | `/notes#install` |
+| I can choose and locate the folder holding my notes | Find the vault folder in Finder or File Explorer | `/notes#vault` |
+| I can create, save and reopen a useful note | Create “My context”, close it and find it again | `/notes#note` |
+| I can select relevant context to share with an AI | Choose a useful excerpt and explain what you left out | `/notes#share` |
+
+Default assessment is the learner's own judgement. Proposed choices for practical skills are “Not tried”, “Can do with help” and “Can do independently”, each linked to practice guidance. Yes/no questions suit factual setup checks; multiple-choice questions can check understanding. Neither an installation tick nor a recall answer establishes every practical skill. “Did you find this useful?” belongs to course evaluation and does not award competence.
+
+### Progress, evidence and the personal map
+
+Finlay wants automatic reading progress without a completion click. Proposed interpretation: record observable resource engagement separately from capability and describe honestly what was detected. Opening a page, scrolling or leaving it open cannot establish comprehension. The trigger and label need design; an AI fetching a public resource or a learner following an external link cannot establish human learning.
+
+The map should show course modules, linked competencies, personal objectives, completed activity, continuing practice and useful next steps, with backlinks to teaching resources. Show whether a capability claim rests on self-assessment, task evidence or optional AI feedback. Offer the map during the course and at the end, with a readable list alternative and a portable copy alongside the context portfolio. Individual records should remain private. Public reading and no-JavaScript routes remain useful; durable progress requires an explicit storage/return design rather than assuming a page visit identifies a learner.
+
+### Optional entry self-assessment: find your starting point
+
+Finlay confirmed that the map should recognise prior capability and proposed an optional short quiz based on course material. Explain its purpose before entry: discover a useful starting point, identify possible practice needs and choose a route. Learners can take it or start the course directly. “Find your starting point” is proposed learner-facing wording; “audit mode” and “placement test” are working descriptions, not settled labels or a compulsory gate.
+
+The quiz produces provisional suggestions for linked competencies, which the learner reviews before treating them as their own capability claims. Let them distinguish “I can do this”, “I think I can”, “Not sure” and “I want to practise”, and flag a correct answer as a guess. A correct answer does not automatically establish practical independence. Where the intended outcome is performance, offer a small task or self-check alongside knowledge questions. Skipping the quiz leaves capability unknown rather than recording failure.
+
+Preserve the difference between the quiz answer and the learner's interpretation: “answered correctly; guessed; practice chosen” is a useful result. The learner can revise their judgement, visit any resource, or practise an apparently familiar skill. Suggestions guide the route without locking modules or marking skipped learning as newly achieved. Show prior self-reported capability separately from development during the course.
+
+This also introduces a metacognitive can-do statement: **I can compare evidence of my current ability with a task's requirements and choose what to practise next.** Reviewing an answer, recognising uncertainty and choosing practice are opportunities to develop that capability; merely agreeing that one can self-evaluate does not demonstrate it. The exact quiz, length, coverage and recommendation rules remain to be designed.
+
+### Queued experiment: ask your AI to help assess you
+
+Offer a copyable task and rubric for the learner's own AI. Ask it to wait for an attempt, compare that attempt with the criteria, explain the evidence and uncertainty, and suggest one practice task. Example: ask the learner to reopen a note and explain how they found it; distinguish reported actions from anything the AI actually observed. The learner reviews the feedback and decides whether to update their self-assessment. AI feedback must not silently certify capability or overwrite course completion.
+
+Keep the ordinary self-check route complete without AI and permit fictional material. The prompt should wait for the learner's attempt before giving a worked answer; repeating an AI-generated answer is not evidence of independent performance.
+
+**Basis and open decisions:** this extends R6, R14, R20 and the [scholarly rationale](research/scholarly-design-rationale.md). Carnegie Mellon's [alignment guidance](https://www.cmu.edu/teaching/assessment/basics/alignment.html), checked 14 October 2026, supports matching objectives to practice and assessment; it does not validate this tracking or AI-assessment proposal. Resolve initial competency and quiz coverage, automatic engagement labels/triggers, durable storage/export and a small pilot of whether learners can use the map. No human pilot evidence for this addition has been collected.
+
+## Linked course glossary — 14 October feedback
+
+Finlay requested a course glossary linking important concepts to plain-language definitions, examples and practical help finding them. The [pre-populated proposal](curriculum/glossary.md) supplies a starter bank with sources, including personal context/portfolio, settings files, memory, instructions, workspaces, paths, hidden folders and the new learning/progress terms. This is a proposed course resource, not a published page.
+
+Give each entry a stable link, related concepts and a route back to practice. Where location matters, name the product, mode and operating system, explain how to find it, and add a real annotated screenshot with a text alternative. Distinguish an agent's working folder from its configuration folder, a local folder from a remote environment, and a web project's knowledge collection from a filesystem directory. Explain `.claude/` and `.codex/` separately from `CLAUDE.md`, `AGENTS.md`, `settings.json` and `config.toml`, including user/project scope and Mac/Windows visibility differences.
+
+The glossary follows the objective/competency pattern above: learners should be able to explain a term, locate the relevant item and return to their task. Finding and reopening an example result is a practical check; reading a definition alone does not establish capability. Preserve the ordinary chat, alternative notes-app and no-JavaScript routes. Screenshots, glossary publication and inline course links are queued in CONTROL.md.
 
 ## Public context for learners and their AI
 
