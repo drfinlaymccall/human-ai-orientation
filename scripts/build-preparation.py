@@ -18,7 +18,7 @@ for slug, source, title in [
     body = writing_support(body, slug)
     generated = ROOT / 'content/generated'
     generated.mkdir(exist_ok=True)
-    (generated / f'{slug}.html').write_text(body)
+    (generated / f'{slug}.html').write_text(body.rstrip() + '\n')
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script></head>
