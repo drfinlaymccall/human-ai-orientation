@@ -32,6 +32,7 @@ These checks protect later edits to generated course pages, portfolio download/r
 ## Synthetic onboarding/progress fixture
 
 The additive optional native self-rating check has its own [publication and verification guide](operations/starting-point.md). Run `npm run test:starting-point:rules` for portable rule invariants and `ORIENTATION_FIXTURE_URL=http://127.0.0.1:18812 npm run test:starting-point` for its guarded native fixture checks. The same fixture-only capture and isolation requirements apply; do not use a live learner runtime. The publisher defaults to hidden/disabled pending owner review of saved-rating privacy/help wording.
+Reusable writing support has portable checks in `npm run test:tips` and native direct-module checks in `npm run test:tips:native`. The latter uses this isolated fixture and fresh synthetic users; it requires no production account or mail. Build preparation/brief/journey fragments before native publication. See [Finlay’s Tips authoring and verification](curriculum/finlays-tips.md).
 
 With the private local PHP/PostgreSQL runtime already available, `python3 scripts/prepare-launch-fixture.py` installs pinned Moodle source into ignored `trial/launch-fixture/` and creates a **new** database named `orientation_launch_fixture`. It never copies the live database, configuration, credentials or SMTP settings. It refuses an existing fixture rather than overwriting it. The installation is for synthetic localhost testing, not a public deployment recipe.
 

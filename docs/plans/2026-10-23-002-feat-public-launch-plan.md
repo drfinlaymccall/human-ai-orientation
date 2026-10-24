@@ -219,6 +219,8 @@ The signed-in journey uses the same illustration, activity names and actual Mood
 **Test scenarios:** Known signed-in/signed-out and failed/slow session probe; closed/open registration wording; desktop 1440px, 390px and 320px; keyboard selection/action and no-JavaScript list; all five destinations and later-activity entry. Expected: account state is honest, selected title/action agree and action is discoverable without scrolling beyond the whole atlas. No account is required for public reading.
 **Documentation:** CONTROL.md, README, atlas authoring guide, review log and dated release evidence in the same PR.
 
+**Writing-support convention:** use the shared Finlay’s Tips component for editable learning fields: voice-input reminders, reusable prompt starters and a side panel where space permits, with stacked/no-JavaScript alternatives. Keep it distinct from account-backed creations/navigation panels. Authoring and current verification belong in `docs/curriculum/finlays-tips.md` and the CR15 review record; no separate Moodle block or speech service is required.
+
 ### U2. Finish verified registration, enrolment and account help
 
 **Requirements:** R2, R7; F1, AE2. **Dependencies:** U1's route/copy contract.
