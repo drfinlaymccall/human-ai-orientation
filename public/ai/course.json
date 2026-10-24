@@ -3,11 +3,11 @@
   "schema_version": "1.3",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-24.2",
+  "context_version": "2026-10-24.3",
   "updated": "2026-10-24",
   "status": "Public reading with invitation-only account access; broader registration is not open.",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-24.2/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-24.3/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
@@ -19,12 +19,12 @@
   "ai_browsing_required": false,
   "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in the public lesson. Neither AI browsing nor a GitHub account is a completion requirement.",
   "learning_outcomes": [
-    "Identify a small useful task and a sign of success.",
-    "Choose relevant context and explain what to leave out.",
-    "Distinguish private notes, the current conversation and product-specific saved context.",
-    "Check an AI result, ask for a correction and retain or revise reusable guidance.",
-    "Build and review working preferences, project context and knowledge/source notes; download and restore them.",
-    "Select useful context for a fresh conversation, check its result, and retain a next goal and first step."
+    "Choose a worthwhile task and decide what a useful result would look like.",
+    "Explain your intention, notice a misunderstanding and clarify it.",
+    "Choose relevant context, leave out unnecessary private details and check what the AI actually received.",
+    "Check a result against your purpose and decide what to keep, correct or reject.",
+    "Save, find and selectively reuse reviewed context in another conversation.",
+    "Identify your own next learning need and choose a manageable next step."
   ],
   "steps": [
     {

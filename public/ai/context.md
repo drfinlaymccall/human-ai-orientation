@@ -1,24 +1,24 @@
 # Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-24.2
+Version: 2026-10-24.3
 Updated: 2026-10-24
 Author: Finlay McCall
 Status: Public reading with invitation-only account access; broader registration is not open.
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-24.2/context.md
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-24.3/context.md
 
-Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.
+Learn to team with AI: choose a useful task, give context, check the result and keep what helps. Practise communicating what you need, giving useful background, checking results and keeping useful work. Leave with a reviewed context portfolio and a meaningful next goal. This orientation is useful on its own and prepares the ground for a broader human–AI education programme.
 
 People who are not AI specialists. Do not assume low confidence or technical knowledge.
 
 ## Learning outcomes
 
-- Identify a small useful task and a sign of success.
-- Choose relevant context and explain what to leave out.
-- Distinguish private notes, the current conversation and product-specific saved context.
-- Check an AI result, ask for a correction and retain or revise reusable guidance.
-- Build and review working preferences, project context and knowledge/source notes; download and restore them.
-- Select useful context for a fresh conversation, check its result, and retain a next goal and first step.
+- Choose a worthwhile task and decide what a useful result would look like.
+- Explain your intention, notice a misunderstanding and clarify it.
+- Choose relevant context, leave out unnecessary private details and check what the AI actually received.
+- Check a result against your purpose and decide what to keep, correct or reject.
+- Save, find and selectively reuse reviewed context in another conversation.
+- Identify your own next learning need and choose a manageable next step.
 
 ## Guidance for the learner’s AI
 

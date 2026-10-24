@@ -1,6 +1,6 @@
 # Student onboarding and the course rationale
 
-Created: 2026-10-24. Status: proposed learner copy and delivery brief; not published or enabled. Implementation stays in the [canonical forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md), WB23, under existing issues #4/#9.
+Created: 2026-10-24. Status: implementation candidate for WB23; production publication and welcome enablement remain separate. Implementation stays in the [canonical forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md), WB23, under existing issues #4/#9.
 
 ## Why this course exists
 
@@ -29,7 +29,7 @@ These are practice goals, not a new pass/fail assessment. Use the existing compe
 
 ## The learner's first visit
 
-| Stage | What the student needs | Proposed experience |
+| Stage | What the student needs | Delivered experience |
 | --- | --- | --- |
 | Arrive | Why this matters; whether it is for me; what next | Human AI Orientation name, **Learn to team with AI** headline, short rationale, objectives, current time estimate and primary **Explore your course journey** action. Show account state and the public reading option honestly. |
 | Join when registration is available | Clear account, confirmation and enrolment steps | Preserve native Moodle registration/confirmation/enrolment and a deliberately chosen activity destination. While broad registration is closed, retain existing pilot-access wording. |
@@ -43,9 +43,9 @@ The welcome material is available inside the course as well as by email. Student
 
 ## Welcome email draft
 
-**Trigger:** first successful enrolment of a confirmed student in this course. Use the supported Moodle self-enrolment welcome facility after checking the pinned implementation. Cover invited/manual enrolments explicitly or provide equivalent in-course guidance. Do not send a course welcome merely because an unconfirmed account was created. Confirmation and recovery messages retain their separate purposes. No retrospective bulk send to existing students.
+**Trigger:** successful self-enrolment of a confirmed student in this course. Use the supported Moodle self-enrolment welcome facility after checking the pinned implementation. Cover invited/manual enrolments explicitly or provide equivalent in-course guidance. Do not send a course welcome merely because an unconfirmed account was created. Confirmation and recovery messages retain their separate purposes. No retrospective bulk send to existing students.
 
-**Subject:** Welcome to Human AI Orientation — your course journey
+**Native subject:** Welcome to [course full name]. Moodle supplies its standard subject; the supported customisation is the message body.
 
 > Welcome to Human AI Orientation.
 >
@@ -67,7 +67,7 @@ The welcome material is available inside the course as well as by email. Student
 
 This draft assumes WB04's **Your course journey** is delivered before sending. The link uses the existing stable signed-in gateway; verify its actual destination at publication. Supply a readable plain-text alternative with full links. Reconfirm duration against the released activity map. Add the optional-check link only once live. Do not include passwords/private work, promise response times or add marketing subscriptions.
 
-The current configuration refreshes welcome text but preserves an existing method's send mode; newly created methods default sending off. Deliberately configure and test delivery rather than assume text changes send mail. Re-running configuration, sign-in, password reset or revisiting the course must not send another welcome. Preserve unrelated enrolment settings/access. Check what happens on removal/re-enrolment before claiming one-time delivery across that lifecycle.
+The current configuration refreshes welcome text but preserves an existing method's send mode; newly created methods default sending off. Deliberately configure and test delivery rather than assume text changes send mail. Re-running configuration, sign-in, password reset or revisiting the course must not send another welcome. Preserve unrelated enrolment settings/access. Native removal and re-enrolment sends another welcome. Direct repeated calls to the native enrol API may also resend; no cross-lifecycle exactly-once guarantee is made.
 
 ## Carry the rationale through the course
 
@@ -95,3 +95,9 @@ Concrete patterns: instruct → inspect → clarify; bring context → check wha
 **Done:** entry, welcome, journey, activities, exit and public AI guidance express one rationale; a new enrolled student can find where to begin, where saved work lives and how to get help; welcome delivery/return links are verified; optional routes and old learner evidence remain intact. Broad registration retains existing readiness gates.
 
 **Documentation/status impact:** update CONTROL.md, design brief, learner welcome/course copy, onboarding/email/progress operations, local-agent QA, AI context and a dated release receipt with implementation. Reuse #4/#9 and the existing plan. Verification for this brief is source/document inspection only: no new mail, runtime checks or live publication.
+
+## WB23 implementation boundary — 24 October 2026
+
+Canonical public copy is `content/student-welcome.json`; the public builder distributes the same bytes into the plugin. Native enrolment owns delivery and the fixed subject, preferences and plain-text conversion. `welcome-enable` and `welcome-disable` target only this course’s existing self-enrolment method, preserve restrictions and do not enrol learners or send retrospective messages. Ordinary onboarding configuration retains the existing send mode. Manual/invited learners receive equivalent in-course guidance without enabling global manual-enrolment mail. See [operations](../operations/onboarding.md).
+
+The native email renderer wraps prose in Moodle’s supported `nolink` class to prevent the activity-name filter inserting competing legacy course-page links. Its four explicit links remain readable in HTML/plain text. Five synthetic native mail scenarios and twenty source assertions passed for the first implementation unit. Full integrated WB10 evidence is recorded separately in the [current rehearsal](../qa/2026-10-24-wb23-wb10-rehearsal.md); this paragraph does not substitute for that result.

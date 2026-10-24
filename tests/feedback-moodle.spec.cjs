@@ -5,6 +5,7 @@
 const { test, expect } = require('@playwright/test');
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 const fixtures = JSON.parse(fs.readFileSync(process.env.FEEDBACK_FIXTURES || 'trial/feedback-fixtures.json', 'utf8'));
 const formPath = `/local/orientationfeedback/index.php?courseid=${fixtures.courseid}&cmid=${fixtures.cmid}`;
 const wav = Buffer.alloc(8044, 128);
@@ -306,4 +307,81 @@ for (const saved of [false, true]) test('real account switch clears cached feedb
   await expect(frame.locator('audio')).toHaveCount(1); // Recorder's empty, hidden preview only.
   await expect(frame.locator('audio')).not.toBeVisible();
   expect(await frame.locator('body').textContent()).not.toContain(previousText);
+});
+
+test('native feedback expiry probe preserves the retained session and prevents reopening its cached receipt', async ({ page, context }) => {
+  test.setTimeout(120000);
+  const root = path.resolve(__dirname, '..');
+  const fixture = path.join(root, 'trial/context-fixture');
+  const base = 'http://127.0.0.1:18842';
+  if (fixtures.synthetic !== true || fixtures.wwwroot !== base || fs.lstatSync(fixture).isSymbolicLink()) {
+    throw new Error('Expiry mutation requires the independent synthetic context fixture on port 18842.');
+  }
+  const prelude = `define('CLI_SCRIPT',true); require ${JSON.stringify(path.join(root, 'scripts/moodle-environment.php'))}; require_once ${JSON.stringify(path.join(root, 'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!==${JSON.stringify(base)} || !orientation_is_synthetic_fixture($orientationtrial,$CFG)) throw new RuntimeException('Fixture only'); `;
+  const php = code => execFileSync(path.join(root, 'scripts/fixture-php'), ['-r', prelude + code], {
+    cwd: root, env: { ...process.env, ORIENTATION_TRIAL_DIR: fixture }, encoding: 'utf8',
+  });
+  // Validate the actual DB, dataroot and capture transport before writing any fixture file.
+  php('echo "Synthetic context fixture verified";');
+  const endpoint = `feedback-session-fixture-${Date.now()}.php`;
+  const endpointPath = path.join(fixture, 'moodle', endpoint);
+  const pending = base + formPath;
+  fs.writeFileSync(endpointPath, `<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root, 'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!==${JSON.stringify(base)} || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(pending)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
+  try {
+    await login(page, 'author');
+    await feedbackSessionShell(page);
+    const launch = page.getByRole('link', { name: 'Give feedback', exact: true });
+    await launch.click();
+    const iframe = page.locator('iframe[title="Private feedback to Finlay"]');
+    const frame = page.frameLocator('iframe[title="Private feedback to Finlay"]');
+    await expect(frame.locator('textarea[name=message]')).toBeVisible();
+    await iframe.evaluate((element, id) => { element.src = '/local/orientationfeedback/index.php?embedded=1&id=' + id; }, fixtures.recordid);
+    await expect(frame.getByRole('heading', { name: 'Feedback saved', exact: true })).toBeVisible();
+    const privateText = await frame.locator('.feedback-saved-note').textContent();
+    expect(privateText.length).toBeGreaterThan(0);
+    await expect(frame.locator('audio')).toBeVisible();
+    const cachedFrame = await iframe.elementHandle();
+    await page.getByRole('button', { name: 'Close feedback', exact: true }).click();
+
+    // Seed a real pending destination through Moodle's normal session writer, then retain its cookie.
+    expect(await (await page.request.get('/' + endpoint)).json()).toEqual({ seeded: true });
+    const cookies = await context.cookies();
+    const cookie = cookies.find(item => item.name.startsWith('MoodleSession'));
+    expect(cookie).toBeTruthy();
+    expect(cookie.value).toMatch(/^[a-zA-Z0-9,-]+$/);
+    const sid = JSON.stringify(cookie.value);
+    const snapshot = () => JSON.parse(php(`$s=$DB->get_record('sessions',['sid'=>${sid}],'*',MUST_EXIST); $data=file_get_contents(($CFG->session_file_save_path??$CFG->dataroot.'/sessions').'/sess_'.$s->sid); echo json_encode(['userid'=>(int)$s->userid,'timestamp'=>(int)$s->timemodified,'record'=>hash('sha256',serialize($s)),'payload'=>hash('sha256',$data),'pending'=>str_contains($data,${JSON.stringify(pending)})]);`));
+    const probe = async expired => {
+      const before = snapshot();
+      expect(before.userid).toBe(Number(fixtures.users.author.id));
+      expect(before.pending).toBe(true);
+      for (const method of ['GET', 'HEAD']) {
+        const response = await page.request.fetch('/local/orientationfeedback/session.php', { method, maxRedirects: 0 });
+        expect(response.status()).toBe(200);
+        expect(response.headers()['cache-control']).toMatch(/private.*no-store/);
+        expect(response.headers()['vary']).toContain('Cookie');
+        expect(response.headers()['content-type']).toContain('application/json');
+        expect(response.headers()['set-cookie']).toBeUndefined();
+        if (method === 'HEAD') expect(await response.text()).toBe('');
+        else if (expired) expect(await response.json()).toEqual({ owner: null });
+        else expect(await response.json()).toEqual({ owner: expect.stringMatching(/^[a-f0-9]{64}$/) });
+      }
+      expect(snapshot()).toEqual(before);
+      expect(await context.cookies()).toEqual(cookies);
+    };
+    await probe(false);
+    php(`$DB->set_field('sessions','timemodified',time()-(int)$CFG->sessiontimeout-60,['sid'=>${sid}]);`);
+    await probe(true);
+
+    // Normal form navigation may now end the expired session; the cached private receipt must be discarded first.
+    await launch.click();
+    await expect(frame.getByRole('heading', { name: 'Help make the course better', exact: true })).toBeVisible();
+    await expect(frame.getByRole('link', { name: 'Sign in to give feedback', exact: true })).toBeVisible();
+    expect(await cachedFrame.evaluate(element => element.isConnected)).toBe(false);
+    await expect(frame.locator('.feedback-saved-note')).toHaveCount(0);
+    await expect(frame.locator('audio')).toHaveCount(0);
+    expect(await frame.locator('body').textContent()).not.toContain(privateText);
+  } finally {
+    fs.rmSync(endpointPath, { force: true });
+  }
 });

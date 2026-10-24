@@ -13,6 +13,7 @@ if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com' && !orientation_is_
     throw new RuntimeException('This update targets the existing orientation installation or isolated launch fixture.');
 }
 $map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
+$welcome = json_decode(file_get_contents($root . '/content/student-welcome.json'), true, 512, JSON_THROW_ON_ERROR);
 orientation_validate_baseline($map);
 $activities = array_column($map['activities'], null, 'slug');
 \core\session\manager::set_user(get_admin());
@@ -96,7 +97,7 @@ foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-
 }
 course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
     'summary' => '<p>Choose and try a useful task, give context and build your portfolio, then check and continue. Mark the new activities done yourself. The original context lesson retains its own saved progress and reflection.</p><p><a href="/mod/page/view.php?id=' . $ids['journey'] . '">See the full journey and saving guidance</a></p>']);
-$DB->set_field('course', 'summary', '<p>A useful task → a better context brief → your own portable portfolio → a checked result and next goal.</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
+$DB->set_field('course', 'summary', '<p>' . s($welcome['rationale']) . '</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');
 $transaction->allow_commit();
 $footer = get_config('core', 'additionalhtmlfooter') ?: '';
