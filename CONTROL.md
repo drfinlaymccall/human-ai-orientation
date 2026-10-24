@@ -195,3 +195,7 @@ This file owns dates, current priorities, the wishlist, and review records. The 
 ## Reading preview cleanup — 24 October 2026
 
 Finlay reported the Finlay’s Tips box in section 7 of `/preview` as redundant. The public reflection now omits the writing-support panel; its text and tips beside actual writing fields remain. The shared builder preserves native Moodle essay support and produces identical native lesson source. Six existing Tips checks and live narrow-screen checks with/without JavaScript passed; repeated generation is stable. See [author guidance](docs/curriculum/finlays-tips.md).
+
+## Course-wide tips audit — 24 October 2026
+
+Checked all 13 public HTML pages with and without JavaScript and authored content for 14 Moodle pages. Four additional panels were visible in reading fallbacks while their enhanced writing controls were hidden: brief, try/check, portfolio and check-and-continue. Shared styling now shows tips only alongside available editable controls and removes the unused sidebar column. Native essay support requires its actual editable Moodle field. Seven public Tips checks, two isolated native Moodle journeys and all 26 live public page/mode checks passed. No live lesson data or learner answers were changed.

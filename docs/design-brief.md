@@ -350,3 +350,7 @@ The minimum public prototype and hosting machine are now selected. Resolve befor
 ### Tips only where the learner writes — 24 October 2026
 
 Finlay identified the tips box in section 7 of the reading preview as redundant. The public reflection has no answer editor, so omit the panel there while keeping its reflection instructions. Retain writing support beside the editable builders and Moodle’s native essay editor. This is owner feedback and a presentation change, not learner-study evidence or a change to completion.
+
+### Course-wide tips availability — 24 October 2026
+
+Finlay asked to extend the redundant-tips cleanup across the course. Show the shared writing panel only when its activity provides an available editable field; hide it when enhanced controls are unavailable, read-only or disabled. Moodle’s editor is supplied outside the authored essay fragment, so its actual form field determines availability. Preserve plain-text/manual fallbacks and remove the empty sidebar column when the panel is absent. The audit found four additional fallback cases, rather than further permanent panels on ordinary reading pages.
