@@ -10,6 +10,10 @@ Original educational materials and design documentation are CC BY 4.0; software 
 
 Before integrating third-party teaching material, record the exact asset's rights and changes in the relevant research ledger and carry its attribution/licence through every published format. For Day of AI, follow the [integration requirements](LICENSE-CONTENT.md#day-of-ai-materials--integration-requirements): covered adaptations retain CC BY-NC-SA 4.0 conditions, with separate checks for partner assets and intended use. Include the rights record and learner-visible credit location in the integration PR; the project's CC BY notice must not overwrite a third-party licence.
 
+## Learner-page relevance check
+
+For every learner-facing page created or revised, check each paragraph, example, link and notice against the current task: does it directly help the learner understand why it matters, do it or judge the result? Keep the course-rationale connection to one or two useful sentences. Move supporting research, product-licensing commentary, maintenance guidance and author verification dates to development/research records when they are not needed at this stage; preserve required attribution and licence notices. Record material removals and their retained reference location in the change's design record.
+
 ## Documentation travels with the change
 
 Every plan includes a documentation/status impact: which learner, author or operator guidance changes, what CONTROL.md must say, and what verification belongs in the PR or release record. If none changes, explain why. Make those updates in the same PR; a routine documentation update does not need a separate issue. Reuse an existing issue for the need and create a documentation issue only for a standalone task or deferred debt.
