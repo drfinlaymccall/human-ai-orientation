@@ -157,9 +157,10 @@ test('private storage refuses anonymous access without leaking content', async (
   expect(response.headers()['set-cookie']).toBeUndefined();
   expect(await response.text()).not.toContain('Synthetic context');
 });
-test('course panels and Copy layout fit desktop and mobile widths', async ({ page }, testInfo) => {
+test('course panels and Copy layout fit desktop and mobile widths', async ({ page, browser }, testInfo) => {
   await login(page);
-  for (const width of [1920, 1440, 390]) {
+  const journey = JSON.parse(fs.readFileSync(path.join(fixture, 'journey.json')));
+  for (const width of [1920, 1440, 1100, 390]) {
     await page.setViewportSize({ width, height: 950 });
     await page.goto('/local/orientation/workspace.php?document=working');
     const copy = page.getByRole('button', { name: 'Copy', exact: true });
@@ -168,16 +169,48 @@ test('course panels and Copy layout fit desktop and mobile widths', async ({ pag
     const button = await copy.boundingBox();
     const output = await page.locator('[data-context-copy-text]').boundingBox();
     expect(button.width).toBeGreaterThan(output.width * .9);
+    if (width >= 1100) {
+      const panel = await page.locator('[data-context-panel]').boundingBox();
+      const workspace = await page.locator('.context-workspace').boundingBox();
+      expect(panel.x).toBeGreaterThanOrEqual(workspace.x + workspace.width);
+    }
     await page.screenshot({ path: testInfo.outputPath(`my-context-synthetic-${width}.png`), fullPage: true });
     await page.goto('/portfolio');
     await expect(page.getByRole('button', { name: 'Save to My context', exact: true })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
-    if (width >= 1480) {
+    if (width >= 1100) {
       const panel = await page.locator('[data-context-panel]').boundingBox();
       const content = await page.locator('.portfolio-widget').boundingBox();
-      expect(panel.x).toBeGreaterThanOrEqual(content.x + content.width);
+      expect(panel.x + panel.width).toBeLessThanOrEqual(content.x);
+    }
+    await page.goto('/mod/page/view.php?id=' + journey.portfolio);
+    await expect(page.locator('.finlay-tips')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+    if (width >= 1100) {
+      const panel = page.locator('[data-context-panel]');
+      const box = await panel.boundingBox();
+      const content = await page.locator('.finlay-writing-content').boundingBox();
+      expect(box.x + box.width).toBeLessThanOrEqual(content.x);
+      const summary = panel.locator(':scope > details > summary');
+      await summary.click();
+      await expect(panel.locator(':scope > details')).not.toHaveAttribute('open');
+      await summary.press('Enter');
+      await expect(panel.locator(':scope > details')).toHaveAttribute('open', '');
+      if (width === 1440) await page.screenshot({ path: testInfo.outputPath('native-floating-context-and-tips-1440.png') });
     }
   }
+  const plain = await browser.newContext({ storageState: await page.context().storageState(), javaScriptEnabled: false, viewport: { width: 1440, height: 950 } });
+  try {
+    const nojs = await plain.newPage();
+    await nojs.goto(base + '/mod/page/view.php?id=' + journey.portfolio);
+    await expect(nojs.locator('.finlay-tips')).toBeHidden();
+    const panel = nojs.locator('[data-context-panel]');
+    await expect(panel.getByRole('link', { name: 'Open my saved context', exact: true })).toBeVisible();
+    const box = await panel.boundingBox();
+    const content = await nojs.locator('#region-main').boundingBox();
+    expect(box.x).toBeGreaterThanOrEqual(content.x + content.width);
+    expect(await nojs.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+  } finally { await plain.close(); }
 });
 test('switching accounts clears brief/practice text and prevents saving it into the new account', async ({ page, context }) => {
   await login(page);

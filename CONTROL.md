@@ -1,6 +1,6 @@
 # Project control and wishlist
 
-Updated: 2026-10-24. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-10-25. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
@@ -24,6 +24,8 @@ Finlay authorises work in the current demo checkout. Separate integration worktr
 Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
 ## Public trial deployment — 13 October
+
+**25 October My context placement:** My context floats on the right from 1100px desktop width and moves left when writing tips are available. The page reserves the chosen gutter; the native course index keeps its own space, and the panel has bounded scrolling above the feedback launcher. Narrow screens retain the in-page panel. CSS handles availability and no-JavaScript native rendering; storage, Copy, Markdown and completion are unchanged. Existing public/native layout checks cover placement, unavailable fields and keyboard controls; exact execution and review evidence belongs in the implementing PR. See [workspace guidance](docs/operations/context-workspace.md).
 
 **23 October reusable Finlay’s Tips:** writing activities now share a right-hand panel where space permits, compact voice-input reminders beside editable boxes and three copyable prompt starters. Public preview, portfolio, practice, optional input preparation and native Lesson reflection use the same support. Six focused public checks, eight portfolio checks and two direct native checks passed; the older broad progress suite was incompatible with newer navigation in the shared fixture. See [reuse, verification and limits](docs/curriculum/finlays-tips.md). Voice input remains the learner's device/app, with typing/paste alternatives.
 

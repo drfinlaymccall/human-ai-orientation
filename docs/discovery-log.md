@@ -324,3 +324,11 @@ The current competency framework and visual-map briefs are included as a review 
 **Observed correction:** native captured-email testing found the activity-name filter injecting a legacy-page link into prose. A local supported `nolink` wrapper prevents that extra link without changing global filters or the mail system.
 
 **Verification / limits:** first-unit twenty source assertions and five native captured-mail scenarios pass. The [integrated WB23/WB10 record](qa/2026-10-24-wb23-wb10-rehearsal.md) owns later execution. Production mail, deployment and human comprehension are separate checks.
+
+## 25 October 2026 — My context beside the lesson
+
+**Need:** Finlay showed the large in-page My context panel and asked for a floating right-hand position, switching left when Finlay’s Tips also appears. This paraphrases owner feedback, not a learner study.
+
+**Decision/change:** use the shared context stylesheet from 1100px, reserve the chosen page gutter and follow writing-field availability. Retain the existing responsive Tips component, respect Moodle’s open course index and keep narrow screens in normal flow. No core/plugin/schema or saved-work behaviour changes are needed.
+
+**Verification/limits:** two strengthened existing public layout checks reproduced the old placement before the CSS change, then passed. The existing native context layout check also exercises real Moodle portfolio/sidebar controls and no-JavaScript rendering. Exact final commands, screenshots and Claude CLI review refs belong in the PR. Physical-device and assistive-technology experience remain separate checks.
