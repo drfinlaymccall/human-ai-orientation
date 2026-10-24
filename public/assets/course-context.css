@@ -1,3 +1,4 @@
+@import url("/assets/link-icons.css");
 .course-context-panel, .context-workspace { color: #20332f; font: inherit; line-height: 1.5; }
 .course-context-panel { box-sizing: border-box; margin: 1.5rem auto; padding: 1rem; max-width: 52rem; border: 1px solid #c5d5cd; border-radius: 1rem; background: #f5f9f5; box-shadow: 0 5px 24px #20332f0a; overflow-wrap: anywhere; }
 .course-context-panel summary { cursor: pointer; font-weight: 700; }

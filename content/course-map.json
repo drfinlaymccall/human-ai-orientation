@@ -2,6 +2,11 @@
   "schema_version": 1,
   "course_shortname": "AI-ORIENTATION-TRIAL",
   "progress_description": "Activity practice, not a graded assessment or a statement of mastery.",
+  "preparation_module": {
+    "slug": "computer-use",
+    "label": "Computer Use and Context Management for Humans",
+    "children": ["before-you-start", "notes"]
+  },
   "activities": [
     {
       "slug": "first-task",

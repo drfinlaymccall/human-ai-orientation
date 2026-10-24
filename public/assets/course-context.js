@@ -6,8 +6,10 @@
   let account = null;
   let checked = false;
   let sequence = 0;
-  let panel = document.querySelector('[data-context-panel]');
-  if (!panel && !document.querySelector('.context-workspace')) {
+  const panelDisabled = /^\/(?:notes|before-you-start)(?:\.html)?\/?$/.test(window.location?.pathname || '') ||
+    document.querySelector('[data-context-panel-disabled]');
+  let panel = panelDisabled ? null : document.querySelector('[data-context-panel]');
+  if (!panelDisabled && !panel && !document.querySelector('.context-workspace')) {
     panel = document.createElement('aside');
     panel.className = 'course-context-panel';
     panel.dataset.contextPanel = '';

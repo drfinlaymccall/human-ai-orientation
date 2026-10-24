@@ -1,5 +1,5 @@
 <?php
-// Add the course journey without rewriting existing completion or lesson evidence.
+// Publish the introduction and activities without rewriting completion or lesson evidence.
 define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
 require __DIR__ . '/moodle-environment.php';
@@ -26,6 +26,9 @@ $definitions = [
     'portfolio' => ['2. Build your personal context portfolio', 1, 1],
     'check-and-continue' => ['3. Test, improve and continue', 1, 1],
 ];
+$fragmentpath = fn($slug) => $root . '/content/generated/' . ($slug === 'journey' ? 'introduction' : $slug) . '.html';
+$overview = file_get_contents($root . '/content/generated/course-overview.html');
+if ($overview === false) throw new RuntimeException('Run npm run build:journey first.');
 $fingerprint = function () use ($DB) {
     $result = [];
     foreach (['lesson_attempts', 'lesson_grades', 'lesson_branch', 'lesson_timer', 'lesson_answers', 'course_modules_completion', 'course_completions', 'course_completion_criteria'] as $table) {
@@ -41,11 +44,11 @@ set_coursemodule_name($lessoncm->id, $activities['useful-context']['label']);
 $ids = [];
 $pages = [];
 foreach ($definitions as $slug => [$name, $section, $completion]) {
-    $content = file_get_contents($root . '/content/generated/' . $slug . '.html');
+    $content = file_get_contents($fragmentpath($slug));
     if ($content === false) throw new RuntimeException('Run npm run build:journey first.');
     $cm = orientation_existing_module($course, $slug, 'page', $name, $orientationtrial . '/journey.json');
     $page = $cm ? $DB->get_record('page', ['id' => $cm->instance], '*', MUST_EXIST) : null;
-    $displayname = $activities[$slug]['label'] ?? $name;
+    $displayname = $slug === 'journey' ? 'Course introduction' : ($activities[$slug]['label'] ?? $name);
     if (!$page) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
@@ -61,21 +64,17 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
 }
 $localise = function ($html) use ($ids, $lessoncm, $orientationtrial) {
     $links = $ids;
+    unset($links['journey']); // The legacy native Page is an introduction; course-map links use the private journey.
     if (file_exists($orientationtrial . '/preparation.json')) $links += json_decode(file_get_contents($orientationtrial . '/preparation.json'), true);
     foreach ($links as $slug => $id) $html = str_replace('href="/' . $slug . '"', 'href="/mod/page/view.php?id=' . $id . '"', $html);
+    $html = str_replace('href="/journey"', 'href="/local/orientation/index.php"', $html);
     return str_replace('href="/preview"', 'href="/mod/lesson/view.php?id=' . $lessoncm->id . '"', $html);
 };
 foreach ($definitions as $slug => [$name, $section, $completion]) {
     $record = $DB->get_record('page', ['id' => $pages[$slug]], '*', MUST_EXIST);
-    $html = file_get_contents($root . '/content/generated/' . $slug . '.html');
-    if ($slug === 'journey') {
-        $html = str_replace('Your course journey · Free public activities', 'Your course journey · Moodle pilot', $html);
-        $nativeguidance = '<aside class="note"><h2>Returning to your work?</h2><p><a href="/local/orientation/index.php">Your course journey</a> to continue or revisit an activity. Moodle saves your Lesson progress and submitted reflection. After doing a Page’s practical task, use its Mark as done control. These ticks record practice, not mastery or a graded assessment.</p><p>Choose <strong>Save to My context</strong> in <a href="/portfolio">the portfolio builder</a> to keep your documents in Moodle. Return to <a href="/local/orientation/workspace.php">My context</a> to edit and copy them from another activity or signed-in device. Typing alone keeps a temporary tab draft; private JSON backups remain an optional restore route.</p></aside>';
-        if (substr_count($html, '<!-- orientation-return-guidance -->') !== 1 || substr_count($html, '<!-- /orientation-return-guidance -->') !== 1) throw new RuntimeException('Journey return-guidance marker missing or ambiguous; rebuild before publishing.');
-        $html = preg_replace('~<!-- orientation-return-guidance -->.*?<!-- /orientation-return-guidance -->~s', $nativeguidance, $html);
-    }
+    $html = file_get_contents($fragmentpath($slug));
     if ($completion) $html .= '<p><strong>When you have finished:</strong> use Moodle’s “Mark as done” control. Choose Save to My context to keep your portfolio in Moodle; typing alone keeps a temporary tab draft. Completion records practice, not mastery.</p>';
-    $html .= '<p><a href="/local/orientation/index.php">Your course journey</a> · <a href="/journey">Public course journey</a> · <a href="/help">Ask for help</a> · <a href="/course/view.php?id=' . $course->id . '">Course activity list</a></p>';
+    if ($slug !== 'journey') $html .= '<nav aria-label="Course navigation"><p><a href="/local/orientation/index.php">Your course journey</a> · <a href="/help">Ask for help</a></p></nav>';
     $html = $localise($html);
     if ($record->content !== $html) {
         $record->instance = $record->id;
@@ -86,6 +85,11 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     }
 }
 $firstsection = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 0], '*', MUST_EXIST);
+course_update_section($course, $firstsection, (object)[
+    'name' => 'Introduction', 'summaryformat' => FORMAT_HTML,
+    'summary' => str_replace('href="/course-introduction#course-rationale"',
+        'href="/mod/page/view.php?id=' . $ids['journey'] . '#course-rationale"', $overview),
+]);
 $firstcm = explode(',', $firstsection->sequence)[0] ?: null;
 if ((int)$firstcm !== $ids['journey']) moveto_module($DB->get_record('course_modules', ['id' => $ids['journey']]), $firstsection, $firstcm);
 $section = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 1], '*', MUST_EXIST);
@@ -96,7 +100,7 @@ foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-
     moveto_module($DB->get_record('course_modules', ['id' => $cmid]), $section, $beforemod);
 }
 course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
-    'summary' => '<p>Choose and try a useful task, give context and build your portfolio, then check and continue. Mark the new activities done yourself. The original context lesson retains its own saved progress and reflection.</p><p><a href="/mod/page/view.php?id=' . $ids['journey'] . '">See the full journey and saving guidance</a></p>']);
+    'summary' => '<p>Begin with <strong>' . s($map['preparation_module']['label']) . '</strong> to practise files, notes and AI basics and maintain your own context store. Then choose and try a useful task, give context and build your portfolio, and check and continue.</p><p><a href="/local/orientation/index.php">Open your course journey</a></p>']);
 $DB->set_field('course', 'summary', '<p>' . s($welcome['rationale']) . '</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');
 $transaction->allow_commit();
