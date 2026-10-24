@@ -5,14 +5,22 @@ from pathlib import Path
 from html import escape
 from course_tips import ASSETS, writing_support
 from course_context import course_context
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
+preparation_module = json.loads((ROOT / 'content/course-map.json').read_text())['preparation_module']
+module_intro = (ROOT / 'content/computer-use-introduction.html').read_text()
+(ROOT / 'content/generated').mkdir(exist_ok=True)
+(ROOT / 'content/generated/computer-use.html').write_text(module_intro)
 for slug, source, title in [
     ('before-you-start', 'computer-basics', 'Find your way around files and folders'),
     ('notes', 'notes-guide', 'A home for your notes with Obsidian'),
     ('deeper-courses', 'deeper-courses', 'Go deeper: courses and videos'),
 ]:
     body = (ROOT / 'content' / f'{source}.html').read_text()
+    if slug == 'before-you-start':
+        body = module_intro + '<h2>Files, notes and AI basics</h2>\n' + body
+        title = preparation_module['label']
     body = body.replace('<!-- computer-controls -->', (ROOT / 'content/computer-controls.html').read_text())
     body = body.replace('<!-- ai-interface -->', (ROOT / 'content/ai-interface.html').read_text())
     body = body.replace('<!-- free-tools-table -->', (ROOT / 'content/free-tools-table.html').read_text())

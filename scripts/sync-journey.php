@@ -100,7 +100,7 @@ foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-
     moveto_module($DB->get_record('course_modules', ['id' => $cmid]), $section, $beforemod);
 }
 course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
-    'summary' => '<p>Choose and try a useful task, give context and build your portfolio, then check and continue. Mark the new activities done yourself. The original context lesson retains its own saved progress and reflection.</p><p><a href="/local/orientation/index.php">Open your course journey</a></p>']);
+    'summary' => '<p>Begin with <strong>' . s($map['preparation_module']['label']) . '</strong> to practise files, notes and AI basics and maintain your own context store. Then choose and try a useful task, give context and build your portfolio, and check and continue.</p><p><a href="/local/orientation/index.php">Open your course journey</a></p>']);
 $DB->set_field('course', 'summary', '<p>' . s($welcome['rationale']) . '</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');
 $transaction->allow_commit();

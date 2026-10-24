@@ -19,7 +19,7 @@ TRANSFER = '''<section id="portfolio-save"><h2>Save or restore your work</h2>
 <p data-portfolio-status role="status" aria-live="polite" aria-atomic="true"></p></section>'''
 JOURNEY = '''<p class="eyebrow">Human AI Orientation · Free public activities</p>
 <h1>Explore your course journey.</h1>
-<p class="intro"><!-- student-rationale --></p>
+<p class="intro" id="course-rationale"><!-- student-rationale --></p>
 <p>Work at your own pace. Allow roughly 70–95 minutes for the three activities and portfolio bridge, split across visits if useful. Times are guides, not deadlines. A free AI tool is enough; fictional examples let you practise without an AI account.</p>
 <div class="actions"><a class="button" href="#atlas-heading">Choose an activity</a><a class="button secondary" href="/local/orientation/startingpoint.php">Find my starting point</a></div>
 <!-- student-objectives -->
@@ -82,7 +82,8 @@ def student_welcome(html, welcome):
 
 def course_overview():
     """Preview the full course using the same activity names and practice as the map."""
-    activities = json.loads((ROOT / 'content/course-map.json').read_text())['activities']
+    course_map = json.loads((ROOT / 'content/course-map.json').read_text())
+    activities = course_map['activities']
     ordered = [a for a in activities if a['optional']] + [a for a in activities if not a['optional']]
     items = []
     for activity in ordered:
@@ -91,7 +92,8 @@ def course_overview():
         description = activity['atlas']['do'] if 'atlas' in activity else activity['outcomes'][0]
         items.append(f'<li><strong><span class="nolink">{escape(activity["label"])}</span></strong>{role}: {escape(description)}</li>')
     source = (ROOT / 'content/course-overview.html').read_text()
-    return source.replace('<!-- course-outline -->', '<ul>' + ''.join(items) + '</ul>')
+    return source.replace('<!-- course-outline -->', '<ul>' + ''.join(items) + '</ul>').replace(
+        '<!-- preparation-module-label -->', escape(course_map['preparation_module']['label']))
 
 
 @feedback_page
