@@ -15,6 +15,7 @@ $r = $ratings(5); $r['SP4']['understanding']['value'] = 1; $s = $suggest($r); $a
 $r = $ratings(5); $r['SP5']['cando']['value'] = 3; $r['SP6']['cando']['value'] = 2; $assert($suggest($r)['candidate']['statement'] === 'SP6', 'Priority one precedes priority two.');
 $assert($suggest($ratings(5)) === ['candidate' => null, 'reason' => 'familiarity'], 'High familiarity has no invented deficit.');
 $assert($suggest([]) === ['candidate' => null, 'reason' => 'unknown'], 'Unknown is not low ability.');
+$assert($suggest(['SP1' => ['understanding' => ['value' => 4]]]) === ['candidate' => null, 'reason' => 'partial'], 'A partial familiar response must not imply that every statement was rated.');
 foreach (['unsure','skip','unanswered'] as $reason) $assert($suggest(['SP1' => ['cando' => ['value' => null, 'reason' => $reason]]])['reason'] === 'unknown', 'Each unknown reason stays unknown.');
 $r = ['SP5' => ['cando' => ['value' => 2, 'reason' => 'rating-2']]]; $assert($suggest($r)['candidate']['activity'] === 'portfolio', 'Partial finished input does not fill missing ratings.');
 $r = $ratings(5); $r['SP1']['cando']['value'] = 2; $r['SP2']['cando']['value'] = 1; $assert($suggest($r)['candidate']['statement'] === 'SP2', 'Numeric can-do is the second tie break.');

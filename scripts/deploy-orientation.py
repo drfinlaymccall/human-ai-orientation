@@ -3,11 +3,18 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def plugin_version(path):
+    match = re.search(r'\$plugin->version\s*=\s*(\d+)\s*;', path.read_text())
+    if not match:
+        raise SystemExit('Cannot verify plugin version; no files copied.')
+    return int(match.group(1))
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -32,6 +39,11 @@ def main():
             [a['slug'] for a in manifest['activities'] if a['baseline'] is True] != baseline):
         raise SystemExit('Original practice baseline changed; explicit completion-policy review required.')
     source = ROOT / 'moodle/local/orientation'
+    for schema in ['db/install.xml', 'db/upgrade.php']:
+        if (target / schema).exists() and not (source / schema).is_file():
+            raise SystemExit('Integrate the installed plugin schema and its privacy/navigation support into this release before deployment; no files copied.')
+    if (target / 'version.php').exists() and plugin_version(target / 'version.php') > plugin_version(source / 'version.php'):
+        raise SystemExit('The runtime has a newer plugin version; integrate it before deployment. No files copied.')
     # Repository-owned files only; no runtime config/database copying or deletion.
     shutil.copytree(source, target, dirs_exist_ok=True)
     shutil.copyfile(ROOT / 'content/course-map.json', target / 'course-map.json')

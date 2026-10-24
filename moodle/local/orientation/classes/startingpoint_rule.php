@@ -23,7 +23,8 @@ class startingpoint_rule {
                 'sort' => [$priority, $cando ?? 99, $understanding ?? 99, $index]];
         }
         usort($candidates, fn($a, $b) => $a['sort'] <=> $b['sort']);
-        return ['candidate' => $candidates[0] ?? null, 'reason' => $numeric ? 'familiarity' : 'unknown'];
+        $reason = !$numeric ? 'unknown' : (!$candidates && $numeric < count($instrument['statements']) * 2 ? 'partial' : 'familiarity');
+        return ['candidate' => $candidates[0] ?? null, 'reason' => $reason];
     }
 
     private static function rating($value): ?int {

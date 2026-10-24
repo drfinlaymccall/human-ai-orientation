@@ -83,4 +83,12 @@ test.describe.serial('optional native starting-point check',()=>{
   const before=state();const source=JSON.parse(fs.readFileSync(path.join(root,'content/starting-point.json')));source.statements[0].text+=' Synthetic prohibited change to the same version.';const altered=path.join(fixture,`synthetic-immutable-${stamp}.json`);fs.writeFileSync(altered,JSON.stringify(source));
   try{let rejection;try{publish('publish',altered);}catch(error){rejection=error;}expect(rejection).toBeDefined();expect(rejection.status).not.toBe(0);expect(String(rejection.stdout)+String(rejection.stderr)).toContain('Published instrument is immutable');expect(state()).toEqual(before);}finally{fs.unlinkSync(altered);}
  });
+ test('partial familiar ratings do not claim that all statements were rated',async({page})=>{
+  attempt({'SP1.understanding':'rating-4'});
+  await login(page,1);
+  await expect(page.locator('[data-starting-point]')).toContainText('These partial responses do not identify one starting-point suggestion');
+  await expect(page.locator('[data-starting-point]')).not.toContainText('You reported familiarity with these statements');
+  await expect(page.locator('[data-starting-suggestion]')).toHaveCount(0);
+  await expect(page.locator('#region-main').getByRole('link',{name:/^Continue: /})).toBeVisible();
+ });
 });

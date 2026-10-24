@@ -117,8 +117,14 @@ class startingpoint {
                 foreach (catalogue::modules() as $slug => $activity) {
                     if ($activity['baseline'] && (!isset($rows[$slug]) || !$rows[$slug]['complete'])) $allcomplete = false;
                 }
-                $message = $suggestion['reason'] === 'unknown' ? 'No starting-point suggestion is available from these responses; unknown ratings do not mean low ability.' :
-                    ($allcomplete ? 'You reported familiarity with these statements. Revisit any available activity or choose your next goal.' : 'You reported familiarity with these statements. Choose any practice or use your ordinary Continue.');
+                if ($suggestion['reason'] === 'unknown') {
+                    $message = 'No starting-point suggestion is available from these responses; unknown ratings do not mean low ability.';
+                } else if ($suggestion['reason'] === 'partial') {
+                    $message = 'These partial responses do not identify one starting-point suggestion; unanswered ratings do not mean low ability. ' .
+                        ($allcomplete ? 'Revisit any available activity or choose your next goal.' : 'Choose any practice or use your ordinary Continue.');
+                } else {
+                    $message = $allcomplete ? 'You reported familiarity with these statements. Revisit any available activity or choose your next goal.' : 'You reported familiarity with these statements. Choose any practice or use your ordinary Continue.';
+                }
                 $html .= \html_writer::tag('p', s($message . ' Check finished ' . $date . '.'));
             }
         } else if ($results['earlier']) {
