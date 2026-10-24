@@ -66,3 +66,6 @@ Three separate review contexts checked reuse, code quality and efficiency. Appli
 
 
 The first final public-check command passed build/drift, support, deployment-boundary, entry and metadata checks, then stopped because another work stream owned portfolio port 8796. The public portfolio configuration now accepts one explicit alternate loopback port, 18816, with its own output directory; it still refuses server reuse. The original process was left untouched. The aggregate check is rerun on that isolated port.
+
+
+Final integration exposed two older public privacy-test assumptions: they treated the new data-free account-state GET as a learner-text submission. Those assertions now allow only the exact same-origin state URL, GET with no body, and headers without the synthetic private field marker. Every other outgoing request still fails. This preserves the private draft/voice-help boundary while checking the account-state feature explicitly. The native cookie/ownership regression remains separate.

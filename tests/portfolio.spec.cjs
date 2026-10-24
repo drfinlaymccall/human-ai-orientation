@@ -71,7 +71,7 @@ test('example replacement, blocked storage and clipboard retain usable controls 
   });
   await page.goto('/portfolio.html');
   const sent = [];
-  page.on('request', request => sent.push(request.url()));
+  page.on('request', request => sent.push(request));
   await field(page, 'about').fill('LOCAL-ONLY-CONTENT');
   await expect(page.locator('[data-portfolio-storage]')).toContainText('Temporary storage is unavailable');
   await page.getByRole('button', { name: 'Copy selected context', exact: true }).click();
@@ -83,7 +83,13 @@ test('example replacement, blocked storage and clipboard retain usable controls 
   await page.getByRole('button', { name: 'Try a fictional example', exact: true }).click();
   await page.getByRole('button', { name: 'Replace my entries', exact: true }).click();
   expect(await download(page, 'Download all context documents')).toContain('Fictional practice example');
-  expect(sent).toEqual([]);
+  // Account state is the sole permitted background read; editable text must never be submitted.
+  for (const request of sent) {
+    expect(request.url()).toBe(new URL('/local/orientation/state.php', page.url()).href);
+    expect(request.method()).toBe('GET');
+    expect(request.postData()).toBeNull();
+    expect(JSON.stringify(await request.allHeaders())).not.toContain('LOCAL-ONLY-CONTENT');
+  }
 });
 
 test('clear requires confirmation and removes same-tab content', async ({ page }) => {
