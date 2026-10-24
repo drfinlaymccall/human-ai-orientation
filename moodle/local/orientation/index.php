@@ -59,6 +59,7 @@ if (is_string($next)) {
 } else {
     echo html_writer::tag('p', 'A core activity is currently unavailable. Your existing records are retained; choose an available activity or ask Finlay for help.');
 }
+echo \local_orientation\startingpoint::render($rows);
 echo \local_orientation\atlas::render($rows, $course, $modinfo);
 echo html_writer::tag('h2', 'Keep your portfolio separately');
 echo html_writer::tag('p', 'Signing in saves Moodle activity progress, not the portfolio fields in your browser. Download your private JSON backup before leaving. On another browser or device, restore that file in the portfolio activity. Download Markdown to read and reuse selected context.');

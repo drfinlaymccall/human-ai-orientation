@@ -199,7 +199,7 @@ test.describe.serial('native current-user activity progress',()=>{
   await context.close();
  });
  test('a learner enrolled in another course retains native Dashboard and My courses navigation',async({page})=>{
-  php(`require_once($CFG->dirroot.'/course/lib.php');require_once($CFG->libdir.'/enrollib.php');\\core\\session\\manager::set_user(get_admin());$c=create_course((object)['fullname'=>'Synthetic other course','shortname'=>'SYNTHETIC-NAV-${stamp}','category'=>$DB->get_field('course_categories','id',[],IGNORE_MULTIPLE)]);$p=enrol_get_plugin('manual');$i=$p->add_instance($c);$u=$DB->get_field('user','id',['username'=>'${users[1].username}'],MUST_EXIST);$r=$DB->get_field('role','id',['shortname'=>'student'],MUST_EXIST);$p->enrol_user($i,$u,$r);`);
+  php(`require_once($CFG->dirroot.'/course/lib.php');require_once($CFG->libdir.'/enrollib.php');\\core\\session\\manager::set_user(get_admin());$c=create_course((object)['fullname'=>'Synthetic other course','shortname'=>'SYNTHETIC-NAV-${stamp}','category'=>$DB->get_field('course_categories','id',[],IGNORE_MULTIPLE)]);$p=enrol_get_plugin('manual');$i=$DB->get_record('enrol',['courseid'=>$c->id,'enrol'=>'manual'],'*',MUST_EXIST);$u=$DB->get_field('user','id',['username'=>'${users[1].username}'],MUST_EXIST);$r=$DB->get_field('role','id',['shortname'=>'student'],MUST_EXIST);$p->enrol_user($i,$u,$r);`);
   await login(page,users[1]);await expect(page.locator('.primary-navigation').getByRole('menuitem',{name:'My courses',exact:true})).toBeVisible();
   await expect(page.locator('.primary-navigation').getByRole('menuitem',{name:'Dashboard',exact:true})).toBeVisible();
  });

@@ -35,6 +35,7 @@ def main():
     # Repository-owned files only; no runtime config/database copying or deletion.
     shutil.copytree(source, target, dirs_exist_ok=True)
     shutil.copyfile(ROOT / 'content/course-map.json', target / 'course-map.json')
+    shutil.copyfile(ROOT / 'content/starting-point.json', target / 'starting-point.json')
     shutil.copyfile(ROOT / 'content/generated/activity-atlas.html', target / 'activity-atlas.html')
     for asset in ['activity-atlas.css', 'activity-atlas.js']:
         shutil.copyfile(ROOT / 'public/assets' / asset, target / asset)
