@@ -1,6 +1,6 @@
 # Project control and wishlist
 
-Updated: 2026-10-23. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-10-24. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
@@ -8,10 +8,15 @@ Deliver a useful digital learning experience and demonstrate Finlay's ability to
 
 The product is human orientation: build the person's capacity to work with an agent and identify meaningful goals. Learners leave with portable personal context and a next-goal brief they can take into the separate future human–agent curriculum-design programme or use independently. That later programme is outside this release and this project's wishlist.
 
-- **Current stage:** working public demo/reviewer course; no public learner enrolments, as confirmed by Finlay on 23 October. Public registration remains closed.
-- **Current batch:** preserve the course on GitHub main, improve the LMS showcase and current documentation, run existing checks, and reconcile issues.
-- **Next batch ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** improve the homepage, verified registration/self-enrolment and course progression, then run the human pilot and prepare the LinkedIn course/module series.
-- **Launch forecast:** set after onboarding work is scoped and checked. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
+- **Current stage:** working public demo/reviewer course; no human pilot participants yet. Broad registration remains closed. The exact-address pilot gate is active only for owner-controlled confirmation/recovery checks; owner-controlled email confirmation, enrolment, fresh-browser return and genuine password recovery are verified.
+- **Completed baseline:** PR #8 merged the course, preserved local feedback/research, improved the LMS showcase and current documentation, passed existing local checks and reconciled the original issues. See the [23 October release record](docs/releases/2026-10-23-baseline.md).
+- **Current forward plan:** [Demo to public course and next releases](docs/plans/2026-10-23-002-feat-public-launch-plan.md) is the single delivery plan for the remaining launch work, supporting CI task, competency/map design and sequenced later improvements.
+- **Course-review release ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** clear account state/navigation, illustrated **Your course journey** with real completion, adjacent activity details and the optional six-statement paired self-rating check are implemented and reviewed in the preview branch. Full personal skills/evidence tracking remains later work. See the [review log](docs/reviews/course-review.md) and [local-agent walkthrough](docs/qa/course-review-agent.md). WB01 joins the separate live context/feedback source in an isolated candidate; reviewed merge status and deployment remain distinct.
+- **Implementation status:** clear offer/activity atlas, native verified-account flow/current-user progress and matching public AI metadata are implemented. [Current evidence and limits](docs/releases/2026-10-23-launch-implementation.md) records verification and live state.
+- **Course-review implementation:** U1–U4/U8/U9 code and synthetic rehearsal are complete in the preview. Final checks pass: public entry 9, metadata 7 Python + 2 browser, portfolio 8, support 6, deployment boundary 3, delivered-script lifecycle 6, native progress/session 16, starting-point 8, onboarding 10, public Tips 6 and native Tips 2. Eleven review contexts found three defects, all fixed and independently rechecked; cross-model execution was unavailable. The post-fix native suite passed all sixteen together. This batch has not deployed; see [dated evidence and limits](docs/releases/2026-10-23-course-review-implementation.md).
+- **U8 optional starting-point check:** native Quiz publication, six paired self-ratings, immutable mappings/current-user attempt reading and explained suggestions are implemented in the preview. Neutral native attempt/summary/review, absence of a grade item, mobile, ownership, retake/version preservation, no-JavaScript and full captured-mail learner-journey checks pass in the independent 18812 fixture. The live default stays hidden/disabled until Finlay reviews the new saved-rating privacy/help wording. See [operations and exposure gate](docs/operations/starting-point.md); no owner approval or human pilot result is claimed.
+- **Production handoff:** [24 October deployment sequence](docs/releases/2026-10-24-production-handoff.md) uses the WB01 joined source for My context schema/privacy/navigation, compact feedback and the newer journey/check. The installer refuses an unrepresented installed schema or newer release before copying. Saved-rating wording review and live smoke checks follow; this batch has not deployed. Joined context draft 2026-10-24.2 preserves both the already served .23.2 and the prior .24.1 bytes.
+- **Launch forecast:** choose T0 after genuine mail/recovery, retention review and the human pilot; [release handoff](docs/launch/readiness.md) and five LinkedIn drafts are prepared. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
 - **After launch:** weekly review and improvement from actual learner evidence.
 
 Finlay authorises work in the current demo checkout. Separate integration worktrees, a backup audit and restore rehearsals are not requirements for this baseline. He reports paid whole-server Contabo backups and accepts that provision for now; settings and recoverability are not independently verified. GitHub preserves the public product source, not private runtime data.
@@ -19,6 +24,10 @@ Finlay authorises work in the current demo checkout. Separate integration worktr
 Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
 ## Public trial deployment — 13 October
+
+**23 October reusable Finlay’s Tips:** writing activities now share a right-hand panel where space permits, compact voice-input reminders beside editable boxes and three copyable prompt starters. Public preview, portfolio, practice, optional input preparation and native Lesson reflection use the same support. Six focused public checks, eight portfolio checks and two direct native checks passed; the older broad progress suite was incompatible with newer navigation in the shared fixture. See [reuse, verification and limits](docs/curriculum/finlays-tips.md). Voice input remains the learner's device/app, with typing/paste alternatives.
+
+**23 October portfolio role-play:** reframed the portfolio as briefing a new assistant, with explicit questions and fictional examples in every box. Learners can answer the first three, save Working with me and add project/reference material later. Public and native portfolio copy are updated; eight portfolio checks passed and native publication preserved course structure/evidence. Preview/sidebar and visible-progress suggestions remain queued. See the [review log](docs/reviews/course-review.md) and [portfolio authoring notes](docs/curriculum/portfolio-builder.md).
 
 Public deployment to `orientation.finlaymccall.com` is authorized. The server has managed PostgreSQL/PHP-FPM/web services, a Caddy HTTPS route, a public lesson preview and an individual reviewer account. Cloudflare MCP has created the proxied DNS record, and public HTTPS and independent external access are verified; see [deployment status](docs/trial/PUBLIC-DEPLOYMENT.md). This was the initial one-lesson deployment. The full journey and portfolio are now published; Gmail delivery is verified and password recovery enabled. Registration remains invitation-only. See the current state below.
 
@@ -74,7 +83,7 @@ The core journey takes approximately 70–95 minutes including the portfolio ext
 | 17–19 October | Friends-and-family trial, fixes, accessibility checks, and public-facing explanation |
 | By 20 October | Public version and initial portfolio case study; launch writing ready for Finlay |
 
-This is the original October planning schedule, not the current forecast. The course is a working demo; broad enrolment and the human pilot remain open. Set the public launch date during the next onboarding batch.
+This is the original October planning schedule, not the current forecast. The course is a working demo; broad enrolment and the human pilot remain open. Choose the public launch date from the current release-readiness evidence.
 
 ## Public AI-context addition — 13 October
 
@@ -135,6 +144,10 @@ For each idea, capture only what is known: **idea; who it helps; desired result;
 
 ### 14 October — Objectives, competencies and a personal learning map
 
+- **23 October draft available:** [V1 competency bank and non-linear map briefs](docs/curriculum/competency-framework-v1.md) develops the earlier six-area proposal into 18 core can-do statements, optional foundations, existing-activity mapping, self-assessment/evidence rules and three text prototypes. Finlay requested text first before courseware images. Review labels and scope before visual production; tracking, quiz and map deployment remain unbuilt. This does not expand or replace the current release-baseline batch.
+- **V1.1 wording refinement:** Finlay requested paired knowledge/capability outcomes and stronger verbs across revised Bloom. The draft now maps all 22 statements (18 core, four optional foundations) to knowledge types and cognitive processes, and makes diagnosing, repairing and evaluating communication breakdowns explicit. Knowledge/performance judgements remain distinct. Source inspection and documentation checks are recorded in the draft and discovery log; no runtime or completion change.
+- **V1.2 learner presentation:** Finlay requested clarity about modules, tasks, competency groupings and coded references. The framework now opens with activity labels, purpose and takeaways. Proposed atlas destinations are the three existing core activities plus a visible portfolio bridge and optional basics; six capability groups become author references and a possible secondary skills view. An in-chat clickable preview includes learner and readable course-design views. Labels and navigation remain proposals; production implementation, later-activity entry support and saved tracking are still queued.
+- **Forward-plan integration accepted:** Finlay approved the activity-led atlas preview and asked to fold it into **HOC Forward plan**. The canonical plan now includes it in U1 homepage/navigation and U3 progress, with exact labels, activity details, mobile/no-JavaScript routes and entry-support acceptance. [Preview source](docs/prototypes/orientation-activity-atlas.html) is preserved as a design reference; no deployment or new saved assessment is claimed. L1/L2 retain detailed competency/self-assessment refinement and storage work.
 - **Idea:** attach a clear objective, a connection to the learner's personal objective and linked can-do statements to every course page/resource. Maintain a shared objective and competency bank, with individual self-assessment and links back to instruction.
 - **Who/result:** self-guided learners can see why a resource matters, what they can do, what needs practice and where to return. A personal competence map connects goals, progress and course modules and becomes a portable takeaway.
 - **Example:** `/notes` supports setting up a notes app, creating and reopening a note, and selecting context to share. See the [worked example and design exploration](docs/design-brief.md#course-wide-objectives-and-competencies--14-october-feedback).
@@ -181,3 +194,40 @@ Hold the first review within seven days of pilot launch, then weekly. Choose the
 ## Source of truth
 
 This file owns dates, current priorities, the wishlist, and review records. The [design brief](docs/design-brief.md) owns the learning and product rationale; the [discovery log](docs/discovery-log.md) records decisions and unresolved questions. Update superseded decisions in place and preserve a short explanation in the discovery log.
+
+Finlay clarified the first feedback flow on 23 October: keep voice feedback as the minimum useful course feature, with a five-minute browser recording maximum. PR #11 now uses a 10 MiB upload allowance; no transcription or voice input in other fields is included. Updated verification is recorded in the feature release.
+
+## Live voice feedback — 23 October 2026
+
+Finlay authorised installation and enablement. Five-minute private audio/text feedback is now enabled for course 2; the owner administrator reviews the private inbox. Public help/privacy explain the channel. Public HTTPS browser checks verified record/listen/Send, exact private playback, reviewer access, peer/guest denial and a five-minute native upload. A generic notification email was captured locally; external receipt and physical microphones remain checks. Synthetic feedback was removed, temporary accounts suspended and pre-existing learner evidence preserved. See the [live release](docs/releases/2026-10-23-voice-feedback-live.md) and [local Codex test prompt](docs/operations/voice-feedback-local-test-prompt.md). PR #11 remains the integration record; newer launch work in the live checkout was preserved.
+
+## Compact feedback entry — 23 October 2026
+
+Finlay found the working feedback form unattractive and difficult to find from the homepage/journey. Replace the full-page-first experience with a consistent bottom-right “Give feedback” button and compact panel on public course pages and native Moodle activities. Keep record/listen/re-record/explicit Send, page context, private storage, and the full-page/no-JavaScript fallback. Closing releases the microphone and retains the draft on that page. The panel is live. Six isolated Moodle journeys and the public HTTPS flow passed, including sign-in return, close cleanup and private audio. Normal notifications are restored, synthetic data cleaned up and existing evidence preserved. See the [compact-panel release](docs/releases/2026-10-24-compact-feedback.md); operations and the local Codex test prompt describe the entry point.
+
+## Voice-channel request — 24 October 2026
+
+Queued: add optional local transcription guidance beside voice notes/dictation and voice feedback for learners with a suitable Mac or PC. Finlay prefers Fluid Voice with Parakeet and on-device transcription. Verify the exact app, platform support, hardware needs and local-processing claims before publishing a recommendation; this is a request, not a delivered integration. See the [request and acceptance checks](docs/requests/2026-10-24-local-voice-transcription.md).
+
+## Reading preview cleanup — 24 October 2026
+
+Finlay reported the Finlay’s Tips box in section 7 of `/preview` as redundant. The public reflection now omits the writing-support panel; its text and tips beside actual writing fields remain. The shared builder preserves native Moodle essay support and produces identical native lesson source. Six existing Tips checks and live narrow-screen checks with/without JavaScript passed; repeated generation is stable. See [author guidance](docs/curriculum/finlays-tips.md).
+
+## Course-wide tips audit — 24 October 2026
+
+Checked all 13 public HTML pages with and without JavaScript and authored content for 14 Moodle pages. Four additional panels were visible in reading fallbacks while their enhanced writing controls were hidden: brief, try/check, portfolio and check-and-continue. Shared styling now shows tips only alongside available editable controls and removes the unused sidebar column. Native essay support requires its actual editable Moodle field. Seven public Tips checks, two isolated native Moodle journeys and all 26 live public page/mode checks passed. No live lesson data or learner answers were changed.
+
+## WB01 integration — 24 October 2026
+
+The isolated WB01 candidate reconciles PRs #11/#17/#18/#30 against the public-launch baseline, retaining private My context, compact feedback, relevant tests/configuration and the canonical HOC plan. This is source integration; broad registration remains closed and draft #14 is not a public-readiness claim. Native verification and current-candidate Claude review gate merge; final evidence is attached to [PR #31](https://github.com/drfinlaymccall/human-ai-orientation/pull/31); [the integration release record](docs/releases/2026-10-24-wb01-integration.md) owns actual evidence. Issue #22 remains open for WB10 whole-learner rehearsal.
+
+Independent WB15 [local-transcription research](docs/research/local-voice-transcription-2026-10-24.md) and WB18 [provider protocol](docs/research/free-assistant-evaluation/evaluation-protocol.md) are prepared. No physical-device checks or consumer-assistant sessions were run; #28/#12 remain open. Course transcription integration is subsequent work.
+
+## Concurrent source integration
+
+The WB01 candidate reconciles the independently advanced journey/starting-point source at d46470b with the deployed context/feedback baseline. The earlier 4af607c checks/reviews remain historical; the reconciled candidate requires fresh integration verification and Claude review against the new base before merge. No live publication, edge rule or check-exposure setting is applied by this reconciliation.
+
+The reconciled source uses local_orientation 2026102402 and draft public context 2026-10-24.2. Both synthetic upgrade paths preserved records; the merged public regression gate and 17 deterministic context-client checks passed. Native starting-point 8, progress/session 16, onboarding 10, context 15 distinct scenarios, feedback 6 and native Tips 2 have passed on the reconciled fixture. New feedback ownership/retry fixes and their focused rechecks remain subject to independent current-candidate review; exact receipts belong on PR31. This does not expose the live starting-point check or open public registration.
+
+
+WB01's actual-source Claude pass additionally corrected zero-value context exports/title validation and the feedback gateway for existing Moodle guests. Focused synthetic checks and current-candidate rereview are recorded with PR31; no live source or exposure setting changes here.

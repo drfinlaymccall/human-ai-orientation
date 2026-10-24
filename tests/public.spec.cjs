@@ -21,11 +21,14 @@ test('public introduction, reading route and mobile layout', async ({ page }) =>
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Make a useful start with AI.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Human AI Orientation', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('Accounts are currently provided by Finlay');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.screenshot({ path: `docs/trial/public-home-${width}.png`, fullPage: true });
-    await page.getByRole('link', { name: 'Read the first lesson', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore your course', exact: true }).click();
+    await page.locator('[data-atlas-open="first-task"]').click();
+    await expect(page.getByRole('heading', { name: 'Get one useful result.', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Give your AI useful context', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('7. Save what you learned');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
@@ -261,7 +264,7 @@ test('pilot login, policy, lesson completion and saved return visit', async ({ p
   await page.getByRole('link', { name: 'files, folders and AI-interface practice', exact: true }).click();
   await expect(page).toHaveURL(/\/mod\/page\/view.php\?id=2/);
   await page.goto('/course/view.php?id=2');
-  await page.getByRole('link', { name: 'Start here: files and folders', exact: false }).first().click();
+  await page.getByRole('link', { name: 'Files, notes and AI basics — optional help', exact: false }).first().click();
   await expect(page.locator('#region-main')).toContainText('The find-it-again scavenger hunt');
   await expect(page.getByRole('heading', { name: 'Next: get to know your AI’s interface' })).toBeVisible();
   await expect(page.locator('.input-table tbody tr')).toHaveCount(4);
@@ -342,7 +345,7 @@ test('preparation and notes guide work without JavaScript and provide a real pra
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('https://orientation.finlaymccall.com/');
-      await page.getByRole('link', { name: 'Start with files and folders', exact: true }).click();
+      await page.getByRole('link', { name: 'Open this activity: Files, notes and AI basics — optional help', exact: true }).click();
       await expect(page.getByRole('heading', { name: 'Find your way around files and folders', exact: true })).toBeVisible();
       await page.getByText('Windows: use File Explorer', { exact: true }).click();
       await page.getByText('Check your answer: access', { exact: true }).click();
@@ -364,14 +367,35 @@ test('preparation and notes guide work without JavaScript and provide a real pra
   } finally { await context.close(); }
 });
 
-test('no open registration, clear recovery route and private files denied', async ({ page }) => {
+test('account availability matches the expected release mode, recovery is clear and private files are denied', async ({ page }) => {
+  const mode = process.env.ORIENTATION_EXPECTED_ACQUISITION || 'closed';
+  expect(['closed', 'pilot', 'public']).toContain(mode);
+  await page.goto('/login/index.php');
+  if (mode === 'closed') await expect(page.locator('body')).toContainText('Public registration is not open yet');
+  if (mode === 'pilot') await expect(page.locator('body')).toContainText('Registration is limited to invited pilot learners');
   await page.goto('/login/signup.php');
-  await expect(page.locator('#id_email')).toHaveCount(0);
+  await expect(page.locator('#id_email')).toHaveCount(mode === 'closed' ? 0 : 1);
+  // This checks published availability only; the isolated native suite proves exact-address enforcement.
   await page.goto('/login/forgot_password.php');
   await expect(page.locator('body')).toContainText('Search by email address');
   for (const path of ['/.git/config', '/config.php', '/composer.json', '/vendor/autoload.php', '/admin/cli/cron.php']) {
     const response = await page.goto(path);
     expect(response.status(), path).toBe(404);
+  }
+});
+
+test('public AI context accepts plain HTTP clients without a bot challenge', async ({ request }) => {
+  const headers = { 'User-Agent': 'Python-urllib/3.12' };
+  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2', '2026-10-24.1']
+    .map(version => `/ai/releases/${version}/context.md`)]) {
+    const response = await request.get(path, { headers });
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()['content-type']).toBe('text/plain; charset=utf-8');
+    expect(await response.text()).toContain('# ');
+  }
+  for (const path of ['/ai/', '/robots.txt']) {
+    const response = await request.get(path, { headers });
+    expect(response.status(), path).toBe(200);
   }
 });
 
@@ -381,16 +405,18 @@ test('public AI context works without login, with copying and a manual fallback'
   await expect(page.getByRole('heading', { name: 'Give your AI a little course context.' })).toBeVisible();
   const manifest = await page.evaluate(async () => (await fetch('/ai/course.json')).json());
   expect(manifest.authentication_required).toBe(false);
-  expect(manifest.schema_version).toBe('1.1');
+  expect(manifest.schema_version).toBe('1.3');
   const schema = await page.evaluate(async url => (await fetch(url)).json(), manifest.$schema);
   expect(schema.properties.schema_version.const).toBe(manifest.schema_version);
   expect(schema.required).toContain('content_license');
   expect(manifest.github_url).toBe('https://github.com/drfinlaymccall/human-ai-orientation');
   const read = await page.evaluate(async url => {
     const response = await fetch(url);
-    return { status: response.status, text: await response.text() };
+    return { status: response.status, contentType: response.headers.get('content-type'), text: await response.text() };
   }, manifest.context_url);
   expect(read.status).toBe(200);
+  // Gemini URL context lists text/plain as supported; text/markdown is not listed.
+  expect(read.contentType).toBe('text/plain; charset=utf-8');
   expect(read.text).toContain('Version: ' + manifest.context_version);
   expect(read.text).toContain('Do not sign in to Moodle');
   await page.getByRole('button', { name: 'Copy starter prompt', exact: true }).click();
@@ -422,7 +448,8 @@ test('public AI context works without login, with copying and a manual fallback'
 test('portfolio journey works publicly and in Moodle with saved manual progress', async ({ page }) => {
   const ids = JSON.parse(fs.readFileSync('trial/journey.json'));
   await page.goto('/journey');
-  await page.getByRole('link', { name: 'Make three small context documents', exact: true }).click();
+  await page.locator('[data-atlas-choice="portfolio"]').click();
+  await page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true }).click();
   await expect(page.locator('[data-portfolio-field="about"]')).toBeVisible();
   await page.locator('[data-portfolio-field="about"]').fill('Synthetic learner: a neighbourhood book swap.');
   await page.goto('/login/index.php');
@@ -437,8 +464,8 @@ test('portfolio journey works publicly and in Moodle with saved manual progress'
     await page.getByRole('button', { name: 'Yes', exact: true }).click();
     await page.goto(`/mod/page/view.php?id=${ids.journey}`);
   }
-  await expect(page.getByRole('link', { name: 'Make three small context documents', exact: true })).toHaveAttribute('href', `/mod/page/view.php?id=${ids.portfolio}`);
-  await page.getByRole('link', { name: 'Make three small context documents', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true })).toHaveAttribute('href', `/mod/page/view.php?id=${ids.portfolio}`);
+  await page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true }).click();
   await expect(page.locator('[data-portfolio-field="about"]')).toHaveValue('Synthetic learner: a neighbourhood book swap.');
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });

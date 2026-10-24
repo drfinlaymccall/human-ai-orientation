@@ -1,0 +1,33 @@
+/* Shared writing support. It stays in document flow; it never covers an input. */
+.finlay-writing-surface{--finlay-tips-display:none;--finlay-tips-columns:minmax(0,1fr);container-type:inline-size;margin:1.5rem 0;min-width:0}
+/* Match real writing controls. Enhanced fields remain unavailable while an
+   ancestor is hidden; Moodle supplies its essay editor outside this fragment. */
+.finlay-writing-surface:not([data-finlay-native-essay]):has(textarea:enabled:not([readonly],[hidden],[hidden] *)),
+form:has(textarea[name="answer_editor[text]"]:enabled:not([readonly])) .finlay-writing-surface[data-finlay-native-essay]{--finlay-tips-display:block;--finlay-tips-columns:minmax(0,1fr) 18rem}
+.finlay-writing-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
+.finlay-writing-content{min-width:0}
+.finlay-tips{display:var(--finlay-tips-display,none);box-sizing:border-box;min-width:0;padding:1.2rem;border:1px solid #b8cbbf;border-top:4px solid #176b60;border-radius:.6rem;background:#edf4ed;color:#20332f;font:1rem/1.55 system-ui,sans-serif;overflow-wrap:anywhere}
+.finlay-tips h3{font:600 1.6rem/1.2 Georgia,serif;letter-spacing:0;margin:.3rem 0 .8rem}
+.finlay-tips h4{font:700 1rem/1.4 system-ui,sans-serif;margin:1.2rem 0 .5rem;letter-spacing:0}
+.finlay-tips p{max-width:none;margin:.6rem 0}
+.finlay-tips .finlay-tips-eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;margin:0}
+.finlay-tips details{margin:.8rem 0!important;padding:.65rem!important;border:1px solid #b8cbbf!important;border-radius:.3rem;background:#fff}
+.finlay-tips summary{min-height:44px;cursor:pointer;font-weight:650;line-height:1.45;display:list-item}
+.finlay-tips pre{box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:.9rem;background:#f6f7f4;color:#20332f;padding:.7rem;margin:.8rem 0}
+.finlay-tips button{box-sizing:border-box;min-height:44px;max-width:100%;border:1px solid #176b60;border-radius:.3rem;background:#176b60;color:#fff;padding:.6rem .8rem;font:inherit;font-weight:650;cursor:pointer;white-space:normal}
+.finlay-tips [hidden]{display:none!important}
+.finlay-tips a{color:#176b60;text-decoration:underline}
+.finlay-tips :is(a,button,summary,pre):focus-visible,.finlay-field-hint a:focus-visible{outline:3px solid #b96622;outline-offset:3px}
+.finlay-field-hint{font:400 .85rem/1.5 system-ui,sans-serif;color:#485b55;margin:.4rem 0 .8rem;max-width:none}
+.finlay-field-hint a{color:#176b60;text-decoration:underline}
+.finlay-writing-surface .brief-row>.finlay-field-hint{grid-column:2;margin:0}
+.finlay-tips .finlay-tip{margin:.8rem 0;padding:0;border:0;background:none;font-size:.9rem}
+.finlay-tips .finlay-copy-status{min-height:1.5em;font-size:.9rem}
+@container(min-width:58rem){.finlay-writing-layout{grid-template-columns:var(--finlay-tips-columns,minmax(0,1fr))}.finlay-tips{position:sticky;top:1rem;max-height:min(42rem,calc(100dvh - 2rem));overflow:auto}}
+/* Widen only pages containing this component; keep ordinary reading lines short. */
+.reading:has(.finlay-writing-surface){max-width:80rem}
+#page-mod-page-view #region-main:has(.finlay-writing-surface){max-width:80rem}
+body.finlay-preview{max-width:76rem}
+body.finlay-preview main>section:not(:has(.finlay-writing-surface)){max-width:48rem;margin-left:auto;margin-right:auto}
+@media(max-width:650px){.finlay-tips{padding:1rem}.finlay-writing-surface{margin:1rem 0}.finlay-writing-surface .brief-row>.finlay-field-hint{grid-column:1}body.finlay-preview{padding:1rem}body.finlay-preview main>section{padding:1rem}}
+@media print{.finlay-tips{position:static;max-height:none;overflow:visible}}

@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "course_shortname": "AI-ORIENTATION-TRIAL",
+  "progress_description": "Activity practice, not a graded assessment or a statement of mastery.",
+  "activities": [
+    {
+      "slug": "first-task",
+      "idnumber": "orientation:first-task",
+      "label": "Try AI on a useful task",
+      "module_type": "page",
+      "public_url": "/first-task",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A first result and a way to judge it."
+      ],
+      "role": "core",
+      "atlas": {
+        "duration": "10–15 minutes",
+        "do": "Choose something that matters, decide what a useful result would look like and make a first attempt.",
+        "keep": "A first result and one clear criterion you can use to judge it.",
+        "practise": [
+          "Choosing a worthwhile task.",
+          "Explaining what you want.",
+          "Judging what help you need."
+        ],
+        "knowledge_check": "Can I explain why this task matters and what a useful result would look like?",
+        "performance_check": "Can I choose a task, give an instruction and compare the result with my criterion?"
+      }
+    },
+    {
+      "slug": "useful-context",
+      "idnumber": "orientation:useful-context",
+      "label": "Give AI the right background",
+      "module_type": "lesson",
+      "public_url": "/preview",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A reusable context brief."
+      ],
+      "role": "core",
+      "atlas": {
+        "duration": "25–30 minutes",
+        "do": "Choose helpful details, write a short brief, try it with your AI and work through anything it gets wrong about your intention.",
+        "keep": "A brief you can reuse in another conversation.",
+        "practise": [
+          "Selecting relevant information and protecting private details.",
+          "Explaining your intention.",
+          "Identifying a misunderstanding, clarifying it and checking the revision."
+        ],
+        "knowledge_check": "Can I explain why a detail helps, what I leave out and how a clarification could address a mismatch?",
+        "performance_check": "Can I select useful context, identify a mismatch, clarify it and check the revision?"
+      }
+    },
+    {
+      "slug": "portfolio",
+      "idnumber": "orientation:portfolio",
+      "label": "Save your context for next time",
+      "module_type": "page",
+      "public_url": "/portfolio",
+      "baseline": false,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A reviewed personal context portfolio."
+      ],
+      "role": "portfolio-bridge",
+      "atlas": {
+        "duration": "20–30 minutes",
+        "do": "Organise useful information about yourself, a project and your sources. Review it, save your documents and reopen them.",
+        "keep": "Your own reviewed context portfolio, ready to find and selectively reuse.",
+        "practise": [
+          "Organising useful information.",
+          "Reviewing what to keep and share.",
+          "Saving, finding and reopening documents."
+        ],
+        "knowledge_check": "Can I explain what belongs in my personal, project and source notes, and how I will find them again?",
+        "performance_check": "Can I make a reviewed context document, save it outside this page and reopen the intended copy?"
+      }
+    },
+    {
+      "slug": "check-and-continue",
+      "idnumber": "orientation:check-and-continue",
+      "label": "Check a result and plan your next step",
+      "module_type": "page",
+      "public_url": "/check-and-continue",
+      "baseline": true,
+      "optional": false,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "A checked result, an improvement and a next-step plan."
+      ],
+      "role": "core",
+      "atlas": {
+        "duration": "15–20 minutes",
+        "do": "Use an existing brief or an example in a fresh task. Check a result, correct a problem and choose a meaningful next goal.",
+        "keep": "A checked result, an improvement worth keeping and a manageable next-step plan.",
+        "practise": [
+          "Checking a result against a criterion.",
+          "Making and evaluating a correction.",
+          "Reusing context and choosing further practice."
+        ],
+        "knowledge_check": "Can I explain how I checked the result and distinguish my learning needs from information my AI needs?",
+        "performance_check": "Can I test a result, evaluate a correction and design a first step towards my next goal?"
+      }
+    },
+    {
+      "slug": "before-you-start",
+      "idnumber": "orientation:before-you-start",
+      "label": "Files, notes and AI basics — optional help",
+      "module_type": "page",
+      "public_url": "/before-you-start",
+      "baseline": false,
+      "optional": true,
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "update_note": "Current launch edition; existing practice records are retained.",
+      "outcomes": [
+        "Files and notes you can find again, and an available AI input route."
+      ],
+      "support_links": [
+        {
+          "label": "Set up your notes",
+          "url": "/notes",
+          "slug": "notes"
+        }
+      ],
+      "role": "optional-preparation",
+      "atlas": {
+        "duration": "20–30 minutes",
+        "do": "Practise saving and finding a file, keeping a useful note and using an available way to give your AI an instruction.",
+        "keep": "A file and note you can find again, plus a way to give your AI an instruction.",
+        "practise": [
+          "Saving and locating files.",
+          "Creating and reopening a useful note.",
+          "Transferring information and checking what arrived."
+        ],
+        "knowledge_check": "Can I explain where my file is stored and how I can return to it?",
+        "performance_check": "Can I save, locate and reopen a file, and transfer a useful excerpt into a conversation?"
+      }
+    }
+  ],
+  "baseline_version": 1,
+  "baseline_slugs": [
+    "first-task",
+    "useful-context",
+    "check-and-continue"
+  ]
+}

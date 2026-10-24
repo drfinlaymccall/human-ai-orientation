@@ -1,17 +1,17 @@
 {
-  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.v1.1.json",
-  "schema_version": "1.1",
+  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.v1.3.json",
+  "schema_version": "1.3",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-13.3",
-  "updated": "2026-10-13",
-  "status": "Public course journey with an invitation-only Moodle pilot",
+  "context_version": "2026-10-24.2",
+  "updated": "2026-10-24",
+  "status": "Public reading with invitation-only account access; broader registration is not open.",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-24.2/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
-  "saved_progress_url": "https://orientation.finlaymccall.com/course/view.php?id=2",
+  "saved_progress_url": "https://orientation.finlaymccall.com/local/orientation/index.php",
   "github_url": "https://github.com/drfinlaymccall/human-ai-orientation",
   "content_license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope_url": "https://orientation.finlaymccall.com/deeper-courses#course-licence",
@@ -29,7 +29,7 @@
   "steps": [
     {
       "id": "first-task",
-      "title": "Get one useful result",
+      "title": "Try AI on a useful task",
       "guidance": "At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example."
     },
     {
@@ -69,13 +69,116 @@
     },
     {
       "id": "portfolio",
-      "title": "Build three portable context documents",
-      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it."
+      "title": "Save your context for next time",
+      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Signed-in learners choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Download Markdown (.md) is optional for a file in their own notes folder. Anonymous use retains private version1 JSON backup/restore. Private practice notes stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace."
     },
     {
       "id": "continue",
-      "title": "Test, improve and choose a next goal",
-      "guidance": "At /check-and-continue retrieve the backup, select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
+      "title": "Check a result and plan your next step",
+      "guidance": "At /check-and-continue begin with an existing brief, a restored portfolio backup or the fictional example. Select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
     }
-  ]
+  ],
+  "saved_progress_authentication_required": true,
+  "progress_description": "Activity practice, not a graded assessment or a statement of mastery.",
+  "baseline_version": 1,
+  "baseline_slugs": [
+    "first-task",
+    "useful-context",
+    "check-and-continue"
+  ],
+  "activities": [
+    {
+      "slug": "first-task",
+      "label": "Try AI on a useful task",
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "outcomes": [
+        "A first result and a way to judge it."
+      ],
+      "role": "core",
+      "baseline": true,
+      "optional": false,
+      "public_url": "https://orientation.finlaymccall.com/first-task",
+      "support_links": []
+    },
+    {
+      "slug": "useful-context",
+      "label": "Give AI the right background",
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "outcomes": [
+        "A reusable context brief."
+      ],
+      "role": "core",
+      "baseline": true,
+      "optional": false,
+      "public_url": "https://orientation.finlaymccall.com/preview",
+      "support_links": []
+    },
+    {
+      "slug": "portfolio",
+      "label": "Save your context for next time",
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "outcomes": [
+        "A reviewed personal context portfolio."
+      ],
+      "role": "portfolio-bridge",
+      "baseline": false,
+      "optional": false,
+      "public_url": "https://orientation.finlaymccall.com/portfolio",
+      "support_links": []
+    },
+    {
+      "slug": "check-and-continue",
+      "label": "Check a result and plan your next step",
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "outcomes": [
+        "A checked result, an improvement and a next-step plan."
+      ],
+      "role": "core",
+      "baseline": true,
+      "optional": false,
+      "public_url": "https://orientation.finlaymccall.com/check-and-continue",
+      "support_links": []
+    },
+    {
+      "slug": "before-you-start",
+      "label": "Files, notes and AI basics \u2014 optional help",
+      "version": "1.0.0",
+      "updated_at": "2026-10-23",
+      "outcomes": [
+        "Files and notes you can find again, and an available AI input route."
+      ],
+      "role": "optional-preparation",
+      "baseline": false,
+      "optional": true,
+      "public_url": "https://orientation.finlaymccall.com/before-you-start",
+      "support_links": [
+        {
+          "label": "Set up your notes",
+          "url": "https://orientation.finlaymccall.com/notes"
+        }
+      ]
+    }
+  ],
+  "starting_point": {
+    "url": "https://orientation.finlaymccall.com/local/orientation/startingpoint.php",
+    "authentication_required": true,
+    "optional": true,
+    "statement_count": 6,
+    "dimensions": [
+      "understanding",
+      "can_do"
+    ],
+    "rating_min": 1,
+    "rating_max": 5,
+    "unknown_options": [
+      "Not sure",
+      "Skip"
+    ],
+    "purpose": "Private self-reported practice suggestions, not assessed proficiency or activity completion.",
+    "availability": "Account access follows the current pilot gate; the check can be skipped."
+  }
 }
