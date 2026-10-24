@@ -10,6 +10,8 @@ The five learner labels, stable slugs, public destinations, current versions, da
 
 Native Page 5 is **Course introduction**. Its historical `orientation:journey` identity remains so existing links and records still resolve. Its single action opens the actual private journey/map at `/local/orientation/index.php`; public `/journey` remains the public atlas. The native-only source is `content/introduction.html`, rendered by the journey builder and published through the existing stable-ID publisher. Other native activity footers link to the private map and help. The introduction is not an additional activity or completion requirement.
 
+The native Introduction section previews all current activities and optional preparation from `content/course-map.json`, with a clear rationale link to the retained introduction Page's `#course-rationale` heading. The overview explains learner-controlled context across AI tools, platform choice and desktop/laptop focus with transferable mobile ideas. `content/course-overview.html` is rendered by the journey builder; `sync-journey.php` owns its section summary and resolves the rationale link using the retained module ID. Preparation publication preserves that summary once the journey exists. No course structure or completion rule changes.
+
 Use the existing pinned Moodle runtime. This installs an additive repository-owned local plugin and copies the public manifest; it does not modify core, mail configuration, accounts or existing evidence.
 
 ```sh

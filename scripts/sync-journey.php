@@ -27,6 +27,8 @@ $definitions = [
     'check-and-continue' => ['3. Test, improve and continue', 1, 1],
 ];
 $fragmentpath = fn($slug) => $root . '/content/generated/' . ($slug === 'journey' ? 'introduction' : $slug) . '.html';
+$overview = file_get_contents($root . '/content/generated/course-overview.html');
+if ($overview === false) throw new RuntimeException('Run npm run build:journey first.');
 $fingerprint = function () use ($DB) {
     $result = [];
     foreach (['lesson_attempts', 'lesson_grades', 'lesson_branch', 'lesson_timer', 'lesson_answers', 'course_modules_completion', 'course_completions', 'course_completion_criteria'] as $table) {
@@ -83,6 +85,11 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     }
 }
 $firstsection = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 0], '*', MUST_EXIST);
+course_update_section($course, $firstsection, (object)[
+    'name' => 'Introduction', 'summaryformat' => FORMAT_HTML,
+    'summary' => str_replace('href="/course-introduction#course-rationale"',
+        'href="/mod/page/view.php?id=' . $ids['journey'] . '#course-rationale"', $overview),
+]);
 $firstcm = explode(',', $firstsection->sequence)[0] ?: null;
 if ((int)$firstcm !== $ids['journey']) moveto_module($DB->get_record('course_modules', ['id' => $ids['journey']]), $firstsection, $firstcm);
 $section = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 1], '*', MUST_EXIST);

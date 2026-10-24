@@ -80,6 +80,20 @@ def student_welcome(html, welcome):
     return html.replace('<!-- student-rationale -->', escape(welcome['rationale'])).replace('<!-- student-objectives -->', details)
 
 
+def course_overview():
+    """Preview the full course using the same activity names and practice as the map."""
+    activities = json.loads((ROOT / 'content/course-map.json').read_text())['activities']
+    ordered = [a for a in activities if a['optional']] + [a for a in activities if not a['optional']]
+    items = []
+    for activity in ordered:
+        role = ' (optional preparation)' if activity['optional'] else (
+            ' (part of activity 2)' if activity.get('role') == 'portfolio-bridge' else '')
+        description = activity['atlas']['do'] if 'atlas' in activity else activity['outcomes'][0]
+        items.append(f'<li><strong><span class="nolink">{escape(activity["label"])}</span></strong>{role}: {escape(description)}</li>')
+    source = (ROOT / 'content/course-overview.html').read_text()
+    return source.replace('<!-- course-outline -->', '<ul>' + ''.join(items) + '</ul>')
+
+
 @feedback_page
 def render(title, content, slug):
     description = {
@@ -115,6 +129,7 @@ def main():
     (generated / 'journey.html').write_text(journey)
     introduction = student_welcome((ROOT / 'content/introduction.html').read_text(), welcome)
     (generated / 'introduction.html').write_text(introduction)
+    (generated / 'course-overview.html').write_text(course_overview())
     for name, title in pages.items():
         content = fragment(name)
         (generated / f'{name}.html').write_text(content)

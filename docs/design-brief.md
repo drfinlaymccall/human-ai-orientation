@@ -8,6 +8,8 @@ Updated: 2026-10-25. Stage: working public demo and reviewer accounts; no public
 
 **Learner-facing short form:** Learn to team with AI: choose a useful task, give context, check the result and keep what helps.
 
+**Further clarification from Finlay, 25 October 2026:** collaboration starts with tasks meaningful to the learner and works with whichever AI platform they choose. Learners control the context they supply: select relevant background, check what the AI received, and maintain reviewed notes they can reuse across tools and apps. The course also builds familiarity with the working environment of files, notes and AI conversations. It is designed for desktop/laptop use; many principles transfer to phones and tablets. The Introduction section must preview the whole current course and link clearly to the learner-facing rationale.
+
 WB23 implements this rationale in source on the landing/course overview, in the native welcome and as task-specific purpose cues through the activities and closing next-goal reflection. The [student-onboarding brief](curriculum/student-onboarding.md) maps six existing capability areas to overall objectives and documents the canonical welcome source, first-visit flow and publication checks. The [dated release](releases/2026-10-24-student-welcome-rehearsal.md) and [synthetic QA record](qa/2026-10-24-wb23-wb10-rehearsal.md) distinguish verified source/captured-mail behaviour from production publication, welcome enablement, genuine recipient delivery and the human pilot, which remain separate gates.
 
 
