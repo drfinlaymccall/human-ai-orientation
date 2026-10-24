@@ -1,6 +1,9 @@
-/* Shared public/native course link cue. Empty content keeps link names unchanged.
-   Leave Moodle's dropdown carets, stretched hit areas and action controls intact. */
-a[href]:not(:is(.dropdown-toggle, .stretched-link, .skip, .sr-only, .btn-icon, [role="button"]))::after {
+/* Decorative cues for links in course paragraphs. Navigation and buttons keep their own styling. */
+:root {
+  --course-inline-link-internal: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+  --course-inline-link-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cellipse cx='12' cy='12' rx='4' ry='9'/%3E%3Cpath d='M3 12h18'/%3E%3C/svg%3E");
+}
+:where(main, #region-main) p a[href]:not(:is(.button, .btn, .btn-icon, .dropdown-toggle, .stretched-link, [role="button"], [href^="mailto:" i], [href^="tel:" i], nav a, header a, footer a)):not(:has(img, svg))::after {
   content: "";
   display: inline-block;
   width: .8em;
@@ -8,9 +11,26 @@ a[href]:not(:is(.dropdown-toggle, .stretched-link, .skip, .sr-only, .btn-icon, [
   margin-inline-start: .25em;
   vertical-align: -.08em;
   background-color: currentColor;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--course-inline-link-icon, var(--course-inline-link-internal)) center / contain no-repeat;
+  mask: var(--course-inline-link-icon, var(--course-inline-link-internal)) center / contain no-repeat;
+}
+/* Relative links and absolute links to the course host are internal. */
+:where(main, #region-main) p a:is([href^="https://" i], [href^="http://" i], [href^="//"]):not(
+  [href="https://orientation.finlaymccall.com" i],
+  [href^="https://orientation.finlaymccall.com/" i],
+  [href^="https://orientation.finlaymccall.com?" i],
+  [href^="https://orientation.finlaymccall.com#" i],
+  [href="http://orientation.finlaymccall.com" i],
+  [href^="http://orientation.finlaymccall.com/" i],
+  [href^="http://orientation.finlaymccall.com?" i],
+  [href^="http://orientation.finlaymccall.com#" i],
+  [href="//orientation.finlaymccall.com" i],
+  [href^="//orientation.finlaymccall.com/" i],
+  [href^="//orientation.finlaymccall.com?" i],
+  [href^="//orientation.finlaymccall.com#" i]
+) {
+  --course-inline-link-icon: var(--course-inline-link-external);
 }
 @media (forced-colors: active) {
-  a[href]:not(:is(.dropdown-toggle, .stretched-link, .skip, .sr-only, .btn-icon, [role="button"]))::after { forced-color-adjust: none; background-color: LinkText; }
+  :where(main, #region-main) p a[href]:not(:is(.button, .btn, .btn-icon, .dropdown-toggle, .stretched-link, [role="button"], [href^="mailto:" i], [href^="tel:" i], nav a, header a, footer a)):not(:has(img, svg))::after { forced-color-adjust: none; background-color: LinkText; }
 }

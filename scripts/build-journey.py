@@ -113,6 +113,8 @@ def main():
     (generated / 'activity-atlas.html').write_text(atlas + '\n')
     (ROOT / 'public/index.html').write_text(home)
     (generated / 'journey.html').write_text(journey)
+    introduction = student_welcome((ROOT / 'content/introduction.html').read_text(), welcome)
+    (generated / 'introduction.html').write_text(introduction)
     for name, title in pages.items():
         content = fragment(name)
         (generated / f'{name}.html').write_text(content)
