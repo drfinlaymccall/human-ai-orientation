@@ -35,7 +35,7 @@ The additive Quiz publication defaults to hidden/disabled. For owner development
 
 ## Origin, edge and smoke checks
 
-Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Prepared context edition `2026-10-24.3` and schema `1.3` have new exact public paths; retain all older routes, including the already served `2026-10-23.2`.
+Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Context edition `2026-10-24.3` and schema `1.3` are now served; each new edition requires exact public paths while retaining all older routes, including `2026-10-23.2`.
 
 The [earlier recorded approval](../curriculum/public-ai-context.md#personal-journey-release--prepared-in-preview) covered edition **2026-10-23.1** and schema **1.2**. Finlay's 25 October instruction to publish reviewed changes to the live development site is the publication authority applied to the current four reviewed public-context additions, as recorded in the [live preview receipt](2026-10-25-live-development-preview.md). This is a scoped implementation of that instruction, not a claim that Finlay separately named each path. Review the complete [exact-path rule](../../deploy/cloudflare-ai-context-rule.json) alongside the [origin routes](../../deploy/Caddyfile):
 
@@ -44,7 +44,7 @@ The [earlier recorded approval](../curriculum/public-ai-context.md#personal-jour
 - `/ai/releases/2026-10-24.3/context.md` (WB23)
 - `/ai/course.schema.v1.3.json`
 
-The live receipt records application and readback of those additions. Preserve all older routes, including the served `.23.2` context. Future reviewed public-context editions may update this existing exact-path exception as part of authorised preview publication; retain the orientation hostname, GET/HEAD restriction and Browser Integrity Check-only scope. Other products, unrelated rules and account-route exposure are outside that standing publication instruction. Keep the paste fallback available. Local metadata checks alone do not establish live provider retrieval.
+The live receipt records application and readback of those four additions under the 25 October publication instruction. Preserve all older routes, including the served `.23.2` context. For any later path update, record the applicable owner publication instruction and exact reviewed additions before applying it; verify that the orientation hostname, GET/HEAD restriction and Browser Integrity Check-only scope are unchanged. This receipt grants no additional security-policy authority: other products, unrelated rules and account-route exposure are outside its scope. Keep the paste fallback available. Local metadata checks alone do not establish live provider retrieval.
 
 Smoke-check the public splash/account state, signed-in journey, ordinary and deep-link login, native saved progress, reviewed check/skip/retake, preserved My context workspace and Give feedback entry/return controls. Inspect the deployed account-state response for no Set-Cookie, private/no-store and only the two documented JSON fields. Fetch new and previous context/schema files, confirm the retained `.2` hash above, verify the starter/latest/manifest name the new edition consistently, and verify private paths remain denied. Genuine mail/account mutations use separately authorised consenting recipients; the captured-mail suite is not a production-mail test.
 
