@@ -1,8 +1,10 @@
 # Project control and wishlist
 
-Updated: 2026-10-24. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-10-25. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
+
+**Live development preview — 25 October:** Finlay clarified that the whole project remains in development and requested changes on the main website so he can see and feel them. Publish completed, reviewed changes to `orientation.finlaymccall.com` as part of delivery, preserving accounts/work/history and current acquisition settings. WB01/WB23/WB10 source from PRs #31/#32 is now published there, including the personal journey, welcome and optional starting-point check for owner review. [The live preview receipt](docs/releases/2026-10-25-live-development-preview.md) records actual checks. This supersedes the earlier source-only status; wording/recipient/pilot acceptance and broader opening remain separate.
 
 Deliver a useful digital learning experience and demonstrate Finlay's ability to design, manage, launch, and operate the whole project. This is also Finlay's own learning journey; no particular job application sets the deadline.
 

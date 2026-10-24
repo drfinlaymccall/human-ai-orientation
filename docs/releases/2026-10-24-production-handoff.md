@@ -1,6 +1,8 @@
 # Course journey: production handoff
 
-This is the next deployment step for the [course-review release](2026-10-23-course-review-implementation.md), not a deployment receipt. This batch has changed only its preview checkout and synthetic fixture. Broad registration remains closed.
+This is the promotion procedure for the [course-review release](2026-10-23-course-review-implementation.md). The [25 October live development preview receipt](2026-10-25-live-development-preview.md) records its subsequent publication for Finlay's review. Broad registration remains closed.
+
+Finlay clarified on 25 October that the main URL is the project's development preview and completed changes should be visible there. Publish reviewed changes there as part of delivery so he can inspect them. Owner-preview publication can precede the wording/recipient/human-pilot acceptance below; it must not be recorded as completion of those wider-launch gates. Preserve existing access, work and history, and retain the separate consent/approval boundaries for invitations and real messages.
 
 ## Integrated source; preserve the dirty live checkout
 
