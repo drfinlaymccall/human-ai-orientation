@@ -12,6 +12,12 @@ My context adds private Moodle storage for the learner's small context documents
 
 Saved work is attached to the current account and returns in a fresh browser/device after sign-in. The workspace provides normal HTML forms without JavaScript; its text-to-copy box supports manual selection/Copy. Existing version 1 portfolio JSON backups remain an advanced portable restore route, including private practice fields. Restoring a backup changes the draft; a later Save updates Moodle. Replacement and deletion require deliberate confirmation.
 
+## Finding the panel while working
+
+At desktop widths of 1100px and above, **My context** stays in view on the right. When Finlay’s Tips is available beside a writing activity, My context moves to the left. The page reserves space for it, including alongside Moodle’s open course index. Expand/collapse its heading with a click, Enter or Space; long lists scroll within the panel. It leaves room above Give feedback.
+
+At narrower widths, including phones and browser zoom that reduces the available space, the panel stays in normal page flow. Browsers without support for the placement selectors also retain the in-page panel. Finlay’s Tips keeps its existing responsive layout. Unavailable/read-only/disabled writing fields hide tips and return My context to the right. Native Moodle’s panel remains usable without JavaScript; public reading and manual Copy routes remain available. This is a shared CSS change, with no new plugin, storage, microphone permission or AI connection.
+
 ## Storage and access
 
 - The additive `local_orientation_context` table stores a portfolio snapshot plus owner/course-scoped text notes, title, source activity, revision and timestamps. It stores text in Moodle's database rather than arbitrary uploaded files. There are no core patches or new activity-completion conditions.
