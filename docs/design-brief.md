@@ -346,3 +346,7 @@ Review the experience weekly after pilot launch: learner feedback, support, core
 Proposed exclusions from the first prototype: building an LMS from scratch unless existing candidates fail the essential journey; a mandatory embedded chatbot; AI grading of personal disclosures; autonomous support replies; complex integrations into learner accounts; and compulsory advanced automation. Community forums, certificates, payments, localisation, and organisational cohorts remain possible later additions rather than commitments.
 
 The minimum public prototype and hosting machine are now selected. Resolve before implementation where consequential: lightweight completion evidence for the three activities, pilot/support capacity, platform and deployment feasibility, budget, minimum email behaviour, account/discovery friction, and storage of personal context. Naming, detailed provider guides, and screen designs can be developed alongside those decisions. The [discovery log](discovery-log.md) is the interview record.
+
+### Tips only where the learner writes — 24 October 2026
+
+Finlay identified the tips box in section 7 of the reading preview as redundant. The public reflection has no answer editor, so omit the panel there while keeping its reflection instructions. Retain writing support beside the editable builders and Moodle’s native essay editor. This is owner feedback and a presentation change, not learner-study evidence or a change to completion.

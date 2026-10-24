@@ -39,3 +39,9 @@ Two native fixture checks passed: portfolio panels/hints at desktop and phone wi
 Run `npm run test:tips` for portable checks and `npm run test:tips:native` against the explicitly provisioned isolated fixture. A real microphone on Mac/Windows/phone, assistive-technology behaviour and learner comprehension remain human/device checks.
 
 The live preview additionally passed six anonymous checks at 1440/390/320px with JavaScript enabled/disabled, confirming the panel, readable prompts, voice help and horizontal fit. The existing native preparation/journey publishers reported unchanged learner records/answers, and preparation publication was repeated successfully. No real account, microphone or AI service was used for these live reading checks.
+
+## Reading reflection exclusion — 24 October 2026
+
+Following Finlay’s feedback, section 7 of the public `/preview` renders the reflection instructions without the Finlay’s Tips panel: this reading section has no answer editor. `scripts/build-brief.py` uses the reflection text before native writing support is appended. Moodle’s essay guidance and the tips beside editable public fields remain.
+
+Six existing Tips browser checks passed. Live public HTTPS checks at 390px passed with JavaScript enabled and disabled: section 7 has no panel, reflection text remains, earlier writing panels remain and the page fits horizontally. Native lesson-source bytes were unchanged and repeated preview generation was stable. No Moodle database publication was required.
