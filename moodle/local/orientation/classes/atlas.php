@@ -74,10 +74,15 @@ class atlas {
     }
     private static function status(array $row): string {
         if ($row['state'] === null) return 'No completion tracking';
-        return $row['complete'] ? 'Completed' : (!empty($row['started']) ? 'In progress' : ($row['activity']['module_type'] === 'lesson' ? 'Not started' : 'Not yet complete'));
+        if ($row['complete']) return 'Completed';
+        if (!empty($row['started'])) return 'In progress';
+        return $row['activity']['module_type'] === 'lesson' ? 'Not started' : 'Not yet complete';
     }
     private static function role(array $a): string {
-        return $a['baseline'] ? 'Core activity' : (($a['role'] ?? '') === 'portfolio-bridge' ? 'Portfolio practice within activity 2' : (($a['role'] ?? '') === 'optional-preparation' ? 'Optional preparation' : 'Optional practice'));
+        if ($a['baseline']) return 'Core activity';
+        if (($a['role'] ?? '') === 'portfolio-bridge') return 'Portfolio practice within activity 2';
+        if (($a['role'] ?? '') === 'optional-preparation') return 'Optional preparation';
+        return 'Optional practice';
     }
     private static function version(array $a): string {
         return 'Current version ' . $a['version'] . ' · Updated ' . $a['updated_at'] . '. ' . $a['update_note'];

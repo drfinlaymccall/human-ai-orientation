@@ -14,7 +14,11 @@
       link.href = state === 'signed-in' ? journey : '/journey';
       link.textContent = state === 'signed-in' ? 'Your course journey' : 'Explore your course';
     }
-    for (const label of labels) label.textContent = state === 'signed-in' ? 'Signed in' : state === 'signed-out' ? 'Signed out' : state === 'checking' ? 'Checking sign-in… Public activities are available.' : 'Sign-in state unavailable. Check sign-in / Your course journey, or explore the public activities.';
+    let message = 'Sign-in state unavailable. Check sign-in / Your course journey, or explore the public activities.';
+    if (state === 'signed-in') message = 'Signed in';
+    else if (state === 'signed-out') message = 'Signed out';
+    else if (state === 'checking') message = 'Checking sign-in… Public activities are available.';
+    for (const label of labels) label.textContent = message;
   }
   async function revalidate() {
     const current = ++requestNumber;
