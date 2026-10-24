@@ -3,7 +3,7 @@
 define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
 require __DIR__ . '/moodle-environment.php';
-if (!in_array($CFG->wwwroot, ['http://127.0.0.1:8787', 'http://127.0.0.1:18802'], true)) {
+if (!in_array($CFG->wwwroot, ['http://127.0.0.1:8787', 'http://127.0.0.1:18802', 'http://127.0.0.1:18842'], true)) {
     throw new RuntimeException('This seeds the private trial only. Do not replace public account settings.');
 }
 require_once $CFG->dirroot . '/course/lib.php';

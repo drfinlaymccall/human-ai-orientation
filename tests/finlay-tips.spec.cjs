@@ -23,9 +23,9 @@ test('every editable course box has voice help, without changing its value or se
   await page.locator('#brief-task + .finlay-field-hint a').click();
   await expect(panel.locator('.finlay-voice-guide details')).toHaveAttribute('open', '');
   await expect(page.locator('#brief-task')).toHaveValue('PRIVATE SYNTHETIC TASK');
-  // Account state is the sole permitted background read; editable text must never be submitted.
+  // Account state and explicitly requested saved context are permitted background reads; editable text must never be submitted.
   for (const request of sent) {
-    expect(request.url()).toBe(new URL('/local/orientation/state.php', page.url()).href);
+    expect(['/local/orientation/state.php', '/local/orientation/context.php'].map(path => new URL(path, page.url()).href)).toContain(request.url());
     expect(request.method()).toBe('GET');
     expect(request.postData()).toBeNull();
     expect(JSON.stringify(await request.allHeaders())).not.toContain('PRIVATE SYNTHETIC TASK');
@@ -99,19 +99,58 @@ test('keyboard help and multiple panels have unique IDs and preserve the learnin
   await expect(page.locator('#brief-task')).toHaveValue('Draft a fictional invitation.');
 });
 
-test('without JavaScript tips, voice setup and prompt text remain usable', async ({ browser, baseURL }) => {
+test('without JavaScript tips appear only beside available writing fields', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL, viewport: { width: 320, height: 950 } });
   try {
     const page = await context.newPage();
     await page.goto('/preview');
-    const panel = page.locator('#finlay-brief-tips');
+    await expect(page.locator('#finlay-brief-tips')).toBeHidden();
+    await expect(page.locator('#finlay-try-tips')).toBeHidden();
+    await expect(page.locator('[data-fallback]')).toBeVisible();
+    await expect(page.locator('#page-6')).toContainText('your reflection stays in your own notes');
+    for (const route of ['/portfolio', '/check-and-continue']) {
+      await page.goto(route);
+      await expect(page.locator('.finlay-tips')).toBeHidden();
+      await expect(page.locator('[data-portfolio-fallback]')).toBeVisible();
+    }
+    await page.goto('/before-you-start');
+    const panel = page.locator('#finlay-before-you-start-tips');
+    await expect(page.locator('textarea').first()).toBeVisible();
     await panel.getByText('How to start voice typing', { exact: true }).click();
     await expect(panel).toContainText('Windows key + H');
     await panel.getByText('Help me make a clearer request', { exact: true }).click();
     await expect(panel.locator('pre').first()).toBeVisible();
     await expect(panel.getByRole('button', { name: 'Copy clearer-request prompt' })).toBeHidden();
-    await expect(page.locator('[data-fallback]')).toBeVisible();
-    await expect(page.locator('#page-6')).toContainText('your reflection stays in your own notes');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
   } finally { await context.close(); }
+});
+
+
+test('tips track hidden and unavailable fields, including a native editor outside the panel', async ({ page }) => {
+  await page.goto('/before-you-start');
+  const scope = page.locator('.finlay-writing-surface');
+  const panel = scope.locator('.finlay-tips');
+  await scope.locator('textarea').evaluateAll(fields => fields.forEach(f => f.readOnly = true));
+  await expect(panel).toBeHidden();
+  const field = scope.locator('textarea').first();
+  await field.evaluate(f => { f.readOnly = false; f.disabled = true; });
+  await expect(panel).toBeHidden();
+  await field.evaluate(f => { f.disabled = false; f.hidden = true; });
+  await expect(panel).toBeHidden();
+  await field.evaluate(f => f.hidden = false);
+  await expect(panel).toBeVisible();
+  // Moodle puts its native essay editor outside the authored tips fragment.
+  await scope.evaluate(root => {
+    root.setAttribute('data-finlay-native-essay', '');
+    const form = document.createElement('form'); root.before(form); form.append(root);
+    root.querySelectorAll('textarea').forEach(f => f.remove());
+  });
+  await expect(panel).toBeHidden();
+  await scope.evaluate(root => {
+    const editor = document.createElement('textarea'); editor.name = 'answer_editor[text]';
+    root.closest('form').append(editor);
+  });
+  await expect(panel).toBeVisible();
+  await page.locator('textarea[name="answer_editor[text]"]').evaluate(f => f.disabled = true);
+  await expect(panel).toBeHidden();
 });

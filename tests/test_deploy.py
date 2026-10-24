@@ -17,8 +17,8 @@ class DeploymentBoundaryTests(unittest.TestCase):
         (plugin / 'classes/privacy/provider.php').write_text('Existing private-storage provider.\n')
         return trial, plugin
 
-    def deploy(self, trial):
-        return subprocess.run([sys.executable, str(ROOT / 'scripts/deploy-orientation.py'),
+    def deploy(self, trial, script=None):
+        return subprocess.run([sys.executable, str(script or ROOT / 'scripts/deploy-orientation.py'),
                                '--trial-dir', str(trial)], capture_output=True, text=True)
 
     def test_unrepresented_schema_refuses_before_overwriting_privacy_support(self):
@@ -28,7 +28,16 @@ class DeploymentBoundaryTests(unittest.TestCase):
                 (plugin / 'db').mkdir()
                 (plugin / 'db' / filename).write_text('Synthetic existing schema marker.\n')
                 before = (plugin / 'classes/privacy/provider.php').read_bytes()
-                result = self.deploy(trial)
+                # Model an unintegrated release without this installed schema. The real
+                # joined release now represents both files and must be allowed to deploy.
+                release = trial / 'unintegrated-release'
+                (release / 'scripts').mkdir(parents=True)
+                (release / 'content').mkdir()
+                (release / 'moodle/local/orientation').mkdir(parents=True)
+                script = release / 'scripts/deploy-orientation.py'
+                script.write_bytes((ROOT / 'scripts/deploy-orientation.py').read_bytes())
+                (release / 'content/course-map.json').write_bytes((ROOT / 'content/course-map.json').read_bytes())
+                result = self.deploy(trial, script)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn('Integrate the installed plugin schema', result.stderr)
                 self.assertEqual((plugin / 'classes/privacy/provider.php').read_bytes(), before)

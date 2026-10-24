@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Build public course pages from reusable Moodle HTML fragments, without services."""
+from feedback_markup import feedback_page, decorate_feedback
+from course_context import course_context
 from pathlib import Path
 from course_tips import ASSETS, writing_support
 from html import escape
@@ -23,7 +25,7 @@ JOURNEY = '''<p class="eyebrow">Human AI Orientation · Free public activities</
 <p class="meta">The optional starting-point check asks about your understanding and what you can do. Sign in with an invited course account to save your ratings and see explained suggestions. You can choose any public activity without an account. Public registration is currently closed.</p>
 <p class="account-state meta" data-account-state role="status">Check sign-in to see your account state.</p>
 <!-- activity-atlas -->
-<!-- orientation-return-guidance --><aside class="note"><h2>Returning to your work?</h2><p><a href="/portfolio">Open the portfolio builder</a> in the same tab to resume its temporary draft, or restore your downloaded JSON backup. Public activities do not save progress to an account. <a href="/local/orientation/index.php">Check sign-in / Your course journey</a> to sign in for Moodle activity progress; your private portfolio remains separate.</p><p>The outcome is practical: retrieve your reviewed documents, select relevant context and use it to begin a worthwhile task.</p></aside><!-- /orientation-return-guidance -->
+<!-- orientation-return-guidance --><aside class="note"><h2>Returning to your work?</h2><p>Signed-in learners can open <a href="/local/orientation/workspace.php">My context</a> to edit and copy work they deliberately saved to Moodle, including on another device. <a href="/local/orientation/index.php">Your course progress</a> keeps activity completion separate from your documents. In anonymous use, <a href="/portfolio">open the portfolio builder</a> in the same tab to resume its temporary draft, or restore your private JSON backup.</p><p>The outcome is practical: retrieve your reviewed documents, select relevant context and use it to begin a worthwhile task.</p></aside><!-- /orientation-return-guidance -->
 <nav class="actions" aria-label="Start the course"><a class="button" href="/first-task">Start with a useful task</a><a class="button secondary" href="/before-you-start">Try optional preparation</a></nav>'''
 
 
@@ -68,6 +70,7 @@ def fragment(name):
     return writing_support(html, name)
 
 
+@feedback_page
 def render(title, content, slug):
     description = {
         'help': 'Find course guidance and ask for help with Human AI Orientation.',
@@ -89,7 +92,7 @@ def main():
     if JOURNEY.count('<!-- activity-atlas -->') != 1 or '<!-- activity-atlas -->' in home_source:
         raise ValueError('Only the journey source must contain one activity-atlas marker.')
     journey = JOURNEY.replace('<!-- activity-atlas -->', atlas)
-    home = home_source
+    home = home_source.replace('<!-- keep-in-touch -->', (ROOT / 'content/keep-in-touch.html').read_text())
     (generated / 'activity-atlas.html').write_text(atlas + '\n')
     (ROOT / 'public/index.html').write_text(home)
     (generated / 'journey.html').write_text(journey)
@@ -110,7 +113,7 @@ def main():
             html = html.replace('<main', '<script src="/assets/account-state.js" defer></script><main', 1)
         if '/assets/site.css' not in html:
             html = html.replace('<main', '<link rel="stylesheet" href="/assets/site.css"><main', 1)
-        path.write_text(html)
+        path.write_text(decorate_feedback(course_context(html)))
     print('Built home, shared activity atlas, public course navigation and journey pages.')
 
 

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Keep Moodle lesson source and public preview aligned with the shared widget."""
 import json
+from feedback_markup import decorate_feedback
 from pathlib import Path
 from course_tips import ASSETS, writing_support
+from course_context import course_context
 
 ROOT = Path(__file__).resolve().parents[1]
 spec_path = ROOT / 'content/useful-context.json'
@@ -23,7 +25,8 @@ reflection = spec['pages'][6]['html'].split('<!-- finlay-reflection-tips -->')[0
 spec['pages'][6]['html'] = reflection + '<!-- finlay-reflection-tips -->' + writing_support('', 'reflection', native_essay=True)
 start = text.index('<section id="page-6">')
 end = text.index('</section>', start) + len('</section>')
-public_reflection = spec['pages'][6]['html'].replace(
+# The reading preview has no answer editor to support.
+public_reflection = reflection.replace(
     'This reflection is stored in your course account and is visible to authorised course staff. It is not graded by AI. Use fictional details for this private platform trial.',
     'In this reading version, your reflection stays in your own notes. In the signed-in trial, submitted reflections are saved to your account and visible to Finlay. They are not graded by AI.',
 ).replace(
@@ -38,5 +41,16 @@ if '<body class="finlay-preview">' not in text:
 if '/assets/context-try.js' not in text:
     text = text.replace('<script src="/assets/context-brief.js" defer></script>', '<script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script>')
 spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + '\n')
-preview.write_text(text)
+text = text.replace('This reading version does not save progress or submit answers. The brief builder keeps a temporary draft in this browser tab; copy work you want to keep into your own notes.', 'This reading version does not mark activities complete or submit lesson reflections. Typing keeps a temporary tab draft. When signed in, choose Save to My context to keep your brief or private try/check record in Moodle; otherwise copy useful work into your notes.')
+# The older preview omits optional head/body tags. Make them explicit so shared
+# page additions have the same insertion points as the other public renderers.
+if '</head>' not in text:
+    text = text.replace('<html lang="en">', '<html lang="en"><head>', 1)
+    if '<body' in text:
+        text = text.replace('<body', '</head><body', 1)
+    else:
+        text = text.replace('<main>', '</head><body><main>', 1)
+if '</body>' not in text:
+    text = text.replace('</html>', '</body></html>', 1)
+preview.write_text(decorate_feedback(course_context(text)))
 print('Updated brief and try/check widgets in lesson source and public preview.')

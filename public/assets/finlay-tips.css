@@ -1,8 +1,12 @@
 /* Shared writing support. It stays in document flow; it never covers an input. */
-.finlay-writing-surface{container-type:inline-size;margin:1.5rem 0;min-width:0}
+.finlay-writing-surface{--finlay-tips-display:none;--finlay-tips-columns:minmax(0,1fr);container-type:inline-size;margin:1.5rem 0;min-width:0}
+/* Match real writing controls. Enhanced fields remain unavailable while an
+   ancestor is hidden; Moodle supplies its essay editor outside this fragment. */
+.finlay-writing-surface:not([data-finlay-native-essay]):has(textarea:enabled:not([readonly],[hidden],[hidden] *)),
+form:has(textarea[name="answer_editor[text]"]:enabled:not([readonly])) .finlay-writing-surface[data-finlay-native-essay]{--finlay-tips-display:block;--finlay-tips-columns:minmax(0,1fr) 18rem}
 .finlay-writing-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
 .finlay-writing-content{min-width:0}
-.finlay-tips{box-sizing:border-box;min-width:0;padding:1.2rem;border:1px solid #b8cbbf;border-top:4px solid #176b60;border-radius:.6rem;background:#edf4ed;color:#20332f;font:1rem/1.55 system-ui,sans-serif;overflow-wrap:anywhere}
+.finlay-tips{display:var(--finlay-tips-display,none);box-sizing:border-box;min-width:0;padding:1.2rem;border:1px solid #b8cbbf;border-top:4px solid #176b60;border-radius:.6rem;background:#edf4ed;color:#20332f;font:1rem/1.55 system-ui,sans-serif;overflow-wrap:anywhere}
 .finlay-tips h3{font:600 1.6rem/1.2 Georgia,serif;letter-spacing:0;margin:.3rem 0 .8rem}
 .finlay-tips h4{font:700 1rem/1.4 system-ui,sans-serif;margin:1.2rem 0 .5rem;letter-spacing:0}
 .finlay-tips p{max-width:none;margin:.6rem 0}
@@ -19,7 +23,7 @@
 .finlay-writing-surface .brief-row>.finlay-field-hint{grid-column:2;margin:0}
 .finlay-tips .finlay-tip{margin:.8rem 0;padding:0;border:0;background:none;font-size:.9rem}
 .finlay-tips .finlay-copy-status{min-height:1.5em;font-size:.9rem}
-@container(min-width:58rem){.finlay-writing-layout{grid-template-columns:minmax(0,1fr) 18rem}.finlay-tips{position:sticky;top:1rem;max-height:min(42rem,calc(100dvh - 2rem));overflow:auto}}
+@container(min-width:58rem){.finlay-writing-layout{grid-template-columns:var(--finlay-tips-columns,minmax(0,1fr))}.finlay-tips{position:sticky;top:1rem;max-height:min(42rem,calc(100dvh - 2rem));overflow:auto}}
 /* Widen only pages containing this component; keep ordinary reading lines short. */
 .reading:has(.finlay-writing-surface){max-width:80rem}
 #page-mod-page-view #region-main:has(.finlay-writing-surface){max-width:80rem}

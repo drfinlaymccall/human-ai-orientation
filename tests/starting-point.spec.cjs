@@ -54,7 +54,7 @@ test.describe.serial('optional native starting-point check',()=>{
  });
  test('partial suggestions revisit completed work and unavailable targets never produce dead links',async({page})=>{
   attempt({'SP1.cando':'rating-2'});php(`require_once($CFG->libdir.'/completionlib.php');$u=$DB->get_record('user',['username'=>'${users[1]}'],'*',MUST_EXIST);\\core\\session\\manager::set_user($u);$c=\\local_orientation\\catalogue::course();$cm=\\local_orientation\\catalogue::cm($c,\\local_orientation\\catalogue::modules()['first-task']);(new completion_info($c))->update_state(get_fast_modinfo($c)->get_cm($cm->id),COMPLETION_COMPLETE,$u->id);`);
-  await login(page,1);await expect(page.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true})).toBeVisible();
+  await login(page,1);await expect(page.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');await expect(page.locator('#region-main a.btn-primary').filter({hasText:'Continue: Give AI the right background'})).toBeVisible();
   attempt({'SP3.cando':'rating-2'});const cmid=Number(php(`echo \\local_orientation\\catalogue::cm(\\local_orientation\\catalogue::course(),\\local_orientation\\catalogue::modules()['useful-context'])->id;`));
   try{php(`require_once($CFG->dirroot.'/course/lib.php');set_coursemodule_visible(${cmid},0);rebuild_course_cache(\\local_orientation\\catalogue::course()->id,true);`);await page.goto(journey);await expect(page.locator('[data-starting-point]')).toContainText('suggested practice is currently unavailable');await expect(page.locator('[data-starting-suggestion]')).toHaveCount(0);await expect(page.locator('#region-main')).toContainText('A core activity is currently unavailable');}finally{php(`require_once($CFG->dirroot.'/course/lib.php');set_coursemodule_visible(${cmid},1);rebuild_course_cache(\\local_orientation\\catalogue::course()->id,true);`);}
  });
@@ -89,6 +89,6 @@ test.describe.serial('optional native starting-point check',()=>{
   await expect(page.locator('[data-starting-point]')).toContainText('These partial responses do not identify one starting-point suggestion');
   await expect(page.locator('[data-starting-point]')).not.toContainText('You reported familiarity with these statements');
   await expect(page.locator('[data-starting-suggestion]')).toHaveCount(0);
-  await expect(page.locator('#region-main').getByRole('link',{name:/^Continue: /})).toBeVisible();
+  await expect(page.locator('#region-main a.btn-primary').filter({hasText:/^Continue: /})).toBeVisible();
  });
 });

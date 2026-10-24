@@ -10,3 +10,4 @@ node tests/journey-lifecycle.test.cjs
 npm run test:entry
 npm run test:metadata
 npm run test:portfolio
+npm run test:feedback

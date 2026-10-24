@@ -1,6 +1,7 @@
-(() => {
+(async () => {
   'use strict';
-  const STORAGE_KEY = 'orientation.portfolio.v1';
+  const LEGACY_STORAGE_KEY = 'orientation.portfolio.v1';
+  const account = window.OrientationContext ? await window.OrientationContext.ready : null;
   const MAX_BYTES = 256 * 1024;
   // Bound every field so even worst-case JSON escaping fits the backup size limit.
   const MAX_TEXT = 2000;
@@ -50,31 +51,95 @@
     if (widget.dataset.portfolioReady) return;
     widget.dataset.portfolioReady = 'true';
     let state = blank();
+    const STORAGE_KEY = account ? 'orientation.portfolio.account.' + account.userid : LEGACY_STORAGE_KEY;
+    let savedRevision = Number(account?.portfolio.revision || 0);
+    let savedItemId = Number(account?.portfolio.id || 0);
+    let savedText = JSON.stringify(account?.portfolio.snapshot ? validate(account.portfolio.snapshot) : blank());
+    let accountChanged = false;
     let pendingReplacement = null;
     let importSequence = 0;
     const find = selector => widget.querySelector(selector);
     const status = find('[data-portfolio-status]');
     const storage = find('[data-portfolio-storage]');
     const announce = message => { status.textContent = message; };
+    let accountStatus = null;
+    let accountSave = null;
+    if (account) {
+      const controls = document.createElement('section');
+      controls.className = 'context-account-controls';
+      const heading = document.createElement('h2'); heading.textContent = 'Keep it in My context';
+      const explanation = document.createElement('p'); explanation.textContent = 'Save reviewed words to your Moodle account so you can return on another device. This includes your separate private practice notes. Nothing is sent to an AI.';
+      accountSave = document.createElement('button'); accountSave.type = 'button'; accountSave.textContent = 'Save to My context';
+      accountStatus = document.createElement('p'); accountStatus.dataset.contextSaveStatus = ''; accountStatus.setAttribute('role', 'status'); accountStatus.textContent = 'Choose Save to keep your changes in Moodle.';
+      const open = document.createElement('a'); open.href = '/local/orientation/workspace.php'; open.textContent = 'Open My context';
+      const load = document.createElement('button'); load.type = 'button'; load.textContent = 'Load saved version';
+      controls.append(heading, explanation, accountSave, open, load, accountStatus); storage.after(controls);
+      accountSave.addEventListener('click', async () => {
+        if (accountChanged || window.OrientationContext.current()?.userid !== account.userid) return;
+        const snapshot = validate(state); const sent = JSON.stringify(snapshot); accountSave.disabled = true;
+        try {
+          const result = await window.OrientationContext.write({ op: 'save-portfolio', revision: savedRevision, expecteditemid: savedItemId, snapshot }, account.userid);
+          if (accountChanged) return;
+          savedRevision = Number(result.portfolio.revision); savedItemId = Number(result.portfolio.id); savedText = sent; save();
+          accountStatus.textContent = sent === JSON.stringify(state) ? 'Saved to Moodle. Open My context from any course page or another signed-in device.' : 'The earlier version was saved. Your latest edits are not saved yet.';
+          await window.OrientationContext.refresh();
+        } catch (error) {
+          if (accountChanged) return;
+          accountStatus.textContent = error.name === 'TimeoutError' ? 'Saving timed out and was not confirmed. Your draft is still here; copy it or download a backup. Moodle may have saved it; check My context before trying again.' :
+            error.status === 409 ? 'A newer saved version exists. Your draft is kept here. Copy it before loading the saved version.' : 'Changes were not saved. Your draft is still here; copy it or download a backup, then try again.';
+        } finally { accountSave.disabled = accountChanged; }
+      });
+      load.addEventListener('click', async () => {
+        const latest = await window.OrientationContext.refresh({ freshOnly: true });
+        if (accountChanged) return;
+        if (!latest) { accountStatus.textContent = 'The saved version could not be loaded. Your draft is still here; try again.'; return; }
+        if (latest.userid !== account.userid) return;
+        propose(latest.portfolio.snapshot ? validate(latest.portfolio.snapshot) : blank(), 'Load the version saved in Moodle?', latest.portfolio.revision, latest.portfolio.id, true);
+      });
+      try {
+        const earlier = sessionStorage.getItem(LEGACY_STORAGE_KEY);
+        if (earlier) {
+          const data = validate(JSON.parse(earlier));
+          const bring = document.createElement('button'); bring.type = 'button'; bring.textContent = 'Bring my earlier tab draft';
+          bring.addEventListener('click', () => propose(data, 'Bring this browser tab’s earlier draft into the builder? It will not be saved to Moodle until you choose Save.'));
+          controls.append(bring);
+        }
+      } catch { /* Invalid earlier drafts are never imported. */ }
+    }
     function storageUnavailable() {
-      storage.textContent = 'Temporary storage is unavailable. Entries work on this page, but may be lost when you leave. Download a backup now; they are not saved to your Moodle account.';
+      storage.textContent = account ? 'Temporary storage is unavailable. Save to My context to keep changes in Moodle, or copy/download before leaving.' : 'Temporary storage is unavailable. Entries work on this page, but may be lost when you leave. Download a backup now; they are not saved to your Moodle account.';
     }
     function readStored() {
       const saved = sessionStorage.getItem(STORAGE_KEY);
-      if (!saved) return blank();
+      if (!saved) return account?.portfolio.snapshot ? validate(account.portfolio.snapshot) : blank();
       if (new Blob([saved]).size > MAX_BYTES) throw Error('Oversized draft');
-      return validate(JSON.parse(saved));
+      const parsed = JSON.parse(saved);
+      if (account) {
+        if (!Number.isInteger(parsed.revision) || parsed.revision < 0) throw Error('Invalid saved revision');
+        if (parsed.itemid !== undefined && (!Number.isInteger(parsed.itemid) || parsed.itemid < 0)) throw Error('Invalid saved item');
+        if (parsed.dirty === false && (parsed.revision < account.portfolio.revision || parsed.itemid !== account.portfolio.id)) return account.portfolio.snapshot ? validate(account.portfolio.snapshot) : blank();
+        savedRevision = parsed.revision;
+        // Older local envelopes keep their words but cannot claim a replacement row.
+        savedItemId = parsed.itemid ?? 0;
+        return validate(parsed.snapshot);
+      }
+      return validate(parsed);
     }
     try {
       state = readStored();
       const probe = `${STORAGE_KEY}.probe`;
       sessionStorage.setItem(probe, '1');
       sessionStorage.removeItem(probe);
-      storage.textContent = 'Entries are kept temporarily in this browser tab, including when you return from another course page in this tab. They are not saved to your Moodle account or sent to an AI. Download a backup before closing the tab or changing devices.';
-    } catch { storageUnavailable(); }
+      storage.textContent = account ? 'Editing keeps a temporary draft in this tab. Choose Save to My context to keep changes in Moodle across visits and devices. Copy only the context you want to share with your AI.' : 'Entries are kept temporarily in this browser tab, including when you return from another course page in this tab. They are not saved to your Moodle account or sent to an AI. Download a backup before closing the tab or changing devices.';
+    } catch {
+      if (account?.portfolio.snapshot) state = validate(account.portfolio.snapshot);
+      storageUnavailable();
+    }
     function save() {
-      try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      if (accountChanged) return;
+      try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(account ? { revision: savedRevision, itemid: savedItemId, snapshot: state, dirty: JSON.stringify(state) !== savedText } : state)); }
       catch { storageUnavailable(); }
+      if (accountStatus && !accountChanged) accountStatus.textContent = 'Unsaved changes. Choose Save to My context to keep them in Moodle.';
     }
     function body(labels) {
       return Object.entries(labels).filter(([key]) => state.fields[key].trim()).map(([key, label]) => `## ${label}\n${state.fields[key]}`).join('\n\n');
@@ -111,15 +176,21 @@
       setTimeout(() => URL.revokeObjectURL(url), 10000);
       announce('Download requested. Find the file in Downloads and check it opens; move it to your own notes folder if useful.');
     }
-    function replace(data) {
+    function replace(data, revision = savedRevision, itemid = savedItemId, fromServer = false) {
+      if (accountChanged) return;
       state = data;
+      savedRevision = Number(revision);
+      savedItemId = Number(itemid);
+      if (fromServer) savedText = JSON.stringify(data);
       save();
+      if (fromServer && accountStatus) accountStatus.textContent = 'Loaded the saved version from Moodle. Editing will make a new draft.';
       refresh();
       announce('Entries replaced. Review them and download a fresh backup after editing.');
     }
-    function propose(data, message) {
-      if (!keys.some(key => state.fields[key].length) && !state.reviewed && !state.example) { replace(data); return; }
-      pendingReplacement = data;
+    function propose(data, message, revision = savedRevision, itemid = savedItemId, fromServer = false) {
+      if (accountChanged) return;
+      if (!keys.some(key => state.fields[key].length) && !state.reviewed && !state.example) { replace(data, revision, itemid, fromServer); return; }
+      pendingReplacement = { data, revision, itemid, fromServer };
       find('[data-portfolio-confirm-text]').textContent = `${message} This replaces all three context documents and the private practice record. Download your current backup first if you need to keep it.`;
       find('[data-portfolio-confirm]').hidden = false;
       find('[data-portfolio-action="cancel"]').focus();
@@ -133,7 +204,7 @@
       find('[data-portfolio-import]').value = '';
     }
     window.addEventListener('pageshow', event => {
-      if (!event.persisted) return;
+      if (!event.persisted || accountChanged) return;
       cancelImport();
       dismiss();
       try {
@@ -143,6 +214,7 @@
       } catch { storageUnavailable(); }
     });
     widget.addEventListener('input', event => {
+      if (accountChanged) return;
       const key = event.target.dataset.portfolioField;
       if (!keys.includes(key)) return;
       state.fields[key] = event.target.value;
@@ -155,6 +227,7 @@
       refreshOutput();
     });
     widget.addEventListener('change', async event => {
+      if (accountChanged) return;
       const input = event.target;
       if (input.matches('[data-portfolio-reviewed]')) { state.reviewed = input.checked; save(); refreshOutput(); }
       if (input.matches('[data-portfolio-select]')) refreshOutput();
@@ -166,13 +239,14 @@
       try {
         if (file.size > MAX_BYTES) throw Error('Too large');
         const imported = validate(JSON.parse(await file.text()));
-        if (request === importSequence) propose(imported, 'Restore this backup?');
+        if (request === importSequence && !accountChanged) propose(imported, 'Restore this backup?');
       } catch {
-        if (request !== importSequence) return;
+        if (request !== importSequence || accountChanged) return;
         announce('Backup not imported. Choose an unchanged version 1 JSON backup from this builder, no larger than 256 KB. Your current entries are unchanged.');
       } finally { if (request === importSequence) input.value = ''; }
     });
     widget.addEventListener('click', async event => {
+      if (accountChanged) return;
       const button = event.target.closest('button');
       if (!button || !widget.contains(button)) return;
       const doc = button.dataset.portfolioDownload;
@@ -194,7 +268,7 @@
         case 'confirm': {
           const next = pendingReplacement;
           dismiss();
-          if (next) replace(next);
+          if (next) replace(next.data, next.revision, next.itemid, next.fromServer);
           break;
         }
         case 'cancel': dismiss(); announce('Your current entries were kept.'); break;
@@ -202,6 +276,14 @@
     });
     find('[data-portfolio-fallback]').hidden = true;
     find('[data-portfolio-enhanced]').hidden = false;
+    window.addEventListener('orientation:account-changed', () => {
+      accountChanged = true; cancelImport(); state = blank(); dismiss(); refresh();
+      try { sessionStorage.removeItem(STORAGE_KEY); } catch { /* Visible words still clear. */ }
+      for (const control of widget.querySelectorAll('input,textarea,button')) control.disabled = true;
+      storage.textContent = 'Your sign-in changed. Reopen this page to continue with the right account.';
+      if (accountStatus) accountStatus.textContent = 'This account’s words have been cleared from the page.';
+    });
     refresh();
+    if (accountStatus) accountStatus.textContent = savedRevision < account.portfolio.revision ? 'Moodle has a newer saved version. Your tab draft is kept; copy it before loading the saved version.' : JSON.stringify(state) === savedText && savedRevision ? 'Showing your saved Moodle version. Save again after editing.' : 'This tab has unsaved work. Choose Save to My context to keep it in Moodle.';
   });
 })();

@@ -266,7 +266,7 @@ test.describe.serial('isolated native onboarding', () => {
       await confirmed.locator('[data-starting-navigation]').getByRole('link').click();
       await expect(confirmed.locator('[data-starting-suggestion]')).toHaveAttribute('data-starting-suggestion', 'first-task');
       await expect(confirmed.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
-      await confirmed.locator('#region-main').getByRole('link', {name:'Continue: Try AI on a useful task', exact:true}).click();
+      await confirmed.locator('#region-main a.btn-primary').filter({hasText:'Continue: Try AI on a useful task'}).click();
       await ready(confirmed);
       await confirmed.getByText('If you cannot use an AI today', {exact:true}).click();
       await expect(confirmed.getByText('Use this invented response for practice.', {exact:false})).toBeVisible();
@@ -283,7 +283,7 @@ test.describe.serial('isolated native onboarding', () => {
       await enterFromHome(returning, password);
       await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
       await expect(returning.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');
-      await expect(returning.locator('#region-main').getByRole('link', {name:'Continue: Give AI the right background', exact:true})).toBeVisible();
+      await expect(returning.locator('#region-main a.btn-primary').filter({hasText:'Continue: Give AI the right background'})).toBeVisible();
       await signOut(returning);
       await returning.locator('header [data-account-link]').click();
       await ready(returning);

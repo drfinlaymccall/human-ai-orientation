@@ -1,6 +1,10 @@
 <?php
 // Exact fixture identities only. A second localhost port requires its own directory, DB and synthetic marker.
 function orientation_is_synthetic_fixture(string $trial, stdClass $config): bool {
+    $contextfixture = dirname(__DIR__) . '/trial/context-fixture';
+    if ($trial === realpath($contextfixture) && !is_link($contextfixture) && $config->wwwroot === 'http://127.0.0.1:18842' && $config->dbname === 'orientation_context_fixture') {
+        return realpath($config->dataroot) === realpath($trial . '/data') && realpath($config->dirroot) === realpath($trial . '/moodle') && empty($config->smtphosts) && is_file($trial . '/capture-mail.py');
+    }
     $expected = dirname(__DIR__) . '/trial/launch-fixture';
     if ($trial !== realpath($expected)) return false;
     if ($config->wwwroot === 'http://127.0.0.1:18802') return $config->dbname === 'orientation_launch_fixture';

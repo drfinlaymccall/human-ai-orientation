@@ -12,11 +12,11 @@
 <title>Human AI Orientation — A useful start with AI</title>
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="describedby" type="application/json" href="/ai/course.json">
-<script src="/assets/account-state.js" defer></script>
-</head>
+<link rel="stylesheet" href="/assets/course-context.css"><script src="/assets/course-context.js" defer></script><script src="/assets/account-state.js" defer></script>
+<link rel="stylesheet" href="/assets/feedback-launcher.css"><script src="/assets/feedback-launcher.js" defer></script></head>
 <body class="home">
 <a class="skip" href="#main">Skip to content</a>
-<header><a class="brand" href="/">Human AI Orientation</a><nav aria-label="Main navigation"><a href="/journey">Course journey</a><a data-account-link href="/local/orientation/index.php">Check sign-in / Your course journey</a></nav></header>
+<header><a class="brand" href="/">Human AI Orientation</a><nav aria-label="Main navigation"><a href="/journey">Course journey</a><a data-account-link href="/local/orientation/index.php">Check sign-in / Your course journey</a></nav><a data-context-fallback href="/local/orientation/workspace.php">My context</a></header>
 <main id="main">
 <section class="hero" aria-labelledby="course-title">
 <p class="eyebrow">Free practical course · Bring your own AI</p>
@@ -40,9 +40,14 @@
 </div>
 </section>
 <p class="account-state meta" data-account-state role="status">Check sign-in to see your account state.</p>
-<section class="note" id="account-status" aria-labelledby="account-title"><h2 id="account-title">Start now. Keep your work.</h2><p>The full public course and portfolio builder are available without signing in. Public registration is currently closed. Accounts are currently provided by Finlay for the pilot; <a href="/local/orientation/index.php">existing pilot learners can sign in</a> to their saved Moodle activity progress and submitted reflection. <a href="/help">Ask for help</a> if you need access support.</p><p>Your portfolio stays separate from your account. Browser drafts are temporary: download your context documents and a JSON backup before leaving, then restore that backup when you return or change devices. Without JavaScript, copy the plain-text templates into your own notes.</p></section>
+<section class="note" id="account-status" aria-labelledby="account-title"><h2 id="account-title">Start now. Keep your work.</h2><p>The full public course and portfolio builder are available without signing in. Public registration is currently closed. Accounts are currently provided by Finlay for the pilot; <a href="/local/orientation/index.php">existing pilot learners can sign in</a> to their saved Moodle activity progress and submitted reflection. <a href="/help">Ask for help</a> if you need access support.</p><p>Signed-in learners can choose Save to My context to keep their documents in Moodle, then edit and copy them from another device. Editing alone keeps a temporary tab draft. Anonymous learners can copy their work or keep a private JSON backup to restore later. Without JavaScript, copy the plain-text templates into your own notes.</p></section>
 <aside class="note"><h2>Bring your AI into the course</h2><p><a href="/ai/">Give your AI the public course context</a>, then check what it read. If it cannot open a link, paste the same text instead. No GitHub account or AI browsing feature is required.</p></aside>
+<section id="keep-in-touch" aria-labelledby="keep-in-touch-heading">
+<h2 id="keep-in-touch-heading">Keep in touch</h2>
+<p>For course updates, new learning opportunities and ideas about human–AI collaboration and education, <a href="https://www.linkedin.com/in/finlay-mccall-39079725/">follow Finlay McCall on LinkedIn</a>.</p>
+<p>You can also visit <a href="https://finlaymccall.com">Finlay’s website</a> to explore his work.</p>
+</section>
 </main>
 <footer><p>Designed and built by <a href="https://finlaymccall.com">Finlay McCall</a> · <a href="/privacy">About your information</a> · <a href="/deeper-courses">Go deeper: courses and videos</a></p><p><a href="/help">Ask for help</a> · <a href="https://github.com/drfinlaymccall/human-ai-orientation">Source and design history on GitHub</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer>
-</body>
+<a class="of-trigger" data-feedback-launcher href="/local/orientationfeedback/index.php">Give feedback</a></body>
 </html>

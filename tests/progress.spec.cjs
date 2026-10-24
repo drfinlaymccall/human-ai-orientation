@@ -12,6 +12,8 @@ if (base.endsWith(':18812')) {
  if(fs.lstatSync(fixture).isSymbolicLink() || marker.synthetic!==true || marker.wwwroot!==base || marker.database!=='orientation_journey_fixture') throw new Error('Independent synthetic fixture marker required.');
 }
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
+const firstTaskCmid = Number(JSON.parse(fs.readFileSync(path.join(fixture, 'journey.json')))['first-task']);
+if (!Number.isInteger(firstTaskCmid) || firstTaskCmid < 1) throw new Error('Seeded first-task module required.');
 if (!course.course_url.startsWith(base+'/')) throw new Error('Synthetic fixture required.');
 const env = {...process.env, ORIENTATION_TRIAL_DIR:fixture};
 const password = 'Synthetic-Progress-74!';
@@ -24,6 +26,7 @@ function php(code) {
 }
 async function ready(page) { await page.waitForLoadState('networkidle'); await page.waitForFunction(()=>!window.M?.util?.pending_js?.length); const tour=page.getByRole('button',{name:'Got it',exact:true}); if(await tour.isVisible()) await tour.click(); }
 async function login(page,user) { await page.goto(overview); await ready(page); await page.locator('#username').fill(user.username); await page.locator('#password').fill(password); await page.locator('#loginbtn').click({timeout:30000}); await ready(page); }
+function primaryLink(page,label) { return page.locator('#region-main a.btn-primary').filter({hasText:label}); }
 function state() { return JSON.parse(php(`$out=[];foreach(['lesson_attempts','lesson_grades','lesson_branch','lesson_timer','lesson_answers','course_modules_completion','course_completions','course_completion_criteria'] as $t)$out[$t]=hash('sha256',serialize($DB->get_records($t,null,'id'))); $out['ids']=$DB->get_records_menu('course_modules',['course'=>${Number(course.course_id)}],'id','id,idnumber');echo json_encode($out);`)); }
 function sync() { return execFileSync(path.join(root,'scripts/php'),['scripts/sync-journey.php'],{cwd:root,env,encoding:'utf8'}); }
 test.describe.serial('native current-user activity progress',()=>{
@@ -59,12 +62,12 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.goto(overview);await expect(page.locator('#loginbtn')).toBeVisible();await expect(page.locator('[data-atlas-progress]')).toHaveCount(0);
  });
  test('an expired native session reports signed out without refreshing cookies, timestamps or a pending destination',async({page,context})=>{
-  test.skip(base!=='http://127.0.0.1:18812','This expiry regression uses the independent preview fixture only.');
+  if (fs.lstatSync(fixture).isSymbolicLink()) throw new Error('Independent non-symlink synthetic fixture required.');
   test.setTimeout(180000);
   const endpoint=`orientation-session-fixture-${stamp}.php`;
   const endpointPath=path.join(fixture,'moodle',endpoint);
   // Seed a real native pending destination through the normal session writer, only in the guarded fixture.
-  fs.writeFileSync(endpointPath,`<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='http://127.0.0.1:18812' || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(course.lesson_url)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
+  fs.writeFileSync(endpointPath,`<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='${base}' || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(course.lesson_url)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
   try{
    await login(page,users[0]);
    expect(await (await page.request.get('/'+endpoint)).json()).toEqual({seeded:true});
@@ -134,9 +137,9 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.goto(overview); await expect(page.locator('#loginbtn')).toBeVisible();
   await login(page,users[0]);
   await expect(page.getByRole('heading',{name:'Your course journey',exact:true})).toBeVisible();
-  await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await expect(primaryLink(page,'Continue: Try AI on a useful task')).toBeVisible();
   await expect(page.locator('#region-main')).toContainText('Portfolio practice within activity 2');
-  await expect(page.locator('#region-main')).toContainText('not the portfolio fields in your browser');
+  await expect(page.locator('#region-main')).toContainText('Choose Save to My context');
   await expect(page.locator('#region-main').locator('[data-atlas-open="useful-context"]')).toHaveAttribute('href',course.lesson_url);
   await expect(page.locator('[data-activity-atlas]')).toBeVisible();
   await expect(page.getByRole('button',{name:'Close course index',exact:true})).toHaveCount(0);
@@ -158,16 +161,16 @@ test.describe.serial('native current-user activity progress',()=>{
  });
  test('visits stay incomplete; native Mark as done persists across browsers and other-user parameters cannot change the current account',async({page,browser})=>{
   await login(page,users[0]); await page.locator('#region-main').locator('[data-atlas-open="first-task"]').click();
-  await page.goto(overview); await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await page.goto(overview); await expect(primaryLink(page,'Continue: Try AI on a useful task')).toBeVisible();
   await page.locator('#region-main').locator('[data-atlas-open="first-task"]').click();
   await ready(page); await page.getByRole('button',{name:/^Mark .* as done$/}).click();
   const fresh=await browser.newContext();const returning=await fresh.newPage();await login(returning,users[0]);
-  await expect(returning.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true})).toBeVisible();
+  await expect(primaryLink(returning,'Continue: Give AI the right background')).toBeVisible();
   await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
   const other=await browser.newContext();const p2=await other.newPage();await login(p2,users[1]);
   const id=php(`echo $DB->get_field('user','id',['username'=>'${users[0].username}'],MUST_EXIST);`).trim();
   await p2.goto(overview+'?userid='+id+'&courseid=1');
-  await expect(p2.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await expect(primaryLink(p2,'Continue: Try AI on a useful task')).toBeVisible();
   await fresh.close();await other.close();
  });
  test('a background journey hides private content and revalidates a same-browser account switch',async({page,context})=>{
@@ -221,18 +224,18 @@ test.describe.serial('native current-user activity progress',()=>{
   }finally{await hidden.close();}
  });
  test('native Lesson keeps its own resume route after leaving and returning',async({page,browser})=>{
-  await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  await login(page,users[0]);await primaryLink(page,'Continue: Give AI the right background').click();
   await expect(page.locator('#region-main')).toContainText('1. Choose something worth doing');
   await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('2. See what context changes');
-  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await expect(fresh.locator('[data-atlas-progress="useful-context"]')).toHaveText('In progress');await fresh.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await expect(fresh.locator('[data-atlas-progress="useful-context"]')).toHaveText('In progress');await primaryLink(fresh,'Continue: Give AI the right background').click();
   await expect(fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true})).toBeVisible();
   await fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   await expect(fresh.locator('#region-main')).toContainText('2. See what context changes');
   await context.close();
  });
  test('complete core practice remains complete when current versions change or optional material is added',async({page})=>{
-  await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  await login(page,users[0]);await primaryLink(page,'Continue: Give AI the right background').click();
   await page.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   for (const heading of ['3. Build your small context brief','4. Try it, check it, improve it','5. Keep instructions you can reuse','This is practice, not a graded exam.']) {
    await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();await expect(page.locator('#region-main')).toContainText(heading);
@@ -259,7 +262,7 @@ test.describe.serial('native current-user activity progress',()=>{
  });
  test('renaming and publishing twice preserve IDs, attempts, answers, native completion and original criteria',()=>{
   const before=state();
-  php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_name(6,'Synthetic prior display name');`);
+  php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_name(${firstTaskCmid},'Synthetic prior display name');`);
   expect(sync()).toContain('existing evidence unchanged');expect(sync()).toContain('existing evidence unchanged');
   expect(state()).toEqual(before);
  });
@@ -278,13 +281,13 @@ test.describe.serial('native current-user activity progress',()=>{
   await login(page,users[2]);await expect(page.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');
   const context=await browser.newContext();const enrolled=await context.newPage();await login(enrolled,users[1]);
   try {
-   php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,0);`);
+   php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(${firstTaskCmid},0);`);
    await enrolled.goto(overview);await expect(enrolled.locator('[data-atlas-open="first-task"]')).toHaveCount(0);
    await expect(enrolled.locator('[data-atlas-choice="first-task"]')).toHaveCount(0);
    await expect(enrolled.locator('#region-main')).toContainText('A core activity is currently unavailable');
    await expect(enrolled.locator('[data-atlas-choice="useful-context"]')).toBeVisible();
    await enrolled.goto(overview+'?module=first-task');await expect(enrolled.locator('#region-main')).not.toContainText('Keep a useful result');
-  } finally {php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,1);`);}
+  } finally {php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(${firstTaskCmid},1);`);}
   try {
    php(`$DB->set_field('course','visible',0,['id'=>${Number(course.course_id)}]);rebuild_course_cache(${Number(course.course_id)},true);`);
    await enrolled.goto(overview);await expect(enrolled.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');

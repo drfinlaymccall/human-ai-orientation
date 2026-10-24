@@ -21,10 +21,14 @@ The project should become a working public course on a subdomain of Finlay's web
 | Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
 | 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
 | 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
-| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | New portable builder with Markdown download, JSON backup/restore and optional AI interview |
+| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | Portable builder plus private My context storage, Copy, optional Markdown, JSON backup/restore and AI interview |
 | 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
 
-The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; signed-in learners can deliberately save to My context, return across devices, edit and copy selected documents. Optional downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+
+## Keeping in touch
+
+Finlay chose LinkedIn as the main follow channel for course changes, new educational offerings and human–AI collaboration ideas. A shared Keep in touch section appears on the public course profile and native course summary, linking his verified LinkedIn profile and website. There is no newsletter subscription or implied email consent. X remains optional until its profile URL is confirmed.
 
 ## Place in the broader learning journey
 
@@ -346,3 +350,31 @@ Review the experience weekly after pilot launch: learner feedback, support, core
 Proposed exclusions from the first prototype: building an LMS from scratch unless existing candidates fail the essential journey; a mandatory embedded chatbot; AI grading of personal disclosures; autonomous support replies; complex integrations into learner accounts; and compulsory advanced automation. Community forums, certificates, payments, localisation, and organisational cohorts remain possible later additions rather than commitments.
 
 The minimum public prototype and hosting machine are now selected. Resolve before implementation where consequential: lightweight completion evidence for the three activities, pilot/support capacity, platform and deployment feasibility, budget, minimum email behaviour, account/discovery friction, and storage of personal context. Naming, detailed provider guides, and screen designs can be developed alongside those decisions. The [discovery log](discovery-log.md) is the interview record.
+
+## Contextual voice feedback - 23 October 2026
+
+Finlay requested browser voice input throughout the course, beginning with a short private recording about a particular lesson or website section. Giving specific feedback to people and AI supports the course's capability goals. The authorised first slice is contextual feedback to Finlay: record, review/discard, explicitly send, and retain a private reviewer inbox. Typed feedback and audio-file upload remain valid alternatives.
+
+The [implementation plan](plans/2026-10-23-002-feat-voice-feedback-plan.md) scopes enrolment, private files, context, safe retries, notifications and privacy handling. [Release evidence](releases/2026-10-23-voice-feedback.md) separates synthetic checks from human learning evidence and live activation. Transcription, speech-to-text in arbitrary fields and AI feedback coaching are future decisions; no AI provider is required by stage one. Existing course evidence and portfolio ownership stay intact.
+
+### Voice-feedback scope clarification — 23 October 2026
+
+Finlay confirmed the first flow as private voice feedback to the course owner, with a five-minute recording maximum. Keep record, listen, re-record and explicit Send as the minimum interaction. The five-minute limit supersedes the original two-minute implementation-plan setting; a 10 MiB file allowance supports the longer recordings. Transcription, dictation in arbitrary text boxes and AI coaching stay outside this slice. This is a paraphrase of the request, not a learner observation.
+
+### Findable, compact feedback — 23 October 2026
+
+Finlay reported that recording worked but the form looked unattractive, occupied a full page and was difficult to find again from the homepage or journey. This paraphrases direct owner feedback; it is not a learner study. Use a consistent “Give feedback” button at the bottom of public course pages and native Moodle activities. Open a compact panel in place, remember the page/activity context and lead with Record plus an optional note. Hide upload/heading details until requested. Preserve unsent drafts across panel close/reopen, release microphone access on close, and retain explicit Send.
+
+Signed-out visitors receive a compact sign-in explanation and can return to the same page/panel after authentication. Keep the full-page/no-JavaScript route. Use the existing private storage and reviewer controls; do not expand this into transcription or anonymous uploads. Documentation impact: update CONTROL, feedback operations and the local test prompt, and record browser/layout/access evidence and live rollout limits in the release record.
+
+### Optional local voice transcription — 24 October 2026
+
+Finlay requested an optional install-your-own voice-model reference in voice notes and voice feedback, for learners with a suitable desktop Mac or PC. His preferred candidate is Fluid Voice using Parakeet for on-device transcription. Record this as a queued voice-channel improvement; verify the tool and per-platform hardware support before recommending it. The [feature request](requests/2026-10-24-local-voice-transcription.md) defines the learner flow and acceptance checks. Existing voice recording and typed input remain sufficient.
+
+### Tips only where the learner writes — 24 October 2026
+
+Finlay identified the tips box in section 7 of the reading preview as redundant. The public reflection has no answer editor, so omit the panel there while keeping its reflection instructions. Retain writing support beside the editable builders and Moodle’s native essay editor. This is owner feedback and a presentation change, not learner-study evidence or a change to completion.
+
+### Course-wide tips availability — 24 October 2026
+
+Finlay asked to extend the redundant-tips cleanup across the course. Show the shared writing panel only when its activity provides an available editable field; hide it when enhanced controls are unavailable, read-only or disabled. Moodle’s editor is supplied outside the authored essay fragment, so its actual form field determines availability. Preserve plain-text/manual fallbacks and remove the empty sidebar column when the panel is absent. The audit found four additional fallback cases, rather than further permanent panels on ordinary reading pages.

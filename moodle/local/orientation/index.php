@@ -61,8 +61,9 @@ if (is_string($next)) {
 }
 echo \local_orientation\startingpoint::render($rows);
 echo \local_orientation\atlas::render($rows, $course, $modinfo);
-echo html_writer::tag('h2', 'Keep your portfolio separately');
-echo html_writer::tag('p', 'Signing in saves Moodle activity progress, not the portfolio fields in your browser. Download your private JSON backup before leaving. On another browser or device, restore that file in the portfolio activity. Download Markdown to read and reuse selected context.');
+echo html_writer::tag('h2', 'Keep and reuse your context');
+echo html_writer::tag('p', 'Choose Save to My context in the portfolio to keep its documents and private practice notes in Moodle. Editing alone keeps a temporary tab draft. Open My context to edit your saved words, copy them, or download a Markdown file.');
+echo html_writer::tag('p', html_writer::link(new moodle_url('/local/orientation/workspace.php'), 'Open My context', ['class' => 'btn btn-primary']));
 echo html_writer::tag('p', 'These are the current published versions. Existing completion stays recorded after updates; this view does not claim which version you previously read. New optional practice does not change the original three core activities.');
 echo html_writer::tag('p', html_writer::link(new moodle_url('/help'), 'Ask Finlay for help') . ' · ' . html_writer::link(new moodle_url('/journey'), 'Public course journey'));
 echo html_writer::end_tag('div');

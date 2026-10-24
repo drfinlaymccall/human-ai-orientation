@@ -1,6 +1,38 @@
 # Discovery and decision log
 
-Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
+Updated: 2026-10-24. This is a living interview record. Proposals are not decisions until accepted.
+
+
+## 2026-10-24 — Triage HOC improvements and require Claude CLI review
+
+**Request/decision:** Finlay requested triage of every open issue/feature request into parent issues and work blocks suitable for subagents, and Claude CLI review on the VPS before PR merges. Enriched the existing canonical forward plan rather than starting a competing roadmap. Reused launch #9 and evidence-led #6; programme #19 also groups new delivery-quality #20 and voice #21. Native GitHub sub-issue links cover all 20 resulting open items (nine at intake plus three parents/eight bounded missing children). No prior issue was closed.
+
+**Change:** the plan defines 22 bounded work blocks, priorities/dependencies, source/test/docs ownership and three safe parallel waves. It distinguishes deployed/unmerged My context/feedback from unfinished private journey/ratings, and preserves all conditional L1–L9 requests. Local Fluid Voice/Parakeet guidance is #28; broader voice scoping is #29, separate from narration #13 and provider evaluation #12. One integrator owns shared publication, mutable fixtures and final source integration.
+
+**Methodology/evidence:** AGENTS/CONTRIBUTING, the PR template and a trusted prompt require pinned public-source Claude CLI review, finding dispositions, focused verification and re-review of changed candidates. The installed/authenticated CLI was exercised through its network-enabled VPS context. A too-large PR17 trial exhausted its estimated/output budget and remained incomplete. A compact exact-source PR18 review completed with no findings in supplied source; no application tests or merge were performed by Claude. Scope/ref/model/capability details and enforcement limits are in the [triage receipt](releases/2026-10-24-hoc-improvement-triage.md). This is a procedural merge rule; a trusted GitHub required check/ruleset remains separate work. Raw model streams/runtime data stay private.
+
+
+## 2026-10-23 — Deliver My context and keep-in-touch links
+
+**Decision/change:** Finlay approved implementation of the private Moodle workspace and course panels, making Copy the main action and retaining an optional Markdown file download. Explicit saves now keep the three portfolio documents, separate private practice and small course notes in the account; learners can return across activities and signed-in devices, edit/copy and follow source-activity links. Native forms remain usable without JavaScript and version 1 backups remain compatible. This supersedes the earlier requirements-only capture below.
+
+**Review/verification:** six deterministic client-race checks, 13 isolated Moodle browser checks, eight existing portable portfolio checks, six metadata unit checks and two metadata browser checks passed. All seven actionable code-review findings were corrected, covering account switching, stale asynchronous results/imports, row recreation, native failure recovery, notices and isolated testing. Published an additive plugin upgrade and shared content through supported Moodle APIs; fingerprints preserved existing module identities, Lesson evidence and completion. See the [release record](releases/2026-10-23-context-workspace.md) for live checks and remaining human/device limits.
+
+**Course profile:** Finlay prefers LinkedIn for course updates, new offerings and human–AI collaboration/education ideas. A shared Keep in touch section links his existing verified LinkedIn profile and website, without a newsletter subscription. X can follow once its URL is confirmed. This does not authorise sending marketing email or social posts.
+
+## 2026-10-23 — Choose Moodle for persistent My context storage
+
+**Decision:** after discussing side panels, Finlay requested that small learner-created context files live inside Moodle on the server, follow the learner through the course, and remain available to open/edit/copy/download with links back to their source activity. This supersedes the earlier undecided Google Drive/Dropbox direction; external providers become optional later extensions.
+
+**Capture:** updated existing [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), added requirements and U10 to the single forward plan, and aligned CONTROL.md, the course-review log (CR13–CR14) and portfolio authoring notes. Scope includes persistent responsive panels, private account storage across visits/devices, clear save states, failure/conflict recovery and portable backups. Separate personal creations from shared course references and private practice observations from AI-selected context.
+
+**Verification/limits:** reviewed the requirements and documentation diff; no runtime or live learner records changed. Account storage, panels, detailed schema/migration design and privacy wording remain to implement and verify. Current temporary-browser drafts/download behaviour is still described truthfully. Saving in Moodle does not give an AI access to the work.
+
+## 2026-10-23 — Queue a learner-owned AI memory folder and cloud storage
+
+**Request:** Finlay proposed Google Drive or Dropbox integration to save and retrieve portfolio files, and described a file system as an initial “AI memory system.” The intended habit is returning to check what is stored, review it and reuse useful context.
+
+**Capture/limits:** created [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), related to portable save/restore #3, and updated CONTROL.md. Candidate stages are guided local/cloud folder use, optional connected save/load, and recurring review/reuse practice. Provider choice, current free access, exact integration and conflicting-copy handling remain to be scoped. Existing local download/restore remains a valid route. No connection, upload, runtime change or claim about current provider plans was made. Checked for a matching storage issue and verified documentation whitespace.
 
 ## 2026-10-23 — Reuse Finlay’s Tips beside writing activities
 
@@ -274,3 +306,11 @@ The next product batch remains homepage conversion, verified registration/self-e
 Finlay asked to consolidate the outstanding work into one plan. The [public-launch and next-releases plan](plans/2026-10-23-002-feat-public-launch-plan.md) connects homepage clarity, verified onboarding, actual progress/return, safe module updates and public AI context to the human pilot and course/module LinkedIn series. GitHub check permission remains a supporting task, with existing local checks used meanwhile.
 
 The current competency framework and visual-map briefs are included as a review workstream, without choosing a metaphor or treating the proposed capability ratings as implemented. Glossary, resources/side quizzes, reminders, demonstration/media, reporting/expansion and later portfolio/personalisation ideas have a sequenced backlog in the same plan. The accepted demo checkout, experiential assessment and existing backup provision are unchanged. The completed release-baseline plan remains historical; CONTROL.md owns current state/dates and the forward plan owns delivery order. No new feature, account opening, invitation or post is claimed by this consolidation.
+
+## 23 October 2026 - Voice feedback, stage one
+
+**Need and authority:** Finlay proposed voice input across Moodle, with contextual audio feedback to Finlay as the minimum. He then authorised planning, building stage one and opening an integration PR while the baseline agent worked separately. This is a paraphrase of the feature-request chat, not a verbatim transcript.
+
+**Decision and change:** use a disabled-by-default local Moodle plugin with private File API storage, enrolment/context checks, a record/review/send flow, text/file alternatives, a private reviewer inbox and generic notifications. This avoids introducing transcription or a new service for a recording-only requirement. Notification failure preserves saved feedback; retry tokens prevent duplicate sends.
+
+**Verification and questions:** the [feature release](releases/2026-10-23-voice-feedback.md) records real isolated Moodle API/browser tests with fictional users and synthetic audio, plus preserved course evidence. Installation and enablement, physical device/microphone checks, Safari and real external notification receipt remain integration work. The baseline checkout and its release changes were preserved, with this feature rebased after PR #8 merged.

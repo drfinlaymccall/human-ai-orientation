@@ -1,6 +1,6 @@
 const { defineConfig } = require('@playwright/test');
 const port = process.env.ORIENTATION_PORTFOLIO_PORT || '8796';
-if (!['8796', '18816'].includes(port)) throw new Error('Use a supported loopback portfolio preview port.');
+if (!['8796', '18816', '18852'].includes(port)) throw new Error('Use a supported loopback portfolio preview port.');
 const baseURL = `http://127.0.0.1:${port}`;
 module.exports = defineConfig({
   testDir: './tests', testMatch: 'portfolio.spec.cjs', timeout: 30000,

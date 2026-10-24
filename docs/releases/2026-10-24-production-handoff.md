@@ -2,15 +2,13 @@
 
 This is the next deployment step for the [course-review release](2026-10-23-course-review-implementation.md), not a deployment receipt. This batch has changed only its preview checkout and synthetic fixture. Broad registration remains closed.
 
-## First: integrate the live workspace and feedback work
+## Integrated source; preserve the dirty live checkout
 
-Read-only inspection on 24 October found the live orientation plugin at version `2026102303`, release `1.1.0`, with `context.php`, `workspace.php`, context-storage schema/upgrade files and its privacy provider. That separate thread's product changes remain uncommitted in the ordinary checkout. This preview does not include that feature and must not replace its privacy provider, navigation or workspace.
+Read-only inspection on 24 October found the deployed orientation plugin at version `2026102303`, with My context schema/privacy/workspace and a separate compact feedback implementation. The later journey preview had version `2026102401`. [WB01 / PR #31](https://github.com/drfinlaymccall/human-ai-orientation/pull/31) joins those source lines in an isolated checkout using **2026102402**, including their tests and navigation/privacy/help/build integration. Its [release record](2026-10-24-wb01-integration.md) and external PR receipts own actual verification and merge state. This handoff is not a deployment receipt.
 
-The ordinary checkout also records a deployed compact **Give feedback** panel and private recording plugin. Preserve its canonical plugin, public launcher/build integration, consent/retention notices and review controls when combining the source. Run its owning backend/browser checks alongside My context and this release. This preview's tests do not cover that separate feature, and promoting its older public renderers directly would remove the newer entry points. The live workspace/feedback work must be committed and integrated, rather than overwritten or reconstructed from an older branch.
+The installer refuses **before copying** when the runtime has schema/upgrade files absent from the release or a newer plugin version. Do not bypass that refusal or downgrade. Reinspect the live version before promotion. The integrated idempotent upgrade covers both the earlier context installation and the journey-only version; synthetic preservation proof does not replace the live preflight.
 
-Save and commit those intended changes with their owning work stream, then merge them into this release. Preserve the already served context edition `2026-10-23.2` exactly: its SHA-256 is `fdc81d3fdbfef6d28a7cc1d3a07d305de32bccadf6bbb80104b215cbcee16f3b`. The preview now uses unused edition `2026-10-24.1`, updated 24 October, after review detected an identifier collision. Reconcile the combined public AI guidance with My context too; any subsequent context change must receive another unused edition and matching exact routes. Resolve the journey/workspace navigation together; retain its schema, native privacy/export/deletion support and existing data. Do not reset, stash indiscriminately or overwrite the live checkout's unrelated changes. Reconcile the merged help/privacy copy and run both the My context suite and this release's checks before promotion.
-
-The installer now refuses **before copying** if the runtime has schema/upgrade files absent from the release or a newer plugin version. Synthetic filesystem regressions prove that refusal preserves the installed privacy provider. This release uses plugin version `2026102401`; inspect the actual installed version again at deployment and choose a later integrated version if another release has advanced it. Do not bypass the refusal or downgrade the plugin.
+The public draft now uses **2026-10-24.2** and schema **1.3**. Keep `.24.1` and the already served `2026-10-23.2` byte-for-byte; the latter's SHA-256 is `fdc81d3fdbfef6d28a7cc1d3a07d305de32bccadf6bbb80104b215cbcee16f3b`. A future context change needs another unused edition and matching exact routes. The live checkout still contains other intended work: do not reset, stash indiscriminately or blindly pull over it. Promote a reviewed integrated commit deliberately, preserving existing IDs, records, privacy handlers and exposure settings.
 
 ## Review and promote the integrated release
 
@@ -34,9 +32,9 @@ The additive Quiz publication defaults to hidden/disabled. Enable the reviewed v
 
 ## Origin, edge and smoke checks
 
-Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Prepared context edition `2026-10-24.1` and schema `1.3` have new exact public paths; retain all older routes, including the already served `2026-10-23.2`. The earlier Cloudflare approval covered the previous edition/schema; extending the existing Browser Integrity Check exception requires explicit approval for precisely:
+Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Prepared context edition `2026-10-24.2` and schema `1.3` have new exact public paths; retain all older routes, including the already served `2026-10-23.2`. The earlier Cloudflare approval covered the previous edition/schema; extending the existing Browser Integrity Check exception requires explicit approval for precisely:
 
-- `/ai/releases/2026-10-24.1/context.md`
+- `/ai/releases/2026-10-24.2/context.md`
 - `/ai/course.schema.v1.3.json`
 
 Retain the orientation hostname, GET/HEAD restriction and Browser Integrity Check-only scope. Do not replace unrelated rules or broaden the exception to account routes. Keep the paste fallback available. Local metadata checks do not establish live provider retrieval.

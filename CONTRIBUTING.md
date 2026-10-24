@@ -15,3 +15,9 @@ Before integrating third-party teaching material, record the exact asset's right
 Every plan includes a documentation/status impact: which learner, author or operator guidance changes, what CONTROL.md must say, and what verification belongs in the PR or release record. If none changes, explain why. Make those updates in the same PR; a routine documentation update does not need a separate issue. Reuse an existing issue for the need and create a documentation issue only for a standalone task or deferred debt.
 
 CONTROL.md owns current priorities and dates; the design brief owns requirements and rationale; the README and case study explain the delivered product; dated release records retain what was checked at that time. Update current guidance rather than silently rewriting historical evidence. Close issues only after linking the delivered acceptance evidence, and explicitly retain any unfinished scope.
+
+## Claude review and delegated work
+
+Use a named work block from the [canonical HOC plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md), with issue, dependency, source/test/docs boundary and actual validation in the handoff. Keep shared builders/generated output, plugin registrations, live publication and final tracker updates with one integrator; coordinate mutable fixtures and overlapping files.
+
+Every PR needs an independent [Claude CLI source review](docs/operations/claude-pr-review.md) before merge, tied to current base/merge-base/head and complete covered scope. Resolve findings, test fixes and re-review changed candidates. Unavailable, incomplete or stale review leaves the PR unmerged. Attach redacted SHA/scope/model/result/triage evidence to the PR instead of committing a self-invalidating receipt. The rule is procedural until a trusted required check and GitHub protection are verified; CLI source review does not establish runtime behaviour or learning outcomes.

@@ -8,7 +8,7 @@ require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
-if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802', 'http://127.0.0.1:18812'], true)) {
+if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802', 'http://127.0.0.1:18812', 'http://127.0.0.1:18842'], true)) {
     throw new RuntimeException('This update targets the existing public orientation trial.');
 }
 \core\session\manager::set_user(get_admin());
@@ -55,7 +55,7 @@ foreach ($definitions as $slug => $definition) {
     if (!$existing) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
-            'name' => $definition['name'], 'idnumber' => 'orientation:' . $slug, 'section' => $definition['section'] ?? 0, 'visible' => 1,
+            'name' => $definition['name'], 'cmidnumber' => 'orientation:' . $slug, 'section' => $definition['section'] ?? 0, 'visible' => 1,
             'intro' => '<p>' . $definition['intro'] . '</p>', 'introformat' => FORMAT_HTML,
             'content' => $compiled[$slug],
             'contentformat' => FORMAT_HTML, 'showdescription' => 1,

@@ -40,7 +40,7 @@ Public atlas keyboard checks use ordinary Tab/Shift+Tab, Enter and Space. On des
 4. The private atlas retains all five activity names and artwork, native completion, Continue and optional help. Desktop details are beside the map; mobile details/action are near the selected choice. Dashboard/My courses are unnecessary for ordinary navigation; account, Help and sign-out remain reachable.
 5. Starting point is six statements × understanding/can-do ratings, twelve responses. No numeric defaults, grades or right/wrong claims. Not sure/Skip/unanswered remain unknown. Skip the whole check returns to the journey without finishing fabricated answers. An unfinished attempt can resume; an earlier finished suggestion remains dated and explained.
 6. A finished check yields the plan's explainable suggestion, separate from Continue and completion. All activities remain selectable; completed low-rated work is offered as Revisit. Hidden/unavailable destinations must not produce dead links.
-7. Native Page completion is learner-marked; Lesson uses its native resume/completion rules. Merely visiting or rating highly never completes practice. Account progress does not save downloaded portfolio fields.
+7. Native Page completion is learner-marked; Lesson uses its native resume/completion rules. Merely visiting or rating highly never completes practice. Account progress and context saving are separate: explicit Save to My context keeps signed-in documents; editing alone keeps a temporary draft. Downloaded files remain independent copies.
 
 ## Walkthrough matrix
 
