@@ -12,8 +12,14 @@ function local_orientation_validate_extend_signup_form($data): array {
 }
 function local_orientation_extend_navigation(global_navigation $navigation): void {
     if (isloggedin() && !isguestuser()) {
-        $navigation->add('My orientation progress', new moodle_url('/local/orientation/index.php'), navigation_node::TYPE_CUSTOM);
         $navigation->add('My context', new moodle_url('/local/orientation/workspace.php'), navigation_node::TYPE_CUSTOM);
+        $navigation->add('Your course journey', new moodle_url('/local/orientation/index.php'), navigation_node::TYPE_CUSTOM);
+        $navigation->add('Help', new moodle_url('/help'), navigation_node::TYPE_CUSTOM);
+        if (\local_orientation\navigation::ordinary_learner()) {
+            foreach (['myhome', 'mycourses'] as $key) {
+                if ($node = $navigation->get($key)) $node->remove();
+            }
+        }
     }
 }
 

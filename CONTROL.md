@@ -11,10 +11,11 @@ The product is human orientation: build the person's capacity to work with an ag
 - **Current stage:** working public demo/reviewer course; no human pilot participants yet. Broad registration remains closed. The exact-address pilot gate is active only for owner-controlled confirmation/recovery checks; owner-controlled email confirmation, enrolment, fresh-browser return and genuine password recovery are verified.
 - **Completed baseline:** PR #8 merged the course, preserved local feedback/research, improved the LMS showcase and current documentation, passed existing local checks and reconciled the original issues. See the [23 October release record](docs/releases/2026-10-23-baseline.md).
 - **Current forward plan:** [Demo to public course and next releases](docs/plans/2026-10-23-002-feat-public-launch-plan.md) is the single delivery plan for the remaining launch work, supporting CI task, competency/map design and sequenced later improvements.
-- **Delivered context workspace ([issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15)):** private Moodle **My context** storage and a responsive course panel keep learners’ small creations across visits/devices, with edit, large **Copy**, optional **Download Markdown (.md)** and source-activity links. Saving is deliberate; temporary drafts and existing portable backups remain supported. See the [release evidence and limits](docs/releases/2026-10-23-context-workspace.md).
-- **HOC improvement programme:** [parent #19](https://github.com/drfinlaymccall/human-ai-orientation/issues/19) coordinates launch/journey #9, delivery quality #20, voice #21 and evidence-led improvements #6. The existing canonical plan now has 22 bounded WB handoffs, dependencies and shared-file/fixture ownership. WB01 reconciles deployed but unmerged work; WB02 requires [Claude CLI review before merge](docs/operations/claude-pr-review.md). No app feature, registration setting or PR is merged by this triage. See the [24 October receipt](docs/releases/2026-10-24-hoc-improvement-triage.md).
-- **Next course-review slice ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** clarify account state and navigation, make **Your course journey** the illustrated personal hub with real completion, and move selected activity details beside/near the map. Then add the optional native starting-point check: six statements, each with separate understanding/can-do 1–5 ratings, plus uncertainty/skip and explained suggestions. Full personal skills/evidence tracking remains later work. See the [review log](docs/reviews/course-review.md) and [local-agent walkthrough](docs/qa/course-review-agent.md). These review changes are planned, not delivered.
+- **Course-review release ([issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9)):** clear account state/navigation, illustrated **Your course journey** with real completion, adjacent activity details and the optional six-statement paired self-rating check are implemented and reviewed in the preview branch. Full personal skills/evidence tracking remains later work. See the [review log](docs/reviews/course-review.md) and [local-agent walkthrough](docs/qa/course-review-agent.md). Production integration with the separate live features and deployment remain.
 - **Implementation status:** clear offer/activity atlas, native verified-account flow/current-user progress and matching public AI metadata are implemented. [Current evidence and limits](docs/releases/2026-10-23-launch-implementation.md) records verification and live state.
+- **Course-review implementation:** U1–U4/U8/U9 code and synthetic rehearsal are complete in the preview. Final checks pass: public entry 9, metadata 7 Python + 2 browser, portfolio 8, support 6, deployment boundary 3, delivered-script lifecycle 6, native progress/session 16, starting-point 8, onboarding 10, public Tips 6 and native Tips 2. Eleven review contexts found three defects, all fixed and independently rechecked; cross-model execution was unavailable. The post-fix native suite passed all sixteen together. This batch has not deployed; see [dated evidence and limits](docs/releases/2026-10-23-course-review-implementation.md).
+- **U8 optional starting-point check:** native Quiz publication, six paired self-ratings, immutable mappings/current-user attempt reading and explained suggestions are implemented in the preview. Neutral native attempt/summary/review, absence of a grade item, mobile, ownership, retake/version preservation, no-JavaScript and full captured-mail learner-journey checks pass in the independent 18812 fixture. The live default stays hidden/disabled until Finlay reviews the new saved-rating privacy/help wording. See [operations and exposure gate](docs/operations/starting-point.md); no owner approval or human pilot result is claimed.
+- **Production handoff:** [24 October deployment sequence](docs/releases/2026-10-24-production-handoff.md) starts with committing/integrating the separate live My context schema/privacy/navigation and compact feedback source/build integration. The installer refuses an unrepresented installed schema or newer release before copying. Saved-rating wording review and live smoke checks follow; this batch has not deployed. Fresh context edition 2026-10-24.1 preserves the already served .2 file exactly.
 - **Launch forecast:** choose T0 after genuine mail/recovery, retention review and the human pilot; [release handoff](docs/launch/readiness.md) and five LinkedIn drafts are prepared. The original 16 October MVP and 20 October public-version targets are superseded planning dates, retained in the historical schedule below; public enrolment was not delivered against the latter target.
 - **After launch:** weekly review and improvement from actual learner evidence.
 
@@ -23,8 +24,6 @@ Finlay authorises work in the current demo checkout. Separate integration worktr
 Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
 ## Public trial deployment — 13 October
-
-**23 October My context and course profile:** published the private workspace and shared course panels, with Copy primary and optional Markdown download. Existing activity identities, Lesson evidence and completion rules/records are preserved. Public/native course profiles now link Finlay’s LinkedIn and website for updates; no newsletter subscription is introduced. See the [release record](docs/releases/2026-10-23-context-workspace.md).
 
 **23 October reusable Finlay’s Tips:** writing activities now share a right-hand panel where space permits, compact voice-input reminders beside editable boxes and three copyable prompt starters. Public preview, portfolio, practice, optional input preparation and native Lesson reflection use the same support. Six focused public checks, eight portfolio checks and two direct native checks passed; the older broad progress suite was incompatible with newer navigation in the shared fixture. See [reuse, verification and limits](docs/curriculum/finlays-tips.md). Voice input remains the learner's device/app, with typing/paste alternatives.
 
@@ -130,7 +129,7 @@ First improve the homepage call to action, email-confirmed registration and self
 
 - Voice, images, live-camera demonstrations and accessible alternatives.
 - Reminders, digests, browser assistance and computer-action activities.
-- Optional external Google Drive/Dropbox export or connection after the delivered Moodle context workspace; current download/restore already works without an account.
+- Optional account-backed portfolio storage only if learner evidence justifies it; current download/restore works without an account.
 - Additional curated learning resources and provider pathways.
 - Certificates if learners value them.
 - Richer personalisation or embedded AI assistance if there is a clear learning benefit and affordable operating model.
@@ -142,11 +141,6 @@ Wishlist items are possibilities, not delivery commitments. Move an item into No
 Put rough ideas here without needing to design them first. During weekly review, turn worthwhile ideas into Next/Later items or retire them.
 
 For each idea, capture only what is known: **idea; who it helps; desired result; an example/link; urgency**. Missing fields are fine.
-
-### 23 October — My context: creations stored in Moodle
-
-Accepted [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15) and forward-plan U10: store small learner-created context documents on the Moodle server, attached to the learner's account and accessible across course pages, visits and devices. A persistent **My context** panel lists creations with their source activity; learners can open, edit, copy and download them and return to the course instructions. Begin with the three portfolio documents, then deliberate saves from activity work. Keep portable backups and clear saved/unsaved/error states; preserve drafts on failure and handle conflicting edits. This supersedes the undecided cloud-provider direction: Google Drive/Dropbox are possible later options. Shared course references remain distinguishable from personal creations. “AI memory” means reviewed files deliberately reused, not automatic AI access. Implemented and published with explicit saving, Copy primary and optional Markdown; verification and remaining human/device checks are in the release record linked above.
-
 
 ### 14 October — Objectives, competencies and a personal learning map
 
@@ -197,12 +191,6 @@ Hold the first review within seven days of pilot launch, then weekly. Choose the
 - Costs, support load, and revised forecast if needed:
 - Completed changes and validation:
 
-## Voice feedback - 23 October 2026
-
-Finlay authorised building stage one of the voice-input request in a separate branch alongside release-baseline work. The standalone Moodle plugin provides contextual private audio/text feedback, reviewed playback before Send, a private inbox and notifications. Transcription, voice in arbitrary answer fields and AI coaching remain later options.
-
-Source and synthetic verification are recorded in the [feature release](docs/releases/2026-10-23-voice-feedback.md); [operator setup](docs/operations/voice-feedback.md) covers explicit installation, course/reviewer enablement, retention and rollback. The release baseline was merged before this feature branch was rebased. No live activation is claimed by the feature build. Physical microphones/phones, Safari and an external notification receipt remain integration checks. Public registration and the launch batch in issue #9 are unchanged by this work.
-
 ## Source of truth
 
 This file owns dates, current priorities, the wishlist, and review records. The [design brief](docs/design-brief.md) owns the learning and product rationale; the [discovery log](docs/discovery-log.md) records decisions and unresolved questions. Update superseded decisions in place and preserve a short explanation in the discovery log.
@@ -234,3 +222,7 @@ Checked all 13 public HTML pages with and without JavaScript and authored conten
 The isolated WB01 candidate reconciles PRs #11/#17/#18/#30 against the public-launch baseline, retaining private My context, compact feedback, relevant tests/configuration and the canonical HOC plan. This is source integration; broad registration remains closed and draft #14 is not a public-readiness claim. Native verification and current-candidate Claude review gate merge; final evidence is attached to [PR #31](https://github.com/drfinlaymccall/human-ai-orientation/pull/31); [the integration release record](docs/releases/2026-10-24-wb01-integration.md) owns actual evidence. Issue #22 remains open for WB10 whole-learner rehearsal.
 
 Independent WB15 [local-transcription research](docs/research/local-voice-transcription-2026-10-24.md) and WB18 [provider protocol](docs/research/free-assistant-evaluation/evaluation-protocol.md) are prepared. No physical-device checks or consumer-assistant sessions were run; #28/#12 remain open. Course transcription integration is subsequent work.
+
+## Concurrent source integration
+
+WB01 is reconciling the independently advanced journey/starting-point source at d46470b with the deployed context/feedback baseline. The earlier 4af607c checks/reviews remain historical; the reconciled candidate requires fresh integration verification and Claude review against the new base before merge. No live publication, edge rule or check-exposure setting is applied by this reconciliation.

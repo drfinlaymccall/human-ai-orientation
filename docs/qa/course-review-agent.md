@@ -4,13 +4,33 @@ Use this guide to navigate Human AI Orientation as a synthetic learner and check
 
 ## Inputs and environment
 
-- Repository: [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation). At this guide's creation, launch/review planning is on `feat/public-launch`, draft [PR #14](https://github.com/drfinlaymccall/human-ai-orientation/pull/14); the new review features are not yet delivered. Record the actual commit/release tested.
+- Repository: [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation). The revised landing page, native illustrated journey and optional starting-point check are implemented in the `feat/course-journey` preview. They are not thereby deployed. Record the actual source commit, working-tree changes and observed deployed release; the [implementation receipt](../releases/2026-10-23-course-review-implementation.md) records integration evidence.
 - Public URL: `https://orientation.finlaymccall.com/`. This defaults to public reading/navigation only. An unimplemented proposed feature is Not yet implemented, not a claimed regression fix.
-- Native synthetic environment: use the isolated fixture documented in [onboarding operations](../operations/onboarding.md), [progress operations](../operations/progress.md) and [reproduction](../REPRODUCING.md). The hosting machine previously used loopback port 18802; do not assume your local machine has its runtime/database or that the port is free.
+- Native synthetic environment: use the isolated fixture documented in [onboarding operations](../operations/onboarding.md), [progress operations](../operations/progress.md), [starting-point operations](../operations/starting-point.md) and [reproduction](../REPRODUCING.md). This preview uses its own guarded loopback port **18812**, private `trial/launch-fixture` directory and synthetic database; the earlier independent 18802 fixture remains the default for other checkouts. Do not assume your local machine has either runtime/database or that a port is free. Never redirect tests to the public site.
 - An operator provisions fresh labelled synthetic accounts and confirms captured-mail transport. Historical QA accounts may be suspended. Do not use Finlay's administrator/reviewer account, known owner mailbox account or old stored credentials.
 - Read repository `AGENTS.md` and `CONTRIBUTING.md`. Fixture setup/account provisioning is a separate operator preflight; the learner walkthrough must not use admin/database knowledge to navigate around a problem.
 
 If the fixture is unavailable, complete public checks and report native scenarios Not tested. Do not substitute live signup, real mail or private account access. Genuine mailbox checks require a separately authorised recipient/action; none is needed for this captured-mail rehearsal. Never broaden registration, change mail routing, invite participants, send support replies or publish posts as part of QA.
+
+**Preview boundary:** this checkout does not include the separate thread's live My context storage/workspace changes. Its checks cover the course-review release only. Production integration must preserve the live storage schema, privacy provider and navigation before deploying; copying this preview over the live plugin is not a safe release procedure. Public/static portfolio wording in this preview describes its download/restore route, not the separate live account-storage feature.
+
+## Operator preflight and repeatable checks
+
+Before the learner walkthrough, the operator verifies the preview fixture's synthetic marker, exact URL/database/data directory and captured-mail transport, publishes the repository plugin/content, and enables the optional check **only in that fixture**. The first onboarding test creates labelled synthetic readiness records; they are not owner review or genuine delivery receipts. The native checkbox remains part of real signup. No policy bypass is needed. The suite closes registration afterward and preserves existing enrolments.
+
+From the prepared preview checkout, the focused commands are:
+
+```sh
+npm run test:entry
+npm run test:metadata
+ORIENTATION_FIXTURE_URL=http://127.0.0.1:18812 npm run test:onboarding
+ORIENTATION_FIXTURE_URL=http://127.0.0.1:18812 npm run test:progress
+ORIENTATION_FIXTURE_URL=http://127.0.0.1:18812 npm run test:starting-point
+```
+
+Run the native suites serially against the same fixture; they deliberately change synthetic acquisition, visibility, versions and completion. The fixture must already be served by its operator. `npm run check:public` checks generation drift and public suites after intended generated changes have been committed. **Do not use bare `npm test` for this rehearsal**: the legacy broad public configuration targets the deployed site and loads an old private QA account. Updating an old expectation does not authorise executing that suite.
+
+Public atlas keyboard checks use ordinary Tab/Shift+Tab, Enter and Space. On desktop, Tab reaches all five choices, the optional newcomer suggestion, then the selected details. On mobile, the selected action follows its choice before the next choice. Do not use scripted focus on each control as proof that normal traversal works.
 
 ## Expected route and visible behaviour
 
@@ -38,7 +58,7 @@ If the fixture is unavailable, complete public checks and report native scenario
 | Progress and return | Mark a native Page complete; exercise Lesson resume; leave and sign in in a fresh context | Current-user state persists, Continue updates and portfolio storage explanation is accurate |
 | Completed/unavailable work | Low-rate completed practice; test all-complete and hidden activity fixture cases | Revisit retains Complete; all-complete remains honest; unavailable baseline/target explained without dead links or changed requirements |
 | Learner navigation/staff | Inspect journey, enrolment, quiz attempt/review, Lesson, Page and account routes; separate staff context | Consistent learner journey/Help/account controls; administrative access preserved |
-| Two users/sign-out | A/B with different answers/progress; sign out, browser back and reload | No cross-user ratings/progress; personal state does not leak into cached/static public output or AI context |
+| Two users/sign-out/expiry | A/B with different answers/progress; sign out, browser back and reload; open a journey initially hidden, switch accounts elsewhere, then activate it; operator ages only the guarded synthetic session for the expiry case | Hidden content stays concealed until revalidated for the current account; expired public state says signed out without refreshing the session; no cross-user ratings/progress or private state in static/AI output |
 | Captured recovery | Request fixture reset signed out, open captured mail in new context, reset then reopen journey; test invalid/consumed/expired link | Account works and destination is usable; tokens remain private; no real message sent |
 
 Record initial confusion before consulting technical implementation. If you guessed a URL, used a bookmark/admin shortcut or received assistance, record it; do not count that as an unassisted pass. Test learner rendering with real fixture learner roles rather than administrator preview.

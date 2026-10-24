@@ -5,13 +5,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const fixture = path.join(root, 'trial/launch-fixture');
-const base = 'http://127.0.0.1:18802';
+const base = process.env.ORIENTATION_FIXTURE_URL || 'http://127.0.0.1:18802';
+if (!['http://127.0.0.1:18802', 'http://127.0.0.1:18812'].includes(base)) throw Error('Guarded synthetic fixture URL required.');
+if (base.endsWith(':18812')) {
+  const marker = JSON.parse(fs.readFileSync(path.join(fixture, 'synthetic-fixture.json')));
+  if (fs.lstatSync(fixture).isSymbolicLink() || marker.synthetic !== true || marker.wwwroot !== base || marker.database !== 'orientation_journey_fixture') throw Error('Independent synthetic fixture marker required.');
+}
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
 if (!course.course_url.startsWith(base + '/')) throw Error('Synthetic fixture required');
 const username = `writingtips${Date.now()}`;
 const password = 'Synthetic-Writing-Tips-74!';
 function php(code) {
-  return execFileSync(path.join(root, 'scripts/fixture-php'), ['-r', `define('CLI_SCRIPT',true);require ${JSON.stringify(path.join(root,'scripts/moodle-environment.php'))};if($CFG->wwwroot!=='${base}')throw new RuntimeException('Fixture only');` + code], { cwd: root, env: { ...process.env, ORIENTATION_TRIAL_DIR: fixture }, encoding: 'utf8' });
+  return execFileSync(path.join(root, 'scripts/fixture-php'), ['-r', `define('CLI_SCRIPT',true);require ${JSON.stringify(path.join(root,'scripts/moodle-environment.php'))};require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))};if($CFG->wwwroot!=='${base}'||!orientation_is_synthetic_fixture($orientationtrial,$CFG))throw new RuntimeException('Fixture only');` + code], { cwd: root, env: { ...process.env, ORIENTATION_TRIAL_DIR: fixture }, encoding: 'utf8' });
 }
 async function ready(page) {
   await page.waitForLoadState('networkidle');

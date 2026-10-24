@@ -6,6 +6,8 @@ Date: 23 October 2026 (Australia/Sydney). Revision: **V1.2 — activity-led lear
 
 ## Start here: what the learner sees
 
+**Bounded entry-check implementation:** the preview now implements U8's six plain-language statements, each with separate understanding/can-do 1–5 self-ratings, Not sure, Skip and unanswered responses. The current source is [`content/starting-point.json`](../../content/starting-point.json); [operator guidance](../operations/starting-point.md) explains immutable versions, native attempts and the exposure gate. This samples the six areas rather than assessing every bank competency. It does not validate the scale or deliver the later personal skills/evidence map. New saved-rating wording still needs Finlay's review before pilot/public exposure.
+
 **The atlas shows things learners can do in the course.** Each place opens a practical activity with a clear purpose and something to take away. The six competency groupings below organise the outcomes for authors; they are not six course modules or six compulsory destinations on the main atlas.
 
 Proposed heading: **What would you like to do with AI?**

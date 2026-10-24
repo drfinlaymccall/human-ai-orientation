@@ -21,11 +21,12 @@ test('public introduction, reading route and mobile layout', async ({ page }) =>
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Make a useful start with AI.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Human AI Orientation', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('Accounts are currently provided by Finlay');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.screenshot({ path: `docs/trial/public-home-${width}.png`, fullPage: true });
-    await page.getByRole('link', { name: 'Start with a useful task', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore your course', exact: true }).click();
+    await page.locator('[data-atlas-open="first-task"]').click();
     await expect(page.getByRole('heading', { name: 'Get one useful result.', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Give your AI useful context', exact: true })).toBeVisible();
@@ -385,7 +386,7 @@ test('account availability matches the expected release mode, recovery is clear 
 
 test('public AI context accepts plain HTTP clients without a bot challenge', async ({ request }) => {
   const headers = { 'User-Agent': 'Python-urllib/3.12' };
-  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1']
+  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2', '2026-10-24.1']
     .map(version => `/ai/releases/${version}/context.md`)]) {
     const response = await request.get(path, { headers });
     expect(response.status(), path).toBe(200);
@@ -404,7 +405,7 @@ test('public AI context works without login, with copying and a manual fallback'
   await expect(page.getByRole('heading', { name: 'Give your AI a little course context.' })).toBeVisible();
   const manifest = await page.evaluate(async () => (await fetch('/ai/course.json')).json());
   expect(manifest.authentication_required).toBe(false);
-  expect(manifest.schema_version).toBe('1.2');
+  expect(manifest.schema_version).toBe('1.3');
   const schema = await page.evaluate(async url => (await fetch(url)).json(), manifest.$schema);
   expect(schema.properties.schema_version.const).toBe(manifest.schema_version);
   expect(schema.required).toContain('content_license');

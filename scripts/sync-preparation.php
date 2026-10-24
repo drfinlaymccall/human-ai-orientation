@@ -18,11 +18,11 @@ $PAGE->set_context(context_course::instance($course->id));
 $spec = json_decode(file_get_contents($root . '/content/useful-context.json'), true, 512, JSON_THROW_ON_ERROR);
 
 $definitions = [
-    'deeper-courses' => ['source' => 'deeper-courses', 'name' => 'Go deeper: courses and videos', 'section' => 1,
+    'deeper-courses' => ['name' => 'Go deeper: courses and videos', 'section' => 1,
         'intro' => 'Optional courses and short videos: choose one question to explore, then bring an idea back to your own task.'],
-    'before-you-start' => ['source' => 'computer-basics', 'name' => 'Start here: files and folders',
+    'before-you-start' => ['name' => 'Start here: files and folders',
         'intro' => '10–15 minutes of computer basics, then 10–15 minutes exploring AI inputs and giving instructions. Already familiar? Use the self-check and move on.'],
-    'notes' => ['source' => 'notes-guide', 'name' => 'Finlay’s guide: set up your notes with Obsidian',
+    'notes' => ['name' => 'Finlay’s guide: set up your notes with Obsidian',
         'intro' => 'Optional, about 10 minutes. Give your context portfolio a home in a folder you can find again.'],
 ];
 $compiled = [];

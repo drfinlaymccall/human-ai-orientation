@@ -26,6 +26,8 @@
     "test:onboarding": "playwright test --config playwright.onboarding.config.cjs",
     "test:progress": "playwright test --config playwright.progress.config.cjs",
     "test:metadata": "python3 -m unittest discover -s tests -p test_ai_context.py && playwright test --config playwright.metadata.config.cjs",
+    "test:starting-point": "playwright test --config playwright.startingpoint.config.cjs",
+    "test:starting-point:rules": "scripts/php tests/starting-point-rules.php",
     "test:tips": "playwright test --config playwright.tips.config.cjs",
     "test:tips:native": "playwright test --config playwright.tips-native.config.cjs",
     "test:feedback": "python3 -m unittest discover -s tests -p test_public_integration.py && playwright test --config playwright.feedback.config.cjs",

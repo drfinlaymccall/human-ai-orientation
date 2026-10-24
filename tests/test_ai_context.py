@@ -1,4 +1,5 @@
 """Public metadata contracts: safe routes, stable releases and one reviewed activity map."""
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -45,6 +46,17 @@ class PublicContextTests(unittest.TestCase):
         self.assertFalse(manifest['authentication_required'])
         self.assertTrue(manifest['saved_progress_authentication_required'])
         self.assertEqual(manifest['saved_progress_url'], BASE + '/local/orientation/index.php')
+        self.assertEqual(manifest['schema_version'], '1.3')
+        check = manifest['starting_point']
+        self.assertEqual(check['url'], BASE + '/local/orientation/startingpoint.php')
+        self.assertTrue(check['authentication_required'])
+        self.assertTrue(check['optional'])
+        self.assertEqual(check['statement_count'], 6)
+        self.assertEqual(check['dimensions'], ['understanding', 'can_do'])
+        self.assertEqual((check['rating_min'], check['rating_max']), (1, 5))
+        self.assertEqual(check['unknown_options'], ['Not sure', 'Skip'])
+        self.assertNotIn('ratings', check)
+        self.assertNotIn('recommendation', check)
         self.assertEqual(len(manifest['activities']), len(course_map['activities']))
         context = (self.root / 'public/ai/context.md').read_text()
         for source, published in zip(course_map['activities'], manifest['activities']):
@@ -55,6 +67,20 @@ class PublicContextTests(unittest.TestCase):
             self.assertIn(published['public_url'], context)
         for path, value in before.items():
             self.assertEqual((self.root / path).read_bytes(), value, f'Rebuild changed {path}')
+
+    def test_published_context_edition_keeps_its_original_bytes(self):
+        published = self.root / 'public/ai/releases/2026-10-23.2/context.md'
+        self.assertEqual(hashlib.sha256(published.read_bytes()).hexdigest(),
+                         'fdc81d3fdbfef6d28a7cc1d3a07d305de32bccadf6bbb80104b215cbcee16f3b')
+        self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-10-24.1/context.md').read_bytes()).hexdigest(), '7fcbda2a937f2b11ca4b4391f1742df8bcbfee712b98039d1626f50ed525ee18')
+        source = self.read('content/ai/course-context.json')
+        manifest = self.read('public/ai/course.json')
+        self.assertEqual(source['version'], '2026-10-24.2')
+        self.assertEqual(source['updated'], '2026-10-24')
+        self.assertEqual(manifest['context_version'], source['version'])
+        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-10-24.2/context.md')
+        self.assertEqual((self.root / 'public/ai/context.md').read_bytes(),
+                         (self.root / 'public/ai/releases/2026-10-24.2/context.md').read_bytes())
 
     def test_changed_activity_cannot_rewrite_published_context(self):
         course_map = self.read('content/course-map.json')

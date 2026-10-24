@@ -8,7 +8,8 @@ require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
-if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802', 'http://127.0.0.1:18812', 'http://127.0.0.1:18842'], true)) {
+require_once __DIR__ . '/synthetic-fixture.php';
+if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com' && !orientation_is_synthetic_fixture($orientationtrial, $CFG)) {
     throw new RuntimeException('This update targets the existing orientation installation or isolated launch fixture.');
 }
 $map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -47,7 +48,7 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     if (!$page) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
-            'name' => $displayname, 'cmidnumber' => 'orientation:' . $slug, 'section' => $section, 'visible' => 1, 'intro' => '', 'introformat' => FORMAT_HTML,
+            'name' => $displayname, 'idnumber' => 'orientation:' . $slug, 'section' => $section, 'visible' => 1, 'intro' => '', 'introformat' => FORMAT_HTML,
             'content' => $content, 'contentformat' => FORMAT_HTML, 'showdescription' => 0,
             'completion' => $completion, 'display' => RESOURCELIB_DISPLAY_AUTO, 'printintro' => 0, 'printlastmodified' => 0,
         ], $course);
@@ -68,12 +69,12 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     $html = file_get_contents($root . '/content/generated/' . $slug . '.html');
     if ($slug === 'journey') {
         $html = str_replace('Your course journey · Free public activities', 'Your course journey · Moodle pilot', $html);
-        $nativeguidance = '<aside class="note"><h2>Returning to your work?</h2><p><a href="/local/orientation/index.php">Open my orientation progress</a> to continue or revisit an activity. Moodle saves your Lesson progress and submitted reflection. After doing a Page’s practical task, use its Mark as done control. These ticks record practice, not mastery or a graded assessment.</p><p>Choose <strong>Save to My context</strong> in <a href="/portfolio">the portfolio builder</a> to keep your documents in Moodle. Return to <a href="/local/orientation/workspace.php">My context</a> to edit and copy them from another activity or signed-in device. Typing alone keeps a temporary tab draft; private JSON backups remain an optional restore route.</p></aside>';
+        $nativeguidance = '<aside class="note"><h2>Returning to your work?</h2><p><a href="/local/orientation/index.php">Your course journey</a> to continue or revisit an activity. Moodle saves your Lesson progress and submitted reflection. After doing a Page’s practical task, use its Mark as done control. These ticks record practice, not mastery or a graded assessment.</p><p>Choose <strong>Save to My context</strong> in <a href="/portfolio">the portfolio builder</a> to keep your documents in Moodle. Return to <a href="/local/orientation/workspace.php">My context</a> to edit and copy them from another activity or signed-in device. Typing alone keeps a temporary tab draft; private JSON backups remain an optional restore route.</p></aside>';
         if (substr_count($html, '<!-- orientation-return-guidance -->') !== 1 || substr_count($html, '<!-- /orientation-return-guidance -->') !== 1) throw new RuntimeException('Journey return-guidance marker missing or ambiguous; rebuild before publishing.');
         $html = preg_replace('~<!-- orientation-return-guidance -->.*?<!-- /orientation-return-guidance -->~s', $nativeguidance, $html);
     }
     if ($completion) $html .= '<p><strong>When you have finished:</strong> use Moodle’s “Mark as done” control. Choose Save to My context to keep your portfolio in Moodle; typing alone keeps a temporary tab draft. Completion records practice, not mastery.</p>';
-    $html .= '<p><a href="/local/orientation/index.php">My orientation progress</a> · <a href="/journey">Public course journey</a> · <a href="/help">Ask for help</a> · <a href="/course/view.php?id=' . $course->id . '">Course activity list</a></p>';
+    $html .= '<p><a href="/local/orientation/index.php">Your course journey</a> · <a href="/journey">Public course journey</a> · <a href="/help">Ask for help</a> · <a href="/course/view.php?id=' . $course->id . '">Course activity list</a></p>';
     $html = $localise($html);
     if ($record->content !== $html) {
         $record->instance = $record->id;
@@ -95,7 +96,7 @@ foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-
 }
 course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
     'summary' => '<p>Choose and try a useful task, give context and build your portfolio, then check and continue. Mark the new activities done yourself. The original context lesson retains its own saved progress and reflection.</p><p><a href="/mod/page/view.php?id=' . $ids['journey'] . '">See the full journey and saving guidance</a></p>']);
-$DB->set_field('course', 'summary', '<p>A useful task → a better context brief → your own portable portfolio → a checked result and next goal.</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>' . file_get_contents($root . '/content/keep-in-touch.html'), ['id' => $course->id]);
+$DB->set_field('course', 'summary', '<p>A useful task → a better context brief → your own portable portfolio → a checked result and next goal.</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');
 $transaction->allow_commit();
 $footer = get_config('core', 'additionalhtmlfooter') ?: '';

@@ -16,14 +16,20 @@ test('every editable course box has voice help, without changing its value or se
   }
   await page.goto('/preview');
   const sent = [];
-  page.on('request', request => sent.push(request.url()));
+  page.on('request', request => sent.push(request));
   await page.locator('#brief-task').fill('PRIVATE SYNTHETIC TASK');
   const panel = page.locator('#finlay-brief-tips');
   await expect(panel.locator('[data-finlay-current]')).toHaveText('Writing: The task');
   await page.locator('#brief-task + .finlay-field-hint a').click();
   await expect(panel.locator('.finlay-voice-guide details')).toHaveAttribute('open', '');
   await expect(page.locator('#brief-task')).toHaveValue('PRIVATE SYNTHETIC TASK');
-  expect(sent).toEqual([]);
+  // Account state is the sole permitted background read; editable text must never be submitted.
+  for (const request of sent) {
+    expect(request.url()).toBe(new URL('/local/orientation/state.php', page.url()).href);
+    expect(request.method()).toBe('GET');
+    expect(request.postData()).toBeNull();
+    expect(JSON.stringify(await request.allHeaders())).not.toContain('PRIVATE SYNTHETIC TASK');
+  }
 });
 
 test('a reusable prompt copies only its authored text and never submits a form', async ({ page, context }) => {

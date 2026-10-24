@@ -12,9 +12,11 @@ A short, self-guided course helping people who are not AI specialists do somethi
 
 Optional preparation covers files, folders, notes and AI interfaces. The core journey and portfolio extension take an estimated 70–95 minutes, plus optional 20–30-minute preparation. These are author estimates, not measured learner timings. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
-## Current status — 23 October 2026
+## Current status — 24 October 2026
 
-The homepage leads with a useful task and portable takeaway. Its activity atlas offers five clear starting places; the portfolio is part of activity 2 and preparation stays optional. [Launch implementation evidence](docs/releases/2026-10-23-launch-implementation.md) tracks verified changes and remaining launch gates.
+This release branch adds a clear Human AI Orientation splash, visible account state and an illustrated **Your course journey** with actual native progress. An optional six-statement check asks separate understanding/can-do ratings and explains practice suggestions without awarding completion. [Course-review evidence](docs/releases/2026-10-23-course-review-implementation.md) and the [repeatable local-agent guide](docs/qa/course-review-agent.md) distinguish passed synthetic checks from owner/human review.
+
+These review changes are implemented and independently reviewed in a preview checkout, not deployed by this batch. All three review findings are fixed; the expanded native progress/session suite passes sixteen scenarios. The [production handoff](docs/releases/2026-10-24-production-handoff.md) starts by committing/integrating the separate live My context workspace/schema/privacy and compact feedback work before promotion. New saved-rating wording still needs Finlay's review before enabling the hidden check.
 
 The complete public journey and portfolio builder are available without an account. The additive Moodle plugin shows the signed-in learner’s actual practice progress and Continue action, while native confirmation, self-enrolment and recovery support account access. **Broad self-registration remains closed**; an exact-address pilot gate is active only for owner-controlled email checks. Owner-controlled email confirmation, enrolment, fresh-browser return and genuine password recovery are verified. Representative consenting mail checks, a small human pilot and broader retention review remain launch gates. [Issue #9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9) tracks them. The earlier 16/20 October planning dates are historical, not current commitments.
 

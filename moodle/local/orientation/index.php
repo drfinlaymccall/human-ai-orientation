@@ -17,9 +17,14 @@ if (isguestuser() || (!is_enrolled($context, $USER, '', true) && !has_capability
 $PAGE->set_context($context);
 $PAGE->set_course($course);
 $PAGE->set_pagelayout('incourse');
-$PAGE->set_title('My orientation progress');
-$PAGE->set_heading('My orientation progress');
+$PAGE->set_show_course_index(false);
+$PAGE->set_title('Your course journey');
+$PAGE->set_heading('Your course journey');
 $PAGE->set_cacheable(false);
+$PAGE->requires->css(new moodle_url('/local/orientation/activity-atlas.css'));
+$PAGE->requires->js(new moodle_url('/local/orientation/activity-atlas.js'));
+$PAGE->requires->js(new moodle_url('/local/orientation/journey.js'));
+$PAGE->set_primary_active_tab('orientation-journey');
 $modinfo = get_fast_modinfo($course, $USER->id);
 $completion = new completion_info($course);
 $rows = [];
@@ -28,7 +33,8 @@ foreach ($activities as $slug => $activity) {
     $cm = $record && isset($modinfo->cms[$record->id]) ? $modinfo->cms[$record->id] : null;
     if (!$cm || !$cm->uservisible || !$cm->url) continue;
     $state = $cm->completion ? (int)$completion->get_data($cm, false, $USER->id)->completionstate : null;
-    $rows[$slug] = ['activity' => $activity, 'cm' => $cm, 'complete' => in_array($state, [COMPLETION_COMPLETE, COMPLETION_COMPLETE_PASS, COMPLETION_COMPLETE_FAIL], true), 'state' => $state];
+    $rows[$slug] = ['activity' => $activity, 'cm' => $cm, 'complete' => in_array($state, [COMPLETION_COMPLETE, COMPLETION_COMPLETE_PASS, COMPLETION_COMPLETE_FAIL], true), 'state' => $state,
+        'started' => $activity['module_type'] === 'lesson' && $DB->record_exists('lesson_timer', ['lessonid' => $cm->instance, 'userid' => $USER->id])];
 }
 if ($module !== '') {
     if (!isset($rows[$module])) throw new moodle_exception('activityiscurrentlyhidden');
@@ -36,6 +42,7 @@ if ($module !== '') {
 }
 header('Cache-Control: private, no-store');
 echo $OUTPUT->header();
+echo html_writer::start_tag('div', ['data-private-journey' => '']);
 echo html_writer::tag('p', 'Your signed-in Moodle account saves activity practice progress. Completion records practice, not mastery or a graded assessment.');
 $next = null;
 foreach ($activities as $slug => $activity) {
@@ -52,29 +59,12 @@ if (is_string($next)) {
 } else {
     echo html_writer::tag('p', 'A core activity is currently unavailable. Your existing records are retained; choose an available activity or ask Finlay for help.');
 }
-echo html_writer::start_tag('ul');
-foreach ($rows as $row) {
-    $a = $row['activity'];
-    $state = $row['state'] === null ? 'No completion tracking' : ($row['complete'] ? 'Complete' : 'Not yet complete');
-    echo html_writer::start_tag('li');
-    echo html_writer::tag('h2', html_writer::link($row['cm']->url, s($a['label'])));
-    echo html_writer::tag('p', s($state . ' · ' . ($a['baseline'] ? 'Core activity' : (($a['role'] ?? '') === 'portfolio-bridge' ? 'Portfolio practice within activity 2' : 'Optional preparation'))));
-    echo html_writer::tag('p', s(implode(' ', $a['outcomes'])));
-    echo html_writer::tag('p', s('Current version ' . $a['version'] . ' · Updated ' . $a['updated_at'] . '. ' . $a['update_note']));
-    if ((int)$row['cm']->completion === COMPLETION_TRACKING_MANUAL) echo html_writer::tag('p', 'After doing the practical task, use Moodle’s Mark as done control on the activity. Opening a Page does not mark it complete.');
-    if ($a['module_type'] === 'lesson') echo html_writer::tag('p', 'The Lesson saves its own progress and reflection. Open it to continue or revisit using its native resume choice.');
-    foreach ($a['support_links'] ?? [] as $link) {
-        $support = \local_orientation\catalogue::cm($course, ['idnumber' => 'orientation:' . $link['slug'], 'module_type' => 'page']);
-        if ($support && isset($modinfo->cms[$support->id]) && $modinfo->cms[$support->id]->uservisible) {
-            echo html_writer::tag('p', html_writer::link($modinfo->cms[$support->id]->url, s($link['label'])));
-        }
-    }
-    echo html_writer::end_tag('li');
-}
-echo html_writer::end_tag('ul');
+echo \local_orientation\startingpoint::render($rows);
+echo \local_orientation\atlas::render($rows, $course, $modinfo);
 echo html_writer::tag('h2', 'Keep and reuse your context');
 echo html_writer::tag('p', 'Choose Save to My context in the portfolio to keep its documents and private practice notes in Moodle. Editing alone keeps a temporary tab draft. Open My context to edit your saved words, copy them, or download a Markdown file.');
 echo html_writer::tag('p', html_writer::link(new moodle_url('/local/orientation/workspace.php'), 'Open My context', ['class' => 'btn btn-primary']));
 echo html_writer::tag('p', 'These are the current published versions. Existing completion stays recorded after updates; this view does not claim which version you previously read. New optional practice does not change the original three core activities.');
 echo html_writer::tag('p', html_writer::link(new moodle_url('/help'), 'Ask Finlay for help') . ' · ' . html_writer::link(new moodle_url('/journey'), 'Public course journey'));
+echo html_writer::end_tag('div');
 echo $OUTPUT->footer();
