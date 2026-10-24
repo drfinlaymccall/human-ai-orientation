@@ -47,7 +47,7 @@ function storage() {
 }
 const account = userid => ({ userid, sesskey: 'synthetic-' + userid, portfolio: { id: 0, revision: 0, snapshot: null }, items: [] });
 const reply = data => ({ ok: true, status: 200, json: async () => data });
-function contextHarness(fetch, widget, previousOwner) {
+function contextHarness(fetch, widget, previousOwner, runtime = {}) {
   const window = new Events();
   const sessionStorage = storage();
   if (previousOwner) sessionStorage.setItem('orientation.context.owner', String(previousOwner));
@@ -56,9 +56,10 @@ function contextHarness(fetch, widget, previousOwner) {
     createElement: () => new Element(),
   };
   vm.runInNewContext(source('course-context.js'), {
-    window, document, sessionStorage, fetch, queueMicrotask,
+    window, document, sessionStorage, fetch, queueMicrotask, AbortController, setTimeout, clearTimeout,
     AbortSignal: { timeout() {} },
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
+    ...runtime,
   });
   return { window, sessionStorage, context: window.OrientationContext };
 }
@@ -155,12 +156,12 @@ test('activity teardown clears private values and keeps in-flight Save disabled'
   assert.equal(copy.disabled, true);
 });
 
-function portfolioHarness() {
-  const window = new Events();
+function portfolioHarness(contextEnvironment) {
+  const window = contextEnvironment?.window || new Events();
   const widget = new Element();
-  const sessionStorage = storage();
-  const owner = account(101);
-  window.OrientationContext = { ready: Promise.resolve(owner), current: () => owner };
+  const sessionStorage = contextEnvironment?.sessionStorage || storage();
+  const owner = contextEnvironment?.context.current() || account(101);
+  if (!contextEnvironment) window.OrientationContext = { ready: Promise.resolve(owner), current: () => owner };
   const selectors = ['status', 'storage', 'reviewed', 'provenance', 'output', 'confirm', 'confirm-text', 'fallback', 'enhanced', 'import'];
   for (const name of selectors) {
     const selector = '[data-portfolio-' + name + ']';
@@ -237,3 +238,93 @@ test('a failed saved-version read preserves the unsaved draft without a replacem
   assert.notEqual(widget.querySelector('[data-portfolio-confirm]').hidden,false);
   assert.match(descendants(widget).find(n=>'contextSaveStatus' in n.dataset).textContent,/could not be loaded/);
 });
+
+function fakeClock() {
+  let now = 0, nextId = 0;
+  const timers = new Map();
+  return {
+    setTimeout(callback, delay) { const id = ++nextId; timers.set(id, { at: now + delay, callback }); return id; },
+    clearTimeout(id) { timers.delete(id); },
+    advance(milliseconds) {
+      now += milliseconds;
+      for (const [id, timer] of timers) {
+        if (timer.at <= now) { timers.delete(id); timer.callback(); }
+      }
+    },
+    pending: () => timers.size,
+  };
+}
+function hangingPost(phase) {
+  const transport = { phase: null, aborted: false };
+  transport.fetch = async (_url, options) => {
+    if (options.method !== 'POST') return reply(account(101));
+    const pending = () => new Promise((_resolve, reject) => {
+      transport.phase = phase;
+      options.signal?.addEventListener('abort', () => {
+        transport.aborted = true;
+        reject(Object.assign(Error('Aborted'), { name: 'AbortError' }));
+      }, { once: true });
+    });
+    return phase === 'request' ? pending() : { ok: true, status: 200, json: pending };
+  };
+  return transport;
+}
+const flush = () => new Promise(resolve => setImmediate(resolve));
+
+for (const phase of ['request', 'response body']) {
+  test(`activity Save times out a hanging ${phase}, unlocks and retains its draft`, async () => {
+    const clock = fakeClock(), transport = hangingPost(phase);
+    const widget = new Element(), output = new Element();
+    output.parent = widget; output.value = 'Keep this fictional activity draft';
+    widget.append(output);
+    widget.nodes.set('[data-output="brief"]', output);
+    const { context, sessionStorage } = contextHarness(transport.fetch, widget, undefined, clock);
+    await context.ready;
+    sessionStorage.setItem('orientation.context-brief.v1', output.value);
+    const save = widget.children.find(node => node.textContent === 'Save to My context');
+    const saving = save.emit('click');
+    await flush();
+    assert.equal(transport.phase, phase);
+    assert.equal(save.disabled, true);
+    clock.advance(29999); await flush();
+    assert.equal(save.disabled, true);
+    clock.advance(1); await flush();
+    assert.equal(save.disabled, false);
+    await saving;
+    assert.equal(transport.aborted, true);
+    assert.equal(output.value, 'Keep this fictional activity draft');
+    assert.equal(sessionStorage.getItem('orientation.context-brief.v1'), output.value);
+    assert.match(widget.children.at(-1).textContent, /timed out.*not confirmed/i);
+    assert.doesNotMatch(widget.children.at(-1).textContent, /were not saved/i);
+    assert.equal(clock.pending(), 0);
+  });
+
+  test(`portfolio Save times out a hanging ${phase}, unlocks and retains its draft`, async () => {
+    const clock = fakeClock(), transport = hangingPost(phase);
+    const environment = contextHarness(transport.fetch, undefined, undefined, clock);
+    await environment.context.ready;
+    const { widget, inputs, sessionStorage } = portfolioHarness(environment);
+    await flush();
+    inputs[0].value = 'Keep this fictional portfolio draft';
+    await widget.emit('input', { target: inputs[0] });
+    const draft = sessionStorage.getItem('orientation.portfolio.account.101');
+    const save = descendants(widget).find(node => node.textContent === 'Save to My context');
+    const status = descendants(widget).find(node => 'contextSaveStatus' in node.dataset);
+    const saving = save.emit('click');
+    await flush();
+    assert.equal(transport.phase, phase);
+    assert.equal(save.disabled, true);
+    clock.advance(29999); await flush();
+    assert.equal(save.disabled, true);
+    clock.advance(1); await flush();
+    assert.equal(save.disabled, false);
+    await saving;
+    assert.equal(transport.aborted, true);
+    assert.equal(inputs[0].value, 'Keep this fictional portfolio draft');
+    assert.equal(sessionStorage.getItem('orientation.portfolio.account.101'), draft);
+    assert.equal(JSON.parse(draft).dirty, true);
+    assert.match(status.textContent, /timed out.*not confirmed/i);
+    assert.doesNotMatch(status.textContent, /were not saved/i);
+    assert.equal(clock.pending(), 0);
+  });
+}

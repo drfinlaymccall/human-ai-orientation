@@ -12,6 +12,8 @@ if (base.endsWith(':18812')) {
  if(fs.lstatSync(fixture).isSymbolicLink() || marker.synthetic!==true || marker.wwwroot!==base || marker.database!=='orientation_journey_fixture') throw new Error('Independent synthetic fixture marker required.');
 }
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
+const firstTaskCmid = Number(JSON.parse(fs.readFileSync(path.join(fixture, 'journey.json')))['first-task']);
+if (!Number.isInteger(firstTaskCmid) || firstTaskCmid < 1) throw new Error('Seeded first-task module required.');
 if (!course.course_url.startsWith(base+'/')) throw new Error('Synthetic fixture required.');
 const env = {...process.env, ORIENTATION_TRIAL_DIR:fixture};
 const password = 'Synthetic-Progress-74!';
@@ -60,12 +62,12 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.goto(overview);await expect(page.locator('#loginbtn')).toBeVisible();await expect(page.locator('[data-atlas-progress]')).toHaveCount(0);
  });
  test('an expired native session reports signed out without refreshing cookies, timestamps or a pending destination',async({page,context})=>{
-  test.skip(base!=='http://127.0.0.1:18812','This expiry regression uses the independent preview fixture only.');
+  if (fs.lstatSync(fixture).isSymbolicLink()) throw new Error('Independent non-symlink synthetic fixture required.');
   test.setTimeout(180000);
   const endpoint=`orientation-session-fixture-${stamp}.php`;
   const endpointPath=path.join(fixture,'moodle',endpoint);
   // Seed a real native pending destination through the normal session writer, only in the guarded fixture.
-  fs.writeFileSync(endpointPath,`<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='http://127.0.0.1:18812' || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(course.lesson_url)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
+  fs.writeFileSync(endpointPath,`<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='${base}' || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(course.lesson_url)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
   try{
    await login(page,users[0]);
    expect(await (await page.request.get('/'+endpoint)).json()).toEqual({seeded:true});
@@ -260,7 +262,7 @@ test.describe.serial('native current-user activity progress',()=>{
  });
  test('renaming and publishing twice preserve IDs, attempts, answers, native completion and original criteria',()=>{
   const before=state();
-  php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_name(6,'Synthetic prior display name');`);
+  php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_name(${firstTaskCmid},'Synthetic prior display name');`);
   expect(sync()).toContain('existing evidence unchanged');expect(sync()).toContain('existing evidence unchanged');
   expect(state()).toEqual(before);
  });
@@ -279,13 +281,13 @@ test.describe.serial('native current-user activity progress',()=>{
   await login(page,users[2]);await expect(page.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');
   const context=await browser.newContext();const enrolled=await context.newPage();await login(enrolled,users[1]);
   try {
-   php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,0);`);
+   php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(${firstTaskCmid},0);`);
    await enrolled.goto(overview);await expect(enrolled.locator('[data-atlas-open="first-task"]')).toHaveCount(0);
    await expect(enrolled.locator('[data-atlas-choice="first-task"]')).toHaveCount(0);
    await expect(enrolled.locator('#region-main')).toContainText('A core activity is currently unavailable');
    await expect(enrolled.locator('[data-atlas-choice="useful-context"]')).toBeVisible();
    await enrolled.goto(overview+'?module=first-task');await expect(enrolled.locator('#region-main')).not.toContainText('Keep a useful result');
-  } finally {php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(6,1);`);}
+  } finally {php(`require_once($CFG->dirroot.'/course/lib.php');\\core\\session\\manager::set_user(get_admin());set_coursemodule_visible(${firstTaskCmid},1);`);}
   try {
    php(`$DB->set_field('course','visible',0,['id'=>${Number(course.course_id)}]);rebuild_course_cache(${Number(course.course_id)},true);`);
    await enrolled.goto(overview);await expect(enrolled.locator('#region-main')).not.toContainText('Your signed-in Moodle account saves');

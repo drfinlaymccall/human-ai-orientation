@@ -48,3 +48,5 @@ During the first review session, inspect private web/PHP logs for `/local/orient
 ## 24 October integration refinement
 
 Load saved version requires a successful fresh account read; an unavailable/superseded request leaves the draft untouched. Confirmed server loads establish a clean tab baseline so a later newer saved revision can be restored. Imported files and fictional examples stay drafts until deliberately saved. WB01 also reconciles the compact feedback panel and publication notice; [integration evidence](../releases/2026-10-24-wb01-integration.md) separates original native runs, targeted rechecks and final PR review.
+
+Saving has one 30-second request/body deadline. A timeout leaves the draft and restores Save, but cannot establish whether Moodle committed: inspect My context before retrying. Storage-failure exports track further edits with JavaScript; without JavaScript the recovery snapshot is explicitly read-only, copyable/downloadable and retryable. The joined 2026102402 upgrade also creates context storage when upgrading from a journey-only 2026102401 source line, without resetting existing context or course evidence.

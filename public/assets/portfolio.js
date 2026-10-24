@@ -85,7 +85,8 @@
           await window.OrientationContext.refresh();
         } catch (error) {
           if (accountChanged) return;
-          accountStatus.textContent = error.status === 409 ? 'A newer saved version exists. Your draft is kept here. Copy it before loading the saved version.' : 'Changes were not saved. Your draft is still here; copy it or download a backup, then try again.';
+          accountStatus.textContent = error.name === 'TimeoutError' ? 'Saving timed out and was not confirmed. Your draft is still here; copy it or download a backup. Moodle may have saved it; check My context before trying again.' :
+            error.status === 409 ? 'A newer saved version exists. Your draft is kept here. Copy it before loading the saved version.' : 'Changes were not saved. Your draft is still here; copy it or download a backup, then try again.';
         } finally { accountSave.disabled = accountChanged; }
       });
       load.addEventListener('click', async () => {

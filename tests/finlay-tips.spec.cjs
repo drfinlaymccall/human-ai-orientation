@@ -23,9 +23,9 @@ test('every editable course box has voice help, without changing its value or se
   await page.locator('#brief-task + .finlay-field-hint a').click();
   await expect(panel.locator('.finlay-voice-guide details')).toHaveAttribute('open', '');
   await expect(page.locator('#brief-task')).toHaveValue('PRIVATE SYNTHETIC TASK');
-  // Account state is the sole permitted background read; editable text must never be submitted.
+  // Account state and explicitly requested saved context are permitted background reads; editable text must never be submitted.
   for (const request of sent) {
-    expect(request.url()).toBe(new URL('/local/orientation/state.php', page.url()).href);
+    expect(['/local/orientation/state.php', '/local/orientation/context.php'].map(path => new URL(path, page.url()).href)).toContain(request.url());
     expect(request.method()).toBe('GET');
     expect(request.postData()).toBeNull();
     expect(JSON.stringify(await request.allHeaders())).not.toContain('PRIVATE SYNTHETIC TASK');

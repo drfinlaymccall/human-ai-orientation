@@ -92,38 +92,92 @@ test('a stale portfolio form cannot overwrite a recreated row with the same revi
   await expect(newer.getByLabel('Relevant background', { exact: true })).toHaveValue('Replacement fictional portfolio row.');
   await context.close();
 });
-test('real Moodle write failures retain note and portfolio drafts without JavaScript', async ({ browser }) => {
+for (const javaScriptEnabled of [false, true]) test('real Moodle write failures keep recovery exports current ' + (javaScriptEnabled ? 'with JavaScript' : 'without JavaScript'), async ({ browser }) => {
+  test.setTimeout(120000);
   const configfile = path.join(fixture, 'moodle/config.php');
   const original = fs.readFileSync(configfile);
   const role = 'contextfailure' + Date.now();
-  const context = await browser.newContext({ javaScriptEnabled: false });
+  const context = await browser.newContext({ javaScriptEnabled });
+  if (javaScriptEnabled) await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async text => { window.__contextCopied = text; } } });
+  });
   const page = await context.newPage();
   // A non-login role is granted only this fixture's tables, with context UPDATE denied.
   // The private fixture config selects it only for the tested workspace save POST.
   php(`$DB->execute('CREATE ROLE ${role} NOLOGIN');$DB->execute('GRANT USAGE ON SCHEMA public TO ${role}');$DB->execute('GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${role}');$DB->execute('GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${role}');$DB->execute('REVOKE UPDATE ON {local_orientation_context} FROM ${role}');`);
   try {
     await login(page);
-    for (const note of [true, false]) {
-      await page.goto(base + '/local/orientation/workspace.php?' + (note ? 'new=1' : 'document=working'));
+    // Practice is saved first so every later context export can detect a private-field leak.
+    for (const document of ['note', 'practice', 'working', 'projects', 'knowledge']) {
+      const note = document === 'note';
+      const fieldSelector = note ? '[name="body"]' : '[data-context-field]';
+      await page.goto(base + '/local/orientation/workspace.php?' + (note ? 'new=1' : 'document=' + document));
       if (note) await page.getByLabel('Title', { exact: true }).fill('Synthetic storage failure');
-      const field = page.getByLabel(note ? 'Your text' : 'Relevant background', { exact: true });
-      await field.fill('Saved baseline before a simulated write failure.');
+      const fields = page.locator(fieldSelector);
+      const count = await fields.count();
+      for (let index = 0; index < count; index++) await fields.nth(index).fill('Saved fictional baseline ' + document + ' ' + index);
       expect((await submit(page)).status()).toBe(200);
       const savedurl = page.url();
-      const draft = 'KEEP-UNSAVED-' + (note ? 'NOTE' : 'PORTFOLIO');
-      await page.getByLabel(note ? 'Your text' : 'Relevant background', { exact: true }).fill(draft);
+      const draft = 'KEEP-UNSAVED-' + document;
+      for (let index = 0; index < count; index++) await page.locator(fieldSelector).nth(index).fill(draft + ' ' + index);
       fs.writeFileSync(configfile, Buffer.concat([original, Buffer.from(`\nif (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) === '/local/orientation/workspace.php' && ($_POST['action'] ?? '') === 'save') { $DB->execute('SET ROLE ${role}'); }\n`)]));
       try {
         expect((await submit(page)).status()).toBe(500);
         await expect(page.locator('.context-notice')).toContainText('Changes were not saved');
-        await expect(page.getByLabel(note ? 'Your text' : 'Relevant background', { exact: true })).toHaveValue(draft);
+        await expect(page.locator(fieldSelector).first()).toHaveValue(draft + ' 0');
         await expect(page.getByLabel('Text to copy', { exact: true })).toHaveValue(new RegExp(draft));
+        if (javaScriptEnabled) {
+          for (let index = 0; index < count; index++) {
+            await expect(page.locator(fieldSelector).nth(index)).toBeEditable();
+            await page.locator(fieldSelector).nth(index).fill('Later fictional edits ' + document + ' ' + index + ' — café');
+          }
+          if (note) {
+            await page.getByLabel('Title', { exact: true }).fill('Later fictional recovery title');
+            await expect(page.locator('select[name="source"]')).toBeEnabled();
+            await expect(page.locator('[data-context-recovery-source]')).toBeDisabled();
+          }
+          await expect(page.getByLabel('Text to copy', { exact: true })).toHaveValue(/Later fictional edits/);
+          // Export also rereads values immediately: programmatic edits emit no input event.
+          await page.locator(fieldSelector).first().evaluate(input => { input.value += '\nLATEST-BEFORE-COPY'; });
+          await page.getByRole('button', { name: 'Copy', exact: true }).click();
+        } else {
+          for (let index = 0; index < count; index++) await expect(page.locator(fieldSelector).nth(index)).not.toBeEditable();
+          await expect(page.getByText('Without JavaScript, the recovered text stays read-only', { exact: false })).toBeVisible();
+          if (note) {
+            await expect(page.getByLabel('Title', { exact: true })).not.toBeEditable();
+            await expect(page.locator('select[name="source"]')).toBeDisabled();
+            await expect(page.locator('[data-context-recovery-source]')).toHaveValue('first-task');
+          }
+        }
+        const currentMarkdown = async () => {
+          if (note) return '# ' + await page.getByLabel('Title', { exact: true }).inputValue() + '\n\n' + await page.getByLabel('Your text', { exact: true }).inputValue() + '\n';
+          const values = await page.locator('[data-context-field]').evaluateAll(inputs => Object.fromEntries(inputs.map(input => [input.name.slice('field_'.length), input.value])));
+          const encoded = Buffer.from(JSON.stringify(values)).toString('base64');
+          // The server formatter is authoritative; it receives only this document's current fields.
+          return php(`$snapshot=\\local_orientation\\context_store::blank();$snapshot['fields']=array_replace($snapshot['fields'],json_decode(base64_decode('${encoded}'),true));echo \\local_orientation\\context_store::markdown($snapshot,'${document}');`);
+        };
+        const copied = await currentMarkdown();
+        expect(await page.getByLabel('Text to copy', { exact: true }).inputValue()).toBe(copied);
+        if (javaScriptEnabled) {
+          expect(await page.evaluate(() => window.__contextCopied)).toBe(copied);
+          await page.locator(fieldSelector).first().evaluate(input => { input.value += '\nLATEST-BEFORE-DOWNLOAD'; });
+        }
         const download = page.waitForEvent('download');
         await page.getByRole('link', { name: 'Download Markdown (.md)', exact: true }).click();
-        expect(fs.readFileSync(await (await download).path(), 'utf8')).toContain(draft);
+        const downloaded = fs.readFileSync(await (await download).path(), 'utf8');
+        expect(downloaded).toBe(await currentMarkdown());
+        if (document !== 'practice') {
+          expect(downloaded).not.toContain('Saved fictional baseline practice');
+          expect(downloaded).not.toContain('## Task and criterion');
+        }
+        if (!javaScriptEnabled && note) {
+          // A retry still has the required source even though its selector is disabled.
+          expect((await submit(page)).status()).toBe(500);
+          await expect(page.getByLabel('Your text', { exact: true })).toHaveValue(draft + ' 0');
+        }
       } finally { fs.writeFileSync(configfile, original); }
       await page.goto(savedurl);
-      await expect(page.getByLabel(note ? 'Your text' : 'Relevant background', { exact: true })).toHaveValue('Saved baseline before a simulated write failure.');
+      for (let index = 0; index < count; index++) await expect(page.locator(fieldSelector).nth(index)).toHaveValue('Saved fictional baseline ' + document + ' ' + index);
     }
   } finally {
     fs.writeFileSync(configfile, original);

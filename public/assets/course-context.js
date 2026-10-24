@@ -103,11 +103,25 @@
   async function write(data, expecteduserid) {
     if (!account) throw Object.assign(Error('Sign in to save to Moodle.'), { status: 401 });
     if (!Number.isInteger(expecteduserid) || account.userid !== expecteduserid) throw Object.assign(Error('Account changed. Reopen My context.'), { status: 403 });
-    const response = await fetch(endpoint, { method: 'POST', credentials: 'same-origin', cache: 'no-store', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, expecteduserid, sesskey: account.sesskey }) });
-    const result = await response.json();
-    if (!response.ok) throw Object.assign(Error(result.error || 'Changes were not saved. Keep your draft and try again.'), { status: response.status });
-    if (account?.userid !== expecteduserid) throw Error('Account changed. Reopen My context.');
-    return result;
+    const controller = new AbortController();
+    let timeout;
+    const deadline = new Promise((_resolve, reject) => {
+      timeout = setTimeout(() => {
+        reject(Object.assign(Error('Saving timed out and was not confirmed.'), { name: 'TimeoutError' }));
+        controller.abort();
+      }, 30000);
+    });
+    try {
+      const request = (async () => {
+        const response = await fetch(endpoint, { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal: controller.signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, expecteduserid, sesskey: account.sesskey }) });
+        const result = await response.json();
+        if (!response.ok) throw Object.assign(Error(result.error || 'Changes were not saved. Keep your draft and try again.'), { status: response.status });
+        if (account?.userid !== expecteduserid) throw Error('Account changed. Reopen My context.');
+        return result;
+      })();
+      // Bound body decoding as well as the request, even if a transport never settles after abort.
+      return await Promise.race([request, deadline]);
+    } finally { clearTimeout(timeout); }
   }
   render();
   const ready = refresh();
@@ -161,7 +175,10 @@
           if (invalidated) return;
           revision = Number(result.item.revision); expecteditemid = Number(result.item.id);
           status.textContent = 'Saved to Moodle. Open My context to edit, copy or return to this activity.'; await refresh();
-        } catch (error) { if (!invalidated) status.textContent = error.status === 409 ? 'A newer saved version exists. Copy these edits before opening My context.' : 'Changes were not saved. Your text is still here; keep a copy and try again.'; }
+        } catch (error) {
+          if (!invalidated) status.textContent = error.name === 'TimeoutError' ? 'Saving timed out and was not confirmed. Your text is still here; keep a copy. Moodle may have saved it; check My context before trying again.' :
+            error.status === 409 ? 'A newer saved version exists. Copy these edits before opening My context.' : 'Changes were not saved. Your text is still here; keep a copy and try again.';
+        }
         finally { button.disabled = invalidated || account?.userid !== owner; }
       });
     });

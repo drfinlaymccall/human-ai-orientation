@@ -117,23 +117,27 @@ if ($confirmation) {
     echo '<input type="hidden" name="sesskey" value="' . s(sesskey()) . '"><input type="hidden" name="revision" value="' . $revision . '"><input type="hidden" name="expecteditemid" value="' . $expecteditemid . '"><input type="hidden" name="expecteduserid" value="' . (int)$USER->id . '">';
     echo '<button class="btn btn-danger" name="action" value="' . ($delete ? 'confirmdelete' : 'confirmclear') . '">' . ($delete ? 'Confirm deletion' : 'Confirm clear') . '</button> ' . html_writer::link($PAGE->url, 'Keep my saved work') . '</form>';
 } else {
-    echo '<form method="post" data-context-editor data-document="' . ($note ? 'note' : s($document)) . '" data-example="' . ($snapshot['example'] ? '1' : '0') . '">';
+    echo '<form method="post" data-context-editor data-document="' . ($note ? 'note' : s($document)) . '" data-example="' . ($snapshot['example'] ? '1' : '0') . '" data-reviewed="' . ($snapshot['reviewed'] ? '1' : '0') . '">';
     echo '<input type="hidden" name="sesskey" value="' . s(sesskey()) . '"><input type="hidden" name="revision" value="' . $revision . '"><input type="hidden" name="expecteditemid" value="' . $expecteditemid . '"><input type="hidden" name="expecteduserid" value="' . (int)$USER->id . '">';
     echo '<h2 data-context-title>' . s($note ? ($title ?: 'New context note') : $definition['title']) . '</h2>';
+    // Without JavaScript, recovery exports remain the same read-only snapshot as the fields.
+    $readonly = $storagefailure ? ' readonly' : '';
     if ($note) {
-        echo '<label for="context-title">Title</label><input id="context-title" name="title" maxlength="160" required value="' . s($title) . '">';
-        echo '<label for="context-body">Your text</label><textarea id="context-body" name="body" maxlength="20000" rows="10">' . s($body) . '</textarea>';
-        echo '<label for="context-source">Created during</label><select id="context-source" name="source">';
+        echo '<label for="context-title">Title</label><input id="context-title" name="title" maxlength="160" required' . $readonly . ' value="' . s($title) . '">';
+        echo '<label for="context-body">Your text</label><textarea id="context-body" name="body" maxlength="20000" rows="10"' . $readonly . '>' . s($body) . '</textarea>';
+        echo '<label for="context-source">Created during</label><select id="context-source" name="source"' . ($storagefailure ? ' disabled' : '') . '>';
         foreach (\local_orientation\catalogue::modules() as $slug => $activity) echo '<option value="' . s($slug) . '"' . ($slug === $source ? ' selected' : '') . '>' . s($activity['label']) . '</option>';
         echo '</select>';
+        if ($storagefailure) echo '<input type="hidden" name="source" data-context-recovery-source value="' . s($source) . '">';
     } else {
-        foreach ($definition['fields'] as $key => $label) echo '<label for="context-' . s($key) . '">' . s($label) . '</label><textarea id="context-' . s($key) . '" name="field_' . s($key) . '" data-context-field data-label="' . s($label) . '" maxlength="2000" rows="3">' . s($snapshot['fields'][$key]) . '</textarea>';
+        foreach ($definition['fields'] as $key => $label) echo '<label for="context-' . s($key) . '">' . s($label) . '</label><textarea id="context-' . s($key) . '" name="field_' . s($key) . '" data-context-field data-label="' . s($label) . '" maxlength="2000" rows="3"' . $readonly . '>' . s($snapshot['fields'][$key]) . '</textarea>';
     }
     echo '<p data-context-edit-status role="status">' . ($unsaved ? 'These edits are not saved. Copy or download your text before leaving.' : ($revision ? 'Showing saved work. Save changes after editing.' : 'Not saved yet. Write a little, then save it to Moodle.')) . '</p><button type="submit" class="context-save" name="action" value="save">Save changes</button>';
     echo '<section class="context-copy-area" aria-labelledby="context-copy-heading"><h2 id="context-copy-heading">Ready to use it?</h2><p>Review the text, copy it, then paste it into your AI conversation. Share only what helps your task.</p>';
     echo '<label for="context-copy-text">Text to copy</label><textarea id="context-copy-text" readonly rows="8" data-context-copy-text>' . s($markdown) . '</textarea>';
     echo '<button type="button" class="context-copy" data-context-copy hidden>Copy</button><p data-context-copy-status role="status"></p><noscript><p>Select the text above and use your device’s Copy command.</p></noscript>';
     if ($storagefailure) {
+        echo '<noscript><p>Without JavaScript, the recovered text stays read-only so your copy and download match. Keep a copy before reopening this page to edit. You can retry saving this recovered version.</p></noscript>';
         echo '<a class="context-download" download="orientation-' . ($note ? 'note' : s($document)) . '.md" href="data:text/markdown;charset=utf-8;base64,' . base64_encode($markdown) . '">Download Markdown (.md)</a>';
     } else {
         echo '<button type="submit" class="context-download" name="action" value="download">Download Markdown (.md)</button>';
@@ -154,7 +158,56 @@ if ($activity) {
 }
 echo '<p class="context-small">Your saved text is private to your account through this workspace. Finlay administers the server and can access stored records for support or a records request. Keep sensitive details out. <a href="/privacy">About your information</a>.</p></div>';
 if ($storagefailure) {
-    echo '<script>const copy=document.querySelector("[data-context-copy]");if(copy){copy.hidden=false;copy.addEventListener("click",async()=>{const text=document.querySelector("[data-context-copy-text]"),status=document.querySelector("[data-context-copy-status]");try{await navigator.clipboard.writeText(text.value);status.textContent="Copied. Paste it into your own notes or AI conversation.";}catch{ text.focus();text.select();status.textContent="Text selected. Use your device’s Copy command.";}});}</script></main></body></html>';
+    // Standalone recovery must format current fields without theme scripts or further storage reads.
+    echo <<<'HTML'
+<script>
+(() => {
+    const editor = document.querySelector('[data-context-editor]');
+    if (!editor) return;
+    const text = editor.querySelector('[data-context-copy-text]');
+    const copy = editor.querySelector('[data-context-copy]');
+    const download = editor.querySelector('.context-download');
+    const status = editor.querySelector('[data-context-copy-status]');
+    const fields = [...editor.querySelectorAll('[data-context-field]')];
+    const original = fields.map(field => field.value);
+    for (const field of editor.querySelectorAll('input[name="title"][readonly],textarea[name="body"][readonly],textarea[data-context-field][readonly]')) field.readOnly = false;
+    const source = editor.querySelector('select[name="source"]');
+    if (source) {
+        source.disabled = false;
+        editor.querySelector('[data-context-recovery-source]').disabled = true;
+    }
+    function refreshExport() {
+        let markdown;
+        if (editor.dataset.document === 'note') {
+            markdown = '# ' + editor.elements.title.value + '\n\n' + editor.elements.body.value + '\n';
+        } else {
+            // Keep whitespace and labels consistent with context_store::markdown.
+            const parts = fields.filter(field => /[^ \t\n\r\0\v]/.test(field.value)).map(field => '## ' + field.dataset.label + '\n' + field.value);
+            const reviewed = editor.dataset.reviewed === '1' && fields.every((field, index) => field.value === original[index]);
+            const prefix = editor.dataset.document === 'practice' ? '' :
+                (editor.dataset.example === '1' ? 'Fictional practice example, authored for Human AI Orientation; edits may have been made.\n\n' : '') +
+                (reviewed ? 'Review status: reviewed by the learner.' : 'Review status: draft — review before sharing.') + '\n\n';
+            markdown = parts.length ? prefix + '# ' + editor.querySelector('[data-context-title]').textContent + '\n\n' + parts.join('\n\n') + '\n' : '';
+        }
+        text.value = markdown;
+        download.href = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(markdown);
+    }
+    editor.addEventListener('input', refreshExport);
+    download.addEventListener('click', refreshExport);
+    copy.hidden = false;
+    copy.addEventListener('click', async () => {
+        refreshExport();
+        try {
+            await navigator.clipboard.writeText(text.value);
+            status.textContent = 'Copied. Paste it into your own notes or AI conversation.';
+        } catch {
+            text.focus(); text.select();
+            status.textContent = 'Text selected. Use your device’s Copy command.';
+        }
+    });
+})();
+</script></main></body></html>
+HTML;
 } else {
     echo $OUTPUT->footer();
 }
