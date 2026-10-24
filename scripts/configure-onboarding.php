@@ -4,10 +4,11 @@ define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
 require __DIR__ . '/moodle-environment.php';
 require_once $CFG->libdir . '/enrollib.php';
+require_once $root . '/moodle/local/orientation/classes/welcome.php';
 
 $action = $argv[1] ?? 'status';
-if (!in_array($action, ['status', 'check', 'configure-closed', 'pilot', 'open'], true)) {
-    throw new RuntimeException('Use status, check, configure-closed, pilot or open [--receipt=/private/path.json] [--pilot-emails=/private/path.json].');
+if (!in_array($action, ['status', 'check', 'configure-closed', 'pilot', 'open', 'welcome-enable', 'welcome-disable'], true)) {
+    throw new RuntimeException('Use status, check, configure-closed, pilot, open, welcome-enable or welcome-disable [--receipt=/private/path.json] [--pilot-emails=/private/path.json].');
 }
 require_once __DIR__ . '/synthetic-fixture.php';
 $fixture = orientation_is_synthetic_fixture($orientationtrial, $CFG);
@@ -99,6 +100,21 @@ if ($action === 'open' && (!$pluginready || !$receiptready || !$mailready || $bl
     throw new RuntimeException('Registration retained unchanged: private mail/recovery and owner-review receipt plus ready transport and unrestricted course enrolment required.');
 }
 if ($action === 'pilot' && (!$pluginready || !$pilotready || !$mailready || $blockers)) throw new RuntimeException('Pilot retained unchanged: installed plugin, private owner pilot-review receipt, ready transport and unrestricted enrolment required.');
+if (in_array($action, ['welcome-enable', 'welcome-disable'], true)) {
+    if (!$pluginready || !$instance) throw new RuntimeException('Configure the orientation plugin and exact course self-enrolment instance first.');
+    // Native self-enrolment sends on enrolment, never here. No retrospective scan, manual-mail
+    // activation, acquisition changes or transport changes are part of this explicit opt-in.
+    $plugin = enrol_get_plugin('self');
+    $settings = clone $instance;
+    $settings->customint4 = $action === 'welcome-enable' ? ENROL_SEND_EMAIL_FROM_NOREPLY : ENROL_DO_NOT_SEND_EMAIL;
+    if ($action === 'welcome-enable') $settings->customtext1 = \local_orientation\welcome::email($CFG->wwwroot);
+    // Native form represents expiry notification plus notifyall as the value 2.
+    if ($instance->expirynotify && $instance->notifyall) $settings->expirynotify = 2;
+    $transaction = $DB->start_delegated_transaction();
+    $plugin->update_instance($instance, $settings);
+    $transaction->allow_commit();
+    $instance = $DB->get_record('enrol', ['id' => $instance->id], '*', MUST_EXIST);
+}
 if (in_array($action, ['configure-closed', 'pilot', 'open'], true)) {
     if (!$pluginready) throw new RuntimeException('Install and upgrade the repository orientation plugin before configuration.');
     $open = $action !== 'configure-closed';
@@ -136,9 +152,7 @@ if (in_array($action, ['configure-closed', 'pilot', 'open'], true)) {
     $settings = $instance ? clone $instance : new stdClass();
     $settings->status = ENROL_INSTANCE_ENABLED;
     $settings->customint6 = $open ? 1 : 0;
-    $settings->customtext1 = 'Welcome to Human AI Orientation. Choose a useful activity and keep a personal context portfolio. '
-        . 'You can leave and return with Moodle activity progress saved; download your portfolio backup separately. '
-        . 'Return to your course: ' . $CFG->wwwroot . '/course/view.php?id=' . (int)$course->id;
+    $settings->customtext1 = \local_orientation\welcome::email($CFG->wwwroot);
     // Native form represents expiry notification plus notifyall as the value 2.
     if ($instance && $instance->expirynotify && $instance->notifyall) $settings->expirynotify = 2;
     if ($instance) {
@@ -148,7 +162,7 @@ if (in_array($action, ['configure-closed', 'pilot', 'open'], true)) {
         $settings->customint1 = 0;
         $settings->customint2 = 0;
         $settings->customint3 = 0;
-        $settings->customint4 = 0; // No unsolicited new welcome transport; native confirmation carries account access.
+        $settings->customint4 = ENROL_DO_NOT_SEND_EMAIL; // Only welcome-enable deliberately opts in.
         $settings->customint5 = 0;
         $plugin->add_instance($course, (array)$settings);
     }
@@ -168,6 +182,10 @@ $status = [
     'self_plugin_enabled' => enrol_is_enabled('self'),
     'self_instance_enabled' => $instance && (int)$instance->status === ENROL_INSTANCE_ENABLED,
     'new_enrolments_open' => $instance && !empty($instance->customint6),
+    'self_welcome_mode' => $instance ? (int)$instance->customint4 : null,
+    'self_welcome_enabled' => $instance && !empty($instance->customint4),
+    'welcome_subject' => get_string('welcometocourse', 'moodle', $course->fullname),
+    'manual_welcome_guidance' => 'in-course',
     'acquisition_blockers' => $blockers,
     'owner_receipt_ready' => $receiptready, 'mail_transport_ready' => $mailready,
     'password_policy_enabled' => !empty($CFG->passwordpolicy),

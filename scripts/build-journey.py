@@ -19,9 +19,10 @@ TRANSFER = '''<section id="portfolio-save"><h2>Save or restore your work</h2>
 <p data-portfolio-status role="status" aria-live="polite" aria-atomic="true"></p></section>'''
 JOURNEY = '''<p class="eyebrow">Human AI Orientation · Free public activities</p>
 <h1>Explore your course journey.</h1>
-<p class="intro">Start with a useful task. Learn what context helps, then build a small portfolio you can find, review and reuse in another conversation.</p>
+<p class="intro"><!-- student-rationale --></p>
 <p>Work at your own pace. Allow roughly 70–95 minutes for the three activities and portfolio bridge, split across visits if useful. Times are guides, not deadlines. A free AI tool is enough; fictional examples let you practise without an AI account.</p>
 <div class="actions"><a class="button" href="#atlas-heading">Choose an activity</a><a class="button secondary" href="/local/orientation/startingpoint.php">Find my starting point</a></div>
+<!-- student-objectives -->
 <p class="meta">The optional starting-point check asks about your understanding and what you can do. Sign in with an invited course account to save your ratings and see explained suggestions. You can choose any public activity without an account. Public registration is currently closed.</p>
 <p class="account-state meta" data-account-state role="status">Check sign-in to see your account state.</p>
 <!-- activity-atlas -->
@@ -70,6 +71,15 @@ def fragment(name):
     return writing_support(html, name)
 
 
+def student_welcome(html, welcome):
+    """Share the agreed objectives across the public entry and native overview."""
+    objectives = ''.join(f'<li>{escape(objective)}</li>' for objective in welcome['objectives'])
+    details = f'''<details class="note" data-course-objectives><summary>What you'll practise</summary>
+<p>By the end, you will have practised how to:</p><ul>{objectives}</ul>
+<p>These are practice goals, not a graded assessment. Choose any activity and return when useful. This orientation is useful on its own and prepares the ground for a broader human–AI education programme.</p></details>'''
+    return html.replace('<!-- student-rationale -->', escape(welcome['rationale'])).replace('<!-- student-objectives -->', details)
+
+
 @feedback_page
 def render(title, content, slug):
     description = {
@@ -88,11 +98,18 @@ def main():
     generated = ROOT / 'content/generated'
     generated.mkdir(exist_ok=True)
     atlas = activity_atlas()
+    welcome_source = (ROOT / 'content/student-welcome.json').read_bytes()
+    welcome = json.loads(welcome_source)
     home_source = (ROOT / 'content/home.html').read_text()
     if JOURNEY.count('<!-- activity-atlas -->') != 1 or '<!-- activity-atlas -->' in home_source:
         raise ValueError('Only the journey source must contain one activity-atlas marker.')
-    journey = JOURNEY.replace('<!-- activity-atlas -->', atlas)
-    home = home_source.replace('<!-- keep-in-touch -->', (ROOT / 'content/keep-in-touch.html').read_text())
+    if home_source.count('<!-- student-objectives -->') != 1 or JOURNEY.count('<!-- student-objectives -->') != 1:
+        raise ValueError('Home and journey sources must each contain exactly one student-objectives marker.')
+    if JOURNEY.count('<!-- student-rationale -->') != 1 or '<!-- student-rationale -->' in home_source:
+        raise ValueError('Only the journey source must contain exactly one student-rationale marker.')
+    (ROOT / 'moodle/local/orientation/student-welcome.json').write_bytes(welcome_source)
+    journey = student_welcome(JOURNEY.replace('<!-- activity-atlas -->', atlas), welcome)
+    home = student_welcome(home_source.replace('<!-- keep-in-touch -->', (ROOT / 'content/keep-in-touch.html').read_text()), welcome)
     (generated / 'activity-atlas.html').write_text(atlas + '\n')
     (ROOT / 'public/index.html').write_text(home)
     (generated / 'journey.html').write_text(journey)

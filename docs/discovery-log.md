@@ -314,3 +314,13 @@ The current competency framework and visual-map briefs are included as a review 
 **Decision and change:** use a disabled-by-default local Moodle plugin with private File API storage, enrolment/context checks, a record/review/send flow, text/file alternatives, a private reviewer inbox and generic notifications. This avoids introducing transcription or a new service for a recording-only requirement. Notification failure preserves saved feedback; retry tokens prevent duplicate sends.
 
 **Verification and questions:** the [feature release](releases/2026-10-23-voice-feedback.md) records real isolated Moodle API/browser tests with fictional users and synthetic audio, plus preserved course evidence. Installation and enablement, physical device/microphone checks, Safari and real external notification receipt remain integration work. The baseline checkout and its release changes were preserved, with this feature rebased after PR #8 merged.
+
+## 24 October 2026 — WB23 welcome before the integrated rehearsal
+
+**Need / direction:** Finlay approved the rationale, welcome email and in-course introduction before the complete WB10 learner journey. This implements the existing WB23/R18/AE12 contract under #4/#9; it is owner direction, not pilot feedback.
+
+**Decision:** use Moodle’s native self-enrolment welcome for confirmed learners; keep its standard subject and provide equivalent in-course guidance for manual/invited learners. Explicit method-specific welcome controls preserve acquisition and enrolment restrictions. Canonical copy supplies public objectives and the native welcome; existing activity identities and progress remain unchanged.
+
+**Observed correction:** native captured-email testing found the activity-name filter injecting a legacy-page link into prose. A local supported `nolink` wrapper prevents that extra link without changing global filters or the mail system.
+
+**Verification / limits:** first-unit twenty source assertions and five native captured-mail scenarios pass. The [integrated WB23/WB10 record](qa/2026-10-24-wb23-wb10-rehearsal.md) owns later execution. Production mail, deployment and human comprehension are separate checks.

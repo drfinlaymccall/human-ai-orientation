@@ -43,6 +43,31 @@ if ($module !== '') {
 header('Cache-Control: private, no-store');
 echo $OUTPUT->header();
 echo html_writer::start_tag('div', ['data-private-journey' => '']);
+$welcome = \local_orientation\welcome::data();
+echo html_writer::start_tag('details', ['data-course-welcome' => '', 'class' => 'mb-4']);
+echo html_writer::tag('summary', 'Welcome / Start here');
+echo html_writer::tag('h2', 'Learn to team with AI.');
+echo html_writer::tag('p', s($welcome['rationale']));
+echo html_writer::tag('p', s($welcome['introduction']));
+echo html_writer::tag('p', 'Your course journey is your home base. Choose Continue below to open your first unfinished core activity, or choose any available activity. The starting-point check and files preparation are optional. Allow roughly 70–95 minutes, split into sessions that suit you.');
+echo html_writer::start_tag('details', ['data-course-objectives' => '']);
+echo html_writer::tag('summary', "What you'll practise");
+echo html_writer::tag('p', 'By the end, you will have practised how to:');
+echo html_writer::start_tag('ul');
+foreach ($welcome['objectives'] as $objective) {
+    echo html_writer::tag('li', s($objective));
+}
+echo html_writer::end_tag('ul');
+echo html_writer::tag('p', 'These are practice goals, not a graded assessment.');
+echo html_writer::end_tag('details');
+echo html_writer::tag('p', 'When signed in, choose Save to My context to keep your documents and private practice notes in Moodle. Open My context to edit and copy them later. Editing alone keeps a temporary tab draft. Saved documents, activity progress and submitted reflections are separate records.');
+echo html_writer::tag('p', 'Use your own AI; a free tool is enough and fictional examples are available. Share or paste only relevant, reviewed text. Saving in Moodle does not give your AI automatic access.');
+$welcomelinks = [];
+foreach ($welcome['links'] as $link) {
+    $welcomelinks[] = html_writer::link(new moodle_url($link['path']), s($link['label']));
+}
+echo html_writer::tag('p', implode(' · ', $welcomelinks));
+echo html_writer::end_tag('details');
 echo html_writer::tag('p', 'Your signed-in Moodle account saves activity practice progress. Completion records practice, not mastery or a graded assessment.');
 $next = null;
 foreach ($activities as $slug => $activity) {

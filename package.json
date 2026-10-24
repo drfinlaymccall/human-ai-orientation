@@ -32,7 +32,10 @@
     "test:tips:native": "playwright test --config playwright.tips-native.config.cjs",
     "test:feedback": "python3 -m unittest discover -s tests -p test_public_integration.py && playwright test --config playwright.feedback.config.cjs",
     "test:feedback:moodle": "playwright test --config playwright.feedback-moodle.config.cjs",
-    "build:feedback": "python3 scripts/build-feedback.py"
+    "build:feedback": "python3 scripts/build-feedback.py",
+    "test:welcome:rules": "scripts/php tests/welcome-rules.php",
+    "test:welcome": "playwright test --config playwright.welcome.config.cjs",
+    "test:wb10": "playwright test --config playwright.wb10.config.cjs"
   },
   "keywords": [],
   "author": "",

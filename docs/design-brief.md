@@ -1,8 +1,15 @@
 # Human AI Orientation — course design brief
 
-Updated: 2026-10-23. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
+Updated: 2026-10-24. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
+
+**Course rationale — clarified by Finlay, 24 October 2026:** prepare humans to team with AI. Through worthwhile tasks, learners practise communicating intentions, supplying relevant context, recognising and repairing misunderstandings, checking results and keeping useful work. They encounter practical interaction patterns—conversation, voice input, files and reusable notes—and learn to choose an approach for their purpose. The orientation is self-contained and prepares the ground for a broader, separate human–AI education programme.
+
+**Learner-facing short form:** Learn to team with AI: choose a useful task, give context, check the result and keep what helps.
+
+WB23 implements this rationale in source on the landing/course overview, in the native welcome and as task-specific purpose cues through the activities and closing next-goal reflection. The [student-onboarding brief](curriculum/student-onboarding.md) maps six existing capability areas to overall objectives and documents the canonical welcome source, first-visit flow and publication checks. The [dated release](releases/2026-10-24-student-welcome-rehearsal.md) and [synthetic QA record](qa/2026-10-24-wb23-wb10-rehearsal.md) distinguish verified source/captured-mail behaviour from production publication, welcome enablement, genuine recipient delivery and the human pilot, which remain separate gates.
+
 
 Help people who are not AI specialists establish a productive, informed relationship with AI through useful tasks, better context, and capability discovery. The course should respect their time and let them judge whether a capability is worth using in their own lives.
 

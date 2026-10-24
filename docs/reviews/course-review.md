@@ -60,3 +60,9 @@ Moodle is the primary store; Google Drive/Dropbox are optional later extensions.
 ## 23 October 2026 — course profile follow channels
 
 **CR16:** Finlay wants people to keep up with course changes, new educational offerings and human–AI collaboration ideas. He prefers LinkedIn and potentially X, and does not plan a Substack newsletter. Published a shared Keep in touch section on the public course profile and native course summary with the existing verified LinkedIn URL and website. No email subscription is added. X remains optional pending its profile URL. See the [release record](../releases/2026-10-23-context-workspace.md).
+
+## 24 October 2026 — WB23 rationale and WB10 whole-learner rehearsal
+
+**CR17:** Finlay approved a prominent human–AI teaming rationale, overall objectives, native welcome mail and matching in-course guidance before the full learner rehearsal. Shared copy now connects entry, welcome, activity purpose and public AI guidance. Native sending has explicit course-method controls; manual/invited learners have equivalent in-course guidance. The [WB23/WB10 receipt](../qa/2026-10-24-wb23-wb10-rehearsal.md) records five captured-mail checks, twenty source assertions and the complete two-learner rehearsal.
+
+The rehearsal completed practice, reviewed-context storage/reuse, account recovery, a mobile skip path and no-JavaScript editing without changing existing IDs/history. Native filtering added an unintended legacy-page link to welcome prose; supported `nolink` wrappers corrected it. Visual inspection also caught a transient sign-in prompt while context status was unresolved; its initial wording is now neutral, with focused red/green proof. Selector/synchronisation and `noscript` matcher failures are documented as test issues. Human comprehension, consenting-recipient receipt and production promotion remain separate gates under the existing launch/onboarding issues.

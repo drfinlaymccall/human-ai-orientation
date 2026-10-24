@@ -23,9 +23,9 @@
     const body = panel.querySelector('[data-context-panel-body]');
     body.replaceChildren();
     const info = document.createElement('p');
-    info.textContent = account ? 'Your saved words, ready to use again.' : (message || 'Sign in to keep your creations in Moodle.');
+    info.textContent = account ? 'Your saved words, ready to use again.' : (message || (checked ? 'Sign in to keep your creations in Moodle.' : 'Checking your saved context…'));
     body.append(info);
-    body.append(link(account ? 'Open My context' : 'Sign in to My context', home));
+    body.append(link(account || !checked ? 'Open My context' : 'Sign in to My context', home));
     if (account) {
       const list = document.createElement('ul');
       const dated = (li, item) => {

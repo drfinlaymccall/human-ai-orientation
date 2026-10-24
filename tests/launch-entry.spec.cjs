@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const welcome = require('../content/student-welcome.json');
 
 const activities = [
   ['Try AI on a useful task', 'first-task', '/first-task'],
@@ -13,6 +14,7 @@ test('closed-registration splash leads to the public journey and complete activi
     await page.setViewportSize({ width, height: 960 });
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Human AI Orientation');
+    await expect(page.locator('.hero-tagline')).toHaveText('Learn to team with AI.');
     await expect(page.locator('[data-activity-atlas]')).toHaveCount(0);
     const start = page.getByRole('link', { name: 'Explore your course', exact: true });
     await expect(start).toHaveAttribute('href', '/journey');
@@ -31,6 +33,32 @@ test('closed-registration splash leads to the public journey and complete activi
     await page.getByRole('link', { name: 'Continue: test, improve and choose a next goal', exact: true }).click();
     await expect(page).toHaveURL(/\/check-and-continue$/);
     await expect(page.getByRole('heading', { name: 'Test it, improve it, keep going.', exact: true })).toBeVisible();
+  }
+});
+
+test('public purpose and six practice objectives remain available by keyboard without JavaScript', async ({ browser, baseURL }) => {
+  for (const javaScriptEnabled of [true, false]) {
+    const context = await browser.newContext({ javaScriptEnabled, baseURL, viewport: { width: 390, height: 960 } });
+    try {
+      const page = await context.newPage();
+      for (const route of ['/', '/journey']) {
+        await page.goto(route);
+        const objectives = page.locator('[data-course-objectives]');
+        const summary = objectives.locator('summary');
+        await expect(summary).toHaveText("What you'll practise");
+        await expect(objectives).not.toHaveAttribute('open');
+        await summary.focus();
+        await page.keyboard.press('Enter');
+        await expect(objectives).toHaveAttribute('open', '');
+        await expect(objectives.locator('li')).toHaveText(welcome.objectives);
+        await expect(objectives.locator('li').first()).toBeVisible();
+        await page.keyboard.press('Enter');
+        await expect(objectives).not.toHaveAttribute('open');
+        await expect(page.locator('main')).toContainText('70–95 minutes');
+        await expect(page.getByRole('link', { name: 'Human AI Orientation', exact: true })).toBeVisible();
+        expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+      }
+    } finally { await context.close(); }
   }
 });
 
@@ -253,4 +281,20 @@ test('restoring a signed-in page clears stale state while the next probe is pend
   await expect(page.locator('[data-journey-primary]')).toHaveText('Explore your course');
   pending();
   await expect(page.locator('[data-account-state]')).toHaveText('Signed out');
+});
+
+test('saved-context panel keeps an unresolved account neutral and resolves an actual signed-out response', async ({ page }) => {
+  let release;
+  await page.route('**/local/orientation/context.php', async route => {
+    await new Promise(resolve => { release = resolve; });
+    await route.fulfill({ status: 401, json: { error: 'Synthetic signed-out response' } });
+  });
+  await page.goto('/');
+  const panel = page.locator('[data-context-panel]');
+  await expect(panel).toContainText('Checking your saved context');
+  await expect(panel.getByRole('link', { name: 'Open My context', exact: true })).toBeVisible();
+  await expect(panel.getByRole('link', { name: 'Sign in to My context', exact: true })).toHaveCount(0);
+  release();
+  await expect(panel).toContainText('Sign in to keep your creations in Moodle.');
+  await expect(panel.getByRole('link', { name: 'Sign in to My context', exact: true })).toBeVisible();
 });
