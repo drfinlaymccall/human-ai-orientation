@@ -82,7 +82,7 @@ final class context_store {
         if ($expectedid !== null && $expectedid < 0) throw new \RuntimeException('invalid', 400);
         if (!isset(catalogue::modules()[$source])) throw new \RuntimeException('invalid', 400);
         self::text($title, 160);
-        if (!trim($title)) throw new \RuntimeException('invalid', 400);
+        if (trim($title) === '') throw new \RuntimeException('invalid', 400);
         if ($key === 'portfolio') {
             self::validate(json_decode($body, true, 32, JSON_THROW_ON_ERROR));
         } else {
@@ -125,7 +125,7 @@ final class context_store {
         if (!$definition) throw new \RuntimeException('invalid', 400);
         $parts = [];
         foreach ($definition['fields'] as $key => $label) {
-            if (trim($snapshot['fields'][$key])) $parts[] = '## ' . $label . "\n" . $snapshot['fields'][$key];
+            if (trim($snapshot['fields'][$key]) !== '') $parts[] = '## ' . $label . "\n" . $snapshot['fields'][$key];
         }
         if (!$parts) return '';
         $prefix = $document === 'practice' ? '' : (($snapshot['example'] ? "Fictional practice example, authored for Human AI Orientation; edits may have been made.\n\n" : '') . ($snapshot['reviewed'] ? 'Review status: reviewed by the learner.' : 'Review status: draft — review before sharing.') . "\n\n");

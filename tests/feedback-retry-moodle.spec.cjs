@@ -39,7 +39,7 @@ test('a committed response loss followed by edits conflicts and requires an expl
     await route.abort('failed');
   });
   await send.click();
-  await expect(page.getByRole('status')).toContainText('Feedback was not confirmed as saved');
+  await expect(page.locator('[data-voice-status]')).toContainText('Feedback was not confirmed as saved');
   expect(committed.id).toBeGreaterThan(0);
   await expect(send).toBeEnabled();
   await expect(token).toHaveValue(originalToken);
@@ -48,8 +48,8 @@ test('a committed response loss followed by edits conflicts and requires an expl
     response.url().includes('/local/orientationfeedback/index.php?format=json') && response.status() === 409);
   await send.click();
   expect(await (await conflictResponse).json()).toHaveProperty('code', 'retryconflict');
-  await expect(page.getByRole('status')).toContainText('An earlier version of this feedback was saved');
-  await expect(page.getByRole('status')).toContainText('These changes have not been saved');
+  await expect(page.locator('[data-voice-status]')).toContainText('An earlier version of this feedback was saved');
+  await expect(page.locator('[data-voice-status]')).toContainText('These changes have not been saved');
   await expect(message).toHaveValue(editedText);
   await expect(send).toBeEnabled();
   await expect(token).toHaveValue(originalToken);

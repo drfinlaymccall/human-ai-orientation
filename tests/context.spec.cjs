@@ -256,3 +256,39 @@ test('failed saved-version reads keep drafts and successful loads establish a cl
   expect(stored.dirty).toBe(false);
   expect(stored.revision).toBe(current.portfolio.revision);
 });
+
+test('zero remains valid in saved note titles and native context Copy and Markdown', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await login(page);
+  async function checkZeroExport(expectedText) {
+    const rendered = await page.getByLabel('Text to copy', { exact: true }).inputValue();
+    expect(rendered).toContain(expectedText);
+    await page.getByRole('button', { name: 'Copy', exact: true }).focus();
+    await page.keyboard.press('Enter');
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(rendered);
+    const downloaded = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download Markdown (.md)', exact: true }).click();
+    expect(fs.readFileSync(await (await downloaded).path(), 'utf8')).toBe(rendered);
+  }
+  await page.goto('/local/orientation/workspace.php?new=1');
+  await page.getByLabel('Title', { exact: true }).fill('0');
+  await page.getByLabel('Your text', { exact: true }).fill('0');
+  await page.getByRole('button', { name: 'Save changes', exact: true }).click();
+  await expect(page.locator('.context-notice')).toContainText('Saved to Moodle');
+  await expect(page.getByLabel('Title', { exact: true })).toHaveValue('0');
+  await checkZeroExport('# 0\n\n0\n');
+
+  await page.goto('/local/orientation/workspace.php?document=working');
+  await page.getByLabel('Relevant background', { exact: true }).fill('0');
+  await page.getByRole('button', { name: 'Save changes', exact: true }).click();
+  await expect(page.locator('.context-notice')).toContainText('Saved to Moodle');
+  await expect(page.getByLabel('Relevant background', { exact: true })).toHaveValue('0');
+  await checkZeroExport('## Relevant background\n0\n');
+
+  await page.goto('/local/orientation/workspace.php?document=practice');
+  await page.getByLabel('Observed result and one check', { exact: true }).fill('0');
+  await page.getByRole('button', { name: 'Save changes', exact: true }).click();
+  await expect(page.locator('.context-notice')).toContainText('Saved to Moodle');
+  await expect(page.getByLabel('Observed result and one check', { exact: true })).toHaveValue('0');
+  await checkZeroExport('## Observed result and one check\n0\n');
+});

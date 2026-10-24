@@ -216,9 +216,13 @@ test('embedded signed-out feedback offers sign-in without loading a full login f
 });
 
 
-test('normal Moodle sign-in redirects to the allowlisted public page and rejects external destinations', async ({ browser }) => {
+for (const entry of ['anonymous', 'guest']) test(entry + ' Moodle sign-in redirects to the allowlisted public page and rejects external destinations', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
+  if (entry === 'guest') {
+    await page.goto('/login/index.php');
+    await page.locator('#guestlogin button').click();
+  }
   await page.goto('/local/orientationfeedback/signin.php?source=journey');
   await expect(page).toHaveURL(/\/login\/index.php/);
   await page.locator('#username').fill(fixtures.users.author.username);
