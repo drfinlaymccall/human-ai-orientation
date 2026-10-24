@@ -19,6 +19,7 @@ function php(code) {
 }
 async function ready(page) { await page.waitForLoadState('networkidle'); await page.waitForFunction(()=>!window.M?.util?.pending_js?.length); }
 async function login(page,user) { await page.goto(overview); await ready(page); await page.locator('#username').fill(user.username); await page.locator('#password').fill(password); await page.locator('#loginbtn').click(); await ready(page); }
+function primaryLink(page, label) { return page.locator('#region-main a.btn-primary').filter({hasText:label}); }
 function state() { return JSON.parse(php(`$out=[];foreach(['lesson_attempts','lesson_grades','lesson_branch','lesson_timer','lesson_answers','course_modules_completion','course_completions','course_completion_criteria'] as $t)$out[$t]=hash('sha256',serialize($DB->get_records($t,null,'id'))); $out['ids']=$DB->get_records_menu('course_modules',['course'=>${Number(course.course_id)}],'id','id,idnumber');echo json_encode($out);`)); }
 function sync() { return execFileSync(path.join(root,'scripts/php'),['scripts/sync-journey.php'],{cwd:root,env,encoding:'utf8'}); }
 test.describe.serial('native current-user activity progress',()=>{
@@ -29,39 +30,40 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.goto(overview); await expect(page.locator('#loginbtn')).toBeVisible();
   await login(page,users[0]);
   await expect(page.getByRole('heading',{name:'My orientation progress',exact:true})).toBeVisible();
-  await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await expect(primaryLink(page, 'Continue: Try AI on a useful task')).toBeVisible();
+  await expect(page.locator('[data-context-panel]').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toHaveAttribute('href',await primaryLink(page, 'Continue: Try AI on a useful task').getAttribute('href'));
   await expect(page.locator('#region-main')).toContainText('Portfolio practice within activity 2');
   await expect(page.locator('#region-main')).toContainText('Choose Save to My context');
-  await expect(page.locator('#region-main').getByRole('link',{name:'Open My context',exact:true})).toHaveAttribute('href',base+'/local/orientation/workspace.php');
+  await expect(primaryLink(page, 'Open My context')).toHaveAttribute('href',base+'/local/orientation/workspace.php');
   await expect(page.locator('#region-main').getByRole('link',{name:'Give AI the right background',exact:true})).toHaveAttribute('href',course.lesson_url);
   await expect(page.locator('#region-main')).not.toContainText('COMP-');
  });
  test('visits stay incomplete; native Mark as done persists across browsers and other-user parameters cannot change the current account',async({page,browser})=>{
   await login(page,users[0]); await page.locator('#region-main').getByRole('link',{name:'Try AI on a useful task',exact:true}).click();
-  await page.goto(overview); await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await page.goto(overview); await expect(primaryLink(page, 'Continue: Try AI on a useful task')).toBeVisible();
   await page.locator('#region-main').getByRole('link',{name:'Try AI on a useful task',exact:true}).click();
   await ready(page); await page.getByRole('button',{name:/^Mark .* as done$/}).click();
   const fresh=await browser.newContext();const returning=await fresh.newPage();await login(returning,users[0]);
-  await expect(returning.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true})).toBeVisible();
+  await expect(primaryLink(returning, 'Continue: Give AI the right background')).toBeVisible();
   const other=await browser.newContext();const p2=await other.newPage();await login(p2,users[1]);
   const id=php(`echo $DB->get_field('user','id',['username'=>'${users[0].username}'],MUST_EXIST);`).trim();
   await p2.goto(overview+'?userid='+id+'&courseid=1');
-  await expect(p2.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
+  await expect(primaryLink(p2, 'Continue: Try AI on a useful task')).toBeVisible();
   await fresh.close();await other.close();
  });
  test('native Lesson keeps its own resume route after leaving and returning',async({page,browser})=>{
-  await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  await login(page,users[0]);await primaryLink(page, 'Continue: Give AI the right background').click();
   await expect(page.locator('#region-main')).toContainText('1. Choose something worth doing');
   await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('2. See what context changes');
-  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await fresh.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await primaryLink(fresh, 'Continue: Give AI the right background').click();
   await expect(fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true})).toBeVisible();
   await fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   await expect(fresh.locator('#region-main')).toContainText('2. See what context changes');
   await context.close();
  });
  test('complete core practice remains complete when current versions change or optional material is added',async({page})=>{
-  await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
+  await login(page,users[0]);await primaryLink(page, 'Continue: Give AI the right background').click();
   await page.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   for (const heading of ['3. Build your small context brief','4. Try it, check it, improve it','5. Keep instructions you can reuse','This is practice, not a graded exam.']) {
    await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();await expect(page.locator('#region-main')).toContainText(heading);

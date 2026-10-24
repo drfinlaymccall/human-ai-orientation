@@ -34,7 +34,7 @@
   },
   {
     "url": "https://orientation.finlaymccall.com/ai/",
-    "title": "Give your AI the course context — Human AI Orientation",
+    "title": "Give your AI the course context \u2014 Human AI Orientation",
     "published_date": null,
     "final_url": "https://orientation.finlaymccall.com/ai/",
     "scope": "course_public_material",
@@ -145,13 +145,14 @@
   {
     "url": "https://www.anthropic.com/supported-countries",
     "title": "Supported Regions Policy",
-    "published_date": "2026-11-12T20:20:00.000Z",
+    "published_date": null,
     "final_url": "https://www.anthropic.com/legal/supported-regions",
     "scope": "consumer_official_documentation",
     "checked_on": "2026-10-24",
     "report_time_zone": "Australia/Sydney",
     "evidence_file": "evidence/claude.json",
-    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run",
+    "date_note": "Fetch extraction reported 2026-11-12T20:20:00.000Z after the check date; publication metadata is unverified and was discarded."
   },
   {
     "url": "https://support.claude.com/en/articles/10070557-what-is-the-free-plan",
@@ -223,7 +224,7 @@
   },
   {
     "url": "https://x.ai/grok",
-    "title": "Grok — Useful AI Chatbot with Voice & Image Generation | SpaceXSI",
+    "title": "Grok \u2014 Useful AI Chatbot with Voice & Image Generation | SpaceXSI",
     "published_date": null,
     "final_url": "https://x.ai/grok",
     "scope": "consumer_official_documentation",
@@ -267,7 +268,7 @@
   },
   {
     "url": "https://ai.google.dev/gemini-api/docs/url-context",
-    "title": "URL context  |  Gemini API  |  Google AI for Developers",
+    "title": "URL context \u00a0|\u00a0 Gemini API \u00a0|\u00a0 Google AI for Developers",
     "published_date": null,
     "final_url": "https://ai.google.dev/gemini-api/docs/url-context",
     "scope": "api_documentation_not_consumer_evidence",

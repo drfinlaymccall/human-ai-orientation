@@ -16,6 +16,8 @@ if (empty($CFG->local_orientationfeedback_synthetic) ||
 // A localhost installation's default noreply@127.0.0.1 is not a valid mail address.
 // This synthetic sender still uses the site's explicitly configured capture transport.
 set_config('noreplyaddress', 'synthetic-noreply@example.test');
+// The combined course seed hides this button; expose the native guest route only in this guarded fixture.
+set_config('guestloginbutton', 1);
 require_once($CFG->dirroot . '/lib/testing/generator/lib.php');
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');

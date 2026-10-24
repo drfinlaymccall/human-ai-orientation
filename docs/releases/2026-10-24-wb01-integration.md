@@ -16,7 +16,15 @@ WB18 adds the [provider source review](../research/free-assistant-evaluation/pro
 
 ## Verification status
 
-Integration verification is in progress. Support (6) and metadata (6 unit + 2 browser) passed. A portfolio server-port collision was resolved using the existing configurable port, without reusing the occupied service. Fresh fixture installation initially stopped before tables were created because the dedicated cluster defaulted to SQL_ASCII; only verified-empty synthetic databases are being recreated as UTF-8. Final checks and independent Claude receipt are recorded externally on the candidate PR before merge.
+Observed checks: support 6; metadata 6 unit + 2 browser; portable portfolio 8; course entry 5; public Tips 7; isolated recorder/launcher 21; public integration 2; deterministic context client 9; native progress 8; native onboarding 9. Repeated generation has no content/public drift, and changed PHP/JavaScript/Python syntax and local documentation links were checked.
+
+The first native context run passed 11 of 13 and hit navigation/time-budget failures in two scenarios. The first native Tips run also timed out during login. These are not recorded as passes: targeted rechecks use an explicit 180-second test budget, 45-second action budget and 60-second navigation budget on this busy synthetic PHP server, with the same behavior assertions. Feedback backend/privacy checks passed; the first browser run passed 5 of 6 and exposed the combined seed's hidden guest-login button before the guest-denial step could run. The guarded synthetic feedback provisioner now explicitly exposes that route for the denial check; it does not change production configuration.
+
+Review also corrected saved-version handling: a failed/superseded deliberate read cannot offer cached content as fresh, and a successful saved-version load establishes a clean local baseline while imports/examples remain drafts. Three deterministic cases failed before these fixes and passed afterward; a native recovery scenario checks the actual interface. The progress suite distinguishes the main Continue action from the new panel link and verifies their destinations agree.
+
+Two integration regressions were caught and fixed before merge: the newer privacy page had lost the recording notice, and the reading-preview builder had lost the explicit head/body normalization required for the feedback decorator. New publication checks failed first and passed after restoring both. Writing help now correctly scopes the no-recording statement to its text boxes, since the separate feedback recorder exists.
+
+The exact final-candidate recheck results, base/merge-base/head, independent Claude CLI receipt and every finding disposition are recorded externally on [PR #31](https://github.com/drfinlaymccall/human-ai-orientation/pull/31). This keeps the review receipt outside the commit it identifies. Historical runs and a successful individual review partition do not approve a later candidate.
 
 ## Remaining boundaries
 

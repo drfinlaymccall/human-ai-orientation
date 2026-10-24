@@ -42,7 +42,7 @@
     "requested_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md",
     "expected_edition": "2026-10-13.3",
     "observed_edition": "2026-10-13.2",
-    "reference_artifact": "evidence/pinned-2026-10-13.3.source.md",
+    "reference_artifact": "../../../public/ai/releases/2026-10-13.3/context.md",
     "raw_source_sha256": "8515c8d2712a3c497a958cc38335bb7239614000c5a1f5913be03382909496a0"
   },
   "prompt": {
@@ -75,7 +75,7 @@
     "no_private_progress_claim": "unknown"
   },
   "evidence": {
-    "transcript_path": "drafts/current-results-and-fictional-case.md#fictional-scoring-case--never-observed-in-a-provider",
+    "transcript_path": "current-results-and-fictional-case.md#fictional-scoring-case--never-observed-in-a-provider",
     "redacted_state_path": null,
     "visible_sources": [],
     "tool_evidence": null,

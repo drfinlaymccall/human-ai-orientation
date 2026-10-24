@@ -89,9 +89,11 @@
         } finally { accountSave.disabled = accountChanged; }
       });
       load.addEventListener('click', async () => {
-        const latest = await window.OrientationContext.refresh();
-        if (accountChanged || latest?.userid !== account.userid) return;
-        propose(latest.portfolio.snapshot ? validate(latest.portfolio.snapshot) : blank(), 'Load the version saved in Moodle?', latest.portfolio.revision, latest.portfolio.id);
+        const latest = await window.OrientationContext.refresh({ freshOnly: true });
+        if (accountChanged) return;
+        if (!latest) { accountStatus.textContent = 'The saved version could not be loaded. Your draft is still here; try again.'; return; }
+        if (latest.userid !== account.userid) return;
+        propose(latest.portfolio.snapshot ? validate(latest.portfolio.snapshot) : blank(), 'Load the version saved in Moodle?', latest.portfolio.revision, latest.portfolio.id, true);
       });
       try {
         const earlier = sessionStorage.getItem(LEGACY_STORAGE_KEY);
@@ -173,19 +175,21 @@
       setTimeout(() => URL.revokeObjectURL(url), 10000);
       announce('Download requested. Find the file in Downloads and check it opens; move it to your own notes folder if useful.');
     }
-    function replace(data, revision = savedRevision, itemid = savedItemId) {
+    function replace(data, revision = savedRevision, itemid = savedItemId, fromServer = false) {
       if (accountChanged) return;
       state = data;
       savedRevision = Number(revision);
       savedItemId = Number(itemid);
+      if (fromServer) savedText = JSON.stringify(data);
       save();
+      if (fromServer && accountStatus) accountStatus.textContent = 'Loaded the saved version from Moodle. Editing will make a new draft.';
       refresh();
       announce('Entries replaced. Review them and download a fresh backup after editing.');
     }
-    function propose(data, message, revision = savedRevision, itemid = savedItemId) {
+    function propose(data, message, revision = savedRevision, itemid = savedItemId, fromServer = false) {
       if (accountChanged) return;
-      if (!keys.some(key => state.fields[key].length) && !state.reviewed && !state.example) { replace(data, revision, itemid); return; }
-      pendingReplacement = { data, revision, itemid };
+      if (!keys.some(key => state.fields[key].length) && !state.reviewed && !state.example) { replace(data, revision, itemid, fromServer); return; }
+      pendingReplacement = { data, revision, itemid, fromServer };
       find('[data-portfolio-confirm-text]').textContent = `${message} This replaces all three context documents and the private practice record. Download your current backup first if you need to keep it.`;
       find('[data-portfolio-confirm]').hidden = false;
       find('[data-portfolio-action="cancel"]').focus();
@@ -263,7 +267,7 @@
         case 'confirm': {
           const next = pendingReplacement;
           dismiss();
-          if (next) replace(next.data, next.revision, next.itemid);
+          if (next) replace(next.data, next.revision, next.itemid, next.fromServer);
           break;
         }
         case 'cancel': dismiss(); announce('Your current entries were kept.'); break;

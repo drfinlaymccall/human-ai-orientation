@@ -164,7 +164,7 @@ function portfolioHarness() {
   const selectors = ['status', 'storage', 'reviewed', 'provenance', 'output', 'confirm', 'confirm-text', 'fallback', 'enhanced', 'import'];
   for (const name of selectors) {
     const selector = '[data-portfolio-' + name + ']';
-    const node = new Element(); node.selector = selector;
+    const node = new Element(); node.selector = selector; node.parent = widget; node.hidden = name === 'confirm';
     widget.nodes.set(selector, node);
   }
   widget.nodes.set('[data-portfolio-action="cancel"]', new Element());
@@ -176,7 +176,7 @@ function portfolioHarness() {
     window, document: { querySelectorAll: () => [widget], createElement: () => new Element() },
     sessionStorage, Blob,
   });
-  return { window, widget, sessionStorage, fields, inputs };
+  return { window, widget, sessionStorage, fields, inputs, owner };
 }
 
 test('a delayed backup import cannot repopulate or rewrite a cleared account draft', async () => {
@@ -194,4 +194,46 @@ test('a delayed backup import cannot repopulate or rewrite a cleared account dra
   assert.equal(widget.querySelector('[data-portfolio-output]').value, '');
   assert.equal(sessionStorage.getItem('orientation.portfolio.account.101'), null);
   assert.equal(input.value, '');
+});
+
+test('a failed deliberate refresh never returns cached account data as fresh', async () => {
+  let fail = false;
+  const {context} = contextHarness(async () => fail ? {ok:false,status:503} : reply(account(101)));
+  await context.ready; fail = true;
+  assert.equal(await context.refresh({freshOnly:true}), null);
+  assert.equal(context.current().userid, 101);
+  assert.equal((await context.refresh()).userid, 101);
+});
+
+function descendants(node) { return [node, ...node.children.flatMap(descendants)]; }
+function snapshot(fields, about) { return {format:'human-ai-orientation-portfolio',version:1,reviewed:false,example:false,fields:Object.fromEntries(fields.map(key=>[key,key==='about'?about:'']))}; }
+
+test('loading saved context establishes a clean baseline while imported work stays a draft', async () => {
+  const {window,widget,sessionStorage,fields,inputs,owner} = portfolioHarness();
+  owner.portfolio = {id:1,revision:1,snapshot:snapshot(fields,'Earlier saved context')};
+  await new Promise(resolve=>setImmediate(resolve));
+  inputs[0].value = 'Unsaved draft'; await widget.emit('input',{target:inputs[0]});
+  window.OrientationContext.refresh = async () => ({...owner,portfolio:{id:1,revision:2,snapshot:snapshot(fields,'Latest saved context')}});
+  await descendants(widget).find(n=>n.textContent==='Load saved version').emit('click');
+  const confirm = new Element(); confirm.dataset.portfolioAction='confirm'; confirm.closest=()=>confirm; widget.contains=()=>true;
+  await widget.emit('click',{target:confirm});
+  const stored = JSON.parse(sessionStorage.getItem('orientation.portfolio.account.101'));
+  assert.equal(inputs[0].value,'Latest saved context'); assert.equal(stored.revision,2); assert.equal(stored.dirty,false);
+  assert.match(descendants(widget).find(n=>'contextSaveStatus' in n.dataset).textContent,/Loaded.*saved version/);
+  const file = widget.querySelector('[data-portfolio-import]');
+  file.files=[{size:100,text:async()=>JSON.stringify(snapshot(fields,'Imported context'))}];
+  await widget.emit('change',{target:file}); await widget.emit('click',{target:confirm});
+  assert.equal(JSON.parse(sessionStorage.getItem('orientation.portfolio.account.101')).dirty,true);
+});
+
+test('a failed saved-version read preserves the unsaved draft without a replacement offer', async () => {
+  const {window,widget,fields,inputs,owner} = portfolioHarness();
+  owner.portfolio = {id:1,revision:1,snapshot:snapshot(fields,'Earlier saved context')};
+  await new Promise(resolve=>setImmediate(resolve));
+  inputs[0].value = 'Keep my unsaved words'; await widget.emit('input',{target:inputs[0]});
+  window.OrientationContext.refresh = async () => null;
+  await descendants(widget).find(n=>n.textContent==='Load saved version').emit('click');
+  assert.equal(inputs[0].value,'Keep my unsaved words');
+  assert.notEqual(widget.querySelector('[data-portfolio-confirm]').hidden,false);
+  assert.match(descendants(widget).find(n=>'contextSaveStatus' in n.dataset).textContent,/could not be loaded/);
 });

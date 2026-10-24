@@ -20,7 +20,9 @@ class PublicIntegration(unittest.TestCase):
     def test_every_course_page_retains_both_workspace_and_feedback(self):
         for file in sorted((ROOT / 'public').glob('*.html')):
             with self.subTest(page=file.name):
-                tags = Page(file.read_text()).tags
+                text = file.read_text()
+                self.assertNotIn('This course does not record your microphone.', text)
+                tags = Page(text).tags
                 launchers = [attrs for _, attrs in tags if 'data-feedback-launcher' in attrs]
                 self.assertEqual(len(launchers), 1)
                 scripts = [attrs.get('src') for tag, attrs in tags if tag == 'script']

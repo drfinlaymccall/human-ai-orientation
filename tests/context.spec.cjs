@@ -236,3 +236,23 @@ test('a deleted and recreated brief rejects the previous item generation', async
   const current = await state(page);
   expect((await post(page, { op: 'save-note', key: 'brief', expecteduserid: current.userid + 100000, revision: 0, title: 'Wrong owner', body: 'Do not save', source: 'useful-context' })).status()).toBe(403);
 });
+
+test('failed saved-version reads keep drafts and successful loads establish a clean baseline', async ({ page }) => {
+  await login(page);
+  await page.goto('/portfolio');
+  const draft = page.locator('[data-portfolio-field="about"]');
+  await draft.fill('Keep this unsaved fictional context.');
+  await page.route('**/local/orientation/context.php', route => route.request().method() === 'GET' ? route.fulfill({status:503,body:'{}'}) : route.continue());
+  await page.getByRole('button',{name:'Load saved version',exact:true}).click();
+  await expect(page.locator('[data-context-save-status]')).toContainText('could not be loaded');
+  await expect(draft).toHaveValue('Keep this unsaved fictional context.');
+  await expect(page.locator('[data-portfolio-confirm]')).toBeHidden();
+  await page.unroute('**/local/orientation/context.php');
+  await page.getByRole('button',{name:'Load saved version',exact:true}).click();
+  await page.getByRole('button',{name:'Replace my entries',exact:true}).click();
+  await expect(page.locator('[data-context-save-status]')).toContainText('Loaded the saved version');
+  const current = await state(page);
+  const stored = await page.evaluate(id => JSON.parse(sessionStorage.getItem('orientation.portfolio.account.'+id)),current.userid);
+  expect(stored.dirty).toBe(false);
+  expect(stored.revision).toBe(current.portfolio.revision);
+});

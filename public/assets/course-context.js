@@ -73,20 +73,20 @@
     } catch { /* Storage can be blocked; private server reads remain owner checked. */ }
     return changed;
   }
-  async function refresh() {
+  async function refresh({ freshOnly = false } = {}) {
     const request = ++sequence;
     try {
       const response = await fetch(endpoint, { credentials: 'same-origin', cache: 'no-store', signal: AbortSignal.timeout(8000) });
-      if (request !== sequence) return account;
+      if (request !== sequence) return freshOnly ? null : account;
       let next = null;
       if (response.status === 401 || response.status === 403) next = null;
       else if (response.ok) {
         const data = await response.json();
-        if (request !== sequence) return account;
+        if (request !== sequence) return freshOnly ? null : account;
         if (!Number.isInteger(data.userid) || !data.portfolio || typeof data.sesskey !== 'string') throw Error('Unavailable');
         next = data;
       } else throw Error('Unavailable');
-      if (request !== sequence) return account;
+      if (request !== sequence) return freshOnly ? null : account;
       const previous = account?.userid;
       account = next;
       const previousOwnerChanged = clearPreviousOwner(account?.userid);
@@ -94,8 +94,9 @@
       checked = true;
       render();
     } catch {
-      if (request !== sequence) return account;
+      if (request !== sequence) return freshOnly ? null : account;
       render('Saved context is unavailable right now. Keep your draft and try the workspace link.');
+      if (freshOnly) return null;
     }
     return account;
   }
