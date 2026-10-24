@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build public course pages from reusable Moodle HTML fragments, without services."""
+from feedback_markup import feedback_page
 from pathlib import Path
 from course_tips import ASSETS, writing_support
 from html import escape
@@ -63,6 +64,7 @@ def fragment(name):
     return writing_support(html, name)
 
 
+@feedback_page
 def render(title, content, slug):
     description = {
         'help': 'Find course guidance and ask for help with Human AI Orientation.',

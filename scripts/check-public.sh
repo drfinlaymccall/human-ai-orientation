@@ -8,3 +8,4 @@ npm run test:support
 npm run test:entry
 npm run test:metadata
 npm run test:portfolio
+npm run test:feedback

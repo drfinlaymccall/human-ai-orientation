@@ -41,7 +41,7 @@ Synthetic checks establish specific software behaviour. Human learning outcomes,
 
 For the public course, install Node and Python 3, then run `npm ci`, `npm run build` and `npm run preview`. Open `http://127.0.0.1:8090/journey`. No Moodle account or AI API key is required for public reading and portfolio export/restore.
 
-[Reproduction and checks](docs/REPRODUCING.md) explain the pinned Moodle submodule and separate native installation. `npm run check:public` rebuilds committed outputs and runs support, atlas entry, public metadata and portfolio checks. The [Actions template](docs/operations/course-checks.workflow.yml) is prepared; GitHub automation remains inactive because publishing access lacks workflow permission ([setup follow-up #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10)). Local results and this limit belong in the [baseline release record](docs/releases/2026-10-23-baseline.md).
+[Reproduction and checks](docs/REPRODUCING.md) explain the pinned Moodle submodule and separate native installation. `npm run check:public` rebuilds committed outputs and runs support, atlas entry, public metadata, portfolio and isolated recorder checks. The [Actions template](docs/operations/course-checks.workflow.yml) is prepared; GitHub automation remains inactive because publishing access lacks workflow permission ([setup follow-up #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10)). Local results and this limit belong in the [baseline release record](docs/releases/2026-10-23-baseline.md).
 
 ## Explore the materials
 
@@ -52,3 +52,7 @@ For the public course, install Node and Python 3, then run `npm ci`, `npm run bu
 - [Contributing and documentation upkeep](CONTRIBUTING.md), [design history](docs/history/README.md) and [release-baseline plan](docs/plans/2026-10-23-001-feat-release-baseline-plan.md).
 
 Original educational materials are © 2026 Finlay McCall, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Licence scope](LICENSE-CONTENT.md) excludes software, third-party material and private learner records. Moodle retains its own GPL licence. Keep credentials, support messages and personal portfolios out of public GitHub.
+
+## Private course feedback
+
+The [voice and written feedback plugin](docs/operations/voice-feedback.md) keeps recordings private, supports text/file alternatives and uses Moodle notifications. The demo has this enabled; other installations remain disabled until a course and reviewer are explicitly configured.

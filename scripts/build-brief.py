@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Keep Moodle lesson source and public preview aligned with the shared widget."""
 import json
+from feedback_markup import decorate_feedback
 from pathlib import Path
 from course_tips import ASSETS, writing_support
 

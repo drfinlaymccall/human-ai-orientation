@@ -16,7 +16,7 @@
     "build:preparation": "python3 scripts/build-preparation.py",
     "build:brief": "python3 scripts/build-brief.py",
     "build:journey": "python3 scripts/build-journey.py",
-    "build": "npm run build:preparation && npm run build:brief && npm run build:journey && npm run build:context",
+    "build": "npm run build:preparation && npm run build:brief && npm run build:journey && npm run build:context && npm run build:feedback",
     "test:portfolio": "playwright test --config playwright.portfolio.config.cjs",
     "test:support": "python3 -m unittest discover -s tests -p test_support.py",
     "preview": "python3 scripts/serve-public.py",
@@ -26,7 +26,10 @@
     "test:progress": "playwright test --config playwright.progress.config.cjs",
     "test:metadata": "python3 -m unittest discover -s tests -p test_ai_context.py && playwright test --config playwright.metadata.config.cjs",
     "test:tips": "playwright test --config playwright.tips.config.cjs",
-    "test:tips:native": "playwright test --config playwright.tips-native.config.cjs"
+    "test:tips:native": "playwright test --config playwright.tips-native.config.cjs",
+    "test:feedback": "playwright test --config playwright.feedback.config.cjs",
+    "test:feedback:moodle": "playwright test --config playwright.feedback-moodle.config.cjs",
+    "build:feedback": "python3 scripts/build-feedback.py"
   },
   "keywords": [],
   "author": "",

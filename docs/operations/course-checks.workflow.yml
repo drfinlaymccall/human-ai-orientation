@@ -27,3 +27,4 @@ jobs:
       - run: npm run test:entry
       - run: npm run test:metadata
       - run: npm run test:portfolio
+      - run: npm run test:feedback
