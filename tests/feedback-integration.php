@@ -130,6 +130,32 @@ $duplicate = service::submit($base, $audio);
 check_feedback((int)$duplicate->id === (int)$record->id &&
     $DB->count_records('notifications', ['component' => 'local_orientationfeedback', 'eventtype' => 'submission']) === $notificationcount,
     'Repeated token returns same receipt without second notification');
+$normalizedduplicate = service::submit(array_replace($base, [
+    'section' => "  " . $base['section'] . "\n", 'message' => "\n" . $base['message'] . "  "]), $audio);
+check_feedback((int)$normalizedduplicate->id === (int)$record->id,
+    'Retry compares normalized section and message rather than harmless surrounding whitespace');
+foreach (['message' => 'Synthetic changed feedback after a lost response.', 'section' => 'Changed fictional section',
+        'source' => 'notes', 'cmid' => 0] as $field => $changed) {
+    rejected_feedback(fn() => service::submit(array_replace($base, [$field => $changed]), $audio),
+        'retryconflict', 'Changed ' . $field . ' under a committed token is rejected');
+}
+$changedaudio = tempnam($CFG->tempdir, 'voiceqa');
+file_put_contents($changedaudio, substr($wav, 0, -1) . chr(129));
+rejected_feedback(fn() => service::submit($base, $changedaudio), 'retryconflict',
+    'Changed audio content with identical size and container is rejected');
+rejected_feedback(fn() => service::submit($base), 'retryconflict', 'Removing committed audio from a retry is rejected');
+unlink($changedaudio);
+check_feedback($DB->count_records('local_orientationfeedback', ['userid' => $users['author']->id,
+        'submissiontoken' => $base['submissiontoken']]) === 1 &&
+    $DB->get_field('local_orientationfeedback', 'message', ['id' => $record->id]) === $base['message'] &&
+    $storedfile->get_content() === $wav &&
+    $DB->count_records('notifications', ['component' => 'local_orientationfeedback', 'eventtype' => 'submission']) === $notificationcount,
+    'Conflicting retries preserve the original text, recording, one receipt and one notification');
+$textbase = array_replace($base, ['submissiontoken' => bin2hex(random_bytes(16))]);
+$textrecord = service::submit($textbase);
+check_feedback((int)service::submit($textbase)->id === (int)$textrecord->id, 'Identical text-only retry returns its original receipt');
+rejected_feedback(fn() => service::submit($textbase, $audio), 'retryconflict', 'Adding audio to a committed text-only retry is rejected');
+service::delete($textrecord);
 $notifications = $DB->get_records('notifications', ['component' => 'local_orientationfeedback', 'eventtype' => 'submission']);
 foreach ($notifications as $notification) {
     check_feedback(strpos($notification->fullmessage, $base['message']) === false &&
@@ -175,7 +201,8 @@ for ($n = 0; $n < 3; $n++) {
     service::submit(array_replace($base, ['submissiontoken' => bin2hex(random_bytes(16)), 'message' => "Synthetic rate fixture $n"]));
 }
 rejected_feedback(fn() => service::submit(array_replace($base, ['submissiontoken' => bin2hex(random_bytes(16))])), 'ratelimit', 'Sixth submission in an hour rejected');
-check_feedback((int)service::submit($base)->id === (int)$record->id, 'Duplicate token remains valid after reaching rate limit');
+check_feedback((int)service::submit($base, $audio)->id === (int)$record->id, 'Identical audio retry remains valid after reaching rate limit');
+rejected_feedback(fn() => service::submit($base), 'retryconflict', 'Changed retry remains a conflict after reaching rate limit');
 check_feedback(in_array($context->id, provider::get_contexts_for_userid($users['author']->id)->get_contextids()), 'Privacy discovery includes feedback course');
 $userlist = new userlist($context, 'local_orientationfeedback');
 provider::get_users_in_context($userlist);

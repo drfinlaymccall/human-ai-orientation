@@ -37,6 +37,20 @@
         let blob = null, objectURL = '', interval = null, timeout = null, started = 0;
         let leaving = false;
         const say = text => { status.textContent = text; };
+        const token = form.querySelector('[name="submissiontoken"]');
+        const separate = token && window.crypto?.getRandomValues ? document.createElement('button') : null;
+        if (separate) {
+            separate.type = 'button'; separate.hidden = true;
+            separate.textContent = 'Prepare a separate feedback message';
+            separate.addEventListener('click', () => {
+                if (state === 'sending') return;
+                token.value = [...window.crypto.getRandomValues(new Uint8Array(16))]
+                    .map(byte => byte.toString(16).padStart(2, '0')).join('');
+                separate.hidden = true;
+                say('The earlier feedback remains saved. This draft is now a separate message. Review it, then choose Send feedback.');
+            });
+            status.after(separate);
+        }
         const tracksOff = () => { stream?.getTracks().forEach(track => track.stop()); stream = null; };
         const clearTimers = () => { clearInterval(interval); clearTimeout(timeout); interval = timeout = null; };
         const elapsed = () => {
@@ -170,6 +184,7 @@
             const controller = new AbortController();
             const sendTimeout = setTimeout(() => controller.abort(), 30000);
             let failure = 'The request could not be completed. Check your connection.';
+            let retryConflict = false;
             try {
                 const endpoint = new URL(form.action, location.href);
                 if (endpoint.origin !== location.origin) throw new Error('Unexpected destination');
@@ -178,6 +193,7 @@
                 const result = await response.json();
                 if (!response.ok) {
                     failure = typeof result?.error === 'string' ? result.error : 'Your feedback could not be saved.';
+                    retryConflict = response.status === 409 && result?.code === 'retryconflict';
                     throw new Error(failure);
                 }
                 const receipt = new URL(result.redirect, location.href);
@@ -196,7 +212,12 @@
                 render();
                 const reason = error.name === 'AbortError' ? 'The request timed out. Check your connection.' :
                     failure;
-                say(`Feedback was not confirmed as saved. ${reason} Your message and audio are still here. Try sending again.`);
+                if (retryConflict) {
+                    if (separate) separate.hidden = false;
+                    say(`${failure} Your message and audio are still here. ${separate ? 'Choose Prepare a separate feedback message to send these changes as a new message.' : 'Keep a copy, then reopen feedback to send these changes separately.'}`);
+                } else {
+                    say(`Feedback was not confirmed as saved. ${reason} Your message and audio are still here. Try sending again.`);
+                }
             } finally {
                 clearTimeout(sendTimeout);
             }

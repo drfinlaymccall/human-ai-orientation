@@ -4,6 +4,7 @@
  */
 const { test, expect } = require('@playwright/test');
 const fs = require('node:fs');
+const path = require('node:path');
 const fixtures = JSON.parse(fs.readFileSync(process.env.FEEDBACK_FIXTURES || 'trial/feedback-fixtures.json', 'utf8'));
 const formPath = `/local/orientationfeedback/index.php?courseid=${fixtures.courseid}&cmid=${fixtures.cmid}`;
 const wav = Buffer.alloc(8044, 128);
@@ -232,4 +233,73 @@ test('normal Moodle sign-in redirects to the allowlisted public page and rejects
   await expect(page).toHaveURL(/\/local\/orientationfeedback\/index.php$/);
   await expect(page.getByRole('heading', { name: 'What would you like to share?' })).toBeVisible();
   await context.close();
+});
+
+// Only the parent shell is synthetic HTML: identity, login, form and receipt use real Moodle HTTP.
+// This deliberately models privacy/recovery pages which have no course-context.js account event.
+async function feedbackSessionShell(page) {
+  await page.route('**/__synthetic-feedback-session-shell', route => route.fulfill({
+    contentType: 'text/html', body: '<!doctype html><h1>Synthetic privacy page</h1><a data-feedback-launcher href="' + formPath.replaceAll('&', '&amp;') + '">Give feedback</a>',
+  }));
+  await page.goto('/__synthetic-feedback-session-shell');
+  await page.addStyleTag({ content: fs.readFileSync(path.join(__dirname, '../moodle/local/orientationfeedback/launcher.css'), 'utf8') });
+  await page.addScriptTag({ content: fs.readFileSync(path.join(__dirname, '../moodle/local/orientationfeedback/launcher.js'), 'utf8') });
+  expect(await page.evaluate(() => Boolean(window.OrientationContext))).toBe(false);
+}
+async function changeFeedbackSession(context, kind) {
+  const other = await context.newPage();
+  try {
+    await other.goto(formPath);
+    const sesskey = await other.locator('input[name=sesskey]').inputValue();
+    await other.goto('/login/logout.php?sesskey=' + encodeURIComponent(sesskey));
+    const signedout = await other.request.get('/local/orientationfeedback/session.php');
+    expect(await signedout.json()).toEqual({ owner: null });
+    expect(signedout.headers()['set-cookie']).toBeUndefined();
+    await login(other, kind);
+  } finally { await other.close(); }
+}
+for (const saved of [false, true]) test('real account switch clears cached feedback ' + (saved ? 'saved receipt' : 'unsent draft') + ' without course-context.js', async ({ page, context }) => {
+  await login(page, 'author');
+  const cookies = await context.cookies();
+  const identity = await page.request.get('/local/orientationfeedback/session.php');
+  expect(identity.status()).toBe(200);
+  expect(identity.headers()['cache-control']).toContain('private');
+  expect(identity.headers()['cache-control']).toContain('no-store');
+  expect(identity.headers()['set-cookie']).toBeUndefined();
+  const owner = await identity.json();
+  expect(Object.keys(owner)).toEqual(['owner']);
+  expect(owner.owner).toMatch(/^[a-f0-9]{64}$/);
+  const head = await page.request.head('/local/orientationfeedback/session.php');
+  expect(head.status()).toBe(200);
+  expect(await head.text()).toBe('');
+  expect(head.headers()['set-cookie']).toBeUndefined();
+  expect(await context.cookies()).toEqual(cookies);
+  expect((await page.request.post('/local/orientationfeedback/session.php')).status()).toBe(405);
+  await feedbackSessionShell(page);
+  const launch = page.getByRole('link', { name: 'Give feedback', exact: true });
+  await launch.click();
+  const iframe = page.locator('iframe[title="Private feedback to Finlay"]');
+  const frame = page.frameLocator('iframe[title="Private feedback to Finlay"]');
+  await expect(frame.locator('textarea[name=message]')).toBeVisible();
+  let previousText;
+  if (saved) {
+    await iframe.evaluate((element, id) => { element.src = '/local/orientationfeedback/index.php?embedded=1&id=' + id; }, fixtures.recordid);
+    await expect(frame.getByRole('heading', { name: 'Feedback saved', exact: true })).toBeVisible();
+    previousText = await frame.locator('.feedback-saved-note').textContent();
+    expect(previousText.length).toBeGreaterThan(0);
+    await expect(frame.locator('audio')).toBeVisible();
+  } else {
+    previousText = 'ACCOUNT-A-PRIVATE-SYNTHETIC-DRAFT';
+    await frame.locator('textarea[name=message]').fill(previousText);
+  }
+  await page.getByRole('button', { name: 'Close feedback', exact: true }).click();
+  await changeFeedbackSession(context, 'peer');
+  expect((await (await page.request.get('/local/orientationfeedback/session.php')).json()).owner).not.toBe(owner.owner);
+  await launch.click();
+  await expect(frame.getByRole('heading', { name: 'What would you like to share?', exact: true })).toBeVisible();
+  await expect(frame.locator('textarea[name=message]')).toHaveValue('');
+  await expect(frame.locator('.feedback-saved-note')).toHaveCount(0);
+  await expect(frame.locator('audio')).toHaveCount(1); // Recorder's empty, hidden preview only.
+  await expect(frame.locator('audio')).not.toBeVisible();
+  expect(await frame.locator('body').textContent()).not.toContain(previousText);
 });

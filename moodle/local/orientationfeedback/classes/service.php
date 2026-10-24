@@ -69,8 +69,6 @@ final class service {
         $lock = $factory->get_lock('submit-user-' . $USER->id, 10);
         if (!$lock) { self::fail('busy'); }
         try {
-            $existing = $DB->get_record('local_orientationfeedback', ['userid' => $USER->id, 'submissiontoken' => $token]);
-            if ($existing) { return $existing; }
             $source = (string)($data['source'] ?? '');
             $section = trim((string)($data['section'] ?? ''));
             $message = trim((string)($data['message'] ?? ''));
@@ -87,6 +85,19 @@ final class service {
                 $filename = 'recording.' . self::MEDIA[$mime];
             }
             if ($message === '' && !$filename) { self::fail('emptyfeedback'); }
+            $existing = $DB->get_record('local_orientationfeedback', ['userid' => $USER->id, 'submissiontoken' => $token]);
+            if ($existing) {
+                $same = (int)$existing->courseid === $courseid && (int)$existing->cmid === $cmid &&
+                    $existing->source === $source && $existing->sectionlabel === $section &&
+                    $existing->message === $message && ($existing->filename !== '') === ($filename !== '');
+                if ($same && $filename !== '') {
+                    $file = get_file_storage()->get_file(\context_course::instance($courseid)->id,
+                        'local_orientationfeedback', 'audio', $existing->id, '/', $existing->filename);
+                    $same = $file && $file->get_contenthash() === sha1_file($upload);
+                }
+                if (!$same) { self::fail('retryconflict'); }
+                return $existing;
+            }
             if ($DB->count_records_select('local_orientationfeedback', 'userid = :userid AND timecreated > :since',
                     ['userid' => $USER->id, 'since' => time() - HOURSECS]) >= 5) {
                 self::fail('ratelimit');

@@ -5,7 +5,7 @@ if (!manifest.synthetic || !['127.0.0.1', 'localhost'].includes(new URL(manifest
   throw new Error('Feedback browser checks require the isolated localhost synthetic Moodle fixture.');
 }
 module.exports = defineConfig({
-  testDir: './tests', testMatch: 'feedback-moodle.spec.cjs', timeout: 60000,
+  testDir: './tests', testMatch: ['feedback-moodle.spec.cjs', 'feedback-retry-moodle.spec.cjs'], timeout: 60000,
   workers: 1, retries: 0, outputDir: '/tmp/orientation-feedback-moodle-results',
   use: {
     baseURL: manifest.wwwroot, permissions: ['microphone'], actionTimeout: 15000,

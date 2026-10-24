@@ -70,6 +70,41 @@ test('failed send retains the same audio bytes and text for explicit retry', asy
   expect(audioBytes(uploads[1]).equals(audioBytes(uploads[0]))).toBe(true);
 });
 
+test('a changed retry conflict keeps the edited draft and recording without claiming a new save', async ({ page }) => {
+  await openForm(page); await record(page);
+  await page.locator('textarea').fill('Synthetic edited feedback after an unconfirmed send');
+  const audio = await page.locator('audio').getAttribute('src');
+  const originalToken = await page.locator('[name="submissiontoken"]').inputValue();
+  const requests = [];
+  await page.route('**/local/orientationfeedback/index.php?format=json', route => {
+    requests.push(route.request().postDataBuffer());
+    return requests.length === 1 ? route.fulfill({
+      status: 409, json: { code: 'retryconflict', error: 'An earlier version of this feedback was saved. These changes have not been saved.' },
+    }) : route.fulfill({ json: { id: 14, redirect: '/local/orientationfeedback/index.php?id=14' } });
+  });
+  await page.getByRole('button', { name: 'Send feedback' }).click();
+  await expect(page.getByRole('status')).toContainText('An earlier version of this feedback was saved');
+  await expect(page.getByRole('status')).toContainText('These changes have not been saved');
+  await expect(page.getByRole('status')).not.toContainText('Try sending again');
+  await expect(page.getByRole('status')).toContainText('Prepare a separate feedback message');
+  await expect(page.locator('textarea')).toHaveValue('Synthetic edited feedback after an unconfirmed send');
+  await expect(page.getByRole('button', { name: 'Send feedback' })).toBeEnabled();
+  expect(await page.locator('audio').getAttribute('src')).toBe(audio);
+  expect(page.url()).toBe('http://127.0.0.1:8798/');
+  await expect(page.locator('[name="submissiontoken"]')).toHaveValue(originalToken);
+  await page.getByRole('button', { name: 'Prepare a separate feedback message' }).click();
+  const separateToken = await page.locator('[name="submissiontoken"]').inputValue();
+  expect(separateToken).toMatch(/^[a-f0-9]{32}$/);
+  expect(separateToken).not.toBe(originalToken);
+  expect(requests).toHaveLength(1);
+  await expect(page.getByRole('status')).toContainText('earlier feedback remains saved');
+  await expect(page.locator('textarea')).toHaveValue('Synthetic edited feedback after an unconfirmed send');
+  expect(await page.locator('audio').getAttribute('src')).toBe(audio);
+  await page.getByRole('button', { name: 'Send feedback' }).click();
+  await expect(page).toHaveURL(/index.php\?id=14$/);
+  expect(requests[1].includes(Buffer.from(separateToken))).toBe(true);
+});
+
 test('permission denial leaves text and file alternatives usable', async ({ page }) => {
   await page.addInitScript(() => { navigator.mediaDevices.getUserMedia = async () => { throw new DOMException('Synthetic denial', 'NotAllowedError'); }; });
   await openForm(page);

@@ -47,6 +47,7 @@ $section = optional_param('section', '', PARAM_RAW_TRIMMED);
 $message = optional_param('message', '', PARAM_RAW);
 $token = optional_param('submissiontoken', $_SERVER['REQUEST_METHOD'] === 'POST' ? '' : bin2hex(random_bytes(16)), PARAM_RAW);
 $error = '';
+$retryconflict = false;
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $upload = null;
@@ -79,11 +80,13 @@ try {
         if (core_text::strlen($section) > 160) { service::fail('invalidinput'); }
     }
 } catch (moodle_exception $e) {
+    $retryconflict = $e->errorcode === 'retryconflict';
+    if ($retryconflict) { http_response_code(409); }
     if ($json && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        http_response_code($e->errorcode === 'ratelimit' ? 429 : 400);
+        http_response_code($e->errorcode === 'ratelimit' ? 429 : ($e->errorcode === 'retryconflict' ? 409 : 400));
         header('Content-Type: application/json');
         header('Cache-Control: no-store');
-        echo json_encode(['error' => $e->getMessage()]);
+        echo json_encode(['error' => $e->getMessage(), 'code' => $e->errorcode]);
         exit;
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') { throw $e; }
@@ -122,6 +125,14 @@ if ($id) {
 } else {
     echo html_writer::tag('p', 'What helped, what got in the way, or what could be clearer?', ['class' => 'feedback-intro']);
     if ($error) { echo $OUTPUT->notification($error, 'notifyproblem'); }
+    if ($retryconflict) {
+        $newform = new moodle_url('/local/orientationfeedback/index.php', [
+            'courseid' => $courseid, 'cmid' => $cmid, 'source' => $source,
+        ]);
+        echo html_writer::tag('p', 'Keep a copy of these changes, then ' . html_writer::link($newform,
+            'open a separate feedback form in a new tab', ['target' => '_blank', 'rel' => 'noopener']) .
+            ' to send a new message. Choose your audio file again in the new form.');
+    }
     echo html_writer::start_tag('form', ['method' => 'post', 'enctype' => 'multipart/form-data',
         'action' => (new moodle_url('/local/orientationfeedback/index.php'))->out(false),
         'data-voice-feedback' => '', 'data-feedback-embedded' => $embedded ? '1' : '0']);

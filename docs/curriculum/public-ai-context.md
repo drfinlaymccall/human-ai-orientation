@@ -112,3 +112,10 @@ Earlier pinned contexts and schemas retain their original bytes. The repository'
 ## 24 October — provider evaluation research
 
 WB18 adds a [dated official-source review](../research/free-assistant-evaluation/provider-source-review.md) and [repeatable consumer protocol](../research/free-assistant-evaluation/evaluation-protocol.md). The prepared records are unrun. Preserve owner reports separately; link retrieval, source checks, honest fallback, pasted context and one-step facilitation are different outcomes. A successful CLI/API or independent fetch does not establish consumer-site access or saved course progress.
+
+
+### Joined WB01 context — prepared, not deployed
+
+The joined My context/journey/feedback source now uses **2026-10-24.2** with schema **1.3**. The preceding `.24.1` section records the earlier preview and its boundary; both `.24.1` and the already served `.23.2` retain their exact committed bytes. Public starter, manifest and generated guide now agree on `.24.2`.
+
+The current deployment handoff therefore requires exact origin routes for `.24.2` and schema 1.3, plus the preserved older releases. Any live Cloudflare extension needs explicit approval covering `/ai/releases/2026-10-24.2/context.md` and `/ai/course.schema.v1.3.json`; the older `.23.1`/schema 1.2 approval does not cover them. Retaining a `.24.1` source rule is not evidence it was applied. No origin/edge configuration or public context has been deployed by WB01. Keep hostname, GET/HEAD and Browser Integrity Check-only restrictions and the paste fallback.

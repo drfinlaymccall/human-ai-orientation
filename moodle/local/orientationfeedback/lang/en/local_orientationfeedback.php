@@ -32,6 +32,7 @@ $string['disabled'] = 'Private feedback is not enabled or its course/reviewer co
 $string['accessdenied'] = 'You do not have access to this private feedback.';
 $string['badcontext'] = 'This activity is unavailable or belongs to a different course.';
 $string['badtoken'] = 'The submission token is invalid. Reload the feedback form.';
+$string['retryconflict'] = 'An earlier version of this feedback was saved. These changes have not been saved. Keep your draft and recording; send them separately if you want to add a new message.';
 $string['busy'] = 'Another submission is in progress. Please wait and retry.';
 $string['invalidinput'] = 'Check the source context and text limits, then retry.';
 $string['filesize'] = 'Audio must be between 1 byte and 10 MiB. Choose a smaller recording and retry.';
