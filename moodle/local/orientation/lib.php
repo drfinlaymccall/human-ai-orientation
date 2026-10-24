@@ -32,7 +32,7 @@ function local_orientation_before_footer(): string {
         \local_orientation\context_store::authorise();
     } catch (Throwable $error) { return ''; }
     $assets = '<link rel="stylesheet" href="/assets/course-context.css"><script src="/assets/course-context.js" defer></script>';
-    if ($PAGE->cm && $PAGE->cm->idnumber === 'orientation:notes') {
+    if ($PAGE->cm && in_array($PAGE->cm->idnumber, ['orientation:notes', 'orientation:before-you-start'], true)) {
         return $assets . '<span data-context-panel-disabled hidden></span>';
     }
     return $assets .
