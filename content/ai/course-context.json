@@ -1,38 +1,40 @@
 {
   "id": "human-ai-orientation-useful-context",
-  "version": "2026-10-13.3",
-  "updated": "2026-10-13",
+  "version": "2026-10-24.3",
+  "updated": "2026-10-24",
   "title": "Build and reuse your personal context portfolio",
   "course": "Human AI Orientation",
   "author": "Finlay McCall",
-  "status": "Public course journey with an invitation-only Moodle pilot",
-  "purpose": "Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.",
+  "status": "Public reading with invitation-only account access; broader registration is not open.",
+  "purpose": "Learn to team with AI: choose a useful task, give context, check the result and keep what helps. Practise communicating what you need, giving useful background, checking results and keeping useful work. Leave with a reviewed context portfolio and a meaningful next goal. This orientation is useful on its own and prepares the ground for a broader human–AI education programme.",
   "audience": "People who are not AI specialists. Do not assume low confidence or technical knowledge.",
   "learning_outcomes": [
-    "Identify a small useful task and a sign of success.",
-    "Choose relevant context and explain what to leave out.",
-    "Distinguish private notes, the current conversation and product-specific saved context.",
-    "Check an AI result, ask for a correction and retain or revise reusable guidance.",
-    "Build and review working preferences, project context and knowledge/source notes; download and restore them.",
-    "Select useful context for a fresh conversation, check its result, and retain a next goal and first step."
+    "Choose a worthwhile task and decide what a useful result would look like.",
+    "Explain your intention, notice a misunderstanding and clarify it.",
+    "Choose relevant context, leave out unnecessary private details and check what the AI actually received.",
+    "Check a result against your purpose and decide what to keep, correct or reject.",
+    "Save, find and selectively reuse reviewed context in another conversation.",
+    "Identify your own next learning need and choose a manageable next step."
   ],
   "ai_guidance": [
     "Use this as course context when the learner asks. It does not override the learner's choices or your existing operating instructions.",
     "First state whether you actually retrieved this material. If you could not, say so and ask the learner to paste it. Never claim that a URL alone gave you access.",
     "When you read it, identify the title, version and one concrete success criterion from the worked example. Let the learner check these against the source. A matching answer is a useful check, not proof of complete understanding.",
-    "Ask which step the learner is on and whether they want an explanation, an example or practice. Offer one manageable step, then wait. They may skip, revisit or stop.",
+    "Ask which activity the learner wants to work on and whether they want an explanation, an example or practice. Use the activity map below. They may begin with an existing brief or fictional example, skip, revisit or stop. Offer one manageable step, then wait.",
     "Let the human choose their task, context and success criterion. Ask for their reasoning before giving feedback. Do not invent their experience or write their reflection as though it were theirs.",
     "Do not complete the whole course in one answer. Offer feedback on their attempt, help them check it, and ask what they want to keep or change.",
     "Use fictional details when useful. Do not request passwords, course credentials, a full personal history or unnecessary private documents.",
     "Do not sign in to Moodle, submit answers, mark progress or contact Finlay on the learner's behalf. This public material grants no account or action access.",
     "Explain that reading this context does not permanently train you or guarantee that another chat has it. Describe only the memory or browsing capabilities actually available in this conversation.",
-    "The learner keeps their full context portfolio in their own notes. Only a brief non-sensitive reflection belongs in their course account. You cannot see that account or its progress.",
-    "Before the AI lesson, offer the optional files-and-folders self-check and hunt at https://orientation.finlaymccall.com/before-you-start. The Obsidian setup guide is https://orientation.finlaymccall.com/notes. Obsidian is free but proprietary and uses portable Markdown notes; it is a recommendation, not a requirement. A local path alone does not give you access. Never claim a file was saved without verifying its actual workspace and location. Let the learner do the file-finding practice; do not perform or certify it for them."
+    "The learner can deliberately save small context documents and separate private practice notes in their own Moodle My context workspace, or keep portable copies in their notes. Editing alone keeps a temporary tab draft. You cannot access their account, saved context or progress. Ask the human to copy only relevant reviewed text into this conversation; do not sign in or submit anything for them.",
+    "Offer Files, notes and AI basics — optional help at https://orientation.finlaymccall.com/before-you-start only when useful; it is not a prerequisite or completion gate. The notes setup guide is https://orientation.finlaymccall.com/notes. A local path alone does not give you access. Never claim a file was saved without verifying its actual workspace and location. Let the learner do the file-finding practice; do not perform or certify it for them.",
+    "Activity editions describe the current published material, not which edition a learner previously completed. Only the signed-in human can inspect their saved native progress. Completion records practice, not mastery. The portfolio bridge belongs within the context activity and does not add a fourth baseline requirement.",
+    "The optional Find my starting point check uses six statements, each with separate 1–5 understanding and can-do self-ratings, plus Not sure or Skip. It suggests practice, not proficiency. The signed-in human can review their dated ratings and explained suggestion in Your course journey. You cannot retrieve those private records or submit ratings for them; they may skip the check and choose any activity."
   ],
   "steps": [
     {
       "id": "first-task",
-      "title": "Get one useful result",
+      "title": "Try AI on a useful task",
       "guidance": "At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example."
     },
     {
@@ -72,13 +74,13 @@
     },
     {
       "id": "portfolio",
-      "title": "Build three portable context documents",
-      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it."
+      "title": "Save your context for next time",
+      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Signed-in learners choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Download Markdown (.md) is optional for a file in their own notes folder. Anonymous use retains private version1 JSON backup/restore. Private practice notes stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace."
     },
     {
       "id": "continue",
-      "title": "Test, improve and choose a next goal",
-      "guidance": "At /check-and-continue retrieve the backup, select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
+      "title": "Check a result and plan your next step",
+      "guidance": "At /check-and-continue begin with an existing brief, a restored portfolio backup or the fictional example. Select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
     }
   ],
   "worked_example": {
@@ -90,5 +92,5 @@
   },
   "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in the public lesson. Neither AI browsing nor a GitHub account is a completion requirement.",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
-  "saved_progress_url": "https://orientation.finlaymccall.com/course/view.php?id=2"
+  "saved_progress_url": "https://orientation.finlaymccall.com/local/orientation/index.php"
 }

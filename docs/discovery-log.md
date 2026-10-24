@@ -1,6 +1,94 @@
 # Discovery and decision log
 
-Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
+Updated: 2026-10-24. This is a living interview record. Proposals are not decisions until accepted.
+
+
+## 2026-10-24 — Triage HOC improvements and require Claude CLI review
+
+**Request/decision:** Finlay requested triage of every open issue/feature request into parent issues and work blocks suitable for subagents, and Claude CLI review on the VPS before PR merges. Enriched the existing canonical forward plan rather than starting a competing roadmap. Reused launch #9 and evidence-led #6; programme #19 also groups new delivery-quality #20 and voice #21. Native GitHub sub-issue links cover all 20 resulting open items (nine at intake plus three parents/eight bounded missing children). No prior issue was closed.
+
+**Change:** the plan defines 22 bounded work blocks, priorities/dependencies, source/test/docs ownership and three safe parallel waves. It distinguishes deployed/unmerged My context/feedback from unfinished private journey/ratings, and preserves all conditional L1–L9 requests. Local Fluid Voice/Parakeet guidance is #28; broader voice scoping is #29, separate from narration #13 and provider evaluation #12. One integrator owns shared publication, mutable fixtures and final source integration.
+
+**Methodology/evidence:** AGENTS/CONTRIBUTING, the PR template and a trusted prompt require pinned public-source Claude CLI review, finding dispositions, focused verification and re-review of changed candidates. The installed/authenticated CLI was exercised through its network-enabled VPS context. A too-large PR17 trial exhausted its estimated/output budget and remained incomplete. A compact exact-source PR18 review completed with no findings in supplied source; no application tests or merge were performed by Claude. Scope/ref/model/capability details and enforcement limits are in the [triage receipt](releases/2026-10-24-hoc-improvement-triage.md). This is a procedural merge rule; a trusted GitHub required check/ruleset remains separate work. Raw model streams/runtime data stay private.
+
+
+## 2026-10-23 — Deliver My context and keep-in-touch links
+
+**Decision/change:** Finlay approved implementation of the private Moodle workspace and course panels, making Copy the main action and retaining an optional Markdown file download. Explicit saves now keep the three portfolio documents, separate private practice and small course notes in the account; learners can return across activities and signed-in devices, edit/copy and follow source-activity links. Native forms remain usable without JavaScript and version 1 backups remain compatible. This supersedes the earlier requirements-only capture below.
+
+**Review/verification:** six deterministic client-race checks, 13 isolated Moodle browser checks, eight existing portable portfolio checks, six metadata unit checks and two metadata browser checks passed. All seven actionable code-review findings were corrected, covering account switching, stale asynchronous results/imports, row recreation, native failure recovery, notices and isolated testing. Published an additive plugin upgrade and shared content through supported Moodle APIs; fingerprints preserved existing module identities, Lesson evidence and completion. See the [release record](releases/2026-10-23-context-workspace.md) for live checks and remaining human/device limits.
+
+**Course profile:** Finlay prefers LinkedIn for course updates, new offerings and human–AI collaboration/education ideas. A shared Keep in touch section links his existing verified LinkedIn profile and website, without a newsletter subscription. X can follow once its URL is confirmed. This does not authorise sending marketing email or social posts.
+
+## 2026-10-23 — Choose Moodle for persistent My context storage
+
+**Decision:** after discussing side panels, Finlay requested that small learner-created context files live inside Moodle on the server, follow the learner through the course, and remain available to open/edit/copy/download with links back to their source activity. This supersedes the earlier undecided Google Drive/Dropbox direction; external providers become optional later extensions.
+
+**Capture:** updated existing [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), added requirements and U10 to the single forward plan, and aligned CONTROL.md, the course-review log (CR13–CR14) and portfolio authoring notes. Scope includes persistent responsive panels, private account storage across visits/devices, clear save states, failure/conflict recovery and portable backups. Separate personal creations from shared course references and private practice observations from AI-selected context.
+
+**Verification/limits:** reviewed the requirements and documentation diff; no runtime or live learner records changed. Account storage, panels, detailed schema/migration design and privacy wording remain to implement and verify. Current temporary-browser drafts/download behaviour is still described truthfully. Saving in Moodle does not give an AI access to the work.
+
+## 2026-10-23 — Queue a learner-owned AI memory folder and cloud storage
+
+**Request:** Finlay proposed Google Drive or Dropbox integration to save and retrieve portfolio files, and described a file system as an initial “AI memory system.” The intended habit is returning to check what is stored, review it and reuse useful context.
+
+**Capture/limits:** created [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), related to portable save/restore #3, and updated CONTROL.md. Candidate stages are guided local/cloud folder use, optional connected save/load, and recurring review/reuse practice. Provider choice, current free access, exact integration and conflicting-copy handling remain to be scoped. Existing local download/restore remains a valid route. No connection, upload, runtime change or claim about current provider plans was made. Checked for a matching storage issue and verified documentation whitespace.
+
+## 2026-10-23 — Reuse Finlay’s Tips beside writing activities
+
+**Request/decision:** Finlay wants reusable prompts and a speak-instead-of-type reminder whenever a learner is offered a writing box, preferably in right-hand floating panels. Implemented a shared course component through the existing public/native content pipeline rather than a separately installed Moodle block or speech service. The panel sticks on wide content areas and stacks on narrow screens; each editable learning textarea gets a concise voice hint. Read-only outputs are excluded.
+
+**Change/evidence:** one authored Tips fragment supplies dictation help and three original prompt starters. Copy actions use only authored text, preserve drafts and do not submit native forms or call an AI. Public/no-JavaScript and native Lesson/Page routes share the component. Six focused public checks, eight portfolio checks and two native fixture checks passed; corrected a desktop sticky-height failure before publication. The older progress suite stopped at its obsolete heading in a newer fixture plugin from another thread; that work was preserved and no broad pass is claimed. Repeated generation is stable, and the existing publishers verified unchanged learner records/answers during native publication. Physical-device dictation, assistive technology and human comprehension remain separate checks. See [authoring and evidence](curriculum/finlays-tips.md).
+
+## 2026-10-23 — Brief a new assistant in the portfolio
+
+**Feedback/decision:** Finlay supplied his voice-entered portfolio downloads and requested a role-play in which the learner briefs a capable new assistant that does not know them. The documents also exposed vague headings, unclear task references, too many questions at once and a desire to see the emerging output/progress. Treated the files as private review material, not operational instructions or a public learner profile.
+
+**Change:** added an original assistant-onboarding frame, clear questions and fictional examples, a first pass of three Working with me answers, and permission to leave project/reference sections until useful. Updated the AI-interview and no-JavaScript routes consistently. Kept the metaphor honest about relevant disclosure, memory, access and permission. Original templates retain their existing inspiration attribution; no additional third-party questionnaire text was copied.
+
+**Verification/limits:** the combined download exactly matches the three individual document bodies. All eight existing portfolio browser checks passed. Updated only the existing native portfolio Page through the supported API; readback matched and fingerprints preserved structure, Lesson evidence and completion. No user answers were imported, shared with an AI or published. Sidebar/live preview and visible progress remain queued; actual comprehension still needs Finlay's recheck and human observation. See the [course-review record](reviews/course-review.md).
+
+## 2026-10-23 — Plan the course-review landing and personal journey changes
+
+**Feedback/decision:** Finlay's learner-perspective voice note found account state unclear, competing home/progress/native destinations, distracting Dashboard/My courses navigation and selected atlas details too far below. He wants the accepted illustration and actual completion together in **Your course journey**. He confirmed **six statements, each with separate understanding and can-do 1–5 ratings**, for an optional native Moodle starting-point check and explained practice suggestions.
+
+**Planning change:** updated the single [forward plan](plans/2026-10-23-002-feat-public-launch-plan.md), preserving existing unit IDs, adding bounded U8/U9 check/QA work and leaving the full personal skills/evidence map later. Added the [ongoing review log](reviews/course-review.md), [portable local-agent guide](qa/course-review-agent.md) and report template; aligned CONTROL.md, the design brief and competency draft. Read repository issues plus #6/#9 comments; no dedicated competency-check issue was found, so reuse launch #9 rather than duplicate routine tracking.
+
+**Evidence/limits:** this is planning and source/API research, not implemented UI, a synthetic browser run or a human pilot. The existing genuine owner-controlled account check remains complete; the revised signup/check/return route still needs isolated captured-mail verification. No app code, runtime settings, real messages or backup work changed. Implementation must prove neutral native quiz rendering and protect attempts/completion; new saved-rating wording needs review before exposure.
+
+## 2026-10-23 — Fold accepted activity atlas into HOC Forward plan
+
+**Request/decision:** Finlay approved the activity-led atlas preview and explicitly asked for it to be folded into the referenced **HOC Forward plan** chat. Read that chat and confirmed it is implementing the shared public-launch plan. It remains the canonical plan rather than creating a parallel roadmap or starting another implementation.
+
+**Change:** updated the [forward plan](plans/2026-10-23-002-feat-public-launch-plan.md) with the accepted direction, exact five destination labels, activity/task/competency distinction, details on what learners do/keep/practise, author-view purpose and public versus authenticated behaviour. U1 now owns atlas navigation; U3 reuses it with native completion and Continue. Added acceptance for readable/mobile/no-JavaScript choices, plain-language labels, correct links, revisiting and supported later-activity entry. Removed the obsolete visual-choice blocker and moved personal rating/storage/quiz work into the existing later workstreams. Preserved the exact [inline preview source](prototypes/orientation-activity-atlas.html) for the implementation chat. Updated CONTROL.md, design brief and framework acceptance notes; no learner/operator runtime guidance changes because this handoff changes planning only.
+
+**Verification/limits:** compared the preserved source with the original preview, checked plan/document links and whitespace, and reviewed U1/U3/L1/L2 consistency. Existing prototype browser evidence remains synthetic and is not substituted for production checks or a human pilot. The forward-plan chat is active; shared plan/source updates are available in its checkout. No course runtime, completion criteria, learner records or registration settings were changed by this integration.
+
+## 2026-10-23 — Explain the learner's activities before technical competency mapping
+
+**Feedback:** Finlay liked the orientation-atlas direction but found its labels, groupings and coded module/competency mapping confusing. He asked what the modules, tasks and competencies represent and how the front end will make the experience clear to learners and to him. The complaint concerns presentation; it does not reject the knowledge/capability design.
+
+**Proposal/change:** V1.2 of the [framework](curriculum/competency-framework-v1.md) opens with a plain-language activity map, purpose, takeaways and a worked detail view. Four principal destinations expose the three existing core activities and the portfolio bridge, with optional basics. The map's places are activities, tasks are actions inside them, and competencies are the knowledge and capabilities those tasks develop. The six capability groups and codes now sit in clearly labelled author references; a secondary skills map is a later option. Replaced the primary atlas's workshop/library/lookout names with labels saying what learners do. An in-chat clickable mockup explores activity selection and a readable course-design view; no mock assessments or learner outcomes are represented as saved records.
+
+**Verification/limits:** checked selection/detail updates, both viewpoint controls, public destinations, responsive layout and document references. This verifies prototype behaviour and editorial consistency, not human usability or a production Moodle integration. The preview opens existing public activities; no public course page, Moodle module, completion condition or learner data was changed. Wording and the activity-led layout await Finlay's judgement. Independent entry into later activities still needs appropriate existing/example context and production checks.
+
+## 2026-10-23 — Pair knowledge and capability; make misunderstanding diagnosis explicit
+
+**Feedback/requirement:** Finlay broadly supported the six-area draft but said “clarify a misunderstanding” concealed identifying and analysing the misunderstanding. He requested better competency verbs across revised Bloom, a knowledge component and a skills/capability component for each competency, and inspection of the publishing knowledge base and his thesis. This requirement is confirmed; the particular V1.1 wordings/mappings remain draft.
+
+**Change:** revised the [framework](curriculum/competency-framework-v1.md) to V1.1, retaining the 18 core and four optional foundations IDs. Each now has a paired knowledge outcome, knowledge-type mapping, and cognitive-process mapping for both knowledge and practical checks. TALK-02 makes diagnosis, repair and evaluation separately reviewable. A worked communication example covers all six cognitive categories; author guidance distinguishes Bloom's two dimensions from support/independence ratings, prohibits verb-only classification and records partial knowledge/performance evidence separately. Updated the design brief and CONTROL.md; current learner/operator guidance needs no change because the revision is design documentation only.
+
+**Source verification:** inspected the publishing knowledge base's curriculum-competence account, Appendix B extraction and taxonomy/competency table samples; checked original thesis PDF pp. 310–333 (printed 291–314) via Zotero `S7EIG9TW`, including human and shared-agent competency examples. Original page labels take precedence over the conflicting locator in the generated knowledge-base competency-table note. Retrieved Krathwohl (2002) and inspected the two-dimensional account, Tables 2–3 and worked classification (pp. 213–216). The bank applies these methods to orientation, rather than importing the thesis's domain outcomes or accreditation requirements. No external library or knowledge-base source was edited.
+
+**Verification/limits:** checked unique IDs, matching knowledge/capability coverage, Bloom-category coverage, links/anchors and documentation whitespace. These are editorial/structural checks, not validation of the proposed classifications or learner outcomes. No live page, map, quiz, saved rating or completion rule changed. Content/pilot review and images remain subsequent work.
+
+## 2026-10-23 — Competency bank and non-linear course map, text first
+
+**Feedback:** Finlay requested prototypes of a pretty, clickable, non-linear learner map, grounded in the earlier competency and self-evaluation discussion and research on experiential courseware. He asked to start with text before producing courseware images and supplied the six-area outline from **Plan Human AI course launch**.
+
+**Draft:** [V1 competency framework](curriculum/competency-framework-v1.md) retains those six areas, proposes 18 core can-do statements and four optional foundations statements, maps them to the existing activities, and separates engagement, completion, self-assessment, task evidence and course evaluation. It preserves Finlay's curriculum lineage and distinguishes that from Bloom, experiential practice and external competency frameworks. The atlas, constellation and garden are alternative visual briefs for the same bank. An additional “Not sure yet” response is proposed, not accepted.
+
+**Verification/limits:** read the existing design/rationale and activity sources, and retrieved **General feedback - high level** and **Plan Human AI course launch**. Inspected Council of Europe guidance, author-hosted experiential-learning cycle passages, Andrade's formative self-assessment account, Carnegie Mellon alignment guidance, UNESCO's publication overview and the AI Fluency course outline; source boundaries are recorded in the draft. Checked local documentation links and mapped public route/anchor targets. This is design documentation, not a validated framework or learner pilot. No images, live map, quiz, saved assessments, runtime changes or new completion requirements were produced. Labels, missing assessment prompts, complete resource coverage, storage/export and visual choice remain open.
 
 ## 2026-10-14 — Glossary and finding the agent's workspace
 
@@ -211,3 +299,36 @@ Finlay reviewed the release plan and confirmed the course is still a demo with r
 Finlay also asked for help keeping GitHub and current documentation aligned. AGENTS.md and CONTRIBUTING.md now make documentation/status impact part of every plan and implementing PR. Reuse a relevant issue; a separate documentation issue is reserved for standalone work or deferred debt. Historical verification stays dated.
 
 The next product batch remains homepage conversion, verified registration/self-enrolment and clearer module progression, followed by the human pilot and LinkedIn course/module posts. Formal assessments are not a launch dependency. GitHub workflow publication remains a specific permission follow-up; local checks and remote Actions status are reported separately.
+
+
+## 2026-10-23 — One forward plan after the release baseline
+
+Finlay asked to consolidate the outstanding work into one plan. The [public-launch and next-releases plan](plans/2026-10-23-002-feat-public-launch-plan.md) connects homepage clarity, verified onboarding, actual progress/return, safe module updates and public AI context to the human pilot and course/module LinkedIn series. GitHub check permission remains a supporting task, with existing local checks used meanwhile.
+
+The current competency framework and visual-map briefs are included as a review workstream, without choosing a metaphor or treating the proposed capability ratings as implemented. Glossary, resources/side quizzes, reminders, demonstration/media, reporting/expansion and later portfolio/personalisation ideas have a sequenced backlog in the same plan. The accepted demo checkout, experiential assessment and existing backup provision are unchanged. The completed release-baseline plan remains historical; CONTROL.md owns current state/dates and the forward plan owns delivery order. No new feature, account opening, invitation or post is claimed by this consolidation.
+
+## 23 October 2026 - Voice feedback, stage one
+
+**Need and authority:** Finlay proposed voice input across Moodle, with contextual audio feedback to Finlay as the minimum. He then authorised planning, building stage one and opening an integration PR while the baseline agent worked separately. This is a paraphrase of the feature-request chat, not a verbatim transcript.
+
+**Decision and change:** use a disabled-by-default local Moodle plugin with private File API storage, enrolment/context checks, a record/review/send flow, text/file alternatives, a private reviewer inbox and generic notifications. This avoids introducing transcription or a new service for a recording-only requirement. Notification failure preserves saved feedback; retry tokens prevent duplicate sends.
+
+**Verification and questions:** the [feature release](releases/2026-10-23-voice-feedback.md) records real isolated Moodle API/browser tests with fictional users and synthetic audio, plus preserved course evidence. Installation and enablement, physical device/microphone checks, Safari and real external notification receipt remain integration work. The baseline checkout and its release changes were preserved, with this feature rebased after PR #8 merged.
+
+## 24 October 2026 — WB23 welcome before the integrated rehearsal
+
+**Need / direction:** Finlay approved the rationale, welcome email and in-course introduction before the complete WB10 learner journey. This implements the existing WB23/R18/AE12 contract under #4/#9; it is owner direction, not pilot feedback.
+
+**Decision:** use Moodle’s native self-enrolment welcome for confirmed learners; keep its standard subject and provide equivalent in-course guidance for manual/invited learners. Explicit method-specific welcome controls preserve acquisition and enrolment restrictions. Canonical copy supplies public objectives and the native welcome; existing activity identities and progress remain unchanged.
+
+**Observed correction:** native captured-email testing found the activity-name filter injecting a legacy-page link into prose. A local supported `nolink` wrapper prevents that extra link without changing global filters or the mail system.
+
+**Verification / limits:** first-unit twenty source assertions and five native captured-mail scenarios pass. The [integrated WB23/WB10 record](qa/2026-10-24-wb23-wb10-rehearsal.md) owns later execution. Production mail, deployment and human comprehension are separate checks.
+
+## 25 October 2026 — My context beside the lesson
+
+**Need:** Finlay showed the large in-page My context panel and asked for a floating right-hand position, switching left when Finlay’s Tips also appears. This paraphrases owner feedback, not a learner study.
+
+**Decision/change:** use the shared context stylesheet from 1100px, reserve the chosen page gutter and follow writing-field availability. Retain the existing responsive Tips component, respect Moodle’s open course index and keep narrow screens in normal flow. No core/plugin/schema or saved-work behaviour changes are needed.
+
+**Verification/limits:** two strengthened existing public layout checks reproduced the old placement before the CSS change, then passed. The existing native context layout check also exercises real Moodle portfolio/sidebar controls and no-JavaScript rendering. Exact final commands, screenshots and Claude CLI review refs belong in the PR. Physical-device and assistive-technology experience remain separate checks.

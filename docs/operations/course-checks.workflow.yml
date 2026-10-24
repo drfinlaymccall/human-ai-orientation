@@ -24,4 +24,7 @@ jobs:
           test -z "$(git status --porcelain --untracked-files=all -- content public)"
       - run: npm run test:support
       - run: npx playwright install --with-deps chromium
+      - run: npm run test:entry
+      - run: npm run test:metadata
       - run: npm run test:portfolio
+      - run: npm run test:feedback

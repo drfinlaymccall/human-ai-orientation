@@ -1,0 +1,53 @@
+.course-context-panel, .context-workspace { color: #20332f; font: inherit; line-height: 1.5; }
+.course-context-panel { box-sizing: border-box; margin: 1.5rem auto; padding: 1rem; max-width: 52rem; border: 1px solid #c5d5cd; border-radius: 1rem; background: #f5f9f5; box-shadow: 0 5px 24px #20332f0a; overflow-wrap: anywhere; }
+.course-context-panel summary { cursor: pointer; font-weight: 700; }
+.course-context-panel a { color: #176b60; }
+.course-context-panel ul { padding-left: 1.1rem; }
+.course-context-panel li { margin: .7rem 0; }
+.course-context-panel small { display: block; font-size: .72rem; color: #52665b; }
+.course-context-panel p { margin: .8rem 0; }
+.course-context-panel [data-context-panel-body] > a { display: block; margin-block: .6rem; font-weight: 650; }
+.context-workspace { max-width: 48rem; margin: 0 auto; }
+.context-workspace *, .context-account-controls * { box-sizing: border-box; }
+.context-workspace h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.04em; }
+.context-eyebrow { font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+.context-documents { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.5rem; }
+.context-documents a { border: 1px solid #b7c9c2; border-radius: 2rem; padding: .5rem .85rem; color: #176b60; }
+.context-documents a[aria-current="page"] { color: #fff; background: #176b60; }
+.context-workspace label { display: block; font-weight: 650; margin: 1.2rem 0 .4rem; }
+.context-workspace textarea, .context-workspace input:not([type="hidden"]), .context-workspace select { box-sizing: border-box; width: 100%; max-width: 100%; padding: .8rem; border: 1px solid #9eb5aa; border-radius: .5rem; color: #20332f; background: white; font: inherit; line-height: 1.5; }
+.context-workspace textarea { resize: vertical; }
+.context-workspace textarea[readonly] { background: #f4f8f4; }
+.context-workspace button, .context-save { border: 1px solid #176b60; border-radius: .5rem; padding: .75rem 1.1rem; margin: .7rem 0; font: inherit; font-weight: 650; cursor: pointer; background: white; color: #176b60; }
+.context-workspace .context-copy, .portfolio-widget [data-portfolio-action="copy"] { display: block; width: 100%; padding: 1rem 1.5rem; font-size: 1.25rem; font-weight: 750; background: #176b60; color: white; border-radius: .65rem; }
+.context-workspace .context-download { border-color: #b7c9c2; background: transparent; font-size: .95rem; }
+.context-copy-area { border-top: 1px solid #c5d5cd; margin-top: 1.5rem; padding-top: 1rem; }
+.context-small, .context-account-controls p { font-size: .9rem; }
+.context-notice, .context-account-controls { padding: 1rem; border-left: 3px solid #176b60; background: #edf4f1; border-radius: .4rem; }
+.context-account-controls { margin: 1.2rem 0; }
+.context-account-controls button { margin-right: .6rem; }
+.context-workspace :focus-visible, .course-context-panel :focus-visible { outline: 3px solid #b96622; outline-offset: 3px; }
+.context-workspace [hidden], .course-context-panel [hidden] { display: none !important; }
+.context-workspace button:disabled, .context-save:disabled { opacity: .55; cursor: wait; }
+@media screen and (min-width: 1100px) {
+  body:has(.course-context-panel) { --context-space-left: 0rem; --context-space-right: 19rem; --context-panel-left: auto; --context-panel-right: 1.5rem; }
+  /* Follow the same available-editor rules as Finlay's Tips, including native essays. */
+  body:has(.finlay-tips):has(.finlay-writing-surface:not([data-finlay-native-essay]) textarea:enabled:not([readonly],[hidden],[hidden] *)),
+  body:has(form .finlay-writing-surface[data-finlay-native-essay] .finlay-tips):has(form textarea[name="answer_editor[text]"]:enabled:not([readonly])) {
+    --context-space-left: 19rem; --context-space-right: 0rem; --context-panel-left: var(--context-clear-left, 1.5rem); --context-panel-right: auto;
+  }
+  /* Boost's open course index already occupies the first 285px. */
+  body:has(#page.show-drawer-left) { --context-clear-left: calc(285px + 1.5rem); }
+  body:has(.course-context-panel) .course-context-panel { position: fixed; width: 16rem; left: var(--context-panel-left); right: var(--context-panel-right); top: 7rem; margin: 0; max-height: calc(100dvh - 12rem); overflow-y: auto; z-index: 4; }
+  /* Reserve the chosen gutter so floating controls never cover course content. */
+  body:has(.course-context-panel):not(:has(#page)) { padding-left: var(--context-space-left); padding-right: var(--context-space-right); }
+  body.finlay-preview:has(.course-context-panel) { max-width: none; margin-left: 0; margin-right: 0; padding-left: calc(var(--context-space-left) + 2rem); padding-right: calc(var(--context-space-right) + 2rem); }
+  body:has(.course-context-panel) #page.drawers .main-inner { max-width: calc(100% - var(--context-space-left) - var(--context-space-right)); margin-left: var(--context-space-left); margin-right: var(--context-space-right); }
+}
+@media (max-width: 650px) {
+  .course-context-panel { margin: 1rem; padding: .9rem; }
+  .context-workspace { min-width: 0; }
+  .context-documents { display: block; }
+  .context-documents a { display: block; margin: .5rem 0; border-radius: .5rem; }
+}
+@media print { .course-context-panel, .context-account-controls { display: none; } }

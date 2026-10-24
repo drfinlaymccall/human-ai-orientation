@@ -1,8 +1,15 @@
 # Human AI Orientation — course design brief
 
-Updated: 2026-10-23. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
+Updated: 2026-10-24. Stage: working public demo and reviewer accounts; no public learner enrolments. This brief grew from the discovery interview; confirmed scope, implemented behaviour and future proposals are distinguished below. The [first Git snapshot](history/initial-design-brief.md) and [design dialogue](history/design-dialogue.md) preserve the earlier state.
 
 ## Purpose and success
+
+**Course rationale — clarified by Finlay, 24 October 2026:** prepare humans to team with AI. Through worthwhile tasks, learners practise communicating intentions, supplying relevant context, recognising and repairing misunderstandings, checking results and keeping useful work. They encounter practical interaction patterns—conversation, voice input, files and reusable notes—and learn to choose an approach for their purpose. The orientation is self-contained and prepares the ground for a broader, separate human–AI education programme.
+
+**Learner-facing short form:** Learn to team with AI: choose a useful task, give context, check the result and keep what helps.
+
+WB23 implements this rationale in source on the landing/course overview, in the native welcome and as task-specific purpose cues through the activities and closing next-goal reflection. The [student-onboarding brief](curriculum/student-onboarding.md) maps six existing capability areas to overall objectives and documents the canonical welcome source, first-visit flow and publication checks. The [dated release](releases/2026-10-24-student-welcome-rehearsal.md) and [synthetic QA record](qa/2026-10-24-wb23-wb10-rehearsal.md) distinguish verified source/captured-mail behaviour from production publication, welcome enablement, genuine recipient delivery and the human pilot, which remain separate gates.
+
 
 Help people who are not AI specialists establish a productive, informed relationship with AI through useful tasks, better context, and capability discovery. The course should respect their time and let them judge whether a capability is worth using in their own lives.
 
@@ -21,10 +28,14 @@ The project should become a working public course on a subdomain of Finlay's web
 | Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
 | 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
 | 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
-| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | New portable builder with Markdown download, JSON backup/restore and optional AI interview |
+| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | Portable builder plus private My context storage, Copy, optional Markdown, JSON backup/restore and AI interview |
 | 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
 
-The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; signed-in learners can deliberately save to My context, return across devices, edit and copy selected documents. Optional downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+
+## Keeping in touch
+
+Finlay chose LinkedIn as the main follow channel for course changes, new educational offerings and human–AI collaboration ideas. A shared Keep in touch section appears on the public course profile and native course summary, linking his verified LinkedIn profile and website. There is no newsletter subscription or implied email consent. X remains optional until its profile URL is confirmed.
 
 ## Place in the broader learning journey
 
@@ -206,7 +217,7 @@ Each lesson should offer a plain-language purpose, an estimated time, a short ex
 - R23. Learners can inspect the shared context, check what their AI accessed, and use an equivalent paste route when AI browsing is unavailable. AI browsing, GitHub accounts and automatic instruction-file discovery are not required for completion.
 - R24. Public course context has stable, versioned links and machine-readable descriptions alongside readable text. Site and repository representations derive from the same reviewed source. Guidance keeps the human in charge of choices, evaluation and submissions; a public context fetch cannot establish account progress or learning mastery.
 - R25. Begin with an optional diagnostic files-and-folders activity before the AI brief. Learners identify files, folders and paths; find, copy and reopen a fictional practice file in Finder or Windows File Explorer; and distinguish local files, browser downloads and agent workspaces. Familiar learners can use the self-check and skip practice. A read-through route keeps phone and restricted-device learners included.
-- R26. Integrate Finlay’s tips beside the relevant task as short, clearly labelled recommendations. Prefer inline callouts with optional detail over automatic pop-ups. Link to a practical guide, explain the benefit, and preserve a viable alternative.
+- R26. Integrate reusable Finlay’s Tips beside the relevant task as short, clearly labelled recommendations. The 23 October review prefers a right-hand panel where space permits, with voice-typing guidance beside each editable learning box and reusable prompts. Stack the panel on narrow screens, retain keyboard/no-JavaScript access and avoid automatic pop-ups or covering the work. Link practical setup guidance, explain the benefit and preserve typing/paste alternatives.
 - R27. Recommend Obsidian for a portable personal context portfolio, with a verified installation/vault/first-note guide. Describe it accurately as a free proprietary app using Markdown files. Neither Obsidian installation, paid sync, plugins nor giving an AI vault access is a completion requirement.
 - R28. Make activities interactive where this removes unnecessary learner effort: editable structured inputs, immediately usable outputs and clear copy controls. Provide labelled fictional examples for exploration, including reasoning and prediction prompts. Preserve existing entries before replacement; distinguish example exploration from personal practice. Keep private learning notes separate from context copied to an AI and state where drafts are stored.
 
@@ -222,6 +233,14 @@ Accessibility criteria should include clear language, meaningful headings, keybo
 ## Course-wide objectives and competencies — 14 October feedback
 
 **Status:** Finlay requested this direction while reviewing `/notes`. This is a learning-design exploration; tracking, assessment controls and the personal map are proposed, not implemented. Priority is held in the [control-file inbox](../CONTROL.md#brain-dump-inbox).
+
+**23 October text draft:** the [V1 competency bank and non-linear map briefs](curriculum/competency-framework-v1.md) propose six capability areas, 18 core can-do statements, optional foundations, mapping to the existing activities and explicit assessment/evidence rules. Three visual directions share the same bank: an orientation atlas, a constellation and a garden. This is a draft for review before images or implementation; it does not add six new modules, saved assessments or live map controls.
+
+**V1.1 refinement requested by Finlay:** each competency now pairs a knowledge outcome with a practical can-do statement and explicit mapping to both dimensions of revised Bloom. Audit coverage of Remember, Understand, Apply, Analyse, Evaluate and Create across the course, without turning these into a required sequence or learner proficiency scale. Communication includes separately observable diagnosis of a mismatch, selection/application of a repair and evaluation of the revised response. The draft records fresh inspection of the publishing knowledge base, thesis taxonomy/competency examples and Krathwohl's primary overview. A knowledge explanation and practical performance require their own evidence; one must not silently establish the other.
+
+**V1.2 presentation proposal:** Finlay found the grouping and coded mapping unclear. Lead the framework with a plain-language learner view: the atlas shows existing activities, each with what to do, what to keep and what to practise. Four activity places expose the three core activities and portfolio bridge, with an optional files/notes/AI-basics area. Competencies appear inside activities as plain-language practice outcomes and knowledge/performance self-checks. Six capability groupings organise author outcomes; their IDs and Bloom references remain in the technical author reference. A readable course-design view explains tasks, skills and evidence in full. The in-chat interactive preview is a design proposal, not deployed map navigation or saved learner assessment. Check later-activity entry with existing or fictional context before claiming non-linear entry support is complete.
+
+**Direction accepted:** after reviewing the clickable preview, Finlay requested integration into **HOC Forward plan**. The [canonical launch plan](plans/2026-10-23-002-feat-public-launch-plan.md#accepted-atlas-presentation-and-implementation-reference) now carries activity-led atlas navigation into U1/U3 and keeps personal skills tracking/quiz work later. The [preserved preview source](prototypes/orientation-activity-atlas.html) is an implementation reference, not a deployed page. Production copy/artwork and entry support still require delivery checks; the selected activity-led direction need not be reopened as an unresolved metaphor choice.
 
 Every course page and resource should explain what the learner will be able to do after using it, connect that purpose to their own learning objective, and link to a shared course bank of objectives and competencies. Linked external resources need the same purpose and mapping in their course description. Use observable verbs informed by revised Bloom; learners see plain-language can-do statements rather than taxonomy jargon.
 
@@ -247,6 +266,8 @@ Finlay wants automatic reading progress without a completion click. Proposed int
 The map should show course modules, linked competencies, personal objectives, completed activity, continuing practice and useful next steps, with backlinks to teaching resources. Show whether a capability claim rests on self-assessment, task evidence or optional AI feedback. Offer the map during the course and at the end, with a readable list alternative and a portable copy alongside the context portfolio. Individual records should remain private. Public reading and no-JavaScript routes remain useful; durable progress requires an explicit storage/return design rather than assuming a page visit identifies a learner.
 
 ### Optional entry self-assessment: find your starting point
+
+**23 October course-review update:** Finlay selected an optional native Moodle self-report with **six statements and two 1–5 ratings each**: understanding and can-do. The [canonical forward plan](plans/2026-10-23-002-feat-public-launch-plan.md#starting-point-instrument-and-recommendation-contract) now specifies draft statements, uncertainty/skip, native attempt/version storage and explainable practice rules in U8. This supersedes the earlier open format/length question and knowledge-quiz proposal below for the current entry check. It does not introduce correct answers, a proficiency score or a mandatory assessment. Full per-competency evidence tracking stays later work. The personal illustrated **Your course journey** and simpler navigation are planned in U1/U3; the [review log](reviews/course-review.md) traces the owner feedback and future verification.
 
 Finlay confirmed that the map should recognise prior capability and proposed an optional short quiz based on course material. Explain its purpose before entry: discover a useful starting point, identify possible practice needs and choose a route. Learners can take it or start the course directly. “Find your starting point” is proposed learner-facing wording; “audit mode” and “placement test” are working descriptions, not settled labels or a compulsory gate.
 
@@ -336,3 +357,31 @@ Review the experience weekly after pilot launch: learner feedback, support, core
 Proposed exclusions from the first prototype: building an LMS from scratch unless existing candidates fail the essential journey; a mandatory embedded chatbot; AI grading of personal disclosures; autonomous support replies; complex integrations into learner accounts; and compulsory advanced automation. Community forums, certificates, payments, localisation, and organisational cohorts remain possible later additions rather than commitments.
 
 The minimum public prototype and hosting machine are now selected. Resolve before implementation where consequential: lightweight completion evidence for the three activities, pilot/support capacity, platform and deployment feasibility, budget, minimum email behaviour, account/discovery friction, and storage of personal context. Naming, detailed provider guides, and screen designs can be developed alongside those decisions. The [discovery log](discovery-log.md) is the interview record.
+
+## Contextual voice feedback - 23 October 2026
+
+Finlay requested browser voice input throughout the course, beginning with a short private recording about a particular lesson or website section. Giving specific feedback to people and AI supports the course's capability goals. The authorised first slice is contextual feedback to Finlay: record, review/discard, explicitly send, and retain a private reviewer inbox. Typed feedback and audio-file upload remain valid alternatives.
+
+The [implementation plan](plans/2026-10-23-002-feat-voice-feedback-plan.md) scopes enrolment, private files, context, safe retries, notifications and privacy handling. [Release evidence](releases/2026-10-23-voice-feedback.md) separates synthetic checks from human learning evidence and live activation. Transcription, speech-to-text in arbitrary fields and AI feedback coaching are future decisions; no AI provider is required by stage one. Existing course evidence and portfolio ownership stay intact.
+
+### Voice-feedback scope clarification — 23 October 2026
+
+Finlay confirmed the first flow as private voice feedback to the course owner, with a five-minute recording maximum. Keep record, listen, re-record and explicit Send as the minimum interaction. The five-minute limit supersedes the original two-minute implementation-plan setting; a 10 MiB file allowance supports the longer recordings. Transcription, dictation in arbitrary text boxes and AI coaching stay outside this slice. This is a paraphrase of the request, not a learner observation.
+
+### Findable, compact feedback — 23 October 2026
+
+Finlay reported that recording worked but the form looked unattractive, occupied a full page and was difficult to find again from the homepage or journey. This paraphrases direct owner feedback; it is not a learner study. Use a consistent “Give feedback” button at the bottom of public course pages and native Moodle activities. Open a compact panel in place, remember the page/activity context and lead with Record plus an optional note. Hide upload/heading details until requested. Preserve unsent drafts across panel close/reopen, release microphone access on close, and retain explicit Send.
+
+Signed-out visitors receive a compact sign-in explanation and can return to the same page/panel after authentication. Keep the full-page/no-JavaScript route. Use the existing private storage and reviewer controls; do not expand this into transcription or anonymous uploads. Documentation impact: update CONTROL, feedback operations and the local test prompt, and record browser/layout/access evidence and live rollout limits in the release record.
+
+### Optional local voice transcription — 24 October 2026
+
+Finlay requested an optional install-your-own voice-model reference in voice notes and voice feedback, for learners with a suitable desktop Mac or PC. His preferred candidate is Fluid Voice using Parakeet for on-device transcription. Record this as a queued voice-channel improvement; verify the tool and per-platform hardware support before recommending it. The [feature request](requests/2026-10-24-local-voice-transcription.md) defines the learner flow and acceptance checks. Existing voice recording and typed input remain sufficient.
+
+### Tips only where the learner writes — 24 October 2026
+
+Finlay identified the tips box in section 7 of the reading preview as redundant. The public reflection has no answer editor, so omit the panel there while keeping its reflection instructions. Retain writing support beside the editable builders and Moodle’s native essay editor. This is owner feedback and a presentation change, not learner-study evidence or a change to completion.
+
+### Course-wide tips availability — 24 October 2026
+
+Finlay asked to extend the redundant-tips cleanup across the course. Show the shared writing panel only when its activity provides an available editable field; hide it when enhanced controls are unavailable, read-only or disabled. Moodle’s editor is supplied outside the authored essay fragment, so its actual form field determines availability. Preserve plain-text/manual fallbacks and remove the empty sidebar column when the panel is absent. The audit found four additional fallback cases, rather than further permanent panels on ordinary reading pages.

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+export ORIENTATION_TRIAL_DIR="${ORIENTATION_TRIAL_DIR:-$PROJECT_DIR/trial/launch-fixture}"
+case "$ORIENTATION_TRIAL_DIR" in
+  "$PROJECT_DIR/trial/launch-fixture"|"$PROJECT_DIR/trial/context-fixture") ;;
+  *) echo 'A known synthetic fixture is required.' >&2; exit 1 ;;
+esac
+test -f "$ORIENTATION_TRIAL_DIR/moodle/config.php"
+test -f "$ORIENTATION_TRIAL_DIR/capture-mail.py"
+exec "$PROJECT_DIR/scripts/php" -d "sendmail_path=/usr/bin/python3 $ORIENTATION_TRIAL_DIR/capture-mail.py" "$@"

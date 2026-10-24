@@ -1,0 +1,118 @@
+<style>
+#hoc-atlas-preview{--hoc-paper:light-dark(#fffdf7,#202821);--hoc-ink:light-dark(#243b30,#e5ede3);--hoc-soft:light-dark(#57665b,#b7c6b7);--hoc-line:light-dark(#d4dace,#485749);--hoc-land:light-dark(#e9efdf,#303d2e);--hoc-field:light-dark(#f5f2e7,#29332b);--hoc-green:light-dark(#315d45,#bad5b0);--hoc-on-green:light-dark(#fffdf7,#20341f);--hoc-wash:light-dark(#dde9d8,#3a4a35);color:var(--hoc-ink);font-family:system-ui,sans-serif;font-size:15px;line-height:1.55}
+#hoc-atlas-preview *{box-sizing:border-box}
+#hoc-atlas-preview [hidden]{display:none!important}
+#hoc-atlas-preview button,#hoc-atlas-preview a{font:inherit}
+#hoc-atlas-preview button{color:inherit}
+#hoc-atlas-preview .hoc-shell{background:var(--hoc-paper);border:1px solid var(--hoc-line);border-radius:18px;overflow:hidden}
+#hoc-atlas-preview .hoc-bar{padding:16px 22px;border-bottom:1px solid var(--hoc-line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+#hoc-atlas-preview .hoc-brand{font-weight:600}
+#hoc-atlas-preview .hoc-note{font-size:12px;color:var(--hoc-soft)}
+#hoc-atlas-preview .hoc-switch{display:flex;flex-wrap:wrap;gap:6px;padding:14px 22px 0}
+#hoc-atlas-preview .hoc-switch button{border:1px solid var(--hoc-line);border-radius:24px;background:var(--hoc-paper);padding:8px 14px;min-height:42px}
+#hoc-atlas-preview .hoc-switch button[aria-pressed=true]{background:var(--hoc-green);color:var(--hoc-on-green);border-color:var(--hoc-green)}
+#hoc-atlas-preview .hoc-heading{padding:20px 24px 12px}
+#hoc-atlas-preview h2{font-family:Georgia,serif;font-weight:500;font-size:28px;line-height:1.2;margin:0 0 9px}
+#hoc-atlas-preview h3{font-size:20px;line-height:1.3;font-weight:600;margin:0 0 12px}
+#hoc-atlas-preview h4{font:inherit;font-weight:600;margin:0 0 4px}
+#hoc-atlas-preview p{margin:0 0 12px}
+#hoc-atlas-preview .hoc-heading p{color:var(--hoc-soft);margin:0}
+#hoc-atlas-preview .hoc-map{position:relative;background:var(--hoc-field);margin:8px 16px 0;padding:30px 18px;border-radius:45% 30% 25% 15% / 12% 20% 12% 15%;isolation:isolate}
+#hoc-atlas-preview .hoc-terrain{position:absolute;pointer-events:none;background:var(--hoc-land);border-radius:49% 45% 65% 35%;z-index:-1}
+#hoc-atlas-preview .hoc-terrain.one{width:57%;height:53%;left:1%;top:3%;transform:rotate(-8deg)}
+#hoc-atlas-preview .hoc-terrain.two{width:58%;height:54%;right:0;bottom:2%;transform:rotate(9deg)}
+#hoc-atlas-preview .hoc-paths{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;color:var(--hoc-line)}
+#hoc-atlas-preview .hoc-places{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px 36px;z-index:1}
+#hoc-atlas-preview .hoc-place{display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid var(--hoc-line);background:var(--hoc-paper);border-radius:12px;padding:16px;min-height:130px;box-shadow:0 4px 10px color-mix(in srgb,var(--hoc-ink) 5%,transparent)}
+#hoc-atlas-preview .hoc-place:hover{background:var(--hoc-wash)}
+#hoc-atlas-preview .hoc-place[aria-pressed=true]{border:2px solid var(--hoc-green);padding:15px;background:var(--hoc-paper)}
+#hoc-atlas-preview .hoc-icon{color:var(--hoc-green);background:var(--hoc-land);padding:7px;border-radius:9px;display:flex;flex-shrink:0}
+#hoc-atlas-preview .hoc-icon svg{width:22px;height:22px}
+#hoc-atlas-preview .hoc-place strong{display:block;font-weight:600;font-size:16px;line-height:1.3}
+#hoc-atlas-preview .hoc-takeaway{display:block;font-size:12px;color:var(--hoc-soft);margin-top:8px}
+#hoc-atlas-preview .hoc-no-takeaways .hoc-takeaway{display:none}
+#hoc-atlas-preview .hoc-optional{position:relative;display:flex;justify-content:center;margin-top:28px;z-index:1}
+#hoc-atlas-preview .hoc-optional button{border:1px solid var(--hoc-line);background:var(--hoc-paper);border-radius:30px;min-height:44px;padding:10px 16px;text-align:center}
+#hoc-atlas-preview .hoc-optional button[aria-pressed=true]{background:var(--hoc-wash);border-color:var(--hoc-green)}
+#hoc-atlas-preview .hoc-suggest{padding:12px 24px 18px;color:var(--hoc-soft);font-size:13px}
+#hoc-atlas-preview .hoc-suggest button{border:0;background:none;padding:0;color:var(--hoc-green);text-decoration:underline;text-underline-offset:3px}
+#hoc-atlas-preview .hoc-detail{border-top:1px solid var(--hoc-line);padding:22px 24px;background:var(--hoc-paper)}
+#hoc-atlas-preview .hoc-eyebrow{display:block;letter-spacing:.04em;text-transform:uppercase;font-size:11px;color:var(--hoc-soft);margin-bottom:7px}
+#hoc-atlas-preview .hoc-details-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:16px}
+#hoc-atlas-preview .hoc-practice{background:var(--hoc-field);padding:14px 16px;border-radius:10px}
+#hoc-atlas-preview ul{padding-left:20px;margin:0}
+#hoc-atlas-preview li{margin:4px 0}
+#hoc-atlas-preview .hoc-link{display:inline-flex;align-items:center;gap:8px;background:var(--hoc-green);color:var(--hoc-on-green);border-radius:8px;text-decoration:none;padding:10px 16px;margin-top:16px;min-height:44px}
+#hoc-atlas-preview details{margin-top:18px;border-top:1px solid var(--hoc-line);padding-top:14px}
+#hoc-atlas-preview summary{color:var(--hoc-green);font-weight:600;min-height:30px}
+#hoc-atlas-preview .hoc-check{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#hoc-atlas-preview .hoc-check p{margin:0}
+#hoc-atlas-preview .hoc-author{padding:20px 24px}
+#hoc-atlas-preview .hoc-author-list{display:grid;gap:22px;margin-top:20px}
+#hoc-atlas-preview .hoc-author-row{border-top:1px solid var(--hoc-line);padding-top:18px}
+#hoc-atlas-preview .hoc-author-row h3{font-size:18px}
+#hoc-atlas-preview .hoc-relations{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#hoc-atlas-preview .hoc-relation-label{display:block;color:var(--hoc-soft);font-size:12px;margin-bottom:4px}
+#hoc-atlas-preview .hoc-footer{border-top:1px solid var(--hoc-line);padding:12px 24px;font-size:12px;color:var(--hoc-soft)}
+@media(max-width:540px){#hoc-atlas-preview .hoc-heading{padding:18px}#hoc-atlas-preview h2{font-size:25px}#hoc-atlas-preview .hoc-map{margin:4px 8px 0;padding:22px 10px}#hoc-atlas-preview .hoc-places{gap:36px 12px}#hoc-atlas-preview .hoc-place{padding:12px;display:block;min-height:168px}#hoc-atlas-preview .hoc-place[aria-pressed=true]{padding:11px}#hoc-atlas-preview .hoc-icon{display:inline-flex;margin-bottom:8px}#hoc-atlas-preview .hoc-place strong{font-size:14px}#hoc-atlas-preview .hoc-details-grid,#hoc-atlas-preview .hoc-check,#hoc-atlas-preview .hoc-relations{grid-template-columns:1fr;gap:12px}#hoc-atlas-preview .hoc-detail,#hoc-atlas-preview .hoc-author{padding:20px 18px}#hoc-atlas-preview .hoc-switch{padding:12px 16px 0}#hoc-atlas-preview .hoc-bar{padding:14px 18px}}
+@media(max-width:420px){#hoc-atlas-preview .hoc-places{grid-template-columns:1fr;gap:12px}#hoc-atlas-preview .hoc-place{display:flex;min-height:0}#hoc-atlas-preview .hoc-icon{margin-bottom:0}#hoc-atlas-preview .hoc-terrain,#hoc-atlas-preview .hoc-paths{display:none}#hoc-atlas-preview .hoc-map{border-radius:16px;padding:16px 10px}#hoc-atlas-preview .hoc-takeaway{margin-top:5px}#hoc-atlas-preview .hoc-optional{margin-top:16px}}
+</style>
+<div id="hoc-atlas-preview">
+  <div class="hoc-shell">
+    <header class="hoc-bar"><span class="hoc-brand">Human AI Orientation</span><span class="hoc-note">Course map · design preview</span></header>
+    <nav class="hoc-switch" aria-label="Preview viewpoint"><button type="button" class="cursor-interaction" data-view="learner" aria-pressed="true">Learner map</button><button type="button" class="cursor-interaction" data-view="author" aria-pressed="false">Course-design view</button></nav>
+    <section data-hoc-view="learner" aria-label="Learner activity map">
+      <div class="hoc-heading"><h2>What would you like to do with AI?</h2><p>Choose a place to see what you'll do and take away. You can return to any activity.</p></div>
+      <div class="hoc-map" aria-label="Explore the course activities">
+        <div class="hoc-terrain one" aria-hidden="true"></div><div class="hoc-terrain two" aria-hidden="true"></div>
+        <svg class="hoc-paths" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2"></path></svg>
+        <div class="hoc-places">
+          <button type="button" class="hoc-place cursor-interaction" data-place="task" aria-pressed="true" aria-controls="hoc-selected-detail"><span class="hoc-icon"><i data-lucide="sparkles" aria-hidden="true"></i></span><span><strong>Try AI on a useful task</strong><span class="hoc-takeaway">Keep a first result and a way to judge it.</span></span></button>
+          <button type="button" class="hoc-place cursor-interaction" data-place="context" aria-pressed="false" aria-controls="hoc-selected-detail"><span class="hoc-icon"><i data-lucide="messages-square" aria-hidden="true"></i></span><span><strong>Give AI the right background</strong><span class="hoc-takeaway">Keep a brief you can reuse.</span></span></button>
+          <button type="button" class="hoc-place cursor-interaction" data-place="portfolio" aria-pressed="false" aria-controls="hoc-selected-detail"><span class="hoc-icon"><i data-lucide="folder-open" aria-hidden="true"></i></span><span><strong>Save your context for next time</strong><span class="hoc-takeaway">Keep your own context portfolio.</span></span></button>
+          <button type="button" class="hoc-place cursor-interaction" data-place="check" aria-pressed="false" aria-controls="hoc-selected-detail"><span class="hoc-icon"><i data-lucide="compass" aria-hidden="true"></i></span><span><strong>Check a result and plan your next step</strong><span class="hoc-takeaway">Keep an improvement and a next-step plan.</span></span></button>
+        </div>
+        <div class="hoc-optional"><button type="button" class="cursor-interaction" data-place="basics" aria-pressed="false" aria-controls="hoc-selected-detail">Optional help · Files, notes and AI basics</button></div>
+      </div>
+      <div class="hoc-suggest">Not sure where to begin? <button type="button" class="cursor-interaction" data-start>Try a useful task.</button></div>
+      <section id="hoc-selected-detail" class="hoc-detail" aria-label="Selected activity">
+        <div aria-live="polite"><span class="hoc-eyebrow" data-kind>Core activity · 10–15 minutes</span><h3 data-heading>Try AI on a useful task</h3></div>
+        <div class="hoc-details-grid"><div><h4>You'll do</h4><p data-do>Choose something that matters, decide what a useful result would look like and make a first attempt.</p></div><div><h4>You'll keep</h4><p data-keep>A first result and one clear criterion you can use to judge it.</p></div></div>
+        <div class="hoc-practice"><h4>What you'll practise</h4><ul data-skills><li>Choosing a worthwhile task.</li><li>Explaining what you want.</li><li>Judging what help you need.</li></ul></div>
+        <details><summary class="cursor-interaction">Check what I can do</summary><div class="hoc-check"><div><h4>What I understand</h4><p data-knowledge>Can I explain why this task matters and what a useful result would look like?</p></div><div><h4>What I can do</h4><p data-performance>Can I choose a task, give an instruction and compare the result with my criterion?</p></div></div><p class="hoc-note" style="margin-top:12px">Self-check wording preview · no assessment is saved here.</p></details>
+        <a class="hoc-link cursor-interaction" data-activity-link href="https://orientation.finlaymccall.com/first-task" target="_blank" rel="noopener noreferrer">Open this activity <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </section>
+    </section>
+    <section data-hoc-view="author" class="hoc-author" aria-label="Course-design relationships" hidden>
+      <h2>How the course fits together</h2><p>Three core activities, with portfolio practice inside the context activity and optional preparation.</p>
+      <div class="hoc-author-list" data-author-list></div>
+    </section>
+    <footer class="hoc-footer">Illustrative navigation · activity links open the existing public course · times are guides.</footer>
+  </div>
+</div>
+<script>
+(()=>{
+  const root=document.getElementById('hoc-atlas-preview');
+  const activities={
+    task:{title:'Try AI on a useful task',kind:'Core activity · 10–15 minutes',do:'Choose something that matters, decide what a useful result would look like and make a first attempt.',keep:'A first result and one clear criterion you can use to judge it.',skills:['Choosing a worthwhile task.','Explaining what you want.','Judging what help you need.'],knowledge:'Can I explain why this task matters and what a useful result would look like?',performance:'Can I choose a task, give an instruction and compare the result with my criterion?',route:'first-task',task:'Write an instruction for a small task and keep your first result.',evidence:'The task, a criterion stated before trying, the result and your judgement.'},
+    context:{title:'Give AI the right background',kind:'Core activity · 25–30 minutes',do:'Choose helpful details, write a short brief, try it with your AI and work through anything it gets wrong about your intention.',keep:'A brief you can reuse in another conversation.',skills:['Selecting relevant information and protecting private details.','Explaining your intention.','Identifying a misunderstanding, clarifying it and checking the revision.'],knowledge:'Can I explain why a detail helps, what I leave out and how a clarification could address a mismatch?',performance:'Can I select useful context, identify a mismatch, clarify it and check the revision?',route:'preview',task:'Mark an invented date in a draft invitation, explain the mismatch and ask for a placeholder.',evidence:'Your inclusion/omission choices, the marked mismatch, clarification and checked revision.'},
+    portfolio:{title:'Save your context for next time',kind:'Portfolio practice within the context activity · 20–30 minutes',do:'Organise useful information about yourself, a project and your sources. Review it, save your documents and reopen them.',keep:'Your own reviewed context portfolio, ready to find and selectively reuse.',skills:['Organising useful information.','Reviewing what to keep and share.','Saving, finding and reopening documents.'],knowledge:'Can I explain what belongs in my personal, project and source notes, and how I will find them again?',performance:'Can I make a reviewed context document, save it outside this page and reopen the intended copy?',route:'portfolio',task:'Create and review a short project note, download it, locate it and reopen it.',evidence:'The reviewed note and a retrieval check; a temporary browser draft alone does not show retrieval.'},
+    check:{title:'Check a result and plan your next step',kind:'Core activity · 15–20 minutes',do:'Use an existing brief or an example in a fresh task. Check a result, correct a problem and choose a meaningful next goal.',keep:'A checked result, an improvement worth keeping and a manageable next-step plan.',skills:['Checking a result against a criterion.','Making and evaluating a correction.','Reusing context and choosing further practice.'],knowledge:'Can I explain how I checked the result and distinguish my learning needs from information my AI needs?',performance:'Can I test a result, evaluate a correction and design a first step towards my next goal?',route:'check-and-continue',task:'Try a fresh task, verify an important detail, improve an instruction and set a next goal.',evidence:'A checked detail, before/after correction, reason for your decision and next-step plan.'},
+    basics:{title:'Files, notes and AI basics',kind:'Optional preparation · 20–30 minutes',do:'Practise saving and finding a file, keeping a useful note and using an available way to give your AI an instruction.',keep:'A file and note you can find again, plus a way to give your AI an instruction.',skills:['Saving and locating files.','Creating and reopening a useful note.','Transferring information and checking what arrived.'],knowledge:'Can I explain where my file is stored and how I can return to it?',performance:'Can I save, locate and reopen a file, and transfer a useful excerpt into a conversation?',route:'before-you-start',task:'Save a fictional example, find it again and copy a relevant excerpt into a conversation.',evidence:'The reopened file and the intended excerpt at its destination.'}
+  };
+  let selected='task',view='learner';
+  function applyState(saved){const state=saved?.modelContent;if(state&&activities[state.selected])selected=state.selected;if(state?.view==='author'||state?.view==='learner')view=state.view;}
+  applyState(window.openai?.widgetState);
+  function remember(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{selected,view},privateContent:null}).catch(()=>{});}
+  function paths(){const map=root.querySelector('.hoc-map');if(!map.offsetWidth)return;const box=map.getBoundingClientRect();const nodes=[...root.querySelectorAll('.hoc-place')].map(el=>{const b=el.getBoundingClientRect();return {x:b.left-box.left+b.width/2,y:b.top-box.top+b.height/2};});const svg=root.querySelector('.hoc-paths');svg.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`);const [a,b,c,d]=nodes;const mid=(a.y+c.y)/2;svg.querySelector('path').setAttribute('d',`M ${a.x} ${a.y} C ${a.x} ${mid},${b.x} ${mid},${b.x} ${b.y} M ${a.x} ${a.y} C ${a.x-22} ${mid},${c.x-22} ${mid},${c.x} ${c.y} M ${b.x} ${b.y} C ${b.x+22} ${mid},${d.x+22} ${mid},${d.x} ${d.y} M ${c.x} ${c.y} C ${c.x} ${mid},${d.x} ${mid},${d.x} ${d.y} M ${a.x} ${a.y} C ${a.x} ${mid},${d.x} ${mid},${d.x} ${d.y}`);}
+  function render(){const a=activities[selected];root.querySelectorAll('[data-place]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.place===selected)));root.querySelector('[data-heading]').textContent=a.title;root.querySelector('[data-kind]').textContent=a.kind;root.querySelector('[data-do]').textContent=a.do;root.querySelector('[data-keep]').textContent=a.keep;root.querySelector('[data-knowledge]').textContent=a.knowledge;root.querySelector('[data-performance]').textContent=a.performance;const list=root.querySelector('[data-skills]');list.replaceChildren(...a.skills.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));root.querySelector('[data-activity-link]').href='https://orientation.finlaymccall.com/'+a.route;root.querySelectorAll('[data-view]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.view===view)));root.querySelectorAll('[data-hoc-view]').forEach(el=>el.hidden=el.dataset.hocView!==view);requestAnimationFrame(paths);}
+  const authorList=root.querySelector('[data-author-list]');
+  for(const a of Object.values(activities)){const section=document.createElement('section');section.className='hoc-author-row';const kind=document.createElement('span');kind.className='hoc-eyebrow';kind.textContent=a.kind;const h=document.createElement('h3');h.textContent=a.title;const grid=document.createElement('div');grid.className='hoc-relations';for(const [label,value] of [['Example task',a.task],['Skills developed',a.skills.join(' ')],['Knowledge check',a.knowledge],['Evidence to look for',a.evidence]]){const item=document.createElement('div');const l=document.createElement('span');l.className='hoc-relation-label';l.textContent=label;const text=document.createElement('p');text.textContent=value;item.append(l,text);grid.append(item);}section.append(kind,h,grid);authorList.append(section);}
+  root.querySelectorAll('[data-place]').forEach(el=>el.addEventListener('click',()=>{selected=el.dataset.place;root.querySelector('details').open=false;render();remember();}));
+  root.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>{view=el.dataset.view;render();remember();}));
+  root.querySelector('[data-start]').addEventListener('click',()=>{selected='task';render();remember();});
+  window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState){applyState(event.detail.globals.widgetState);render();}});
+  render();new ResizeObserver(paths).observe(root.querySelector('.hoc-map'));
+  if(globalThis.Tweak){const appearance={showTakeaways:true};const tweak=new Tweak({container:root.querySelector('.hoc-map'),onChange:()=>root.classList.toggle('hoc-no-takeaways',!appearance.showTakeaways)});tweak.addToggle(appearance,'showTakeaways',{label:'Show takeaway on map'});}
+})();
+</script>

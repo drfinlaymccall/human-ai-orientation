@@ -72,7 +72,7 @@
     try { sessionStorage.setItem(storageKey, JSON.stringify({ example, values: all.map(key => input(key).value) })); }
     catch {
       storageWorks = false;
-      root.querySelector('[data-storage]').textContent = 'Your browser cannot keep a temporary draft. Copy your work before leaving or reloading this page. Nothing you type here is submitted to the course.';
+      root.querySelector('[data-storage]').textContent = 'Your browser cannot keep a temporary draft. Copy your work before leaving, or choose Save to My context when signed in. Typing alone does not save it to Moodle.';
     }
   }
   function closePrompt() { confirmBox.hidden = true; pending = null; }
