@@ -37,6 +37,7 @@ test.describe.serial('native current-user activity progress',()=>{
    const response=await request.fetch('/local/orientation/state.php?userid=1&courseid=1',{method,maxRedirects:0});
    expect(response.status()).toBe(200);expect(response.headers()['cache-control']).toMatch(/private.*no-store/);
    expect(response.headers()['access-control-allow-origin']).toBeUndefined();
+   expect(response.headers()['set-cookie']).toBeUndefined();
    expect(response.headers()['content-type']).toContain('application/json');
    if(method==='GET')expect(await response.json()).toEqual({state:'signed-out',journey_url:overview});
    else expect(await response.text()).toBe('');
@@ -48,13 +49,39 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.locator('#username').fill(users[1].username);await page.locator('#password').fill(password);await page.locator('#loginbtn').click({timeout:30000});await ready(page);
   expect(page.url()).toContain('/mod/lesson/view.php');
   const signedinBefore=state();
-  expect(await (await page.request.get('/local/orientation/state.php?userid=1')).json()).toEqual({state:'signed-in',journey_url:overview});
+  const signedin=await page.request.get('/local/orientation/state.php?userid=1');expect(signedin.headers()['set-cookie']).toBeUndefined();expect(await signedin.json()).toEqual({state:'signed-in',journey_url:overview});
+  const signedinHead=await page.request.head('/local/orientation/state.php');expect(signedinHead.headers()['set-cookie']).toBeUndefined();expect(await signedinHead.text()).toBe('');
   expect(state()).toEqual(signedinBefore);
   await page.goto(overview);await expect(page.locator('[data-activity-atlas]')).toBeVisible();
   await page.locator('.usermenu .dropdown-toggle').click();await page.getByRole('menuitem',{name:/Log out/}).click();await ready(page);
   expect(await (await page.request.get('/local/orientation/state.php')).json()).toEqual({state:'signed-out',journey_url:overview});
   await page.goBack();await ready(page);await expect(page.locator('[data-private-journey]')).not.toBeVisible();
   await page.goto(overview);await expect(page.locator('#loginbtn')).toBeVisible();await expect(page.locator('[data-atlas-progress]')).toHaveCount(0);
+ });
+ test('a delayed anonymous public probe cannot replace the session of a newly opened protected check',async({browser})=>{
+  test.setTimeout(90000);
+  const context=await browser.newContext();const publicPage=await context.newPage();
+  let releaseProbe;const gate=new Promise(resolve=>{releaseProbe=resolve;});
+  let capturedProbe;const captured=new Promise(resolve=>{capturedProbe=resolve;});
+  await publicPage.route('**/local/orientation/state.php',async route=>{
+   // Fetch without a browser cookie jar, then delay only delivery to the public tab.
+   const response=await fetch(route.request().url(),{headers:route.request().headers()});
+   const body=await response.text();const headers=Object.fromEntries(response.headers.entries());
+   capturedProbe();await gate;await route.fulfill({status:response.status,headers,body});
+  });
+  try{
+   await publicPage.goto(base+'/journey');await captured;
+   const opened=context.waitForEvent('page');
+   await publicPage.getByRole('link',{name:'Find my starting point',exact:true}).click({modifiers:['Control']});
+   const protectedPage=await opened;await expect(protectedPage.locator('#loginbtn')).toBeVisible();
+   const returned=publicPage.waitForResponse(r=>new URL(r.url()).pathname==='/local/orientation/state.php');
+   releaseProbe();await returned;
+   await expect(publicPage.locator('[data-account-state]')).toHaveText('Signed out');
+   await ready(protectedPage);
+   await protectedPage.locator('#username').fill(users[0].username);await protectedPage.locator('#password').fill(password);await protectedPage.locator('#loginbtn').click({timeout:30000});await ready(protectedPage);
+   await expect(protectedPage).toHaveURL(base+'/local/orientation/startingpoint.php');
+   await expect(protectedPage.getByRole('heading',{name:'Find my starting point',exact:true})).toBeVisible();
+  }finally{releaseProbe();await context.close();}
  });
  test('ordinary login lands on journey; learner navigation persists across native pages and staff retain administration',async({page,browser})=>{
   test.setTimeout(120000);

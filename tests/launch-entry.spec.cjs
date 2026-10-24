@@ -85,7 +85,7 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
       expect(geometry.detailTop - geometry.buttonBottom).toBeLessThan(40);
     }
     expect(geometry.actionBottom).toBeLessThanOrEqual(geometry.viewport);
-    await page.keyboard.press('Tab');
+    for (let tabs = 0; tabs < (width > 1000 ? 4 : 1); tabs++) await page.keyboard.press('Tab');
     await expect(detail.locator('a.button')).toBeFocused();
     await detail.getByText('Check what I can do', { exact: true }).focus();
     await page.keyboard.press('Space');
@@ -97,6 +97,40 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
     await page.goto('/journey');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.locator('[data-activity-atlas]').screenshot({ path: `/tmp/orientation-atlas-${width}.png` });
+  }
+});
+
+test('natural keyboard traversal reaches all five atlas choices and the selected action', async ({ page }) => {
+  for (const width of [1440, 390, 320]) {
+    await page.setViewportSize({ width, height: 960 });
+    await page.goto('/journey');
+    const choices = page.locator('[data-atlas-choice]');
+    await choices.first().focus();
+    for (let index = 0; index < activities.length; index++) {
+      const choice = choices.nth(index);
+      await expect(choice).toBeFocused();
+      await page.keyboard.press('Enter');
+      await expect(choice).toHaveAttribute('aria-pressed', 'true');
+      const slug = await choice.getAttribute('data-atlas-choice');
+      const action = page.locator(`[data-atlas-open="${slug}"]`);
+      if (width <= 1000) {
+        await page.keyboard.press('Tab');
+        await expect(action).toBeFocused();
+      }
+      if (index < activities.length - 1) {
+        // Follow the browser's native order; never focus the next choice by script.
+        for (let tabs = 0; tabs < 10 && !(await choices.nth(index + 1).evaluate(el => el === document.activeElement)); tabs++) {
+          await page.keyboard.press('Tab');
+          if (width > 1000) break;
+        }
+        await expect(choices.nth(index + 1)).toBeFocused();
+      } else if (width > 1000) {
+        await page.keyboard.press('Tab'); // The optional newcomer suggestion.
+        await expect(page.locator('[data-atlas-start]')).toBeFocused();
+        await page.keyboard.press('Tab');
+        await expect(action).toBeFocused();
+      }
+    }
   }
 });
 

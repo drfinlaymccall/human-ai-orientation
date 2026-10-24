@@ -42,15 +42,6 @@
     }
     for (const button of choices) {
       button.addEventListener('click', () => select(button.dataset.atlasChoice, true));
-      button.addEventListener('keydown', event => {
-        if (event.key === 'Tab' && !event.shiftKey && button.getAttribute('aria-pressed') === 'true') {
-          const action = panels.find(panel => panel.dataset.atlasDetail === slug)?.querySelector('a.button');
-          if (action) {
-            event.preventDefault();
-            action.focus();
-          }
-        }
-      });
     }
     root.querySelector('[data-atlas-start]')?.addEventListener('click', () => select(first.dataset.atlasChoice, true));
     narrow.addEventListener('change', placeSelected);

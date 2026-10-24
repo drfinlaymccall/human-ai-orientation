@@ -2,7 +2,11 @@
 // Observational session probe for same-origin public pages; deliberately no require_login or destination writes.
 define('AJAX_SCRIPT', true);
 define('NO_DEBUG_DISPLAY', true);
+define('NO_SESSION_UPDATE', true);
+define('READ_ONLY_SESSION', true);
 require_once(__DIR__ . '/../../config.php');
+// Bootstrap may create an anonymous cookie. A delayed probe must never replace a newer login session.
+header_remove('Set-Cookie');
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: private, no-store');
 header('Pragma: no-cache');

@@ -5,7 +5,12 @@ const path = require('node:path');
 const { execFileSync, spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fixture = path.join(root, 'trial/launch-fixture');
-const base = 'http://127.0.0.1:18802';
+const base = process.env.ORIENTATION_FIXTURE_URL || 'http://127.0.0.1:18802';
+if (!['http://127.0.0.1:18802', 'http://127.0.0.1:18812'].includes(base)) throw new Error('Guarded synthetic fixture URL required.');
+if (base.endsWith(':18812')) {
+  const marker = JSON.parse(fs.readFileSync(path.join(fixture, 'synthetic-fixture.json')));
+  if (fs.lstatSync(fixture).isSymbolicLink() || marker.synthetic !== true || marker.wwwroot !== base || marker.database !== 'orientation_journey_fixture') throw new Error('Independent synthetic fixture marker required.');
+}
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
 if (!course.course_url.startsWith(base + '/')) throw new Error('Synthetic localhost fixture required.');
 const env = { ...process.env, ORIENTATION_TRIAL_DIR: fixture };
@@ -20,7 +25,7 @@ function configure(mode, options = []) {
   return { status: result.status, output: result.stdout + result.stderr };
 }
 function fixturePhp(code) {
-  const prelude = `define('CLI_SCRIPT',true); require ${JSON.stringify(path.join(root, 'scripts/moodle-environment.php'))}; if ($CFG->wwwroot !== '${base}' || $orientationtrial !== realpath('${fixture}')) throw new RuntimeException('Fixture only'); `;
+  const prelude = `define('CLI_SCRIPT',true); require ${JSON.stringify(path.join(root, 'scripts/moodle-environment.php'))}; require_once ${JSON.stringify(path.join(root, 'scripts/synthetic-fixture.php'))}; if ($CFG->wwwroot !== '${base}' || !orientation_is_synthetic_fixture($orientationtrial, $CFG)) throw new RuntimeException('Fixture only'); `;
   return execFileSync(path.join(root, 'scripts/php'), ['-r', prelude + code], { cwd: root, env, encoding: 'utf8' });
 }
 function snapshot() {
@@ -33,8 +38,8 @@ function messageLink(username, endpoint) {
     const raw = fs.readFileSync(path.join(folder,name), 'utf8');
     const body = raw.replace(/=\r?\n/g, '').replace(/=([0-9A-F]{2})/gi, (_, hex) => String.fromCharCode(parseInt(hex,16))).replace(/&amp;/g, '&');
     if (!body.includes(username)) continue;
-    const urls = body.match(/http:\/\/127\.0\.0\.1:18802\/[^\s<>"']+/g) || [];
-    const found = urls.find(url => url.includes(endpoint));
+    const urls = body.match(/http:\/\/127\.0\.0\.1:\d+\/[^\s<>"']+/g) || [];
+    const found = urls.find(url => url.startsWith(base + '/') && new URL(url).pathname === endpoint);
     if (found) return found;
   }
   throw new Error('Expected synthetic capture not found for requested message type.');
@@ -42,16 +47,21 @@ function messageLink(username, endpoint) {
 async function ready(page) {
   await page.waitForLoadState('networkidle');
   await page.waitForFunction(() => !window.M?.util?.pending_js?.length);
+  const tour = page.getByRole('button', {name:'Got it', exact:true});
+  if (await tour.isVisible()) await tour.click();
 }
 async function signup(page, user, acceptPolicy = true) {
   await page.goto('/login/signup.php'); await ready(page);
+  await fillSignup(page, user, acceptPolicy);
+}
+async function fillSignup(page, user, acceptPolicy = true) {
   for (const [id,value] of Object.entries({username:user.username,password,email:user.email,email2:user.email,firstname:'Synthetic',lastname:'Onboarding'})) await page.locator('#id_'+id).fill(value);
   if (acceptPolicy) await page.locator('#id_policyagreed').check();
   await page.locator('#id_submitbutton').click();
 }
 async function login(page, user, pass = password) {
   await page.goto('/login/index.php'); await ready(page);
-  await page.locator('#username').fill(user.username); await page.locator('#password').fill(pass); await page.locator('#loginbtn').click();
+  await page.locator('#username').fill(user.username); await page.locator('#password').fill(pass); await page.locator('#loginbtn').click({timeout:30000});
 }
 async function recover(page, user) {
   await page.goto('/login/forgot_password.php'); await ready(page);
@@ -190,6 +200,116 @@ test.describe.serial('isolated native onboarding', () => {
     await page.goto(messageLink(invited.username,'/login/confirm.php'));await expect(page.locator('body')).toContainText('registration has been confirmed');
     // An unapproved broader opening remains gated by genuine representative mail evidence.
     expect(configure('open',['--receipt='+pilotReceipt]).status).not.toBe(0);
+  });
+
+  test('a fresh learner follows visible entry through confirmation, optional check, practice, saved return and captured recovery', async ({browser}) => {
+    test.setTimeout(180000);
+    const user = {username:`journey${stamp}`, email:`journey${stamp}@example.test`};
+    const pilotReceipt = path.join(fixture, 'journey-readiness-synthetic.json');
+    const addresses = path.join(fixture, 'journey-addresses-synthetic.json');
+    fs.writeFileSync(addresses, JSON.stringify([user.email]));
+    fs.writeFileSync(pilotReceipt, JSON.stringify({site:base, course_id:Number(course.course_id), synthetic:true, pilot_only:true, reviewed_by:'Synthetic test only', reviewed_at:new Date().toISOString(), evidence_note:'Captured-mail learner rehearsal only; no genuine delivery or owner review', privacy_reviewed:true, support_reviewed:true, operating_reviewed:true, retention_before_broad_launch:true}));
+    expect(configure('pilot', ['--receipt='+pilotReceipt, '--pilot-emails='+addresses]).status).toBe(0);
+    const contexts = [];
+    async function freshPage() { const context = await browser.newContext(); contexts.push(context); return context.newPage(); }
+    async function signOut(page) {
+      await page.locator('.usermenu .dropdown-toggle').click();
+      await page.getByRole('menuitem', {name:/Log out/}).click();
+      await ready(page);
+    }
+    async function enterFromHome(page, pass) {
+      await page.goto('/');
+      await page.locator('header [data-account-link]').click();
+      await expect(page.locator('#loginbtn')).toBeVisible();
+      await ready(page);
+      await page.locator('#username').fill(user.username);
+      await page.locator('#password').fill(pass);
+      await page.locator('#loginbtn').click({timeout:30000});
+      await ready(page);
+      await expect(page).toHaveURL(base+'/local/orientation/index.php');
+    }
+    try {
+      const newcomer = await freshPage();
+      await newcomer.goto('/');
+      await newcomer.getByRole('link', {name:'Explore your course', exact:true}).click();
+      await newcomer.getByRole('link', {name:'Find my starting point', exact:true}).click();
+      await ready(newcomer);
+      await expect(newcomer.locator('#loginbtn')).toBeVisible();
+      await newcomer.getByRole('link', {name:'Create new account', exact:true}).click();
+      await ready(newcomer);
+      await fillSignup(newcomer, user); // Complete the real native policy checkbox.
+      await expect(newcomer.locator('body')).toContainText('An email should have been sent');
+      expect(fixturePhp(`$u=$DB->get_record('user',['username'=>'${user.username}'],'*',MUST_EXIST);echo get_user_preferences('auth_email_wantsurl','',$u);`)).toBe(base+'/local/orientation/startingpoint.php');
+      const confirmed = await freshPage();
+      await confirmed.goto(messageLink(user.username, '/login/confirm.php'));
+      await expect(confirmed.locator('body')).toContainText('registration has been confirmed');
+      await expect(confirmed.locator('form').filter({has:confirmed.getByRole('button',{name:'Continue',exact:true})})).toHaveAttribute('action', base+'/local/orientation/startingpoint.php');
+      await confirmed.getByRole('button', {name:'Continue', exact:true}).click();
+      await confirmed.getByRole('button', {name:'Enrol me', exact:true}).click();
+      // No inserted navigation: the requested check must survive confirmation and native enrolment.
+      await expect(confirmed).toHaveURL(base+'/local/orientation/startingpoint.php');
+      await confirmed.getByRole('link', {name:'Open the optional check', exact:true}).click();
+      await confirmed.getByRole('button', {name:/^Attempt quiz/}).click();
+      await ready(confirmed);
+      for (let pageNumber=0; pageNumber<3; pageNumber++) {
+        await expect(confirmed.locator('.que.multichoice')).toHaveCount(4);
+        for (const question of await confirmed.locator('.que.multichoice').all()) {
+          await question.locator('input[type=radio]:not([value="-1"])').nth(1).check();
+        }
+        await confirmed.getByRole('button', {name:pageNumber<2?'Next page':'Finish attempt ...', exact:true}).click();
+        await ready(confirmed);
+      }
+      await confirmed.getByRole('button', {name:'Submit all and finish', exact:true}).click();
+      await confirmed.getByRole('dialog').getByRole('button', {name:'Submit all and finish', exact:true}).click();
+      await confirmed.waitForURL('**/mod/quiz/review.php?**');
+      await ready(confirmed);
+      await confirmed.locator('[data-starting-navigation]').getByRole('link').click();
+      await expect(confirmed.locator('[data-starting-suggestion]')).toHaveAttribute('data-starting-suggestion', 'first-task');
+      await expect(confirmed.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
+      await confirmed.locator('#region-main').getByRole('link', {name:'Continue: Try AI on a useful task', exact:true}).click();
+      await ready(confirmed);
+      await confirmed.getByText('If you cannot use an AI today', {exact:true}).click();
+      await expect(confirmed.getByText('Use this invented response for practice.', {exact:false})).toBeVisible();
+      await expect(confirmed.locator('#region-main')).toContainText('invents a date and venue');
+      await expect(confirmed.getByRole('button', {name:/^Mark .* as done$/})).toBeVisible();
+      await confirmed.getByRole('button', {name:/^Mark .* as done$/}).click();
+      await ready(confirmed);
+      await confirmed.locator('.primary-navigation').getByRole('menuitem', {name:'Your course journey', exact:true}).click();
+      await expect(confirmed.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+      await confirmed.screenshot({path:path.join(fixture,'u9-fresh-learner-journey.png'), fullPage:true});
+      await signOut(confirmed);
+
+      const returning = await freshPage();
+      await enterFromHome(returning, password);
+      await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+      await expect(returning.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');
+      await expect(returning.locator('#region-main').getByRole('link', {name:'Continue: Give AI the right background', exact:true})).toBeVisible();
+      await signOut(returning);
+      await returning.locator('header [data-account-link]').click();
+      await ready(returning);
+      await returning.locator('a[href$="/login/forgot_password.php"]').first().click();
+      await ready(returning);
+      await returning.locator('#id_username').fill(user.username);
+      await returning.locator('#id_submitbuttonusername').click();
+      await expect(returning.locator('body')).toContainText('If you supplied a correct username');
+      const recovery = await freshPage();
+      await recovery.goto(messageLink(user.username, '/login/forgot_password.php'));
+      await ready(recovery);
+      const recovered = 'Recovered-Journey-92!';
+      await recovery.locator('#id_password').fill(recovered);
+      await recovery.locator('#id_password2').fill(recovered);
+      await recovery.locator('#id_submitbutton').click();
+      await ready(recovery);
+      await expect(recovery).toHaveURL(base+'/local/orientation/index.php');
+      await expect(recovery.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+      await signOut(recovery);
+      const passwordCheck = await freshPage();
+      await enterFromHome(passwordCheck, recovered);
+      await expect(passwordCheck.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');
+      await expect(passwordCheck.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+    } finally {
+      for (const context of contexts) await context.close();
+    }
   });
 
 });
