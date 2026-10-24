@@ -166,15 +166,19 @@
       let revision = Number(saved?.revision || 0);
       let expecteditemid = Number(saved?.id || 0);
       output.after(button, status);
+      for (const eventName of ['input', 'change']) widget.addEventListener(eventName, () => {
+        if (!invalidated) status.textContent = 'Unsaved changes. Choose Save to My context to keep them in Moodle.';
+      });
       button.addEventListener('click', async () => {
         if (invalidated || account?.userid !== owner) { invalidated = true; clearWidget(); return; }
         if (!output.value.trim()) { status.textContent = 'Write some text first.'; return; }
         button.disabled = true;
+        const sentText = output.value;
         try {
-          const result = await write({ op: 'save-note', key, revision, expecteditemid, title, body: output.value, source: 'useful-context' }, owner);
+          const result = await write({ op: 'save-note', key, revision, expecteditemid, title, body: sentText, source: 'useful-context' }, owner);
           if (invalidated) return;
           revision = Number(result.item.revision); expecteditemid = Number(result.item.id);
-          status.textContent = 'Saved to Moodle. Open My context to edit, copy or return to this activity.'; await refresh();
+          status.textContent = output.value === sentText ? 'Saved to Moodle. Open My context to edit, copy or return to this activity.' : 'The earlier version was saved. Your latest edits are not saved yet.'; await refresh();
         } catch (error) {
           if (!invalidated) status.textContent = error.name === 'TimeoutError' ? 'Saving timed out and was not confirmed. Your text is still here; keep a copy. Moodle may have saved it; check My context before trying again.' :
             error.status === 409 ? 'A newer saved version exists. Copy these edits before opening My context.' : 'Changes were not saved. Your text is still here; keep a copy and try again.';

@@ -328,3 +328,25 @@ for (const phase of ['request', 'response body']) {
     assert.equal(clock.pending(), 0);
   });
 }
+
+for (const [selector, outputSelector] of [['.context-brief','[data-output="brief"]'],['.context-trial','[data-try-report]']]) {
+  for (const timing of ['while saving','after saving']) test(selector+' keeps later edits unsaved '+timing, async () => {
+    const widget = new Element(); const output = new Element(); output.parent=widget;
+    widget.append(output); widget.nodes.set(outputSelector,output);
+    widget.lists.set('textarea,input',[output]); widget.lists.set('button,textarea,input,select',widget.children);
+    const response = deferred(); const posts=[];
+    const {context}=contextHarness(async (_url,options) => {
+      if(options.method==='POST'){posts.push(JSON.parse(options.body));return {ok:true,json:()=>response.promise};}
+      return reply(account(101));
+    },undefined,undefined,{document:{querySelector:s=>s==='.context-workspace'?{}:s===selector?widget:null,createElement:()=>new Element()}});
+    await context.ready;
+    const save=widget.children.find(n=>n.textContent==='Save to My context');
+    const status=widget.children.at(-1);
+    output.value='Earlier fictional text'; const saving=save.emit('click');
+    if(timing==='while saving'){output.value='Latest fictional edits';await widget.emit('input');}
+    response.resolve({item:{id:1,revision:1}}); await saving;
+    if(timing==='after saving'){assert.match(status.textContent,/Saved to Moodle/);output.value='Latest fictional edits';await widget.emit('input');}
+    assert.equal(posts[0].body,'Earlier fictional text'); assert.equal(output.value,'Latest fictional edits');
+    assert.match(status.textContent,/not saved|Unsaved changes/);
+  });
+}
