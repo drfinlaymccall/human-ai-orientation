@@ -386,7 +386,7 @@ test('account availability matches the expected release mode, recovery is clear 
 
 test('public AI context accepts plain HTTP clients without a bot challenge', async ({ request }) => {
   const headers = { 'User-Agent': 'Python-urllib/3.12' };
-  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2']
+  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2', '2026-10-24.1']
     .map(version => `/ai/releases/${version}/context.md`)]) {
     const response = await request.get(path, { headers });
     expect(response.status(), path).toBe(200);

@@ -1,4 +1,5 @@
 """Public metadata contracts: safe routes, stable releases and one reviewed activity map."""
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -66,6 +67,19 @@ class PublicContextTests(unittest.TestCase):
             self.assertIn(published['public_url'], context)
         for path, value in before.items():
             self.assertEqual((self.root / path).read_bytes(), value, f'Rebuild changed {path}')
+
+    def test_published_context_edition_keeps_its_original_bytes(self):
+        published = self.root / 'public/ai/releases/2026-10-23.2/context.md'
+        self.assertEqual(hashlib.sha256(published.read_bytes()).hexdigest(),
+                         'fdc81d3fdbfef6d28a7cc1d3a07d305de32bccadf6bbb80104b215cbcee16f3b')
+        source = self.read('content/ai/course-context.json')
+        manifest = self.read('public/ai/course.json')
+        self.assertEqual(source['version'], '2026-10-24.1')
+        self.assertEqual(source['updated'], '2026-10-24')
+        self.assertEqual(manifest['context_version'], source['version'])
+        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-10-24.1/context.md')
+        self.assertEqual((self.root / 'public/ai/context.md').read_bytes(),
+                         (self.root / 'public/ai/releases/2026-10-24.1/context.md').read_bytes())
 
     def test_changed_activity_cannot_rewrite_published_context(self):
         course_map = self.read('content/course-map.json')

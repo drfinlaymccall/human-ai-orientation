@@ -7,7 +7,7 @@
       "bic"
     ]
   },
-  "expression": "(http.host eq \"orientation.finlaymccall.com\" and http.request.method in {\"GET\" \"HEAD\"} and http.request.uri.path in {\"/ai\" \"/ai/\" \"/ai/context.md\" \"/ai/course.json\" \"/ai/course.schema.json\" \"/ai/course.schema.v1.1.json\" \"/ai/course.schema.v1.2.json\" \"/ai/course.schema.v1.3.json\" \"/ai/releases/2026-10-13.1/context.md\" \"/ai/releases/2026-10-13.2/context.md\" \"/ai/releases/2026-10-13.3/context.md\" \"/ai/releases/2026-10-23.1/context.md\" \"/ai/releases/2026-10-23.2/context.md\" \"/robots.txt\"})",
+  "expression": "(http.host eq \"orientation.finlaymccall.com\" and http.request.method in {\"GET\" \"HEAD\"} and http.request.uri.path in {\"/ai\" \"/ai/\" \"/ai/context.md\" \"/ai/course.json\" \"/ai/course.schema.json\" \"/ai/course.schema.v1.1.json\" \"/ai/course.schema.v1.2.json\" \"/ai/course.schema.v1.3.json\" \"/ai/releases/2026-10-13.1/context.md\" \"/ai/releases/2026-10-13.2/context.md\" \"/ai/releases/2026-10-13.3/context.md\" \"/ai/releases/2026-10-23.1/context.md\" \"/ai/releases/2026-10-23.2/context.md\" \"/ai/releases/2026-10-24.1/context.md\" \"/robots.txt\"})",
   "enabled": true,
   "logging": {
     "enabled": true

@@ -18,6 +18,25 @@ if (!in_array($method, ['GET', 'HEAD'], true)) {
     exit;
 }
 if ($method === 'GET') {
-    echo json_encode(['state' => isloggedin() && !isguestuser() ? 'signed-in' : 'signed-out',
+    $signedin = isloggedin() && !isguestuser();
+    if ($signedin) {
+        // NO_SESSION_UPDATE deliberately retains the user when native bootstrap detects expiry.
+        // Mirror its timeout/authentication-hook decision without destroying or refreshing the session.
+        $record = \core\session\manager::get_session_by_sid(session_id());
+        $signedin = isset($record->sid);
+        if ($signedin && $record->timemodified < \core\di::get(\core\clock::class)->time() - $CFG->sessiontimeout) {
+            $signedin = false;
+            foreach (get_enabled_auth_plugins() as $authname) {
+                $authplugin = get_auth_plugin($authname);
+                if ($authplugin->ignore_timeout_hook($_SESSION['USER'], $record->sid, $record->timecreated, $record->timemodified)) {
+                    $signedin = true;
+                    break;
+                }
+            }
+        }
+    }
+    // An authentication timeout hook may also emit a cookie; the probe must remain observational.
+    header_remove('Set-Cookie');
+    echo json_encode(['state' => $signedin ? 'signed-in' : 'signed-out',
         'journey_url' => '/local/orientation/index.php']);
 }

@@ -1,11 +1,11 @@
 # Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-23.2
-Updated: 2026-10-23
+Version: 2026-10-24.1
+Updated: 2026-10-24
 Author: Finlay McCall
 Status: Public reading with invitation-only account access; broader registration is not open.
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-23.2/context.md
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-24.1/context.md
 
 Help the human choose relevant context, try it on a worthwhile task, check the result and keep guidance they can reuse.
 

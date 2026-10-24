@@ -45,7 +45,7 @@ test('copy failure leaves all context selectable and no-JavaScript reading works
   await page.getByRole('button', { name: 'Copy starter prompt', exact: true }).click();
   const starter = await page.locator('#starter').inputValue();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(starter);
-  expect(starter).toContain('/ai/releases/2026-10-23.2/context.md');
+  expect(starter).toContain('/ai/releases/2026-10-24.1/context.md');
   await page.evaluate(() => Object.defineProperty(navigator.clipboard, 'writeText', {
     value: async () => { throw new Error('Synthetic clipboard denial'); },
   }));

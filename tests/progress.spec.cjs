@@ -58,6 +58,35 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.goBack();await ready(page);await expect(page.locator('[data-private-journey]')).not.toBeVisible();
   await page.goto(overview);await expect(page.locator('#loginbtn')).toBeVisible();await expect(page.locator('[data-atlas-progress]')).toHaveCount(0);
  });
+ test('an expired native session reports signed out without refreshing cookies, timestamps or a pending destination',async({page,context})=>{
+  test.skip(base!=='http://127.0.0.1:18812','This expiry regression uses the independent preview fixture only.');
+  test.setTimeout(180000);
+  const endpoint=`orientation-session-fixture-${stamp}.php`;
+  const endpointPath=path.join(fixture,'moodle',endpoint);
+  // Seed a real native pending destination through the normal session writer, only in the guarded fixture.
+  fs.writeFileSync(endpointPath,`<?php require __DIR__.'/config.php'; require_once ${JSON.stringify(path.join(root,'scripts/synthetic-fixture.php'))}; if($CFG->wwwroot!=='http://127.0.0.1:18812' || !orientation_is_synthetic_fixture(dirname(__DIR__),$CFG)) throw new RuntimeException('Fixture only'); require_login(); $SESSION->wantsurl=${JSON.stringify(course.lesson_url)}; header('Content-Type: application/json'); echo json_encode(['seeded'=>true]);`);
+  try{
+   await login(page,users[0]);
+   expect(await (await page.request.get('/'+endpoint)).json()).toEqual({seeded:true});
+   const cookies=await context.cookies();const sessionCookie=cookies.find(cookie=>cookie.name.startsWith('MoodleSession'));
+   expect(sessionCookie).toBeTruthy();expect(sessionCookie.value).toMatch(/^[a-zA-Z0-9,-]+$/);
+   const sid=JSON.stringify(sessionCookie.value);
+   const snapshot=()=>JSON.parse(php(`$s=$DB->get_record('sessions',['sid'=>${sid}],'*',MUST_EXIST); $data=file_get_contents(($CFG->session_file_save_path??$CFG->dataroot.'/sessions').'/sess_'.$s->sid); echo json_encode(['timestamp'=>(int)$s->timemodified,'record'=>hash('sha256',serialize($s)),'payload'=>hash('sha256',$data),'pending'=>str_contains($data,${JSON.stringify(course.lesson_url)})]);`));
+   const probe=async(expected)=>{
+    const before=snapshot();expect(before.pending).toBe(true);
+    for(const method of ['GET','HEAD']){
+     const response=await page.request.fetch('/local/orientation/state.php',{method,maxRedirects:0});
+     expect(response.status()).toBe(200);expect(response.headers()['set-cookie']).toBeUndefined();
+     if(method==='GET')expect(await response.json()).toEqual({state:expected,journey_url:overview});
+     else expect(await response.text()).toBe('');
+    }
+    expect(snapshot()).toEqual(before);expect(await context.cookies()).toEqual(cookies);
+   };
+   await probe('signed-in');
+   php(`$DB->set_field('sessions','timemodified',time()-(int)$CFG->sessiontimeout-60,['sid'=>${sid}]);`);
+   await probe('signed-out');
+  }finally{fs.rmSync(endpointPath,{force:true});}
+ });
  test('a delayed anonymous public probe cannot replace the session of a newly opened protected check',async({browser})=>{
   test.setTimeout(90000);
   const context=await browser.newContext();const publicPage=await context.newPage();
@@ -152,6 +181,44 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});document.dispatchEvent(new Event('visibilitychange'));});
   await expect(page.locator('[data-private-journey]')).toBeVisible();await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
   await other.close();
+ });
+ test('a journey first loaded hidden conceals account A and reloads account B on first activation',async({page,context})=>{
+  test.setTimeout(90000);
+  await login(page,users[0]);
+  await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+  await page.locator('.usermenu .dropdown-toggle').click();
+  const logout=await page.getByRole('menuitem',{name:/Log out/}).getAttribute('href');
+  const hidden=await context.newPage();
+  // Set visibility before any delivered script runs, including journey.js. The
+  // per-tab sessionStorage flag lets the subsequent real reload initialise normally.
+  await hidden.addInitScript(()=>{
+   if(sessionStorage.getItem('synthetic-initial-journey-activated')==='yes')return;
+   Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});
+  });
+  try{
+   await hidden.goto(overview);await ready(hidden);
+   expect(await hidden.evaluate(()=>document.visibilityState)).toBe('hidden');
+   await expect(hidden.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+   await expect(hidden.locator('[data-private-journey]')).not.toBeVisible();
+   // The browser already emitted ordinary pageshow. Exercise it explicitly as
+   // well so the concealed initial state cannot be undone by that event.
+   await hidden.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:false})));
+   await expect(hidden.locator('[data-private-journey]')).not.toBeVisible();
+   // Change the real shared native session without activating the hidden page.
+   await page.goto(logout);await login(page,users[1]);
+   await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
+   await expect(hidden.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
+   await expect(hidden.locator('[data-private-journey]')).not.toBeVisible();
+   const reloaded=hidden.waitForEvent('load');
+   await hidden.evaluate(()=>{
+    sessionStorage.setItem('synthetic-initial-journey-activated','yes');
+    Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'});
+    document.dispatchEvent(new Event('visibilitychange'));
+   });
+   await reloaded;await ready(hidden);
+   await expect(hidden.locator('[data-private-journey]')).toBeVisible();
+   await expect(hidden.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
+  }finally{await hidden.close();}
  });
  test('native Lesson keeps its own resume route after leaving and returning',async({page,browser})=>{
   await login(page,users[0]);await page.locator('#region-main').getByRole('link',{name:'Continue: Give AI the right background',exact:true}).click();
