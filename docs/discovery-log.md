@@ -2,6 +2,28 @@
 
 Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
 
+## 2026-10-23 — Deliver My context and keep-in-touch links
+
+**Decision/change:** Finlay approved implementation of the private Moodle workspace and course panels, making Copy the main action and retaining an optional Markdown file download. Explicit saves now keep the three portfolio documents, separate private practice and small course notes in the account; learners can return across activities and signed-in devices, edit/copy and follow source-activity links. Native forms remain usable without JavaScript and version 1 backups remain compatible. This supersedes the earlier requirements-only capture below.
+
+**Review/verification:** six deterministic client-race checks, 13 isolated Moodle browser checks, eight existing portable portfolio checks, six metadata unit checks and two metadata browser checks passed. All seven actionable code-review findings were corrected, covering account switching, stale asynchronous results/imports, row recreation, native failure recovery, notices and isolated testing. Published an additive plugin upgrade and shared content through supported Moodle APIs; fingerprints preserved existing module identities, Lesson evidence and completion. See the [release record](releases/2026-10-23-context-workspace.md) for live checks and remaining human/device limits.
+
+**Course profile:** Finlay prefers LinkedIn for course updates, new offerings and human–AI collaboration/education ideas. A shared Keep in touch section links his existing verified LinkedIn profile and website, without a newsletter subscription. X can follow once its URL is confirmed. This does not authorise sending marketing email or social posts.
+
+## 2026-10-23 — Choose Moodle for persistent My context storage
+
+**Decision:** after discussing side panels, Finlay requested that small learner-created context files live inside Moodle on the server, follow the learner through the course, and remain available to open/edit/copy/download with links back to their source activity. This supersedes the earlier undecided Google Drive/Dropbox direction; external providers become optional later extensions.
+
+**Capture:** updated existing [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), added requirements and U10 to the single forward plan, and aligned CONTROL.md, the course-review log (CR13–CR14) and portfolio authoring notes. Scope includes persistent responsive panels, private account storage across visits/devices, clear save states, failure/conflict recovery and portable backups. Separate personal creations from shared course references and private practice observations from AI-selected context.
+
+**Verification/limits:** reviewed the requirements and documentation diff; no runtime or live learner records changed. Account storage, panels, detailed schema/migration design and privacy wording remain to implement and verify. Current temporary-browser drafts/download behaviour is still described truthfully. Saving in Moodle does not give an AI access to the work.
+
+## 2026-10-23 — Queue a learner-owned AI memory folder and cloud storage
+
+**Request:** Finlay proposed Google Drive or Dropbox integration to save and retrieve portfolio files, and described a file system as an initial “AI memory system.” The intended habit is returning to check what is stored, review it and reuse useful context.
+
+**Capture/limits:** created [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15), related to portable save/restore #3, and updated CONTROL.md. Candidate stages are guided local/cloud folder use, optional connected save/load, and recurring review/reuse practice. Provider choice, current free access, exact integration and conflicting-copy handling remain to be scoped. Existing local download/restore remains a valid route. No connection, upload, runtime change or claim about current provider plans was made. Checked for a matching storage issue and verified documentation whitespace.
+
 ## 2026-10-23 — Reuse Finlay’s Tips beside writing activities
 
 **Request/decision:** Finlay wants reusable prompts and a speak-instead-of-type reminder whenever a learner is offered a writing box, preferably in right-hand floating panels. Implemented a shared course component through the existing public/native content pipeline rather than a separately installed Moodle block or speech service. The panel sticks on wide content areas and stacks on narrow screens; each editable learning textarea gets a concise voice hint. Read-only outputs are excluded.

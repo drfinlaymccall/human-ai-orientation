@@ -4,6 +4,7 @@ from feedback_markup import decorate_feedback
 from pathlib import Path
 from html import escape
 from course_tips import ASSETS, writing_support
+from course_context import course_context
 
 ROOT = Path(__file__).resolve().parents[1]
 for slug, source, title in [
@@ -30,7 +31,7 @@ for slug, source, title in [
 </main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">About your information</a> · <a href="/deeper-courses">Go deeper: courses and videos</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>'''
     if 'class="finlay-writing-surface"' in body:
         page = page.replace('</head>', ASSETS + '</head>')
-    (ROOT / 'public' / f'{slug}.html').write_text(decorate_feedback(page))
+    (ROOT / 'public' / f'{slug}.html').write_text(decorate_feedback(course_context(page)))
     print(f'Built /{slug}')
 
 # Keep the comparison in the standalone guide aligned with the preparation activity.
@@ -39,5 +40,5 @@ text = path.read_text()
 start = text.index('<!-- input-comparison:start -->') + len('<!-- input-comparison:start -->')
 end = text.index('<!-- input-comparison:end -->', start)
 text = text[:start] + '\n' + (ROOT / 'content/free-tools-table.html').read_text() + '\n      ' + text[end:]
-path.write_text(text)
+path.write_text(course_context(text))
 print('Updated /free-tools comparison')

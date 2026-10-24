@@ -1,7 +1,7 @@
 <?php
 // Router for the isolated synthetic fixture only. Not a production web server.
 $root = dirname(__DIR__);
-if (realpath($_SERVER['DOCUMENT_ROOT']) !== realpath($root . '/trial/launch-fixture/moodle')) {
+if (!in_array(realpath($_SERVER['DOCUMENT_ROOT']), [realpath($root . '/trial/launch-fixture/moodle'), realpath($root . '/trial/context-fixture/moodle')], true)) {
     http_response_code(500);
     exit('Synthetic fixture document root required.');
 }

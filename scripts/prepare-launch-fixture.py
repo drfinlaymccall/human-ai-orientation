@@ -3,6 +3,7 @@
 Requires the existing pinned core and local PostgreSQL/runtime. Refuses overwrite.
 """
 from pathlib import Path
+import argparse
 import json
 import os
 import secrets
@@ -17,6 +18,14 @@ def run(args, **kwargs):
 
 
 def main():
+    global FIXTURE
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--context-workspace', action='store_true', help='Use a separate context-workspace fixture on port 18842')
+    args = parser.parse_args()
+    if args.context_workspace:
+        FIXTURE = ROOT / 'trial/context-fixture'
+    port = 18842 if args.context_workspace else 18802
+    dbname = 'orientation_context_fixture' if args.context_workspace else 'orientation_launch_fixture'
     os.umask(0o077)
     if FIXTURE.exists():
         raise SystemExit('Fixture exists; retained unchanged. Use its existing database, or create a different explicit fixture.')
@@ -32,7 +41,7 @@ def main():
     credentials = {'admin_username': 'launchadmin', 'admin_password': secrets.token_urlsafe(24)+'aA1!'}
     (FIXTURE/'credentials.json').write_text(json.dumps(credentials))
     env = dict(os.environ, LD_LIBRARY_PATH=str(ROOT/'trial/runtime/usr/lib/x86_64-linux-gnu'))
-    run([ROOT/'trial/runtime/usr/lib/postgresql/16/bin/createdb', '-h', ROOT/'trial/socket', '-p', '55432', 'orientation_launch_fixture'], env=env)
+    run([ROOT/'trial/runtime/usr/lib/postgresql/16/bin/createdb', '-h', ROOT/'trial/socket', '-p', '55432', dbname], env=env)
     install = '''<?php
 $c = json_decode(file_get_contents(__DIR__ . '/credentials.json'));
 $root = dirname(__DIR__, 2);
@@ -43,6 +52,7 @@ $argv = [__DIR__ . '/moodle/admin/cli/install.php', '--non-interactive', '--agre
 '--adminpass=' . $c->admin_password, '--adminemail=admin@example.test', '--supportemail=support@example.test'];
 $_SERVER['argv'] = $argv; $_SERVER['argc'] = count($argv); require $argv[0];
 '''
+    install = install.replace('18802', str(port)).replace('orientation_launch_fixture', dbname)
     (FIXTURE/'install.php').write_text(install)
     with (FIXTURE/'logs/install.log').open('w') as log:
         run([ROOT/'scripts/php', FIXTURE/'install.php'], stdout=log, stderr=subprocess.STDOUT)
@@ -56,7 +66,7 @@ $_SERVER['argv'] = $argv; $_SERVER['argc'] = count($argv); require $argv[0];
     capture.write_text("import pathlib,sys,uuid,os\nos.umask(0o077)\n(pathlib.Path(__file__).parent/'mail'/f'{uuid.uuid4()}.eml').write_bytes(sys.stdin.buffer.read())\n")
     config.write_text(text.replace(anchor, "$CFG->slasharguments = false;\n$CFG->smtphosts = '';\n$CFG->noemailever = false;\n"+anchor))
     config.chmod(0o600)
-    print('Installed isolated launch fixture on localhost:18802. Only new synthetic data; mail captured locally.')
+    print(f'Installed isolated fixture on localhost:{port}. Only new synthetic data; mail captured locally.')
 
 if __name__ == '__main__':
     main()

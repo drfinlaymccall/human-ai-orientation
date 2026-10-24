@@ -21,10 +21,14 @@ The project should become a working public course on a subdomain of Finlay's web
 | Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
 | 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
 | 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
-| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | New portable builder with Markdown download, JSON backup/restore and optional AI interview |
+| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | Portable builder plus private My context storage, Copy, optional Markdown, JSON backup/restore and AI interview |
 | 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
 
-The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; signed-in learners can deliberately save to My context, return across devices, edit and copy selected documents. Optional downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
+
+## Keeping in touch
+
+Finlay chose LinkedIn as the main follow channel for course changes, new educational offerings and human–AI collaboration ideas. A shared Keep in touch section appears on the public course profile and native course summary, linking his verified LinkedIn profile and website. There is no newsletter subscription or implied email consent. X remains optional until its profile URL is confirmed.
 
 ## Place in the broader learning journey
 

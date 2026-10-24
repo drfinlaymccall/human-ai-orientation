@@ -3,11 +3,11 @@
   "schema_version": "1.2",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-23.1",
+  "context_version": "2026-10-23.2",
   "updated": "2026-10-23",
   "status": "Public reading with invitation-only account access; broader registration is not open.",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-23.1/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-23.2/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
@@ -70,7 +70,7 @@
     {
       "id": "portfolio",
       "title": "Save your context for next time",
-      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Download Markdown for reading and a versioned JSON backup for restoring. Private practice notes are excluded from context exports but included in the private backup. The browser draft is temporary; Moodle does not store it."
+      "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Signed-in learners choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Download Markdown (.md) is optional for a file in their own notes folder. Anonymous use retains private version1 JSON backup/restore. Private practice notes stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace."
     },
     {
       "id": "continue",
