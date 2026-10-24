@@ -137,7 +137,7 @@ if ($confirmation) {
     echo '<label for="context-copy-text">Text to copy</label><textarea id="context-copy-text" readonly rows="8" data-context-copy-text>' . s($markdown) . '</textarea>';
     echo '<button type="button" class="context-copy" data-context-copy hidden>Copy</button><p data-context-copy-status role="status"></p><noscript><p>Select the text above and use your device’s Copy command.</p></noscript>';
     if ($storagefailure) {
-        echo '<noscript><p>Without JavaScript, the recovered text stays read-only so your copy and download match. Keep a copy before reopening this page to edit. You can retry saving this recovered version.</p></noscript>';
+        echo '<p data-context-recovery-guide>Without JavaScript, the recovered text stays read-only so your copy and download match. Keep a copy before reopening this page to edit. You can retry saving this recovered version.</p>';
         echo '<a class="context-download" download="orientation-' . ($note ? 'note' : s($document)) . '.md" href="data:text/markdown;charset=utf-8;base64,' . base64_encode($markdown) . '">Download Markdown (.md)</a>';
     } else {
         echo '<button type="submit" class="context-download" name="action" value="download">Download Markdown (.md)</button>';
@@ -170,6 +170,7 @@ if ($storagefailure) {
     const status = editor.querySelector('[data-context-copy-status]');
     const fields = [...editor.querySelectorAll('[data-context-field]')];
     const original = fields.map(field => field.value);
+    editor.querySelector('[data-context-recovery-guide]').textContent = 'You can edit this recovered text. Copy and Markdown download include your current words; retry Save to keep them in Moodle.';
     for (const field of editor.querySelectorAll('input[name="title"][readonly],textarea[name="body"][readonly],textarea[data-context-field][readonly]')) field.readOnly = false;
     const source = editor.querySelector('select[name="source"]');
     if (source) {
