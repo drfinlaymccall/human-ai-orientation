@@ -42,5 +42,15 @@ if '/assets/context-try.js' not in text:
     text = text.replace('<script src="/assets/context-brief.js" defer></script>', '<script src="/assets/context-brief.js" defer></script><script src="/assets/context-try.js" defer></script>')
 spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + '\n')
 text = text.replace('This reading version does not save progress or submit answers. The brief builder keeps a temporary draft in this browser tab; copy work you want to keep into your own notes.', 'This reading version does not mark activities complete or submit lesson reflections. Typing keeps a temporary tab draft. When signed in, choose Save to My context to keep your brief or private try/check record in Moodle; otherwise copy useful work into your notes.')
+# The older preview omits optional head/body tags. Make them explicit so shared
+# page additions have the same insertion points as the other public renderers.
+if '</head>' not in text:
+    text = text.replace('<html lang="en">', '<html lang="en"><head>', 1)
+    if '<body' in text:
+        text = text.replace('<body', '</head><body', 1)
+    else:
+        text = text.replace('<main>', '</head><body><main>', 1)
+if '</body>' not in text:
+    text = text.replace('</html>', '</body></html>', 1)
 preview.write_text(decorate_feedback(course_context(text)))
 print('Updated brief and try/check widgets in lesson source and public preview.')
