@@ -1,0 +1,290 @@
+[
+  {
+    "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+    "title": "ChatGPT Free Tier FAQ | OpenAI Help Center",
+    "published_date": null,
+    "final_url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/openai.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md",
+    "title": null,
+    "published_date": null,
+    "final_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-13.3/context.md",
+    "scope": "course_public_material",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/initial_fetch.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://orientation.finlaymccall.com/ai/context.md",
+    "title": null,
+    "published_date": null,
+    "final_url": "https://orientation.finlaymccall.com/ai/context.md",
+    "scope": "course_public_material",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/initial_fetch.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://orientation.finlaymccall.com/ai/",
+    "title": "Give your AI the course context — Human AI Orientation",
+    "published_date": null,
+    "final_url": "https://orientation.finlaymccall.com/ai/",
+    "scope": "course_public_material",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/public_html_fetch.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page",
+    "title": "The ChatGPT home page | OpenAI Help Center",
+    "published_date": null,
+    "final_url": "https://help.openai.com/en/articles/9125172-the-chatgpt-home-page",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/openai.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://help.openai.com/en/articles/9237897-chatgpt-search",
+    "title": "Searching the web with ChatGPT | OpenAI Help Center",
+    "published_date": null,
+    "final_url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/openai.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries",
+    "title": "ChatGPT Supported Countries | OpenAI Help Center",
+    "published_date": null,
+    "final_url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/openai.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.google.com/gemini/answer/13278668?hl=en",
+    "title": "What you need to sign in to Gemini Apps - Gemini Apps Help",
+    "published_date": null,
+    "final_url": "https://support.google.com/gemini/answer/13278668?hl=en",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/google.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.google.com/gemini/answer/13275745?hl=en&co=GENIE.Platform%3DDesktop",
+    "title": "Use Gemini Apps - Computer - Gemini Apps Help",
+    "published_date": null,
+    "final_url": "https://support.google.com/gemini/answer/13275745?hl=en&co=GENIE.Platform%3DDesktop",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/google.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.google.com/gemini/answer/13575153?hl=en",
+    "title": "Where you can use the Gemini web app - Gemini Apps Help",
+    "published_date": null,
+    "final_url": "https://support.google.com/gemini/answer/13575153?hl=en",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/google.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.google.com/gemini/answer/16275805?hl=en",
+    "title": "Gemini Apps limits & feature availability - Gemini Apps Help",
+    "published_date": null,
+    "final_url": "https://support.google.com/gemini/answer/16275805?hl=en",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/google.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
+    "title": "Get started with Claude | Claude Help Center",
+    "published_date": "2026-09-16T17:23:33Z",
+    "final_url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/claude.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+    "title": "Enable and use web search | Claude Help Center",
+    "published_date": "2026-10-07T17:55:42Z",
+    "final_url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/claude.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://www.anthropic.com/supported-countries",
+    "title": "Supported Regions Policy",
+    "published_date": "2026-11-12T20:20:00.000Z",
+    "final_url": "https://www.anthropic.com/legal/supported-regions",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/claude.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.claude.com/en/articles/10070557-what-is-the-free-plan",
+    "error": {
+      "url": "https://support.claude.com/en/articles/10070557-what-is-the-free-plan",
+      "error": "page_not_found",
+      "status": 404
+    },
+    "scope": "research_tool_fetch_only",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/claude.json"
+  },
+  {
+    "url": "https://help.x.com/en/using-x/about-grok",
+    "title": "About Grok | X Help Center",
+    "published_date": null,
+    "final_url": "https://help.x.com/en/using-x/about-grok",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://grok.com",
+    "title": "Grok",
+    "published_date": null,
+    "final_url": "https://grok.com",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://ai.meta.com/meta-ai/assistant/",
+    "title": "Meta AI: Your personal AI assistant & chatbot | Ask, chat & more",
+    "published_date": null,
+    "final_url": "https://ai.meta.com/meta-ai/assistant/",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://www.meta.ai/",
+    "error": {
+      "url": "https://www.meta.ai/",
+      "error": "target_http_error",
+      "status": 403
+    },
+    "scope": "research_tool_fetch_only",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta.json"
+  },
+  {
+    "url": "https://docs.x.ai/grok/faq",
+    "title": "FAQ - Grok Website / Apps | SpaceXSI Docs",
+    "published_date": "2026-10-10T00:00:00Z",
+    "final_url": "https://docs.x.ai/grok/faq",
+    "scope": "mixed_document_consumer_sections_only",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta_followup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://x.ai/grok",
+    "title": "Grok — Useful AI Chatbot with Voice & Image Generation | SpaceXSI",
+    "published_date": null,
+    "final_url": "https://x.ai/grok",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta_followup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://x.ai/legal/faq",
+    "title": "Consumer FAQs | SpaceXSI",
+    "published_date": null,
+    "final_url": "https://x.ai/legal/faq",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta_followup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://about.fb.com/news/2024/04/meta-ai-assistant-built-with-llama-3/",
+    "title": "Meet Your New Assistant: Meta AI, Built With Llama 3",
+    "published_date": "2024-04-18T15:59:05+00:00",
+    "final_url": "https://about.fb.com/news/2024/04/meta-ai-assistant-built-with-llama-3/",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta_followup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://about.fb.com/news/2026/09/introducing-meta-one-subscription-service-more-features-ai/",
+    "title": "Introducing Meta One: A Subscription Service With More Features and AI to Create, Connect, and Stand Out",
+    "published_date": "2026-09-15T15:00:59+00:00",
+    "final_url": "https://about.fb.com/news/2026/09/introducing-meta-one-subscription-service-more-features-ai/",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/grok_meta_followup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://ai.google.dev/gemini-api/docs/url-context",
+    "title": "URL context  |  Gemini API  |  Google AI for Developers",
+    "published_date": null,
+    "final_url": "https://ai.google.dev/gemini-api/docs/url-context",
+    "scope": "api_documentation_not_consumer_evidence",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/api_boundary_claude_signup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  },
+  {
+    "url": "https://support.claude.com/en/articles/8325606-what-is-the-pro-plan",
+    "title": "What is the Pro plan? | Claude Help Center",
+    "published_date": "2026-10-13T17:52:19Z",
+    "final_url": "https://support.claude.com/en/articles/8325606-what-is-the-pro-plan",
+    "scope": "consumer_official_documentation",
+    "checked_on": "2026-10-24",
+    "report_time_zone": "Australia/Sydney",
+    "evidence_file": "evidence/api_boundary_claude_signup.json",
+    "method": "TinyFish free Fetch; extracted representation, not raw response headers/bytes or a consumer assistant run"
+  }
+]

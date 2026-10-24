@@ -31,7 +31,8 @@ test.describe.serial('native current-user activity progress',()=>{
   await expect(page.getByRole('heading',{name:'My orientation progress',exact:true})).toBeVisible();
   await expect(page.locator('#region-main').getByRole('link',{name:'Continue: Try AI on a useful task',exact:true})).toBeVisible();
   await expect(page.locator('#region-main')).toContainText('Portfolio practice within activity 2');
-  await expect(page.locator('#region-main')).toContainText('not the portfolio fields in your browser');
+  await expect(page.locator('#region-main')).toContainText('Choose Save to My context');
+  await expect(page.locator('#region-main').getByRole('link',{name:'Open My context',exact:true})).toHaveAttribute('href',base+'/local/orientation/workspace.php');
   await expect(page.locator('#region-main').getByRole('link',{name:'Give AI the right background',exact:true})).toHaveAttribute('href',course.lesson_url);
   await expect(page.locator('#region-main')).not.toContainText('COMP-');
  });

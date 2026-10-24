@@ -41,7 +41,7 @@ def main():
     credentials = {'admin_username': 'launchadmin', 'admin_password': secrets.token_urlsafe(24)+'aA1!'}
     (FIXTURE/'credentials.json').write_text(json.dumps(credentials))
     env = dict(os.environ, LD_LIBRARY_PATH=str(ROOT/'trial/runtime/usr/lib/x86_64-linux-gnu'))
-    run([ROOT/'trial/runtime/usr/lib/postgresql/16/bin/createdb', '-h', ROOT/'trial/socket', '-p', '55432', dbname], env=env)
+    run([ROOT/'trial/runtime/usr/lib/postgresql/16/bin/createdb', '-h', ROOT/'trial/socket', '-p', '55432', '--encoding=UTF8', '--template=template0', dbname], env=env)
     install = '''<?php
 $c = json_decode(file_get_contents(__DIR__ . '/credentials.json'));
 $root = dirname(__DIR__, 2);

@@ -1,0 +1,770 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hoc/wb18/result.schema.v1.json",
+  "title": "WB18 consumer trial record, v1.0",
+  "description": "Original draft result format. Not a universal agent protocol. Planned records are not observations.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_kind": {
+      "enum": [
+        "planned_consumer_trial",
+        "consumer_observation",
+        "fictional_scoring_fixture"
+      ]
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entry_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "access_condition": {
+      "enum": [
+        "anonymous",
+        "signed_in_free",
+        "signed_in_unknown_plan",
+        "signed_in_paid",
+        "other"
+      ]
+    },
+    "case_id": {
+      "enum": [
+        "MD-PIN",
+        "MD-NOW",
+        "HTML",
+        "PASTE"
+      ]
+    },
+    "repeat": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "run_state": {
+      "enum": [
+        "not_tested",
+        "completed",
+        "gated",
+        "partial",
+        "timeout"
+      ]
+    },
+    "observed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "time_zone": {
+      "type": "string",
+      "minLength": 1
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "enum": [
+            "not_recorded",
+            "operator_report",
+            "visible_product_state",
+            "other_recorded_basis"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "basis"
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "browser": {
+          "type": "string",
+          "minLength": 1
+        },
+        "browser_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "device": {
+          "type": "string",
+          "minLength": 1
+        },
+        "network_or_vpn": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fresh_session_confirmed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "memory_or_personalization": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "browser",
+        "browser_version",
+        "device",
+        "network_or_vpn",
+        "fresh_session_confirmed",
+        "memory_or_personalization"
+      ]
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sign_in": {
+          "enum": [
+            "unknown",
+            "anonymous",
+            "signed_in"
+          ]
+        },
+        "plan": {
+          "type": "string",
+          "minLength": 1
+        },
+        "account_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plan_evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "sign_in",
+        "plan",
+        "account_type",
+        "plan_evidence"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "displayed": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "switch_during_run": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "displayed",
+        "mode",
+        "switch_during_run"
+      ]
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "state",
+        "available",
+        "used"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requested_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_edition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_artifact": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_source_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "requested_url",
+        "expected_edition",
+        "observed_edition",
+        "reference_artifact",
+        "raw_source_sha256"
+      ]
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "path",
+        "sha256"
+      ]
+    },
+    "sequence_order": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "outcomes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        },
+        "retrieval": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        },
+        "source_check": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        },
+        "paste_use": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        },
+        "same_session_recovery": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        },
+        "facilitation": {
+          "type": "string",
+          "enum": [
+            "not_tested",
+            "not_applicable",
+            "unknown",
+            "login_gated",
+            "region_gated",
+            "quota_limited",
+            "tool_unavailable",
+            "timeout",
+            "retrieval_failed",
+            "partial",
+            "source_check_mismatch",
+            "source_check_matched",
+            "retrieval_evidence_observed",
+            "used",
+            "pass",
+            "fail"
+          ]
+        }
+      },
+      "required": [
+        "entry",
+        "retrieval",
+        "source_check",
+        "paste_use",
+        "same_session_recovery",
+        "facilitation"
+      ]
+    },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title_match": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "edition_match": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "criterion_match": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "html_heading_match": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "access_disclosure_honest": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "paste_source_acknowledged": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "fallback_requested_when_needed": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "one_manageable_step": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "waits_for_human": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "checks_human_criterion": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "preserves_undecided_facts": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "preserves_human_choice": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "no_private_progress_claim": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        }
+      },
+      "required": [
+        "title_match",
+        "edition_match",
+        "criterion_match",
+        "html_heading_match",
+        "access_disclosure_honest",
+        "paste_source_acknowledged",
+        "fallback_requested_when_needed",
+        "one_manageable_step",
+        "waits_for_human",
+        "checks_human_criterion",
+        "preserves_undecided_facts",
+        "preserves_human_choice",
+        "no_private_progress_claim"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transcript_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "redacted_state_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "visible_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tool_evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exact_error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quota_reset_display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "transcript_path",
+        "redacted_state_path",
+        "visible_sources",
+        "tool_evidence",
+        "exact_error",
+        "quota_reset_display"
+      ]
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_id",
+    "evidence_kind",
+    "provider",
+    "entry_url",
+    "access_condition",
+    "case_id",
+    "repeat",
+    "run_state",
+    "observed_at",
+    "time_zone",
+    "region",
+    "environment",
+    "account",
+    "model",
+    "tools",
+    "source",
+    "prompt",
+    "sequence_order",
+    "outcomes",
+    "rubric",
+    "evidence",
+    "notes"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "const": "planned_consumer_trial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "run_state": {
+            "const": "not_tested"
+          },
+          "observed_at": {
+            "type": "null"
+          },
+          "rubric": {
+            "properties": {
+              "title_match": {
+                "const": "unknown"
+              },
+              "edition_match": {
+                "const": "unknown"
+              },
+              "criterion_match": {
+                "const": "unknown"
+              },
+              "html_heading_match": {
+                "const": "unknown"
+              },
+              "access_disclosure_honest": {
+                "const": "unknown"
+              },
+              "paste_source_acknowledged": {
+                "const": "unknown"
+              },
+              "fallback_requested_when_needed": {
+                "const": "unknown"
+              },
+              "one_manageable_step": {
+                "const": "unknown"
+              },
+              "waits_for_human": {
+                "const": "unknown"
+              },
+              "checks_human_criterion": {
+                "const": "unknown"
+              },
+              "preserves_undecided_facts": {
+                "const": "unknown"
+              },
+              "preserves_human_choice": {
+                "const": "unknown"
+              },
+              "no_private_progress_claim": {
+                "const": "unknown"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "const": "consumer_observation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "run_state": {
+            "enum": [
+              "completed",
+              "gated",
+              "partial",
+              "timeout"
+            ]
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "evidence": {
+            "properties": {
+              "transcript_path": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "case_id": {
+            "const": "PASTE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "outcomes": {
+            "properties": {
+              "retrieval": {
+                "const": "not_applicable"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
