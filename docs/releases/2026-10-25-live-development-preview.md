@@ -12,6 +12,8 @@ The personal illustrated journey, welcome/objectives, My context and the optiona
 
 The origin configuration was validated and the course's PHP/web services restarted. The existing Cloudflare exception retains the same hostname, GET/HEAD and Browser Integrity Check-only scope. It adds only the three `.24.1`/`.24.2`/`.24.3` pinned context paths and schema 1.3, with other rules unchanged. Earlier context bytes, including the served `.23.2` hash, were retained.
 
+Authority for those four additions is Finlay's 25 October instruction to publish reviewed work to this live development site. The integrator applied that instruction to the exact routing changes already reviewed in PR #32 so the new public context could be fetched. This records the scoped implementation of his publication instruction; it does not fabricate a separate path-by-path approval or authorise a broader security-policy change. Cloudflare dry-run validation, application and readback confirmed only that existing rule was updated, with other rules unchanged.
+
 ## Verification and limits
 
 Before/after checks verified all 37 existing accounts, the original eight activity identities/completion definitions and hashes/IDs across 15 evidence tables, including saved context and feedback. The new optional quiz is additive. Acquisition and mail settings remained unchanged. No invitation, support reply, real-recipient test or marketing message was sent by this work.
