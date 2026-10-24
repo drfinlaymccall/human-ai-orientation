@@ -1,6 +1,16 @@
 # Discovery and decision log
 
-Updated: 2026-10-23. This is a living interview record. Proposals are not decisions until accepted.
+Updated: 2026-10-24. This is a living interview record. Proposals are not decisions until accepted.
+
+
+## 2026-10-24 — Triage HOC improvements and require Claude CLI review
+
+**Request/decision:** Finlay requested triage of every open issue/feature request into parent issues and work blocks suitable for subagents, and Claude CLI review on the VPS before PR merges. Enriched the existing canonical forward plan rather than starting a competing roadmap. Reused launch #9 and evidence-led #6; programme #19 also groups new delivery-quality #20 and voice #21. Native GitHub sub-issue links cover all 20 resulting open items (nine at intake plus three parents/eight bounded missing children). No prior issue was closed.
+
+**Change:** the plan defines 22 bounded work blocks, priorities/dependencies, source/test/docs ownership and three safe parallel waves. It distinguishes deployed/unmerged My context/feedback from unfinished private journey/ratings, and preserves all conditional L1–L9 requests. Local Fluid Voice/Parakeet guidance is #28; broader voice scoping is #29, separate from narration #13 and provider evaluation #12. One integrator owns shared publication, mutable fixtures and final source integration.
+
+**Methodology/evidence:** AGENTS/CONTRIBUTING, the PR template and a trusted prompt require pinned public-source Claude CLI review, finding dispositions, focused verification and re-review of changed candidates. The installed/authenticated CLI was exercised through its network-enabled VPS context. A too-large PR17 trial exhausted its estimated/output budget and remained incomplete. A compact exact-source PR18 review completed with no findings in supplied source; no application tests or merge were performed by Claude. Scope/ref/model/capability details and enforcement limits are in the [triage receipt](releases/2026-10-24-hoc-improvement-triage.md). This is a procedural merge rule; a trusted GitHub required check/ruleset remains separate work. Raw model streams/runtime data stay private.
+
 
 ## 2026-10-23 — Reuse Finlay’s Tips beside writing activities
 
