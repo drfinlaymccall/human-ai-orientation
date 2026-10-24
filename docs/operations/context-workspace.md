@@ -16,7 +16,7 @@ Saved work is attached to the current account and returns in a fresh browser/dev
 
 At desktop widths of 1100px and above, **My context** stays in view on the right. When Finlay’s Tips is available beside a writing activity, My context moves to the left. The page reserves space for it, including alongside Moodle’s open course index. Expand/collapse its heading with a click, Enter or Space; long lists scroll within the panel. It leaves room above Give feedback.
 
-At narrower widths, including phones and browser zoom that reduces the available space, the panel stays in normal page flow. Finlay’s Tips keeps its existing responsive layout. Unavailable/read-only/disabled writing fields hide tips and return My context to the right. Native Moodle’s panel remains usable without JavaScript; public reading and manual Copy routes remain available. This is a shared CSS change, with no new plugin, storage, microphone permission or AI connection.
+At narrower widths, including phones and browser zoom that reduces the available space, the panel stays in normal page flow. Browsers without support for the placement selectors also retain the in-page panel. Finlay’s Tips keeps its existing responsive layout. Unavailable/read-only/disabled writing fields hide tips and return My context to the right. Native Moodle’s panel remains usable without JavaScript; public reading and manual Copy routes remain available. This is a shared CSS change, with no new plugin, storage, microphone permission or AI connection.
 
 ## Storage and access
 

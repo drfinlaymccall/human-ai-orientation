@@ -188,9 +188,24 @@ test('course panels and Copy layout fit desktop and mobile widths', async ({ pag
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     if (width >= 1100) {
       const panel = page.locator('[data-context-panel]');
-      const box = await panel.boundingBox();
-      const content = await page.locator('.finlay-writing-content').boundingBox();
-      expect(box.x + box.width).toBeLessThanOrEqual(content.x);
+      for (const open of [false, true]) {
+        const nativePage = page.locator('#page');
+        if ((await nativePage.evaluate(node => node.classList.contains('show-drawer-left'))) !== open) {
+          await page.locator(`[data-target="theme_boost-drawers-courseindex"][data-action="${open ? 'toggle' : 'closedrawer'}"]`).click();
+        }
+        if (open) await expect(nativePage).toHaveClass(/show-drawer-left/);
+        else await expect(nativePage).not.toHaveClass(/show-drawer-left/);
+        await expect.poll(async () => {
+          const box = await panel.boundingBox();
+          const content = await page.locator('.finlay-writing-content').boundingBox();
+          return box.x + box.width <= content.x;
+        }).toBe(true);
+        if (open) {
+          const drawer = await page.locator('#theme_boost-drawers-courseindex').boundingBox();
+          expect((await panel.boundingBox()).x).toBeGreaterThanOrEqual(drawer.x + drawer.width);
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+      }
       const summary = panel.locator(':scope > details > summary');
       await summary.click();
       await expect(panel.locator(':scope > details')).not.toHaveAttribute('open');

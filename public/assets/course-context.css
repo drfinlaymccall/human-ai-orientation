@@ -38,7 +38,7 @@
   }
   /* Boost's open course index already occupies the first 285px. */
   body:has(#page.show-drawer-left) { --context-clear-left: calc(285px + 1.5rem); }
-  .course-context-panel { position: fixed; width: 16rem; left: var(--context-panel-left); right: var(--context-panel-right); top: 7rem; margin: 0; max-height: calc(100dvh - 12rem); overflow-y: auto; z-index: 4; }
+  body:has(.course-context-panel) .course-context-panel { position: fixed; width: 16rem; left: var(--context-panel-left); right: var(--context-panel-right); top: 7rem; margin: 0; max-height: calc(100dvh - 12rem); overflow-y: auto; z-index: 4; }
   /* Reserve the chosen gutter so floating controls never cover course content. */
   body:has(.course-context-panel):not(:has(#page)) { padding-left: var(--context-space-left); padding-right: var(--context-space-right); }
   body.finlay-preview:has(.course-context-panel) { max-width: none; margin-left: 0; margin-right: 0; padding-left: calc(var(--context-space-left) + 2rem); padding-right: calc(var(--context-space-right) + 2rem); }
