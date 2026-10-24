@@ -31,6 +31,10 @@ function local_orientation_before_footer(): string {
         if ((int)$PAGE->course->id !== (int)$course->id) return '';
         \local_orientation\context_store::authorise();
     } catch (Throwable $error) { return ''; }
-    return '<link rel="stylesheet" href="/assets/course-context.css"><script src="/assets/course-context.js" defer></script>' .
+    $assets = '<link rel="stylesheet" href="/assets/course-context.css"><script src="/assets/course-context.js" defer></script>';
+    if ($PAGE->cm && $PAGE->cm->idnumber === 'orientation:notes') {
+        return $assets . '<span data-context-panel-disabled hidden></span>';
+    }
+    return $assets .
         '<aside class="course-context-panel" data-context-panel aria-label="Your course and context"><details open><summary>My context</summary><div data-context-panel-body><p><a href="/local/orientation/workspace.php">Open my saved context</a></p><p><a href="/local/orientation/index.php">Your course progress</a></p></div></details></aside>';
 }
