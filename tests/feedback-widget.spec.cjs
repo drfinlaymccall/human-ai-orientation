@@ -144,3 +144,26 @@ test('only the embedded feedback frame can request the allowlisted sign-in retur
   await frame.getByRole('textbox').evaluate(() => window.parent.postMessage({ type: 'orientation-feedback-signin' }, location.origin));
   await expect(page).toHaveURL('http://127.0.0.1:8798/local/orientationfeedback/signin.php?source=journey');
 });
+
+test('a feedback sign-in return opens once and repeated enhancement preserves its same-owner draft', async ({ page }) => {
+  const loads = await host(page, false);
+  await page.goto('/journey#feedback');
+  await page.addStyleTag({ content: fs.readFileSync(style, 'utf8') });
+  const launcher = fs.readFileSync(script, 'utf8');
+  await page.addScriptTag({ content: launcher });
+  const panel = page.getByRole('dialog', { name: 'Give feedback', exact: true });
+  const frame = page.frameLocator('iframe[title="Private feedback to Finlay"]');
+  await expect(panel).toBeVisible();
+  await frame.getByRole('textbox').fill('Synthetic feedback after returning from sign-in.');
+  await page.addScriptTag({ content: launcher });
+  await page.addScriptTag({ content: launcher });
+  await expect(page.locator('[data-feedback-dialog]')).toHaveCount(1);
+  await expect(page.locator('iframe[title="Private feedback to Finlay"]')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Close feedback', exact: true }).click();
+  await expect(page).toHaveURL('http://127.0.0.1:8798/journey');
+  await expect(page.getByRole('link', { name: 'Give feedback', exact: true })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(panel).toBeVisible();
+  await expect(frame.getByRole('textbox')).toHaveValue('Synthetic feedback after returning from sign-in.');
+  expect(loads()).toBe(1);
+});

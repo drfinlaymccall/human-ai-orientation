@@ -14,8 +14,16 @@ wav.writeUInt32LE(16, 16); wav.writeUInt16LE(1, 20); wav.writeUInt16LE(1, 22);
 wav.writeUInt32LE(8000, 24); wav.writeUInt32LE(8000, 28); wav.writeUInt16LE(1, 32); wav.writeUInt16LE(8, 34);
 wav.write('data', 36); wav.writeUInt32LE(8000, 40);
 
+async function loginReady(page) {
+  // Core asynchronously replaces the password input while adding its visibility
+  // toggle. Fill the finished form so that replacement cannot erase the password.
+  await page.waitForLoadState('networkidle');
+  await page.waitForFunction(() => !window.M?.util?.pending_js?.length);
+}
+
 async function login(page, kind) {
   await page.goto('/login/index.php');
+  await loginReady(page);
   await page.locator('#username').fill(fixtures.users[kind].username);
   await page.locator('#password').fill(kind === 'reviewer' ? (process.env.FEEDBACK_REVIEWER_PASSWORD || 'SyntheticVoice7!') : fixtures.password);
   await page.locator('#loginbtn').click();
@@ -226,6 +234,7 @@ for (const entry of ['anonymous', 'guest']) test(entry + ' Moodle sign-in redire
   }
   await page.goto('/local/orientationfeedback/signin.php?source=journey');
   await expect(page).toHaveURL(/\/login\/index.php/);
+  await loginReady(page);
   await page.locator('#username').fill(fixtures.users.author.username);
   await page.locator('#password').fill(fixtures.password);
   // Assert core's actual HTTP return; this isolated host does not serve the public
