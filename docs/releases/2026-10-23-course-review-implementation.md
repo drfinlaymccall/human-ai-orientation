@@ -63,3 +63,6 @@ A partial check with one familiar rating previously used the generic familiarity
 ## Simplification and configuration validation
 
 Three separate review contexts checked reuse, code quality and efficiency. Applied three code-quality cleanups: ordered atlas status/role branches, flat account-state label selection and removal of unused preparation-source fields. Existing labels, guards and publication inputs are unchanged. No reuse changes were justified. Two efficiency proposals were left out because changing error ordering or introducing a publication snapshot needs separate behavioural justification; no safety check was removed. Changed PHP/JS/Python/shell/JSON syntax/parse checks passed, and Caddy accepted the prepared configuration. This project has no configured typecheck or general lint command; the language syntax checks and focused suites supply this verification. Final public/native checks follow on the resulting tree.
+
+
+The first final public-check command passed build/drift, support, deployment-boundary, entry and metadata checks, then stopped because another work stream owned portfolio port 8796. The public portfolio configuration now accepts one explicit alternate loopback port, 18816, with its own output directory; it still refuses server reuse. The original process was left untouched. The aggregate check is rerun on that isolated port.
