@@ -219,3 +219,11 @@ Finlay found the working feedback form unattractive and difficult to find from t
 ## Voice-channel request — 24 October 2026
 
 Queued: add optional local transcription guidance beside voice notes/dictation and voice feedback for learners with a suitable Mac or PC. Finlay prefers Fluid Voice with Parakeet and on-device transcription. Verify the exact app, platform support, hardware needs and local-processing claims before publishing a recommendation; this is a request, not a delivered integration. See the [request and acceptance checks](docs/requests/2026-10-24-local-voice-transcription.md).
+
+## Reading preview cleanup — 24 October 2026
+
+Finlay reported the Finlay’s Tips box in section 7 of `/preview` as redundant. The public reflection now omits the writing-support panel; its text and tips beside actual writing fields remain. The shared builder preserves native Moodle essay support and produces identical native lesson source. Six existing Tips checks and live narrow-screen checks with/without JavaScript passed; repeated generation is stable. See [author guidance](docs/curriculum/finlays-tips.md).
+
+## Course-wide tips audit — 24 October 2026
+
+Checked all 13 public HTML pages with and without JavaScript and authored content for 14 Moodle pages. Four additional panels were visible in reading fallbacks while their enhanced writing controls were hidden: brief, try/check, portfolio and check-and-continue. Shared styling now shows tips only alongside available editable controls and removes the unused sidebar column. Native essay support requires its actual editable Moodle field. Seven public Tips checks, two isolated native Moodle journeys and all 26 live public page/mode checks passed. No live lesson data or learner answers were changed.

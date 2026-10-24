@@ -370,3 +370,11 @@ Signed-out visitors receive a compact sign-in explanation and can return to the 
 ### Optional local voice transcription — 24 October 2026
 
 Finlay requested an optional install-your-own voice-model reference in voice notes and voice feedback, for learners with a suitable desktop Mac or PC. His preferred candidate is Fluid Voice using Parakeet for on-device transcription. Record this as a queued voice-channel improvement; verify the tool and per-platform hardware support before recommending it. The [feature request](requests/2026-10-24-local-voice-transcription.md) defines the learner flow and acceptance checks. Existing voice recording and typed input remain sufficient.
+
+### Tips only where the learner writes — 24 October 2026
+
+Finlay identified the tips box in section 7 of the reading preview as redundant. The public reflection has no answer editor, so omit the panel there while keeping its reflection instructions. Retain writing support beside the editable builders and Moodle’s native essay editor. This is owner feedback and a presentation change, not learner-study evidence or a change to completion.
+
+### Course-wide tips availability — 24 October 2026
+
+Finlay asked to extend the redundant-tips cleanup across the course. Show the shared writing panel only when its activity provides an available editable field; hide it when enhanced controls are unavailable, read-only or disabled. Moodle’s editor is supplied outside the authored essay fragment, so its actual form field determines availability. Preserve plain-text/manual fallbacks and remove the empty sidebar column when the panel is absent. The audit found four additional fallback cases, rather than further permanent panels on ordinary reading pages.

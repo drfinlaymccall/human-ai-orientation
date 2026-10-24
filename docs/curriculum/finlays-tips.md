@@ -7,7 +7,7 @@ Finlay requested reusable prompts and a speak-instead-of-type reminder beside th
 - A **Finlay’s Tips** panel sits beside the activity when the content area is wide enough. It sticks while the learner scrolls and has its own bounded scrolling area. On narrow screens it stays in normal document flow below the activity; it never overlays a writing box.
 - Each editable course textarea gets a short **speak your answer, then read it back** hint and a keyboard-accessible link to the shared voice-typing setup. Read-only output fields are excluded. Focusing a box updates the panel’s current-writing label; it does not change an answer.
 - Three original prompt starters support clarifying a request, being interviewed one question at a time, and checking a result. Copy buttons copy authored prompt text only, never append learner answers and never submit the Moodle form or send anything to an AI.
-- If clipboard permission is denied, the prompt is selected for manual copying. Without JavaScript, the panel, device guidance and prompt text remain readable with native disclosures; inactive copy buttons stay hidden.
+- If clipboard permission is denied, the prompt is selected for manual copying. Without JavaScript, tips remain readable with native disclosures beside available writing fields, such as the preparation activity. Reading fallbacks without a writing field omit the panel; inactive copy buttons stay hidden.
 - Dictation uses the learner’s existing device/app. The component adds no microphone recording or speech service. Typing, pasting, fictional examples and the existing manual course routes remain valid.
 
 The existing prompt-helper and portfolio voice callouts move into optional disclosures in the panel when present. Their content and links are retained. Device guidance links the official [Windows voice-typing instructions](https://support.microsoft.com/en-us/accessibility/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc) and [Mac Dictation setup](https://support.apple.com/guide/mac-help/use-dictation-mh40584/mac), reusing the course's previously checked setup guidance. The component does not promise universal keyboard shortcuts or claim physical-device dictation was tested here. Earlier helper-service observations remain in [the prompting ledger](../research/prompt-helpers.md).
@@ -39,3 +39,17 @@ Two native fixture checks passed: portfolio panels/hints at desktop and phone wi
 Run `npm run test:tips` for portable checks and `npm run test:tips:native` against the explicitly provisioned isolated fixture. A real microphone on Mac/Windows/phone, assistive-technology behaviour and learner comprehension remain human/device checks.
 
 The live preview additionally passed six anonymous checks at 1440/390/320px with JavaScript enabled/disabled, confirming the panel, readable prompts, voice help and horizontal fit. The existing native preparation/journey publishers reported unchanged learner records/answers, and preparation publication was repeated successfully. No real account, microphone or AI service was used for these live reading checks.
+
+## Reading reflection exclusion — 24 October 2026
+
+Following Finlay’s feedback, section 7 of the public `/preview` renders the reflection instructions without the Finlay’s Tips panel: this reading section has no answer editor. `scripts/build-brief.py` uses the reflection text before native writing support is appended. Moodle’s essay guidance and the tips beside editable public fields remain.
+
+Six existing Tips browser checks passed. Live public HTTPS checks at 390px passed with JavaScript enabled and disabled: section 7 has no panel, reflection text remains, earlier writing panels remain and the page fits horizontally. Native lesson-source bytes were unchanged and repeated preview generation was stable. No Moodle database publication was required.
+
+## Course-wide availability audit — 24 October 2026
+
+The audit covered all 13 public HTML pages in both JavaScript modes and authored content from all 14 Moodle Page/Lesson pages. It found four more panels in no-JavaScript fallbacks with hidden enhanced controls: brief, try/check, portfolio and check-and-continue. No further permanent public reading-only panel remained after the section 7 fix.
+
+Shared CSS now follows enabled, non-read-only textareas and excludes controls hidden directly or by a `hidden` ancestor. A native essay panel instead requires Moodle’s actual `answer_editor[text]` field in its form; this supports its rich editor, which can hide the backing textarea. Without an eligible field the panel and its sidebar column disappear. These rules respond to field availability without changing inputs, answers or submission. Existing course CSS already uses `:has()` selectors.
+
+Two focused regressions failed before correction. All seven public Tips checks then passed, including unavailable/hidden/read-only/disabled fields, editor recovery, native field association, narrow layouts and readable no-JavaScript preparation guidance. Two isolated native Moodle journeys passed, preserving portfolio guidance, actual essay editing and native completion. A live HTTPS sweep passed all 26 public page/mode combinations after the current asynchronous editors settled. Moodle content inspection read authored text/module types only, not learner submissions. No live database publication was needed.

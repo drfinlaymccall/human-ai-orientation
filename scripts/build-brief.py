@@ -25,7 +25,8 @@ reflection = spec['pages'][6]['html'].split('<!-- finlay-reflection-tips -->')[0
 spec['pages'][6]['html'] = reflection + '<!-- finlay-reflection-tips -->' + writing_support('', 'reflection', native_essay=True)
 start = text.index('<section id="page-6">')
 end = text.index('</section>', start) + len('</section>')
-public_reflection = spec['pages'][6]['html'].replace(
+# The reading preview has no answer editor to support.
+public_reflection = reflection.replace(
     'This reflection is stored in your course account and is visible to authorised course staff. It is not graded by AI. Use fictional details for this private platform trial.',
     'In this reading version, your reflection stays in your own notes. In the signed-in trial, submitted reflections are saved to your account and visible to Finlay. They are not graded by AI.',
 ).replace(
