@@ -100,10 +100,14 @@ def main():
     atlas = activity_atlas()
     welcome_source = (ROOT / 'content/student-welcome.json').read_bytes()
     welcome = json.loads(welcome_source)
-    (ROOT / 'moodle/local/orientation/student-welcome.json').write_bytes(welcome_source)
     home_source = (ROOT / 'content/home.html').read_text()
     if JOURNEY.count('<!-- activity-atlas -->') != 1 or '<!-- activity-atlas -->' in home_source:
         raise ValueError('Only the journey source must contain one activity-atlas marker.')
+    if home_source.count('<!-- student-objectives -->') != 1 or JOURNEY.count('<!-- student-objectives -->') != 1:
+        raise ValueError('Home and journey sources must each contain exactly one student-objectives marker.')
+    if JOURNEY.count('<!-- student-rationale -->') != 1 or '<!-- student-rationale -->' in home_source:
+        raise ValueError('Only the journey source must contain exactly one student-rationale marker.')
+    (ROOT / 'moodle/local/orientation/student-welcome.json').write_bytes(welcome_source)
     journey = student_welcome(JOURNEY.replace('<!-- activity-atlas -->', atlas), welcome)
     home = student_welcome(home_source.replace('<!-- keep-in-touch -->', (ROOT / 'content/keep-in-touch.html').read_text()), welcome)
     (generated / 'activity-atlas.html').write_text(atlas + '\n')

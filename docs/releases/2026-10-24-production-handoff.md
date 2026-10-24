@@ -33,13 +33,16 @@ The additive Quiz publication defaults to hidden/disabled. Enable the reviewed v
 
 ## Origin, edge and smoke checks
 
-Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Prepared context edition `2026-10-24.3` and schema `1.3` have new exact public paths; retain all older routes, including the already served `2026-10-23.2`. The earlier Cloudflare approval covered the previous edition/schema; extending the existing Browser Integrity Check exception requires explicit approval for precisely:
+Validate/reload the reviewed Caddy configuration using the existing deployment procedure. Keep private/no-store responses and private-file denials. Prepared context edition `2026-10-24.3` and schema `1.3` have new exact public paths; retain all older routes, including the already served `2026-10-23.2`.
 
+The [prior recorded Cloudflare approval](../curriculum/public-ai-context.md#personal-journey-release--prepared-in-preview) covers edition **2026-10-23.1** and schema **1.2** only. The `.24.1` preview configuration was not applied by that batch; retaining its path in source does not establish live application or approval. Review the complete [prepared exact-path rule](../../deploy/cloudflare-ai-context-rule.json) alongside the [origin routes](../../deploy/Caddyfile). Before applying an extension of the Browser Integrity Check exception, explicit owner approval must cover all these proposed additions to the recorded scope:
+
+- `/ai/releases/2026-10-24.1/context.md` (earlier preview)
 - `/ai/releases/2026-10-24.2/context.md` (WB01)
 - `/ai/releases/2026-10-24.3/context.md` (WB23)
 - `/ai/course.schema.v1.3.json`
 
-Retain the orientation hostname, GET/HEAD restriction and Browser Integrity Check-only scope. Do not replace unrelated rules or broaden the exception to account routes. Keep the paste fallback available. Local metadata checks do not establish live provider retrieval.
+This handoff does not establish the current live edge rule or approval for any other additions. Preserve all older routes, including the served `.23.2` context, while checking the complete proposed rule against the actual approved scope before application. Retain the orientation hostname, GET/HEAD restriction and Browser Integrity Check-only scope. Do not replace unrelated rules or broaden the exception to account routes. Keep the paste fallback available. Local metadata checks do not establish live provider retrieval.
 
 Smoke-check the public splash/account state, signed-in journey, ordinary and deep-link login, native saved progress, reviewed check/skip/retake, preserved My context workspace and Give feedback entry/return controls. Inspect the deployed account-state response for no Set-Cookie, private/no-store and only the two documented JSON fields. Fetch new and previous context/schema files, confirm the retained `.2` hash above, verify the starter/latest/manifest name the new edition consistently, and verify private paths remain denied. Genuine mail/account mutations use separately authorised consenting recipients; the captured-mail suite is not a production-mail test.
 

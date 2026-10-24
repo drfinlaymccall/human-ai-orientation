@@ -6,7 +6,9 @@ const { execFileSync, spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fixture = path.join(root, 'trial/launch-fixture');
 const base = 'http://127.0.0.1:18802';
+if (!fs.existsSync(fixture)) throw new Error('Create the independent 18802 captured-mail fixture before running the welcome checks.');
 if (fs.lstatSync(fixture).isSymbolicLink()) throw new Error('A separate synthetic fixture is required.');
+if (!fs.existsSync(path.join(fixture, 'course.json'))) throw new Error('Publish the independent 18802 fixture course before running the welcome checks.');
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
 if (!course.course_url.startsWith(base + '/')) throw new Error('The captured-mail 18802 fixture is required.');
 const shared = JSON.parse(fs.readFileSync(path.join(root, 'content/student-welcome.json')));
@@ -84,14 +86,22 @@ test.describe.serial('WB23 synthetic native course welcome', () => {
     fs.writeFileSync(receipt, JSON.stringify({ site: base, course_id: Number(course.course_id), synthetic: true, reviewed_by: 'Synthetic test only', reviewed_at: new Date().toISOString(), evidence_note: 'Captured welcome rehearsal only; no genuine mailbox receipt or owner approval', privacy_reviewed: true, support_reviewed: true, operating_reviewed: true, mail: { confirmation_received: true, recovery_received: true, recipient_scope: 'synthetic-capture' } }));
   });
   test.afterAll(() => {
-    configure('configure-closed');
+    const failures = [];
+    const attempt = action => { try { action(); } catch (error) { failures.push(error); } };
+    attempt(() => {
+      const result = configure('configure-closed');
+      expect(result.status, result.output).toBe(0);
+    });
     if (original) {
-      selfUpdate({ customint4: original.self.customint4, customtext1: original.self.customtext1 });
+      // Restore the full native instance while retaining closed new enrolments.
+      attempt(() => selfUpdate({ ...original.self, customint6: 0 }));
       for (const [key, value] of [['noreplyaddress', original.noreply], ['sitepolicy', original.policy]]) {
-        fixturePhp(value === false ? `unset_config('${key}');` : `set_config('${key}',${phpJson(value)});`);
+        attempt(() => fixturePhp(value === false ? `unset_config('${key}');` : `set_config('${key}',${phpJson(value)});`));
       }
     }
-    fs.rmSync(receipt, { force: true });
+    attempt(() => fs.rmSync(receipt, { force: true }));
+    if (failures.length === 1) throw failures[0];
+    if (failures.length) throw new AggregateError(failures, 'Welcome fixture cleanup failed.');
   });
   test('explicit welcome configuration preserves closed access, existing work, mail and manual methods', () => {
     const prior = JSON.parse(fixturePhp(`echo json_encode($DB->get_record('enrol',['id'=>${Number(original.self.id)}],'*',MUST_EXIST));`));

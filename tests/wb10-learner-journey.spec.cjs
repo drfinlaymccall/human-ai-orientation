@@ -7,7 +7,9 @@ const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fixture = path.join(root, 'trial/launch-fixture');
 const base = 'http://127.0.0.1:18802';
+if (!fs.existsSync(fixture)) throw new Error('Create the independent 18802 captured-mail fixture before running the WB10 rehearsal.');
 if (fs.lstatSync(fixture).isSymbolicLink()) throw new Error('Independent non-symlink fixture required.');
+if (!fs.existsSync(path.join(fixture, 'course.json'))) throw new Error('Publish the independent 18802 fixture course before running the WB10 rehearsal.');
 const course = JSON.parse(fs.readFileSync(path.join(fixture, 'course.json')));
 if (!course.course_url.startsWith(base + '/')) throw new Error('Independent 18802 fixture required.');
 const env = { ...process.env, ORIENTATION_TRIAL_DIR: fixture };
@@ -135,16 +137,21 @@ test.describe.serial('WB10 complete synthetic learner rehearsal', () => {
     configure('pilot', ['--receipt=' + receipt, '--pilot-emails=' + addresses]);
   });
   test.afterAll(() => {
-    try {
+    const failures = [];
+    const attempt = action => { try { action(); } catch (error) { failures.push(error); } };
+    attempt(() => {
       if (historical) expect(history(Object.fromEntries(Object.entries(historical).map(([table, value]) => [table, value.ids])))).toEqual(historical);
-    } finally {
-      if (original) {
-        configure('configure-closed');
-        php(`$self=${phpValue(original.self)};$DB->update_record('enrol',$self);`);
-        for (const key of ['sitepolicy', 'noreplyaddress']) php(original[key] === false ? `unset_config('${key}');` : `set_config('${key}',${phpValue(original[key])});`);
-      }
-      fs.rmSync(receipt, { force: true }); fs.rmSync(addresses, { force: true });
+    });
+    if (original) {
+      attempt(() => configure('configure-closed'));
+      // Restore the native instance without reopening new enrolments.
+      attempt(() => php(`$self=${phpValue({ ...original.self, customint6: 0 })};$DB->update_record('enrol',$self);`));
+      for (const key of ['sitepolicy', 'noreplyaddress']) attempt(() => php(original[key] === false ? `unset_config('${key}');` : `set_config('${key}',${phpValue(original[key])});`));
     }
+    attempt(() => fs.rmSync(receipt, { force: true }));
+    attempt(() => fs.rmSync(addresses, { force: true }));
+    if (failures.length === 1) throw failures[0];
+    if (failures.length) throw new AggregateError(failures, 'WB10 history verification or fixture cleanup failed.');
   });
 
   test('checked path completes three activities, deliberately saves reviewed context, copies selectively and recovers in a fresh browser', async ({ browser }, testInfo) => {

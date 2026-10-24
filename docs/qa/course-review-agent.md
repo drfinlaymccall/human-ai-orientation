@@ -6,7 +6,7 @@ Use this guide to navigate Human AI Orientation as a synthetic learner and check
 
 - Repository: [drfinlaymccall/human-ai-orientation](https://github.com/drfinlaymccall/human-ai-orientation). The integrated candidate includes My context, feedback, the native illustrated journey and optional starting-point check. WB23 adds a shared course rationale and native/in-course welcome. Source integration does not establish deployment. Record the actual source commit, working-tree changes and observed deployed release; the [implementation receipt](../releases/2026-10-23-course-review-implementation.md) records integration evidence.
 - Public URL: `https://orientation.finlaymccall.com/`. This defaults to public reading/navigation only. An unimplemented proposed feature is Not yet implemented, not a claimed regression fix.
-- Native synthetic environment: use the isolated fixture documented in [onboarding operations](../operations/onboarding.md), [progress operations](../operations/progress.md), [starting-point operations](../operations/starting-point.md) and [reproduction](../REPRODUCING.md). Use the checkout’s own guarded loopback port **18802** or **18812**, private `trial/launch-fixture` directory and synthetic database. The WB23/WB10 integration rehearsal uses its own isolated clone on 18802. Do not assume your local machine has either runtime/database or that a port is free. Never redirect tests to the public site.
+- Native synthetic environment: use the isolated fixture documented in [onboarding operations](../operations/onboarding.md), [progress operations](../operations/progress.md), [starting-point operations](../operations/starting-point.md) and [reproduction](../REPRODUCING.md). This WB23/WB10 rehearsal reserves its isolated clone's own **18802** / `trial/launch-fixture` / `orientation_launch_fixture` for the main learner journey, and **18842** / `trial/context-fixture` / `orientation_context_fixture` for context/feedback regressions. Both use private synthetic data and captured mail. **18812 belongs to another checkout in this session: do not reuse or reconfigure it.** Do not assume a runtime/database exists or a port is free; verify ownership before setup. Never redirect tests to the public site.
 - An operator provisions fresh labelled synthetic accounts and confirms captured-mail transport. Historical QA accounts may be suspended. Do not use Finlay's administrator/reviewer account, known owner mailbox account or old stored credentials.
 - Read repository `AGENTS.md` and `CONTRIBUTING.md`. Fixture setup/account provisioning is a separate operator preflight; the learner walkthrough must not use admin/database knowledge to navigate around a problem.
 
@@ -31,6 +31,28 @@ ORIENTATION_FIXTURE_URL=http://127.0.0.1:18802 npm run test:wb10
 ```
 
 Run the native suites serially against the same fixture; they deliberately change synthetic acquisition, visibility, versions and completion. The fixture must already be served by its operator. `npm run check:public` checks generation drift and public suites after intended generated changes have been committed. **Do not use bare `npm test` for this rehearsal**: the legacy broad public configuration targets the deployed site and loads an old private QA account. Updating an old expectation does not authorise executing that suite.
+
+Run context/feedback regressions in a separate serial lane on the owned **18842** fixture. First follow [My context fixture preparation](../operations/context-workspace.md#deployment-and-verification), including `prepare-launch-fixture.py --context-workspace`, initial publication and plugin upgrade. Preparation refuses an existing directory; retain an existing owned fixture rather than reseeding or overwriting it. Once prepared, run:
+
+```sh
+npm run test:context
+```
+
+The [context configuration](../../playwright.context.config.cjs) starts and stops its own 18842 server and refuses to reuse an existing listener. Leave the port free for this command; do not run a manually started feedback server alongside it.
+
+For native feedback, follow [feedback verification](../operations/voice-feedback.md#verification). Its [browser configuration](../../playwright.feedback-moodle.config.cjs) does **not** start a server. The operator must first verify the owned 18842 fixture's explicit synthetic-feedback marker, installed feedback plugin and capture transport. Provision fresh synthetic browser records with:
+
+```sh
+ORIENTATION_TRIAL_DIR="$PWD/trial/context-fixture" scripts/fixture-php tests/feedback-integration.php --config="$PWD/trial/context-fixture/moodle/config.php"
+```
+
+This writes the private `trial/feedback-fixtures.json` manifest. Check privately that it identifies the owned 18842 fixture; never print its credentials. Supply `FEEDBACK_REVIEWER_PASSWORD` privately for that fixture's reviewer account as required. After the context suite has released the port, serve this fixture in a separate terminal:
+
+```sh
+ORIENTATION_TRIAL_DIR="$PWD/trial/context-fixture" PHP_CLI_SERVER_WORKERS=4 scripts/fixture-php -S 127.0.0.1:18842 -t trial/context-fixture/moodle scripts/serve-launch-fixture.php
+```
+
+Then run `npm run test:feedback:moodle` from the same checkout with the private reviewer environment available. Reprovision synthetic feedback records before repeated runs exceed per-user limits; keep manifests, mail and authenticated results private. Stop only the server this operator started. `npm run test:feedback` is the separate public recorder/widget suite, not a substitute for native Moodle verification. All provisioning and mutations above are synthetic-only; they authorise no live writes or real messages.
 
 Public atlas keyboard checks use ordinary Tab/Shift+Tab, Enter and Space. On desktop, Tab reaches all five choices, the optional newcomer suggestion, then the selected details. On mobile, the selected action follows its choice before the next choice. Do not use scripted focus on each control as proof that normal traversal works.
 

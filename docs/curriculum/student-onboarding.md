@@ -1,6 +1,6 @@
 # Student onboarding and the course rationale
 
-Created: 2026-10-24. Status: implementation candidate for WB23; production publication and welcome enablement remain separate. Implementation stays in the [canonical forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md), WB23, under existing issues #4/#9.
+Created: 2026-10-24. Status: WB23 is implemented in source and synthetically verified before the complete WB10 rehearsal; production publication, welcome enablement and genuine mailbox receipt remain separate. See the [dated release](../releases/2026-10-24-student-welcome-rehearsal.md) and [synthetic QA record](../qa/2026-10-24-wb23-wb10-rehearsal.md). Implementation stays in the [canonical forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md), WB23, under existing issues #4/#9.
 
 ## Why this course exists
 
@@ -31,41 +31,25 @@ These are practice goals, not a new pass/fail assessment. Use the existing compe
 
 | Stage | What the student needs | Delivered experience |
 | --- | --- | --- |
-| Arrive | Why this matters; whether it is for me; what next | Human AI Orientation name, **Learn to team with AI** headline, short rationale, objectives, current time estimate and primary **Explore your course journey** action. Show account state and the public reading option honestly. |
+| Arrive | Why this matters; whether it is for me; what next | **Human AI Orientation** heading, **Learn to team with AI** tagline, short rationale, objectives, current time estimate and primary **Explore your course** action. Show account state and the public reading option honestly. |
 | Join when registration is available | Clear account, confirmation and enrolment steps | Preserve native Moodle registration/confirmation/enrolment and a deliberately chosen activity destination. While broad registration is closed, retain existing pilot-access wording. |
-| Enter | Where everything is; a manageable first action | **Your course journey** is the normal hub. A short, dismissible **Welcome / Start here** section explains activities, progress, My context, Help and the public AI guide. No compulsory tour or extra completion requirement. |
-| Choose a starting point | Permission to begin at the appropriate place | Offer the settled optional check—six statements, two ratings each—once delivered, with **Skip and explore** equally usable. Until then, show activity choices without advertising a live check. |
+| Enter | Where everything is; a manageable first action | **Your course journey** is the normal hub. A short, collapsible **Welcome / Start here** section explains activities, progress, My context, Help and the public AI guide. No compulsory tour or extra completion requirement. |
+| Choose a starting point | Permission to begin at the appropriate place | The optional check—six statements, two ratings each—is integrated in source, with **Skip and explore** equally usable. Its production exposure still requires Finlay's saved-rating wording review; activity choices remain available when it is disabled. |
 | Practise | How this activity helps me work with AI | Show **Why this helps**, **What you'll practise**, **What you'll keep**, then the activity. Explain the relevant interaction pattern where it is used. |
 | Leave and return | What was saved; where to resume | Keep **Continue**, **My context** and **Help** discoverable. Distinguish activity progress, submitted reflections and explicitly saved context; anonymous drafts are temporary. |
 | Finish | A useful takeaway and a next step | Reopen and reuse selected context, review the result and choose a next goal. The broader programme is a future pathway; independent continued practice is a complete outcome. |
 
 The welcome material is available inside the course as well as by email. Students can start, return and recover access without finding a welcome message. Existing deep links take precedence over a default welcome destination.
 
-## Welcome email draft
+## Welcome email source and delivery contract
 
-**Trigger:** successful self-enrolment of a confirmed student in this course. Use the supported Moodle self-enrolment welcome facility after checking the pinned implementation. Cover invited/manual enrolments explicitly or provide equivalent in-course guidance. Do not send a course welcome merely because an unconfirmed account was created. Confirmation and recovery messages retain their separate purposes. No retrospective bulk send to existing students.
+**Trigger:** successful self-enrolment of a confirmed student in this course, when the native welcome mode is deliberately enabled. The implementation uses the supported Moodle self-enrolment welcome facility. Invited/manual learners receive equivalent in-course guidance. An unconfirmed account does not receive a course welcome merely because it was created. Confirmation and recovery messages retain their separate purposes. There is no retrospective bulk send to existing students.
 
 **Native subject:** Welcome to [course full name]. Moodle supplies its standard subject; the supported customisation is the message body.
 
-> Welcome to Human AI Orientation.
->
-> This course helps you begin teaming with AI: choose a useful task, give it the context it needs, work through misunderstandings and check the result. You'll also build a small context portfolio you can review and reuse.
->
-> **Open your course:** https://orientation.finlaymccall.com/local/orientation/index.php
->
-> Your course journey is your home base. Choose an activity or continue where you left off. If you're unsure where to begin, try a useful task; files and notes preparation is optional. Allow roughly 70–95 minutes for the current core activities and portfolio extension, split into sessions that suit you.
->
-> **Keep your work:** when signed in, choose **Save to My context** to keep your documents in your course account. Open **My context** to edit or copy them later. Progress and submitted reflections are saved separately. Keep anything you want to retain from the public reading version in your own notes or backup.
->
-> **Use your own AI:** a free tool is enough, and fictional examples are available. The [guide for your AI](https://orientation.finlaymccall.com/ai/) has public course context you can share or paste.
->
-> **Need a hand?** Visit [Help](https://orientation.finlaymccall.com/help), including account recovery, or contact Finlay at hi@finlaymccall.com. Keep passwords, confirmation links and private portfolio contents out of support messages.
->
-> This orientation stands on its own and prepares the ground for a broader human–AI education programme.
->
-> Finlay
+The canonical body, rationale, objectives and four link labels/paths live in [`content/student-welcome.json`](../../content/student-welcome.json); edit that source rather than maintaining a second email draft here. The public builder distributes identical JSON bytes to the plugin. The [native renderer](../../moodle/local/orientation/classes/welcome.php) escapes the paragraphs and appends full URLs for Your course journey, My context, Help and the public AI guide using the configured installation origin. Moodle supplies the plain-text alternative. Supported `nolink` wrappers prevent activity-name filters from inserting competing links into the prose.
 
-This draft assumes WB04's **Your course journey** is delivered before sending. The link uses the existing stable signed-in gateway; verify its actual destination at publication. Supply a readable plain-text alternative with full links. Reconfirm duration against the released activity map. Add the optional-check link only once live. Do not include passwords/private work, promise response times or add marketing subscriptions.
+The implemented journey gateway preserves deliberate activity destinations. Captured-mail checks verified the four HTML/plain-text links, including signed-out mobile return. Before production enablement, verify the deployed destinations and current duration with a consenting recipient. The body distinguishes explicit account saves from temporary tab drafts, keeps sharing with an AI deliberate and adds no passwords, private work, response-time promise or marketing subscription.
 
 The current configuration refreshes welcome text but preserves an existing method's send mode; newly created methods default sending off. Deliberately configure and test delivery rather than assume text changes send mail. Re-running configuration, sign-in, password reset or revisiting the course must not send another welcome. Preserve unrelated enrolment settings/access. Native removal and re-enrolment sends another welcome. Direct repeated calls to the native enrol API may also resend; no cross-lifecycle exactly-once guarantee is made.
 
@@ -86,15 +70,15 @@ Concrete patterns: instruct → inspect → clarify; bring context → check wha
 ## Delivery and acceptance
 
 1. Refine the proposed copy with Finlay; keep the rationale in the design brief. Align with the existing objective/competency work without changing historical evidence.
-2. After WB01's source reconciliation and WB04's journey-route contract, implement entry/course-overview copy, in-course welcome and shared email content. Coordinate WB05 public entry and WB09 AI guidance.
-3. In captured-mail fixtures check supported enrolment paths, no welcome before confirmation/enrolment, no duplicate on visits/configuration/recovery, closed registration and unchanged existing access. Check HTML/plain-text links after sign-out and on a phone. Prefer the existing Moodle facility; no generic notification service is presumed necessary.
-4. Extend `tests/onboarding.spec.cjs`, `tests/launch-entry.spec.cjs` and affected progress/metadata tests. Add a local-agent scenario to `docs/qa/course-review-agent.md`: use learner-visible information to find purpose, objectives, next action, saved work and Help; try check and skip when available. Separate observed navigation failures from usability opinions.
-5. Include this in WB10's complete synthetic rehearsal. Use an owner-controlled/consenting mailbox for an actual welcome-receipt check before broad launch. Captures, tokens and recipient details stay private. This planning change sends no invitations, marketing or retrospective mail.
+2. WB23 implemented entry/course-overview copy, in-course welcome and shared email content after WB01's source reconciliation and WB04's journey-route contract, coordinated with WB05 public entry and WB09 AI guidance.
+3. Captured-mail fixture checks cover supported enrolment paths, no welcome before confirmation/enrolment, no duplicate on visits/configuration/recovery, closed registration and unchanged existing access, plus HTML/plain-text links after sign-out and at mobile width. They use the existing Moodle facility; no generic notification service was added.
+4. Source, welcome, entry, progress and metadata tests accompany the implementation. The local-agent scenario in `docs/qa/course-review-agent.md` uses learner-visible information to find purpose, objectives, next action, saved work and Help, and tries check and skip. Separate observed navigation failures from usability opinions.
+5. WB10's complete synthetic rehearsal includes this experience. An owner-controlled/consenting mailbox is still required for an actual welcome-receipt check before broad launch. Captures, tokens and recipient details stay private. This source implementation sends no invitations, marketing or retrospective mail.
 6. In WB12's human pilot, ask students to explain the purpose and find their next action without coaching. Human observations are needed to establish whether the onboarding is understandable.
 
 **Done:** entry, welcome, journey, activities, exit and public AI guidance express one rationale; a new enrolled student can find where to begin, where saved work lives and how to get help; welcome delivery/return links are verified; optional routes and old learner evidence remain intact. Broad registration retains existing readiness gates.
 
-**Documentation/status impact:** update CONTROL.md, design brief, learner welcome/course copy, onboarding/email/progress operations, local-agent QA, AI context and a dated release receipt with implementation. Reuse #4/#9 and the existing plan. Verification for this brief is source/document inspection only: no new mail, runtime checks or live publication.
+**Documentation/status impact:** CONTROL.md, design brief, learner welcome/course copy, onboarding/email/progress operations, local-agent QA, AI context and the dated release record accompany the implementation under #4/#9 and the existing plan. The [synthetic QA record](../qa/2026-10-24-wb23-wb10-rehearsal.md) records source, browser and captured-mail verification, including the complete WB10 journey. Exact final candidate results belong in the external PR receipts. This evidence establishes neither production publication/enablement nor genuine mailbox delivery or human comprehension.
 
 ## WB23 implementation boundary — 24 October 2026
 
