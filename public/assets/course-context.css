@@ -29,11 +29,20 @@
 .context-workspace :focus-visible, .course-context-panel :focus-visible { outline: 3px solid #b96622; outline-offset: 3px; }
 .context-workspace [hidden], .course-context-panel [hidden] { display: none !important; }
 .context-workspace button:disabled, .context-save:disabled { opacity: .55; cursor: wait; }
-@media (min-width: 1480px) {
-  .course-context-panel { position: fixed; width: 16rem; right: 1.5rem; top: 7rem; margin: 0; max-height: calc(100dvh - 9rem); overflow-y: auto; z-index: 4; }
-  body.orientation-has-context:has(#page) #page.drawers .main-inner { max-width: calc(100% - 18rem); margin-right: 18rem; }
-  body.orientation-has-context .reading:has(.finlay-writing-surface) { width: calc(100% - 22rem); max-width: 80rem; margin-left: 1.5rem; margin-right: 20rem; }
-  body.finlay-preview.orientation-has-context { max-width: calc(100% - 22rem); margin-left: 1.5rem; margin-right: 20rem; }
+@media screen and (min-width: 1100px) {
+  body:has(.course-context-panel) { --context-space-left: 0rem; --context-space-right: 19rem; --context-panel-left: auto; --context-panel-right: 1.5rem; }
+  /* Follow the same available-editor rules as Finlay's Tips, including native essays. */
+  body:has(.finlay-tips):has(.finlay-writing-surface:not([data-finlay-native-essay]) textarea:enabled:not([readonly],[hidden],[hidden] *)),
+  body:has(form .finlay-writing-surface[data-finlay-native-essay] .finlay-tips):has(form textarea[name="answer_editor[text]"]:enabled:not([readonly])) {
+    --context-space-left: 19rem; --context-space-right: 0rem; --context-panel-left: var(--context-clear-left, 1.5rem); --context-panel-right: auto;
+  }
+  /* Boost's open course index already occupies the first 285px. */
+  body:has(#page.show-drawer-left) { --context-clear-left: calc(285px + 1.5rem); }
+  body:has(.course-context-panel) .course-context-panel { position: fixed; width: 16rem; left: var(--context-panel-left); right: var(--context-panel-right); top: 7rem; margin: 0; max-height: calc(100dvh - 12rem); overflow-y: auto; z-index: 4; }
+  /* Reserve the chosen gutter so floating controls never cover course content. */
+  body:has(.course-context-panel):not(:has(#page)) { padding-left: var(--context-space-left); padding-right: var(--context-space-right); }
+  body.finlay-preview:has(.course-context-panel) { max-width: none; margin-left: 0; margin-right: 0; padding-left: calc(var(--context-space-left) + 2rem); padding-right: calc(var(--context-space-right) + 2rem); }
+  body:has(.course-context-panel) #page.drawers .main-inner { max-width: calc(100% - var(--context-space-left) - var(--context-space-right)); margin-left: var(--context-space-left); margin-right: var(--context-space-right); }
 }
 @media (max-width: 650px) {
   .course-context-panel { margin: 1rem; padding: .9rem; }
