@@ -231,3 +231,8 @@ The reconciled source uses local_orientation 2026102402 and draft public context
 
 
 WB01's actual-source Claude pass additionally corrected zero-value context exports/title validation and the feedback gateway for existing Moodle guests. Focused synthetic checks and current-candidate rereview are recorded with PR31; no live source or exposure setting changes here.
+
+
+## WB23 and WB10 — 24 October 2026
+
+Finlay authorised the student-onboarding increment first, then a full synthetic learner rehearsal with fixes and Claude CLI review before merge. The approved WB23/R18/AE12 additions are incorporated into the existing canonical plan; the shared live checkout remains untouched. Supported self-enrolment welcome controls and canonical welcome copy are implemented in this source branch. Five captured-mail scenarios and 20 source assertions passed, including a reproduced/fixed unintended native activity-name link. In-course purpose/welcome placement and the complete WB10 rehearsal follow in the same work stream. Manual/invited learners receive equivalent in-course guidance; public registration and production mail modes are not changed by this implementation.

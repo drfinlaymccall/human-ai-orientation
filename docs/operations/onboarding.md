@@ -102,3 +102,14 @@ npx playwright test --config playwright.onboarding.config.cjs
 ```
 
 The suite writes an explicitly synthetic readiness receipt inside the fixture, captures mail only in `trial/launch-fixture/mail`, checks configuration preservation/idempotence, signup, denied unconfirmed access, resend, fresh-browser confirmation, self-enrolment, duplicate accounts, repeated/invalid confirmation, deep-link login, fresh-context recovery, consumed/expired recovery links and closing while preserving enrolled access. It changes no live SMTP setting. Tokens, capture files and account data stay ignored; test artifacts also stay under the fixture. These checks prove native functional behaviour only, never real mail delivery, human participation or owner approval.
+
+
+## WB23 course welcome — source implementation, 24 October 2026
+
+The canonical wording is `content/student-welcome.json`, distributed with the orientation plugin. After installing that source and purging Moodle caches, inspect `scripts/php scripts/configure-onboarding.php status`. Explicit `welcome-enable` refreshes its shared text and enables the **existing orientation-course self-enrolment method**; `welcome-disable` turns that method's welcome sending off without requiring a text refresh. These commands do not create enrolments, open registration, change SMTP/authentication or send anything retrospectively. Ordinary configure-closed/pilot/open refreshes text but preserves an existing send mode; a newly created self method defaults off. Existing enrolment restrictions and manual-method settings remain intact.
+
+Moodle owns delivery on successful confirmed self-enrolment, the native “Welcome to [course name]” subject, message preferences and HTML/plain-text conversion. The four explicit full links lead to Your course journey, My context, Help/recovery and the public AI guide at that installation's origin. Supported `nolink` spans prevent Moodle's activity-name filter from silently adding a competing old course-page link. Invited/manual learners use equivalent in-course welcome guidance; this change does not turn on automatic manual welcome mail.
+
+An account confirmation is separate from a course welcome. Configuration, ordinary visits and password recovery do not enrol again or send another welcome. Removal/re-enrolment sends anew; repeated explicit enrolment API calls can also resend. No cross-lifecycle exactly-once delivery or custom deduplication service is claimed. Do not bulk-enrol existing students to distribute this message. Genuine receipt to a consenting mailbox remains a launch check; synthetic capture is separate.
+
+The bounded native welcome unit passed five captured-mail scenarios after reproducing and fixing the unexpected automatic activity link; 20 source assertions passed. WB10 owns final integrated first-visit/return/recovery and in-course welcome verification. This source implementation does not enable welcome delivery on production.

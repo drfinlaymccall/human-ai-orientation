@@ -4,6 +4,13 @@ Updated: 2026-10-23. Stage: working public demo and reviewer accounts; no public
 
 ## Purpose and success
 
+**Course rationale — clarified by Finlay, 24 October 2026:** prepare humans to team with AI. Through worthwhile tasks, learners practise communicating intentions, supplying relevant context, recognising and repairing misunderstandings, checking results and keeping useful work. They encounter practical interaction patterns—conversation, voice input, files and reusable notes—and learn to choose an approach for their purpose. The orientation is self-contained and prepares the ground for a broader, separate human–AI education programme.
+
+**Learner-facing short form:** Learn to team with AI: choose a useful task, give context, check the result and keep what helps.
+
+This rationale should lead the landing/course overview and welcome, then appear as a task-specific purpose in each activity and the closing next-goal reflection. The [student-onboarding brief](curriculum/student-onboarding.md) maps six existing capability areas to overall objectives, proposes the welcome email and first-visit flow, and defines publication checks. This is an authoring/planning update; those new learner-facing placements and welcome delivery are not yet published.
+
+
 Help people who are not AI specialists establish a productive, informed relationship with AI through useful tasks, better context, and capability discovery. The course should respect their time and let them judge whether a capability is worth using in their own lives.
 
 **Design commitment:** a learner can complete this orientation independently and leave better equipped to identify a worthwhile personal or professional goal, explain their context, and begin purposeful collaboration with their own AI agent. Their personal context portfolio includes ideas for future work and can travel with them into Finlay's later human–agent curriculum-design programme.
