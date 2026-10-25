@@ -6,7 +6,7 @@ if (!in_array(realpath($_SERVER['DOCUMENT_ROOT']), [realpath($root . '/trial/lau
     exit('Synthetic fixture document root required.');
 }
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$routes = ['/', '/journey', '/first-task', '/preview', '/portfolio', '/check-and-continue', '/help', '/privacy', '/before-you-start', '/notes', '/free-tools', '/deeper-courses'];
+$routes = ['/catalogue', '/desktop-workspace', '/course-introduction', '/', '/journey', '/first-task', '/preview', '/portfolio', '/check-and-continue', '/help', '/privacy', '/before-you-start', '/notes', '/free-tools', '/deeper-courses'];
 $public = realpath($root . '/public');
 if (in_array($path, $routes, true)) {
     $relative = $path === '/' ? '/index.html' : $path . '.html';

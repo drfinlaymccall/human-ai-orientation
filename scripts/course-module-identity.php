@@ -5,6 +5,20 @@ function orientation_validate_baseline(array $map): void {
     foreach ($map['activities'] as $activity) {
         if ($activity['idnumber'] !== 'orientation:' . $activity['slug']) throw new RuntimeException('Activity stable identity does not match its slug.');
     }
+    $members = []; $groups = []; $unitids = [];
+    foreach ($map['units'] as $unit) {
+        $unitids[] = $unit['slug'];
+        if (!in_array($unit['status'], ['active', 'planned'], true)) throw new RuntimeException('Invalid unit status.');
+        if ($unit['status'] === 'planned' && isset($unit['journey_url'])) throw new RuntimeException('Planned journey is not available.');
+        foreach ($unit['modules'] as $module) {
+            $groups[] = $module['native_group_slug'] ?? $module['slug'];
+            if ($unit['status'] === 'planned' && $module['activities']) throw new RuntimeException('Planned activities are not available.');
+            $members = array_merge($members, $module['activities']);
+        }
+    }
+    $expected = $slugs; sort($members); sort($expected);
+    if ($members !== $expected || count(array_unique($groups)) !== count($groups) ||
+            count(array_unique($unitids)) !== count($unitids)) throw new RuntimeException('Invalid unit membership.');
     $baseline = ['first-task', 'useful-context', 'check-and-continue'];
     $actual = array_column(array_filter($map['activities'], fn($activity) => $activity['baseline'] === true), 'slug');
     if (($map['baseline_version'] ?? null) !== 1 || ($map['baseline_slugs'] ?? null) !== $baseline || $actual !== $baseline) {

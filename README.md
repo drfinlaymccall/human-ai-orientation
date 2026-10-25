@@ -1,16 +1,20 @@
 # Human AI Orientation
 
-**Learn to team with AI:** choose a useful task, give context, check the result and keep what helps. A short, self-guided course for people who are not AI specialists, useful on its own and as a starting point for a broader human–AI education programme.
+**Learn to team with AI:** choose a useful task, give context, check the result and keep what helps. A self-guided course for people who are not AI specialists. One course contains units, each with a syllabus of modules and practical activities.
 
 **[Try the course](https://orientation.finlaymccall.com/journey) · [Inspect the LMS case study](docs/case-study.md) · [See the forward plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md) · [Current priorities](CONTROL.md)**
 
 ## What the learner does
 
+**Unit 1: Human–AI Orientation** contains the orientation journey, desktop workspace, files and folders, notes as working context, and the practical sequence below. Files and notes belong inside this unit; familiar learners can use readiness guidance instead of repeating practice. The journey describes the unit's syllabus and helps learners choose a starting point.
+
+**Unit 2: Introduction to Agentic Systems** is a planned syllabus, not a delivered set of lessons. It covers agent basics, context and memory, instruction files, skills and plugins. [Course structure](docs/curriculum/course-structure.md) explains the hierarchy and preservation rules. There is no programme layer or separate Moodle course per unit.
+
 1. **Do one useful thing.** Choose a meaningful task, decide what a useful result would look like, and try it.
 2. **Give AI useful context.** Select relevant background, test a better brief, and build a reviewed personal context portfolio.
 3. **Check, improve and continue.** Retrieve that context, use it on a fresh task, correct the result and choose a next goal.
 
-Optional preparation covers files, folders, notes and AI interfaces. The core journey and portfolio extension take an estimated 70–95 minutes, plus optional 20–30-minute preparation. These are author estimates, not measured learner timings. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
+Files, folders, notes and AI interfaces are modules within the orientation unit. Guided practice can be skipped through the familiar-skills route. The previous author estimate for the core activities and portfolio was 70–95 minutes, excluding this foundational practice; it is not a measured duration for the reorganized unit. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
 ## Current status — 24 October 2026
 

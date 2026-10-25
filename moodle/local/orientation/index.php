@@ -2,13 +2,14 @@
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/completionlib.php');
 $activities = \local_orientation\catalogue::modules();
+$iscatalogue = optional_param('view', '', PARAM_ALPHA) === 'catalogue';
 $module = optional_param('module', '', PARAM_ALPHANUMEXT);
 if ($module !== '' && !isset($activities[$module])) throw new moodle_exception('invalidparameter');
 // Confirmation Continue is a native POST. Canonicalise before require_login saves its destination.
-if ($_SERVER['REQUEST_METHOD'] === 'POST') redirect(new moodle_url('/local/orientation/index.php', $module ? ['module' => $module] : []));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') redirect(new moodle_url('/local/orientation/index.php', $module ? ['module' => $module] : ($iscatalogue ? ['view' => 'catalogue'] : [])));
 $course = \local_orientation\catalogue::course();
 $context = context_course::instance($course->id);
-$PAGE->set_url('/local/orientation/index.php', $module ? ['module' => $module] : []);
+$PAGE->set_url('/local/orientation/index.php', $module ? ['module' => $module] : ($iscatalogue ? ['view' => 'catalogue'] : []));
 require_login($course, false);
 require_capability('local/orientation:view', $context);
 if (isguestuser() || (!is_enrolled($context, $USER, '', true) && !has_capability('moodle/course:update', $context))) {
@@ -18,8 +19,9 @@ $PAGE->set_context($context);
 $PAGE->set_course($course);
 $PAGE->set_pagelayout('incourse');
 $PAGE->set_show_course_index(false);
-$PAGE->set_title('Your course journey');
-$PAGE->set_heading('Your course journey');
+$title = $iscatalogue ? 'Course catalogue' : 'Unit 1: Human–AI Orientation — journey';
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
 $PAGE->set_cacheable(false);
 $PAGE->requires->css(new moodle_url('/local/orientation/activity-atlas.css'));
 $PAGE->requires->js(new moodle_url('/local/orientation/activity-atlas.js'));
@@ -42,6 +44,14 @@ if ($module !== '') {
 }
 header('Cache-Control: private, no-store');
 echo $OUTPUT->header();
+if ($iscatalogue) {
+    echo '<span data-context-panel-disabled hidden></span>';
+    echo \local_orientation\catalogue::syllabus();
+    echo $OUTPUT->footer();
+    exit;
+}
+echo '<p><a href="/local/orientation/index.php?view=catalogue">Course catalogue</a></p>';
+
 echo html_writer::start_tag('div', ['data-private-journey' => '']);
 $welcome = \local_orientation\welcome::data();
 echo html_writer::start_tag('details', ['data-course-welcome' => '', 'class' => 'mb-4']);
@@ -49,7 +59,7 @@ echo html_writer::tag('summary', 'Welcome / Start here');
 echo html_writer::tag('h2', 'Learn to team with AI.');
 echo html_writer::tag('p', s($welcome['rationale']));
 echo html_writer::tag('p', s($welcome['introduction']));
-echo html_writer::tag('p', 'Your course journey is your home base. Choose Continue below to open your first unfinished core activity, or choose any available activity. The starting-point check and files preparation are optional. Allow roughly 70–95 minutes, split into sessions that suit you.');
+echo html_writer::tag('p', 'Your course journey is your home base. Choose Continue below to open your first unfinished core activity, or choose any available activity. The starting-point check and familiar-skills practice are optional. Files and notes are regular Unit 1 modules. Allow roughly 70–95 minutes, split into sessions that suit you.');
 echo html_writer::start_tag('details', ['data-course-objectives' => '']);
 echo html_writer::tag('summary', "What you'll practise");
 echo html_writer::tag('p', 'By the end, you will have practised how to:');
@@ -85,6 +95,7 @@ if (is_string($next)) {
     echo html_writer::tag('p', 'A core activity is currently unavailable. Your existing records are retained; choose an available activity or ask Finlay for help.');
 }
 echo \local_orientation\startingpoint::render($rows);
+echo \local_orientation\catalogue::syllabus($rows, true);
 echo \local_orientation\atlas::render($rows, $course, $modinfo);
 echo html_writer::tag('h2', 'Keep and reuse your context');
 echo html_writer::tag('p', 'Choose Save to My context in the portfolio to keep its documents and private practice notes in Moodle. Editing alone keeps a temporary tab draft. Open My context to edit your saved words, copy them, or download a Markdown file.');

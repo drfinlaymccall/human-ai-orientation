@@ -47,6 +47,13 @@
     narrow.addEventListener('change', placeSelected);
     root.classList.add('atlas-enhanced');
     controls.hidden = false;
-    select(first.dataset.atlasChoice);
+    function selectHash() {
+      const target = location.hash.slice(1);
+      const panel = panels.find(item => item.id === target);
+      if (panel) { select(panel.dataset.atlasDetail); panel.scrollIntoView({block: 'start'}); }
+      return Boolean(panel);
+    }
+    addEventListener('hashchange', selectHash);
+    if (!selectHash()) select(first.dataset.atlasChoice);
   }
 })();

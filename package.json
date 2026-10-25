@@ -35,7 +35,9 @@
     "build:feedback": "python3 scripts/build-feedback.py",
     "test:welcome:rules": "scripts/php tests/welcome-rules.php",
     "test:welcome": "playwright test --config playwright.welcome.config.cjs",
-    "test:wb10": "playwright test --config playwright.wb10.config.cjs"
+    "test:wb10": "playwright test --config playwright.wb10.config.cjs",
+    "test:structure": "python3 -m unittest discover -s tests -p test_course_structure.py && playwright test --config playwright.structure.config.cjs",
+    "test:structure:rules": "scripts/php tests/course-structure-rules.php && scripts/php tests/course-structure-migration.php"
   },
   "keywords": [],
   "author": "",

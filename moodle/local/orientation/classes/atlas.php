@@ -80,8 +80,8 @@ class atlas {
     }
     private static function role(array $a): string {
         if ($a['baseline']) return 'Core activity';
-        if (($a['role'] ?? '') === 'portfolio-bridge') return 'Portfolio practice within activity 2';
-        if (($a['role'] ?? '') === 'optional-preparation') return 'Optional preparation';
+        if (($a['role'] ?? '') === 'portfolio-bridge') return 'Unit 1 module · Context practice';
+        if (($a['role'] ?? '') === 'familiar-skills') return 'Unit 1 module · Optional familiar-skills practice';
         return 'Optional practice';
     }
     private static function version(array $a): string {

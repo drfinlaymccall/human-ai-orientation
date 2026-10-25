@@ -36,6 +36,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
                 (release / 'moodle/local/orientation').mkdir(parents=True)
                 script = release / 'scripts/deploy-orientation.py'
                 script.write_bytes((ROOT / 'scripts/deploy-orientation.py').read_bytes())
+                (release / 'scripts/course_structure.py').write_bytes((ROOT / 'scripts/course_structure.py').read_bytes())
                 (release / 'content/course-map.json').write_bytes((ROOT / 'content/course-map.json').read_bytes())
                 result = self.deploy(trial, script)
                 self.assertNotEqual(result.returncode, 0)
