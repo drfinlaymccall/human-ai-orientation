@@ -47,6 +47,21 @@
     narrow.addEventListener('change', placeSelected);
     root.classList.add('atlas-enhanced');
     controls.hidden = false;
-    select(first.dataset.atlasChoice);
+    function selectHash() {
+      const target = location.hash.slice(1);
+      const panel = panels.find(item => item.id === target);
+      if (panel) { select(panel.dataset.atlasDetail); panel.scrollIntoView({block: 'start'}); }
+      return Boolean(panel);
+    }
+    addEventListener('hashchange', selectHash);
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#atlas-detail-"]');
+      const panel = link && panels.find(item => '#' + item.id === link.getAttribute('href'));
+      if (!panel) return;
+      // A repeated hash does not emit hashchange after another atlas selection.
+      select(panel.dataset.atlasDetail);
+      panel.scrollIntoView({block: 'start'});
+    });
+    if (!selectHash()) select(first.dataset.atlasChoice);
   }
 })();

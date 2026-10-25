@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 import shutil
 import subprocess
+from course_structure import validate_structure
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -38,6 +39,7 @@ def main():
     if (manifest.get('baseline_version') != 1 or manifest.get('baseline_slugs') != baseline or
             [a['slug'] for a in manifest['activities'] if a['baseline'] is True] != baseline):
         raise SystemExit('Original practice baseline changed; explicit completion-policy review required.')
+    validate_structure(manifest)
     source = ROOT / 'moodle/local/orientation'
     for schema in ['db/install.xml', 'db/upgrade.php']:
         if (target / schema).exists() and not (source / schema).is_file():

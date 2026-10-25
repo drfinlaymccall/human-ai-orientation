@@ -14,7 +14,40 @@ class catalogue {
         if (($map['baseline_version'] ?? null) !== 1 || ($map['baseline_slugs'] ?? null) !== $baseline || $actual !== $baseline) {
             throw new \RuntimeException('The original practice baseline changed; explicit completion-policy review required.');
         }
+        $members = []; $moduleids = []; $unitids = [];
+        foreach ($map['units'] as $unit) {
+            $unitids[] = $unit['slug'];
+            if (!in_array($unit['status'], ['active', 'planned'], true)) throw new \RuntimeException('Invalid unit status.');
+            if ($unit['status'] === 'planned' && isset($unit['journey_url'])) throw new \RuntimeException('Planned unit has a journey.');
+            foreach ($unit['modules'] as $module) {
+                $moduleids[] = $module['slug'];
+                if ($unit['status'] === 'planned' && $module['activities']) throw new \RuntimeException('Planned unit has activities.');
+                $members = array_merge($members, $module['activities']);
+            }
+        }
+        sort($members); sort($slugs);
+        if ($members !== $slugs || count(array_unique($moduleids)) !== count($moduleids) ||
+                count(array_unique($unitids)) !== count($unitids)) throw new \RuntimeException('Invalid unit membership.');
         return $map;
+    }
+    /** Syllabus is a description, not an extra level or a completion gate. */
+    public static function syllabus(array $rows = [], bool $journey = false): string {
+        $html = '';
+        foreach (self::map()['units'] as $unit) {
+            if ($journey && $unit['status'] !== 'active') continue;
+            $html .= '<section data-unit="' . s($unit['slug']) . '"><h2>' . s($unit['label']) . '</h2><p>' . s($unit['syllabus']) . '</p>';
+            if ($unit['status'] === 'planned') $html .= '<p><strong>Planned — not yet available</strong></p>';
+            else if (!$journey) $html .= '<p><a href="/local/orientation/index.php">Open Unit 1 journey</a></p>';
+            $html .= '<ol>';
+            foreach ($unit['modules'] as $module) {
+                $label = s($module['label']);
+                $slug = $module['activities'][0] ?? null;
+                if ($journey && isset($rows[$slug])) $label = '<a href="#atlas-detail-' . s($slug) . '">' . $label . '</a>';
+                $html .= '<li><strong>' . $label . '</strong>: ' . s($module['description']) . '</li>';
+            }
+            $html .= '</ol></section>';
+        }
+        return $html;
     }
     public static function course(): \stdClass {
         global $DB;

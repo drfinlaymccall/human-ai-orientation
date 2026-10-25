@@ -1,11 +1,11 @@
 # Build and reuse your personal context portfolio
 
 Course: Human AI Orientation
-Version: 2026-10-24.3
-Updated: 2026-10-24
+Version: 2026-10-25.1
+Updated: 2026-10-25
 Author: Finlay McCall
 Status: Public reading with invitation-only account access; broader registration is not open.
-Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-24.3/context.md
+Canonical context: https://orientation.finlaymccall.com/ai/releases/2026-10-25.1/context.md
 
 Learn to team with AI: choose a useful task, give context, check the result and keep what helps. Practise communicating what you need, giving useful background, checking results and keeping useful work. Leave with a reviewed context portfolio and a meaningful next goal. This orientation is useful on its own and prepares the ground for a broader human–AI education programme.
 
@@ -36,10 +36,37 @@ People who are not AI specialists. Do not assume low confidence or technical kno
 - Activity editions describe the current published material, not which edition a learner previously completed. Only the signed-in human can inspect their saved native progress. Completion records practice, not mastery. The portfolio bridge belongs within the context activity and does not add a fourth baseline requirement.
 - The optional Find my starting point check uses six statements, each with separate 1–5 understanding and can-do self-ratings, plus Not sure or Skip. It suggests practice, not proficiency. The signed-in human can review their dated ratings and explained suggestion in Your course journey. You cannot retrieve those private records or submit ratings for them; they may skip the check and choose any activity.
 
+## Course units
+
+One course. Each unit has a syllabus and, when available, a journey.
+
+### Unit 1: Human–AI Orientation
+
+Use your own AI for a useful task. Keep context you can review and reuse.
+Status: active
+- Desktop AI workspace: An available way to give your AI an instruction.
+- Files, folders and locations: Practise saving and finding a file, reading its location and sharing a useful excerpt.
+- Notes as working context: A home for context notes you can review and reuse.
+- Try AI on a useful task: Choose something that matters, decide what a useful result would look like and make a first attempt.
+- Give AI useful context: Choose helpful details, write a short brief, try it with your AI and work through anything it gets wrong about your intention.
+- Save and reuse context: Organise useful information about yourself, a project and your sources. Review it, save your documents and reopen them.
+- Check, improve and continue: Use an existing brief or an example in a fresh task. Check a result, correct a problem and choose a meaningful next goal.
+Journey: https://orientation.finlaymccall.com/journey
+
+### Unit 2: Introduction to Agentic Systems
+
+Planned syllabus only. Activities and a journey are not yet available.
+Status: planned
+- Agent basics: What an agent does and where human control matters.
+- Context and memory: How agents use context and saved memory.
+- Project instructions: Guidance for work on a project.
+- Skills: Reusable instructions for a task.
+- Plugins: Ways to extend an agent app.
+
 ## Activity map
 
 Choose a useful starting point. Bring an existing brief or use a fictional example; the map is not a compulsory sequence.
-The portfolio bridge is part of the context activity. Optional preparation is not a gate.
+Unit 1 includes files and notes as regular modules. Familiar-skills practice is optional, not a gate.
 Activity versions describe current material, not the edition a person previously practised.
 Baseline version: 1. Activity practice, not a graded assessment or a statement of mastery.
 
@@ -71,13 +98,27 @@ Activity: check-and-continue | Version: 1.0.0 | Updated: 2026-10-23
 Role: core | Baseline practice: true | Optional: false
 - A checked result, an improvement and a next-step plan.
 
-### Files, notes and AI basics — optional help
+### Files, folders and locations
 
 Public activity: https://orientation.finlaymccall.com/before-you-start
 Activity: before-you-start | Version: 1.0.0 | Updated: 2026-10-23
-Role: optional-preparation | Baseline practice: false | Optional: true
-- Files and notes you can find again, and an available AI input route.
+Role: familiar-skills | Baseline practice: false | Optional: true
+- A file you can find again and a clear way to share its contents.
 Supporting guide: Set up your notes — https://orientation.finlaymccall.com/notes
+
+### Desktop AI workspace
+
+Public activity: https://orientation.finlaymccall.com/desktop-workspace
+Activity: desktop-workspace | Version: 1.0.0 | Updated: 2026-10-25
+Role: familiar-skills | Baseline practice: false | Optional: true
+- An available way to give your AI an instruction.
+
+### Notes as working context
+
+Public activity: https://orientation.finlaymccall.com/notes
+Activity: notes | Version: 1.0.0 | Updated: 2026-10-25
+Role: familiar-skills | Baseline practice: false | Optional: true
+- A home for context notes you can review and reuse.
 
 ## Context practice steps
 

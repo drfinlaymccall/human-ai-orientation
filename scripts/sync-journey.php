@@ -8,6 +8,7 @@ require_once $CFG->dirroot . '/course/modlib.php';
 require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
+require_once __DIR__ . '/course-unit-structure.php';
 require_once __DIR__ . '/synthetic-fixture.php';
 if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com' && !orientation_is_synthetic_fixture($orientationtrial, $CFG)) {
     throw new RuntimeException('This update targets the existing orientation installation or isolated launch fixture.');
@@ -48,11 +49,11 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     if ($content === false) throw new RuntimeException('Run npm run build:journey first.');
     $cm = orientation_existing_module($course, $slug, 'page', $name, $orientationtrial . '/journey.json');
     $page = $cm ? $DB->get_record('page', ['id' => $cm->instance], '*', MUST_EXIST) : null;
-    $displayname = $slug === 'journey' ? 'Course introduction' : ($activities[$slug]['label'] ?? $name);
+    $displayname = $slug === 'journey' ? $map['units'][0]['label'] . ' — journey' : ($activities[$slug]['label'] ?? $name);
     if (!$page) {
         $module = add_moduleinfo((object)[
             'modulename' => 'page', 'module' => $DB->get_field('modules', 'id', ['name' => 'page'], MUST_EXIST),
-            'name' => $displayname, 'idnumber' => 'orientation:' . $slug, 'section' => $section, 'visible' => 1, 'intro' => '', 'introformat' => FORMAT_HTML,
+            'name' => $displayname, 'cmidnumber' => 'orientation:' . $slug, 'section' => $section, 'visible' => 1, 'intro' => '', 'introformat' => FORMAT_HTML,
             'content' => $content, 'contentformat' => FORMAT_HTML, 'showdescription' => 0,
             'completion' => $completion, 'display' => RESOURCELIB_DISPLAY_AUTO, 'printintro' => 0, 'printlastmodified' => 0,
         ], $course);
@@ -74,7 +75,7 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
     $record = $DB->get_record('page', ['id' => $pages[$slug]], '*', MUST_EXIST);
     $html = file_get_contents($fragmentpath($slug));
     if ($completion) $html .= '<p><strong>When you have finished:</strong> use Moodle’s “Mark as done” control. Choose Save to My context to keep your portfolio in Moodle; typing alone keeps a temporary tab draft. Completion records practice, not mastery.</p>';
-    if ($slug !== 'journey') $html .= '<nav aria-label="Course navigation"><p><a href="/local/orientation/index.php">Your course journey</a> · <a href="/help">Ask for help</a></p></nav>';
+    if ($slug !== 'journey') $html .= '<nav aria-label="Course navigation"><p><a href="/local/orientation/index.php">Unit 1 journey</a> · <a href="/help">Ask for help</a></p></nav>';
     $html = $localise($html);
     if ($record->content !== $html) {
         $record->instance = $record->id;
@@ -86,22 +87,17 @@ foreach ($definitions as $slug => [$name, $section, $completion]) {
 }
 $firstsection = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 0], '*', MUST_EXIST);
 course_update_section($course, $firstsection, (object)[
-    'name' => 'Introduction', 'summaryformat' => FORMAT_HTML,
-    'summary' => str_replace('href="/course-introduction#course-rationale"',
-        'href="/mod/page/view.php?id=' . $ids['journey'] . '#course-rationale"', $overview),
+    'name' => 'Course catalogue', 'summaryformat' => FORMAT_HTML,
+    'summary' => str_replace('href="/journey"', 'href="/local/orientation/index.php"', $overview),
 ]);
-$firstcm = explode(',', $firstsection->sequence)[0] ?: null;
-if ((int)$firstcm !== $ids['journey']) moveto_module($DB->get_record('course_modules', ['id' => $ids['journey']]), $firstsection, $firstcm);
 $section = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 1], '*', MUST_EXIST);
-// Put activities before the existing optional deeper-courses resource, in teaching order.
-$optional = orientation_existing_module($course, 'deeper-courses', 'page', 'Go deeper: courses and videos', $orientationtrial . '/preparation.json');
-$beforemod = $optional ? $optional->id : null;
-foreach ([$ids['first-task'], $lessoncm->id, $ids['portfolio'], $ids['check-and-continue']] as $cmid) {
-    moveto_module($DB->get_record('course_modules', ['id' => $cmid]), $section, $beforemod);
-}
-course_update_section($course, $section, (object)['name' => 'Your course', 'summaryformat' => FORMAT_HTML,
-    'summary' => '<p>Begin with <strong>' . s($map['preparation_module']['label']) . '</strong> to practise files, notes and AI basics and maintain your own context store. Then choose and try a useful task, give context and build your portfolio, and check and continue.</p><p><a href="/local/orientation/index.php">Open your course journey</a></p>']);
-$DB->set_field('course', 'summary', '<p>' . s($welcome['rationale']) . '</p><p>Three practical activities with a portfolio extension · roughly 70–95 minutes · optional preparation · bring your own AI or use fictional examples.</p>', ['id' => $course->id]);
+// The canonical module list owns activity placement.
+orientation_publish_structure($course, $map);
+// The orientation journey belongs inside Unit 1, not the course catalogue.
+$section = $DB->get_record('course_sections', ['id' => $section->id], '*', MUST_EXIST);
+$firstcm = explode(',', $section->sequence)[0] ?: null;
+if ((int)$firstcm !== $ids['journey']) moveto_module($DB->get_record('course_modules', ['id' => $ids['journey']]), $section, $firstcm);
+$DB->set_field('course', 'summary', '<p>One course with units. Human–AI Orientation is available. Introduction to Agentic Systems is planned.</p>', ['id' => $course->id]);
 if ($before !== $fingerprint()) throw new RuntimeException('Existing learner evidence changed; rolling back.');
 $transaction->allow_commit();
 $footer = get_config('core', 'additionalhtmlfooter') ?: '';

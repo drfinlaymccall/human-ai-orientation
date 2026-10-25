@@ -9,7 +9,9 @@ require_once $CFG->dirroot . '/mod/page/lib.php';
 require_once $CFG->dirroot . '/mod/subsection/lib.php';
 require_once $CFG->libdir . '/resourcelib.php';
 require_once __DIR__ . '/course-module-identity.php';
-if (!in_array($CFG->wwwroot, ['https://orientation.finlaymccall.com', 'http://127.0.0.1:18802', 'http://127.0.0.1:18812', 'http://127.0.0.1:18842'], true)) {
+require_once __DIR__ . '/course-unit-structure.php';
+require_once __DIR__ . '/synthetic-fixture.php';
+if ($CFG->wwwroot !== 'https://orientation.finlaymccall.com' && !orientation_is_synthetic_fixture($orientationtrial, $CFG)) {
     throw new RuntimeException('This update targets the existing public orientation trial.');
 }
 \core\session\manager::set_user(get_admin());
@@ -19,17 +21,16 @@ $PAGE->set_context(context_course::instance($course->id));
 $spec = json_decode(file_get_contents($root . '/content/useful-context.json'), true, 512, JSON_THROW_ON_ERROR);
 $map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
 orientation_validate_baseline($map);
-$preparationmodule = $map['preparation_module'];
-$moduleintro = file_get_contents($root . '/content/generated/computer-use.html');
-if ($moduleintro === false) throw new RuntimeException('Build preparation fragments before publication.');
 
 $definitions = [
+    'desktop-workspace' => ['name' => 'Desktop AI workspace', 'section' => 1,
+        'intro' => 'Unit 1 module. Practice for familiar skills is optional.'],
     'deeper-courses' => ['name' => 'Go deeper: courses and videos', 'section' => 1,
         'intro' => 'Optional courses and short videos: choose one question to explore, then bring an idea back to your own task.'],
     'before-you-start' => ['name' => 'Start here: files and folders',
-        'intro' => '10–15 minutes of computer basics, then 10–15 minutes exploring AI inputs and giving instructions. Already familiar? Use the self-check and move on.'],
+        'intro' => 'Unit 1 module. Practise saving, finding and reopening a file. If familiar, use the self-check and move on.'],
     'notes' => ['name' => 'Finlay’s guide: set up your notes with Obsidian',
-        'intro' => 'Optional, about 10 minutes. Give your context portfolio a home in a folder you can find again.'],
+        'intro' => 'Unit 1 module. Give your context notes a home you can find again. Practice for familiar skills is optional.'],
 ];
 $compiled = [];
 foreach ($definitions as $slug => $definition) {
@@ -93,6 +94,7 @@ $localise = function ($html) use ($resources, $lessoncm, $briefpageid, $root, $j
     $html = str_replace('<!-- computer-controls -->', file_get_contents($root . '/content/computer-controls.html'), $html);
     $html = str_replace('href="/preview#page-2"', 'href="/mod/lesson/view.php?id=' . $lessoncm->id . '&amp;pageid=' . $briefpageid . '"', $html);
     foreach ($resources as $slug => $resource) {
+        $html = str_replace('href="/' . $slug . '#', 'href="/mod/page/view.php?id=' . $resource['cmid'] . '#', $html);
         $html = str_replace('href="/' . $slug . '"', 'href="/mod/page/view.php?id=' . $resource['cmid'] . '"', $html);
     }
     return str_replace('href="/preview"', 'href="/mod/lesson/view.php?id=' . $lessoncm->id . '"', $html);
@@ -106,7 +108,7 @@ foreach ($definitions as $slug => $definition) {
     $record->printintro = 0;
     $record->printlastmodified = 0;
     $html = $compiled[$slug];
-    if ($slug === 'before-you-start') $html .= '<p>Next in this module: <a href="/notes">Set up your notes and context store</a>.</p>';
+    if ($slug === 'before-you-start') $html .= '<p>Next module: <a href="/notes">Set up your notes and context store</a>.</p>';
     if ($slug !== 'deeper-courses') { $html .= '<p><a href="/deeper-courses">Go deeper: courses and videos</a></p>'; }
     $html .= '<p><a href="/preview">Continue to the AI lesson</a> · <a href="/course/view.php?id=' . $course->id . '">Return to the course</a></p>';
     $record->page = ['text' => $localise($html), 'format' => FORMAT_HTML, 'itemid' => 0];
@@ -114,27 +116,7 @@ foreach ($definitions as $slug => $definition) {
         page_update_instance($record, null);
     }
 }
-// Group the existing preparation Pages without replacing their identities or evidence.
-$parentsection = $DB->get_record('course_sections', ['course' => $course->id, 'section' => 1], '*', MUST_EXIST);
-$groupcm = orientation_existing_module($course, $preparationmodule['slug'], 'subsection', $preparationmodule['label']);
-if (!$groupcm) {
-    $module = add_moduleinfo((object)[
-        'modulename' => 'subsection', 'module' => $DB->get_field('modules', 'id', ['name' => 'subsection'], MUST_EXIST),
-        'name' => $preparationmodule['label'], 'cmidnumber' => 'orientation:' . $preparationmodule['slug'],
-        'section' => 1, 'visible' => 1, 'completion' => COMPLETION_TRACKING_NONE,
-    ], $course);
-    $groupcm = get_coursemodule_from_id('subsection', $module->coursemodule, $course->id, false, MUST_EXIST);
-}
-$groupsection = $DB->get_record('course_sections', ['course' => $course->id, 'component' => 'mod_subsection',
-    'itemid' => $groupcm->instance], '*', MUST_EXIST);
-course_update_section($course, $groupsection, (object)[
-    'name' => $preparationmodule['label'], 'summaryformat' => FORMAT_HTML, 'summary' => $localise($moduleintro),
-]);
-foreach ($preparationmodule['children'] as $slug) {
-    moveto_module($DB->get_record('course_modules', ['id' => $resources[$slug]['cmid']], '*', MUST_EXIST), $groupsection);
-}
-$firstparent = explode(',', $parentsection->sequence)[0] ?: null;
-if ((int)$firstparent !== (int)$groupcm->id) moveto_module($groupcm, $parentsection, $firstparent);
+orientation_publish_structure($course, $map);
 // Update authored content and reflection guidance; preserve question types, IDs,
 // ordering, branching and every answer/attempt, including existing essays.
 foreach ([0, 1, 2, 3, 6] as $index) {

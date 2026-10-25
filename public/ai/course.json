@@ -1,13 +1,13 @@
 {
-  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.v1.3.json",
-  "schema_version": "1.3",
+  "$schema": "https://orientation.finlaymccall.com/ai/course.schema.v1.4.json",
+  "schema_version": "1.4",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-24.3",
-  "updated": "2026-10-24",
+  "context_version": "2026-10-25.1",
+  "updated": "2026-10-25",
   "status": "Public reading with invitation-only account access; broader registration is not open.",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-24.3/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-25.1/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
@@ -145,13 +145,13 @@
     },
     {
       "slug": "before-you-start",
-      "label": "Files, notes and AI basics \u2014 optional help",
+      "label": "Files, folders and locations",
       "version": "1.0.0",
       "updated_at": "2026-10-23",
       "outcomes": [
-        "Files and notes you can find again, and an available AI input route."
+        "A file you can find again and a clear way to share its contents."
       ],
-      "role": "optional-preparation",
+      "role": "familiar-skills",
       "baseline": false,
       "optional": true,
       "public_url": "https://orientation.finlaymccall.com/before-you-start",
@@ -159,6 +159,140 @@
         {
           "label": "Set up your notes",
           "url": "https://orientation.finlaymccall.com/notes"
+        }
+      ]
+    },
+    {
+      "slug": "desktop-workspace",
+      "label": "Desktop AI workspace",
+      "version": "1.0.0",
+      "updated_at": "2026-10-25",
+      "outcomes": [
+        "An available way to give your AI an instruction."
+      ],
+      "role": "familiar-skills",
+      "baseline": false,
+      "optional": true,
+      "public_url": "https://orientation.finlaymccall.com/desktop-workspace",
+      "support_links": []
+    },
+    {
+      "slug": "notes",
+      "label": "Notes as working context",
+      "version": "1.0.0",
+      "updated_at": "2026-10-25",
+      "outcomes": [
+        "A home for context notes you can review and reuse."
+      ],
+      "role": "familiar-skills",
+      "baseline": false,
+      "optional": true,
+      "public_url": "https://orientation.finlaymccall.com/notes",
+      "support_links": []
+    }
+  ],
+  "units": [
+    {
+      "slug": "human-ai-orientation",
+      "label": "Unit 1: Human\u2013AI Orientation",
+      "status": "active",
+      "journey_url": "/journey",
+      "syllabus": "Use your own AI for a useful task. Keep context you can review and reuse.",
+      "modules": [
+        {
+          "slug": "u1-desktop-workspace",
+          "label": "Desktop AI workspace",
+          "description": "An available way to give your AI an instruction.",
+          "activities": [
+            "desktop-workspace"
+          ]
+        },
+        {
+          "slug": "u1-before-you-start",
+          "label": "Files, folders and locations",
+          "description": "Practise saving and finding a file, reading its location and sharing a useful excerpt.",
+          "activities": [
+            "before-you-start"
+          ],
+          "native_group_slug": "computer-use"
+        },
+        {
+          "slug": "u1-notes",
+          "label": "Notes as working context",
+          "description": "A home for context notes you can review and reuse.",
+          "activities": [
+            "notes"
+          ]
+        },
+        {
+          "slug": "u1-first-task",
+          "label": "Try AI on a useful task",
+          "description": "Choose something that matters, decide what a useful result would look like and make a first attempt.",
+          "activities": [
+            "first-task"
+          ]
+        },
+        {
+          "slug": "u1-useful-context",
+          "label": "Give AI useful context",
+          "description": "Choose helpful details, write a short brief, try it with your AI and work through anything it gets wrong about your intention.",
+          "activities": [
+            "useful-context"
+          ]
+        },
+        {
+          "slug": "u1-portfolio",
+          "label": "Save and reuse context",
+          "description": "Organise useful information about yourself, a project and your sources. Review it, save your documents and reopen them.",
+          "activities": [
+            "portfolio"
+          ]
+        },
+        {
+          "slug": "u1-check-and-continue",
+          "label": "Check, improve and continue",
+          "description": "Use an existing brief or an example in a fresh task. Check a result, correct a problem and choose a meaningful next goal.",
+          "activities": [
+            "check-and-continue"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentic-systems",
+      "label": "Unit 2: Introduction to Agentic Systems",
+      "status": "planned",
+      "syllabus": "Planned syllabus only. Activities and a journey are not yet available.",
+      "modules": [
+        {
+          "slug": "u2-basics",
+          "label": "Agent basics",
+          "description": "What an agent does and where human control matters.",
+          "activities": []
+        },
+        {
+          "slug": "u2-context-memory",
+          "label": "Context and memory",
+          "description": "How agents use context and saved memory.",
+          "activities": []
+        },
+        {
+          "slug": "u2-instructions",
+          "label": "Project instructions",
+          "description": "Guidance for work on a project.",
+          "activities": []
+        },
+        {
+          "slug": "u2-skills",
+          "label": "Skills",
+          "description": "Reusable instructions for a task.",
+          "activities": []
+        },
+        {
+          "slug": "u2-plugins",
+          "label": "Plugins",
+          "description": "Ways to extend an agent app.",
+          "activities": []
         }
       ]
     }

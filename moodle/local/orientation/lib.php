@@ -13,7 +13,8 @@ function local_orientation_validate_extend_signup_form($data): array {
 function local_orientation_extend_navigation(global_navigation $navigation): void {
     if (isloggedin() && !isguestuser()) {
         $navigation->add('My context', new moodle_url('/local/orientation/workspace.php'), navigation_node::TYPE_CUSTOM);
-        $navigation->add('Your course journey', new moodle_url('/local/orientation/index.php'), navigation_node::TYPE_CUSTOM);
+        $navigation->add('Course catalogue', new moodle_url('/local/orientation/index.php', ['view' => 'catalogue']), navigation_node::TYPE_CUSTOM);
+        $navigation->add('Unit 1 journey', new moodle_url('/local/orientation/index.php'), navigation_node::TYPE_CUSTOM);
         $navigation->add('Help', new moodle_url('/help'), navigation_node::TYPE_CUSTOM);
         if (\local_orientation\navigation::ordinary_learner()) {
             foreach (['myhome', 'mycourses'] as $key) {
@@ -32,7 +33,7 @@ function local_orientation_before_footer(): string {
         \local_orientation\context_store::authorise();
     } catch (Throwable $error) { return ''; }
     $assets = '<link rel="stylesheet" href="/assets/course-context.css"><script src="/assets/course-context.js" defer></script>';
-    if ($PAGE->cm && in_array($PAGE->cm->idnumber, ['orientation:journey', 'orientation:notes', 'orientation:before-you-start'], true)) {
+    if ($PAGE->cm && in_array($PAGE->cm->idnumber, ['orientation:journey', 'orientation:notes', 'orientation:before-you-start', 'orientation:desktop-workspace'], true)) {
         return $assets . '<span data-context-panel-disabled hidden></span>';
     }
     return $assets .

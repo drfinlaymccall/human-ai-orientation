@@ -4,6 +4,16 @@ Updated: 2026-10-25. Stage: working public demo and reviewer accounts; no public
 
 ## Purpose and success
 
+### Approved course structure
+
+Finlay approved one course with a lightweight catalogue of units. The hierarchy is **course -> unit -> module -> activity**. There is no programme layer and no separate Moodle course for each unit. A unit's syllabus describes its modules and activities; its journey presents that syllabus with starting guidance and progress. Neither is an extra hierarchy level.
+
+**Unit 1: Human–AI Orientation** contains its own orientation journey, desktop workspace, files and folders, notes as working context, useful-task practice, useful context, reusable portfolio, and checking/next-step modules. Files and notes are ordinary modules inside this unit. Familiar learners can use readiness guidance instead of repeating guided practice. A self-check does not certify mastery or automatically award native completion.
+
+**Unit 2: Introduction to Agentic Systems** is a planned syllabus covering agent basics, context and memory, project instruction files, reusable skills, and plugins. A planned module is not an available lesson. This change does not claim to deliver those lessons.
+
+The orientation journey absorbs its introduction. The course catalogue selects units; each unit journey selects modules and activities. Existing activity identities, learner work, links and the original completion baseline must survive regrouping. The earlier combined preparation module and separate introduction below describe the previous design and are superseded by this structure. See [course structure](curriculum/course-structure.md) for implementation and maintenance.
+
 **Course rationale — clarified by Finlay, 24 October 2026:** prepare humans to team with AI. Through worthwhile tasks, learners practise communicating intentions, supplying relevant context, recognising and repairing misunderstandings, checking results and keeping useful work. They encounter practical interaction patterns—conversation, voice input, files and reusable notes—and learn to choose an approach for their purpose. The orientation is self-contained and prepares the ground for a broader, separate human–AI education programme.
 
 **Learner-facing short form:** Learn to team with AI: choose a useful task, give context, check the result and keep what helps.
