@@ -16,7 +16,11 @@
 
 Files, folders, notes and AI interfaces are modules within the orientation unit. Guided practice can be skipped through the familiar-skills route. The previous author estimate for the core activities and portfolio was 70–95 minutes, excluding this foundational practice; it is not a measured duration for the reorganized unit. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
-## Current status — 24 October 2026
+## Current structure and preview — 25 October 2026
+
+The [unit catalogue](https://orientation.finlaymccall.com/catalogue) and [Unit 1 journey](https://orientation.finlaymccall.com/journey) are live. Unit 2 is planned only. [PR #36](https://github.com/drfinlaymccall/human-ai-orientation/pull/36) contains the source, documentation and review receipts. The [release record](docs/releases/2026-10-25-course-unit-reorganization.md) records real native migration checks, preservation evidence and remaining Cloudflare/static-route limits. Existing completion rules and learner records were retained. The PR is not merged.
+
+## Previous integration status — 24 October 2026
 
 This release branch adds a clear Human AI Orientation splash, visible account state and an illustrated **Your course journey** with actual native progress. An optional six-statement check asks separate understanding/can-do ratings and explains practice suggestions without awarding completion. [Course-review evidence](docs/releases/2026-10-23-course-review-implementation.md) and the [repeatable local-agent guide](docs/qa/course-review-agent.md) distinguish passed synthetic checks from owner/human review.
 

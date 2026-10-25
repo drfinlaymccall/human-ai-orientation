@@ -64,6 +64,8 @@ The legacy introduction Page now contains the Unit 1 journey. Its existing URL a
 
 Native section 0 contains the course catalogue. Section 1 is Unit 1. Its subsections are the seven modules. Existing Pages and the Lesson move without replacement.
 
+The retained **Go deeper: courses and videos** Page is a supplementary Unit 1 resource beside the module groups. The existing optional starting-point check also remains outside the module groups. It is not a required activity or another module. Its identity and links remain intact. The native outline therefore includes the journey, this resource and the seven module groups; it is not limited to the seven groups alone.
+
 The public and native syllabuses use ordinary HTML. Activity details remain readable without JavaScript. Enhanced syllabus links reveal the selected activity panel.
 
 ## Evidence and compatibility
@@ -80,7 +82,7 @@ The fictional-example, copy/paste, saved-context and no-JavaScript routes remain
 
 ## Operator procedure
 
-These commands are for an approved isolated fixture first. They were not run against a Moodle installation during this source-only change.
+These commands are for an approved isolated fixture first. A real synthetic Moodle rehearsal passed; the [release record](../releases/2026-10-25-course-unit-reorganization.md) separates its evidence from live publication.
 
 1. Select the target fixture and an available PHP launcher.
 2. Build the source.
@@ -124,6 +126,6 @@ Executed in the isolated source worktree:
 
 The browser checks serve source files through route interception. They do not check authentication, Moodle rendering or production routing.
 
-The migration test supplies synthetic Moodle API doubles. It verifies helper behavior, not Moodle database integration. Real native publication and two-run evidence comparison remain required.
+The migration unit test supplies synthetic Moodle API doubles. A separate real Moodle rehearsal ran both publishers twice, preserved populated synthetic evidence and checked signed-in pages with and without JavaScript. Its limits and source-review receipts are in the release record.
 
-No commit, push, deployment, live configuration change or real learner-data access forms part of this work. The integrator owns release records and final publication.
+The source and fixes are pushed in [PR #36](https://github.com/drfinlaymccall/human-ai-orientation/pull/36). The integrator owns live publication and its preservation receipt. A source-review pass is not a claim of live publication or learner mastery.
