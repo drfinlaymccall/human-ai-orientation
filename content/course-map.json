@@ -175,13 +175,13 @@
       "role": "familiar-skills",
       "atlas": {
         "duration": "10–15 minutes",
-        "do": "An available way to give your AI an instruction.",
-        "keep": "An available way to give your AI an instruction.",
+        "do": "Find the input controls in your AI app, give a small instruction and check what arrived.",
+        "keep": "A working input method and a short instruction you can reuse.",
         "practise": [
-          "An available way to give your AI an instruction."
+          "Finding input controls and transferring a short instruction."
         ],
-        "knowledge_check": "Can I explain how this helps my task?",
-        "performance_check": "Can I find and reuse what I need?"
+        "knowledge_check": "Can I explain what information my chosen input method sends to the AI?",
+        "performance_check": "Can I send a short instruction and check that the AI received the intended text?"
       }
     },
     {
@@ -201,13 +201,13 @@
       "role": "familiar-skills",
       "atlas": {
         "duration": "10–15 minutes",
-        "do": "A home for context notes you can review and reuse.",
-        "keep": "A home for context notes you can review and reuse.",
+        "do": "Create a useful context note in your chosen app, save it and find it again.",
+        "keep": "A saved note and a known location for your context documents.",
         "practise": [
-          "A home for context notes you can review and reuse."
+          "Naming, saving, reopening and selecting information from a note."
         ],
-        "knowledge_check": "Can I explain how this helps my task?",
-        "performance_check": "Can I find and reuse what I need?"
+        "knowledge_check": "Can I explain why I keep my own reviewed notes rather than rely on chat history?",
+        "performance_check": "Can I reopen my note and select a relevant excerpt for a new task?"
       }
     }
   ],

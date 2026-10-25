@@ -37,6 +37,12 @@ for (const javaScriptEnabled of [true, false]) {
       // Syllabus links must also reveal a panel when enhancement hides other panels.
       await page.locator('[data-unit-syllabus] a[href="#atlas-detail-notes"]').click();
       await expect(page.locator('[data-atlas-detail="notes"]')).toBeVisible();
+      if (javaScriptEnabled) {
+        await page.locator('[data-atlas-choice="first-task"]').click();
+        await expect(page.locator('[data-atlas-detail="notes"]')).toBeHidden();
+        await page.locator('[data-unit-syllabus] a[href="#atlas-detail-notes"]').click();
+        await expect(page.locator('[data-atlas-detail="notes"]')).toBeVisible();
+      }
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
       await page.screenshot({path: info.outputPath('journey.png'), fullPage: true});
       await page.goto('http://curriculum.test/before-you-start');

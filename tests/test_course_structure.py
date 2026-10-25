@@ -2,7 +2,7 @@
 import copy
 import json
 from pathlib import Path
-import subprocess
+
 import sys
 import unittest
 
@@ -38,8 +38,7 @@ class CourseStructureTests(unittest.TestCase):
                     validate_structure(course)
 
     def test_stable_identity_urls_and_baseline(self):
-        original = json.loads(subprocess.check_output(
-            ['git', 'show', '67d02e4:content/course-map.json'], cwd=ROOT))
+        original = json.loads((ROOT / 'tests/course-structure-baseline.json').read_text())
         current = {a['slug']: a for a in self.course['activities']}
         for old in original['activities']:
             for key in ('slug', 'idnumber', 'module_type', 'public_url', 'baseline', 'optional'):

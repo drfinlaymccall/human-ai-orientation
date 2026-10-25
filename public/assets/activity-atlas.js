@@ -54,6 +54,14 @@
       return Boolean(panel);
     }
     addEventListener('hashchange', selectHash);
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#atlas-detail-"]');
+      const panel = link && panels.find(item => '#' + item.id === link.getAttribute('href'));
+      if (!panel) return;
+      // A repeated hash does not emit hashchange after another atlas selection.
+      select(panel.dataset.atlasDetail);
+      panel.scrollIntoView({block: 'start'});
+    });
     if (!selectHash()) select(first.dataset.atlasChoice);
   }
 })();
