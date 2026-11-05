@@ -73,4 +73,4 @@ Tracking: [journey issue #24](https://github.com/drfinlaymccall/human-ai-orienta
 
 **Not run:** `npm test` needs the private `trial/public-qa.json` and checks the live site, so it is not a source check for this PR. The review receipt for this PR is recorded on the PR, outside the reviewed commit.
 
-**Remaining:** The Cloudflare and `/recovery` limits above remain open until a later change closes them.
+**Remaining:** The Cloudflare limit above remains open. The [launch readiness change](2026-11-06-launch-readiness.md) closes the `/recovery` limit.

@@ -21,14 +21,14 @@ test('closed-registration splash leads to the public journey and complete activi
     await page.screenshot({ path: `/tmp/orientation-launch-home-${width}.png` });
     await start.click();
     await page.locator('[data-atlas-detail="first-task"] a.button').click();
-    await expect(page.getByRole('heading', { name: 'Get one useful result.', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Try AI on a useful task.', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Give your AI useful context', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Give AI useful context', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Build your three reusable context documents', exact: true }).click();
     await expect(page).toHaveURL(/\/portfolio$/);
     await page.getByRole('link', { name: 'Continue: test, improve and choose a next goal', exact: true }).click();
     await expect(page).toHaveURL(/\/check-and-continue$/);
-    await expect(page.getByRole('heading', { name: 'Test it, improve it, keep going.', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Check, improve and continue.', exact: true })).toBeVisible();
   }
 });
 
@@ -93,7 +93,7 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
     await page.keyboard.press('Enter');
     await expect(choice).toBeFocused();
     await expect(choice).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-atlas-announcement]')).toContainText('Save your context for next time');
+    await expect(page.locator('[data-atlas-announcement]')).toContainText('Save and reuse context');
     const detail = page.locator('[data-atlas-detail="portfolio"]');
     await expect(detail).toContainText('Context practice');
     const geometry = await choice.evaluate(button => {
@@ -199,7 +199,7 @@ test('keyboard and no-JavaScript entry retain every activity, self-check and pub
 test('a learner can enter the final activity directly with an existing note or fictional practice', async ({ page }) => {
   await page.goto('/journey');
   await page.locator('[data-atlas-choice="check-and-continue"]').click();
-  await page.getByRole('link', { name: 'Open this activity: Check a result and plan your next step', exact: true }).click();
+  await page.getByRole('link', { name: 'Open this activity: Check, improve and continue', exact: true }).click();
   await expect(page.locator('#starting-here')).toContainText('you do not need to complete earlier activities first');
   await expect(page.locator('#starting-here')).toContainText('date and venue are undecided');
   await page.getByText('Fictional example: checking an invitation', { exact: true }).click();

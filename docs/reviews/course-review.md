@@ -166,3 +166,16 @@ The first learner-browser run found the installed subsection feature disabled, h
 **Live publication/preservation:** repeated supported preparation/journey publication created module ID 10 / delegated section ID 3, first under Your course, grouping original Pages 2 and 3. Exact summary read-back matched the generated rationale-linked introduction; both Page content additions and the enabled feature were confirmed. Before/after comparison found exactly one added module, unchanged original module metadata except the two intended section locations, unchanged core activity order, and unchanged lesson attempts/answers, completion/criteria and saved-context hashes. Existing local-plugin version/schema, account acquisition and mail settings were not changed.
 
 **Limits:** signed-in browser evidence is synthetic; live native checks use exact content/identity/hash read-back. Physical-device practice, learner comprehension and owner wording acceptance are separate. Source review did not inspect private runtime data or inject post-activation rollback/other-course refusal failures. The independent pinned Claude review remains required before merging the draft source PR.
+
+## 6 November 2026 — framework audit and launch readiness
+
+**CR-L1:** The audit found no practice for TALK-02, CHECK-03, TASK-03, LEARN-01 and CONTEXT-02. Each now has practice in an existing activity. The saved fields keep their existing IDs. This is authored coverage. It is not evidence that learners reach the competency.
+
+**CR-L2:** Activities had more than one name. Each now has one name across public pages, the course map and the AI context, and the native names follow on publication.
+
+**CR-L3:** The relevance check moved agent material out of `/before-you-start`, removed author dates from learner pages and hid the long copy and paste guide behind a choice. The reflection page lost repeated advice.
+
+**CR-L4:** Access fixes: skip links and main landmarks on `/preview` and `/ai/`, a table wrapper on `/privacy`, and working support addresses on `/help` and `/privacy`.
+
+**Verification:** See the [launch readiness record](../releases/2026-11-06-launch-readiness.md). Finlay's wording review of `/agent-basics` and `/privacy` is open.
+

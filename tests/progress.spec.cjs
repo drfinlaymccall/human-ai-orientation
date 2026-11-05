@@ -165,7 +165,7 @@ test.describe.serial('native current-user activity progress',()=>{
   await page.locator('#region-main').locator('[data-atlas-open="first-task"]').click();
   await ready(page); await page.getByRole('button',{name:/^Mark .* as done$/}).click();
   const fresh=await browser.newContext();const returning=await fresh.newPage();await login(returning,users[0]);
-  await expect(primaryLink(returning,'Continue: Give AI the right background')).toBeVisible();
+  await expect(primaryLink(returning,'Continue: Give AI useful context')).toBeVisible();
   await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
   const other=await browser.newContext();const p2=await other.newPage();await login(p2,users[1]);
   const id=php(`echo $DB->get_field('user','id',['username'=>'${users[0].username}'],MUST_EXIST);`).trim();
@@ -224,18 +224,18 @@ test.describe.serial('native current-user activity progress',()=>{
   }finally{await hidden.close();}
  });
  test('native Lesson keeps its own resume route after leaving and returning',async({page,browser})=>{
-  await login(page,users[0]);await primaryLink(page,'Continue: Give AI the right background').click();
+  await login(page,users[0]);await primaryLink(page,'Continue: Give AI useful context').click();
   await expect(page.locator('#region-main')).toContainText('1. Choose something worth doing');
   await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();
   await expect(page.locator('#region-main')).toContainText('2. See what context changes');
-  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await expect(fresh.locator('[data-atlas-progress="useful-context"]')).toHaveText('In progress');await primaryLink(fresh,'Continue: Give AI the right background').click();
+  const context=await browser.newContext();const fresh=await context.newPage();await login(fresh,users[0]);await expect(fresh.locator('[data-atlas-progress="useful-context"]')).toHaveText('In progress');await primaryLink(fresh,'Continue: Give AI useful context').click();
   await expect(fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true})).toBeVisible();
   await fresh.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   await expect(fresh.locator('#region-main')).toContainText('2. See what context changes');
   await context.close();
  });
  test('complete core practice remains complete when current versions change or optional material is added',async({page})=>{
-  await login(page,users[0]);await primaryLink(page,'Continue: Give AI the right background').click();
+  await login(page,users[0]);await primaryLink(page,'Continue: Give AI useful context').click();
   await page.locator('#region-main').getByRole('link',{name:'Yes',exact:true}).click();
   for (const heading of ['3. Build your small context brief','4. Try it, check it, improve it','5. Keep instructions you can reuse','This is practice, not a graded exam.']) {
    await ready(page);await page.getByRole('button',{name:'Continue',exact:true}).click();await expect(page.locator('#region-main')).toContainText(heading);

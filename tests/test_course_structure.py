@@ -55,7 +55,9 @@ class CourseStructureTests(unittest.TestCase):
                 self.assertIn(module['label'], catalogue)
         planned = catalogue.split('data-unit="agentic-systems"')[1].split('</section>')[0]
         self.assertIn('Planned — not yet available', planned)
-        self.assertNotIn('<a ', planned)
+        # A planned unit offers only its optional early reading, never activities or a journey.
+        self.assertEqual(planned.count('<a '), 1)
+        self.assertIn('href="/agent-basics"', planned)
         for activity in self.course['activities']:
             self.assertIn('data-atlas-detail="' + activity['slug'] + '"', journey)
             self.assertIn('href="' + activity['public_url'] + '"', journey)

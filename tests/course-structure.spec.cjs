@@ -24,7 +24,9 @@ for (const javaScriptEnabled of [true, false]) {
       await expect(page.getByRole('heading', {name: 'Course catalogue', exact: true})).toBeVisible();
       const planned = page.locator('[data-unit="agentic-systems"]');
       await expect(planned).toContainText('Planned — not yet available');
-      await expect(planned.locator('a')).toHaveCount(0);
+      // A planned unit offers only its optional early reading, never activities or a journey.
+      await expect(planned.locator('a')).toHaveCount(1);
+      await expect(planned.locator('a')).toHaveAttribute('href', '/agent-basics');
       await page.getByRole('link', {name: 'Open Unit 1 journey', exact: true}).click();
       await expect(page.getByRole('heading', {name: 'Unit 1: Human–AI Orientation', level: 1})).toBeVisible();
       for (const activity of map.activities) {

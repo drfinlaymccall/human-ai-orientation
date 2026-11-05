@@ -10,6 +10,10 @@ function local_orientation_validate_extend_signup_form($data): array {
     }
     return ['email' => get_string('registrationunavailable', 'local_orientation')];
 }
+/** Native signup hook: show the collection notice beside the core site-policy agreement. */
+function local_orientation_extend_signup_form($mform): void {
+    $mform->addElement('html', '<div class="alert alert-info" data-signup-collection-notice>' . get_string('signupcollectionnotice', 'local_orientation') . '</div>');
+}
 function local_orientation_extend_navigation(global_navigation $navigation): void {
     if (isloggedin() && !isguestuser()) {
         $navigation->add('My context', new moodle_url('/local/orientation/workspace.php'), navigation_node::TYPE_CUSTOM);

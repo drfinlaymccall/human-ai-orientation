@@ -146,7 +146,7 @@ if (in_array($action, ['configure-closed', 'pilot', 'open'], true)) {
         . ($open ? '' : 'Confirmation is paused while registration is closed; contact Finlay about an unconfirmed account. ') . '</p>'
         . '<p><a href="/local/orientation/index.php">Your course journey</a> · '
         . '<a href="/journey">Use the public course</a> · <a href="/help">Account help</a> · '
-        . '<a href="/privacy">About your information</a> · <a href="/ai/">Guide for your AI</a></p>';
+        . '<a href="/privacy">Privacy policy</a> · <a href="/ai/">Guide for your AI</a></p>';
     set_config('auth_instructions', $instructions);
     $plugin = enrol_get_plugin('self');
     $settings = $instance ? clone $instance : new stdClass();

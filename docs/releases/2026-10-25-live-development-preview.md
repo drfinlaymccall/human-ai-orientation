@@ -29,3 +29,5 @@ Actual header/route results and documentation review refs are recorded externall
 The scheduler stayed running: automatic approval review rejected a proposed pause because of possible background-job impact, and deployment proceeded through supported upgrade/publication and preservation checks. Reading the body of a credentials-named URL was also rejected and was not retried. These optional actions are not prerequisites for the completed publication.
 
 Finlay's concrete saved-rating wording acceptance, genuine consenting-recipient delivery/operating review, human pilot and decision to open broader registration remain separate. The live preview is available for his review now; future completed, reviewed changes should not stop at a Git merge while the main site remains older.
+
+**Later change — 6 November 2026:** `/privacy` was replaced by an Australian privacy policy. See the [launch readiness record](2026-11-06-launch-readiness.md). Finlay's review of the saved-rating wording remains open.

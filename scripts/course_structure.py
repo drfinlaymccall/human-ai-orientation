@@ -16,6 +16,8 @@ def validate_structure(course):
         assert unit['status'] in ('active', 'planned')
         if unit['status'] == 'planned':
             assert 'journey_url' not in unit, 'Planned unit cannot have a journey'
+            reading = unit.get('early_reading', {'url': '/'})['url']
+            assert reading.startswith('/') and not reading.startswith('//'), 'Early reading must be a local page'
         for module in unit['modules']:
             modules.append(module['slug'])
             groups.append(module.get('native_group_slug', module['slug']))
@@ -49,6 +51,8 @@ def syllabus(course, journey=False):
         parts.append(f'<section data-unit="{escape(unit["slug"])}">{heading}<p>{escape(unit["syllabus"])}</p>')
         if unit['status'] == 'planned':
             parts.append('<p><strong>Planned — not yet available</strong></p>')
+            if unit.get('early_reading'):
+                parts.append(f'<p><a href="{escape(unit["early_reading"]["url"])}">{escape(unit["early_reading"]["label"])}</a></p>')
         elif not journey:
             parts.append(f'<p><a href="{escape(unit["journey_url"])}">Open Unit 1 journey</a></p>')
         parts.append('<ol>')

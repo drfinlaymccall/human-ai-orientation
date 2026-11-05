@@ -156,7 +156,7 @@ if ($activity) {
     }
     echo html_writer::tag('p', html_writer::link($url, 'Return to activity: ' . s($activity['label'])));
 }
-echo '<p class="context-small">Your saved text is private to your account through this workspace. Finlay administers the server and can access stored records for support or a records request. Keep sensitive details out. <a href="/privacy">About your information</a>.</p></div>';
+echo '<p class="context-small">Your saved text is private to your account through this workspace. Finlay administers the server and can access stored records for support or a records request. Keep sensitive details out. <a href="/privacy">Privacy policy</a>.</p></div>';
 if ($storagefailure) {
     // Standalone recovery must format current fields without theme scripts or further storage reads.
     echo <<<'HTML'

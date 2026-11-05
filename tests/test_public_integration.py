@@ -34,9 +34,29 @@ class PublicIntegration(unittest.TestCase):
     def test_information_notice_explains_both_saved_context_and_feedback(self):
         notice = (ROOT / 'public/privacy.html').read_text()
         self.assertIn('Save to My context', notice)
-        self.assertIn('Optional voice and written feedback', notice)
+        self.assertIn('Optional feedback: your text or voice recording', notice)
         self.assertIn('90 days', notice)
         self.assertIn('does not transcribe recordings', notice)
+
+    def test_signup_form_states_collection_before_the_policy_agreement(self):
+        lib = (ROOT / 'moodle/local/orientation/lib.php').read_text()
+        lang = (ROOT / 'moodle/local/orientation/lang/en/local_orientation.php').read_text()
+        self.assertIn('function local_orientation_extend_signup_form($mform)', lib)
+        self.assertIn('data-signup-collection-notice', lib)
+        notice = lang.split("$string['signupcollectionnotice'] = ", 1)[1].split('\n', 1)[0]
+        for required in ('Finlay McCall', 'Australia', 'username, name and email', 'pseudonym', '18 or over', '/journey', '/privacy'):
+            self.assertIn(required, notice)
+
+    def test_old_recovery_links_reach_the_native_form(self):
+        caddy = (ROOT / 'deploy/Caddyfile').read_text()
+        self.assertIn('@oldrecovery path /recovery /recovery.html', caddy)
+        self.assertIn('redir @oldrecovery /login/forgot_password.php 302', caddy)
+
+    def test_privacy_policy_covers_the_australian_collection_notice(self):
+        policy = (ROOT / 'public/privacy.html').read_text()
+        for required in ('Privacy policy', 'Office of the Australian Information Commissioner', 'overseas', '30 days', 'Cloudflare', '<!--email_off-->'):
+            self.assertIn(required, policy)
+        self.assertNotIn('[email protected]', policy)
 
 
 if __name__ == '__main__':

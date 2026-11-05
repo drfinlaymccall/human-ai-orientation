@@ -35,6 +35,16 @@ All fetched from official provider pages using TinyFish search/fetch on the revi
 
 The Gemini pricing and limits pages presented different model-version/access descriptions. Avoid a model-by-model claim or hard-coded quotas; the shared finding is free conversational access. No paid price comparison or provider ranking is needed for this lesson. Meta's marketing security claims are not repeated as independent assurances.
 
+## Recheck — 6 November 2026
+
+Provider-facing dates moved out of the learner pages under the relevance rule and are kept here: provider documentation was checked on 13 October 2026 and rechecked on 6 November 2026. This is a documentation check, not a hands-on test of each free account.
+
+- **ChatGPT:** the [pricing page](https://openai.com/chatgpt/pricing/) lists free limited uploads and voice chats. Table wording stands.
+- **Claude:** [voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode) is beta on all plans across mobile, desktop and web and counts toward usage; [dictation](https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile) is for all plans on mobile. Table wording stands.
+- **Gemini:** [Gemini Live](https://support.google.com/gemini/answer/15274899?hl=en) is in the mobile app and not the web app. Table wording stands.
+- **Meta AI:** the [assistant page](https://ai.meta.com/meta-ai/assistant/) describes free everyday use with limits, text, image and voice, and Mac dictation. It gives no complete free-plan and device matrix, so the table's hedged wording stands. Two guessed Meta FAQ addresses returned 404 and are not cited.
+- **Deeper courses:** the OpenAI "ChatGPT 101" recording returned 404. It is replaced with [AI Foundations](https://academy.openai.com/public/courses/ai-foundations-dnq5w), about 70 minutes; [free with a ChatGPT account](https://help.openai.com/en/articles/20001270-openai-academy-courses). Other course outlines, access statements and licence notices on that page were last checked on 13 October 2026.
+
 ## Maintenance and validation boundary
 
 During weekly course review, check these official links, free text access, availability restrictions and the two-message interaction. Record provider/account/region/date for any later hands-on trials separately from this documentation review. Reassess fit when a new lesson makes a capability mandatory. A paid plan is Finlay's optional exploration recommendation, not a course prerequisite or a guarantee of accuracy.

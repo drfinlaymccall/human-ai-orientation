@@ -16,7 +16,7 @@ foreach ([
     'lockoutwindow' => 900, 'lockoutduration' => 900,
     'enrol_plugins_enabled' => 'manual', 'enablewebservices' => 0,
     'auth_instructions' => '<p>This is an early course trial. Sign in with the pilot login Finlay gave you. Public sign-up and email recovery are not available yet.</p><p><a href="/preview">Read the complete lesson without an account</a> · <a href="/privacy">How this trial uses your information</a></p>',
-    'custommenuitems' => "Read the lesson|https://orientation.finlaymccall.com/preview\nContext for your AI|https://orientation.finlaymccall.com/ai/\nAbout your information|https://orientation.finlaymccall.com/privacy",
+    'custommenuitems' => "Read the lesson|https://orientation.finlaymccall.com/preview\nContext for your AI|https://orientation.finlaymccall.com/ai/\nPrivacy policy|https://orientation.finlaymccall.com/privacy",
     'sitepolicy' => 'https://orientation.finlaymccall.com/privacy.html',
 ] as $name => $value) { set_config($name, $value); }
 $site = get_site();

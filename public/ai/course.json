@@ -3,11 +3,11 @@
   "schema_version": "1.4",
   "id": "human-ai-orientation-useful-context",
   "title": "Human AI Orientation",
-  "context_version": "2026-10-25.1",
-  "updated": "2026-10-25",
+  "context_version": "2026-11-06.1",
+  "updated": "2026-11-06",
   "status": "Public reading with invitation-only account access; broader registration is not open.",
   "authentication_required": false,
-  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-10-25.1/context.md",
+  "context_url": "https://orientation.finlaymccall.com/ai/releases/2026-11-06.1/context.md",
   "latest_context_url": "https://orientation.finlaymccall.com/ai/context.md",
   "human_guide_url": "https://orientation.finlaymccall.com/ai/",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
@@ -69,12 +69,12 @@
     },
     {
       "id": "portfolio",
-      "title": "Save your context for next time",
+      "title": "Save and reuse context",
       "guidance": "At /portfolio write working preferences, project details and knowledge/source notes yourself or use the optional AI interview. Review every claim. Signed-in learners choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Download Markdown (.md) is optional for a file in their own notes folder. Anonymous use retains private version1 JSON backup/restore. Private practice notes stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace."
     },
     {
       "id": "continue",
-      "title": "Check a result and plan your next step",
+      "title": "Check, improve and continue",
       "guidance": "At /check-and-continue begin with an existing brief, a restored portfolio backup or the fictional example. Select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, and record your next goal, human learning need, information the AI needs, and first step. Practice records remain private."
     }
   ],
@@ -90,8 +90,8 @@
     {
       "slug": "first-task",
       "label": "Try AI on a useful task",
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
       "outcomes": [
         "A first result and a way to judge it."
       ],
@@ -103,9 +103,9 @@
     },
     {
       "slug": "useful-context",
-      "label": "Give AI the right background",
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
+      "label": "Give AI useful context",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
       "outcomes": [
         "A reusable context brief."
       ],
@@ -117,9 +117,9 @@
     },
     {
       "slug": "portfolio",
-      "label": "Save your context for next time",
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
+      "label": "Save and reuse context",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
       "outcomes": [
         "A reviewed personal context portfolio."
       ],
@@ -131,9 +131,9 @@
     },
     {
       "slug": "check-and-continue",
-      "label": "Check a result and plan your next step",
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
+      "label": "Check, improve and continue",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
       "outcomes": [
         "A checked result, an improvement and a next-step plan."
       ],
@@ -146,10 +146,10 @@
     {
       "slug": "before-you-start",
       "label": "Files, folders and locations",
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
       "outcomes": [
-        "A file you can find again and a clear way to share its contents."
+        "A practice file you can find and reopen, and a clear way to share its contents."
       ],
       "role": "familiar-skills",
       "baseline": false,
@@ -263,6 +263,10 @@
       "label": "Unit 2: Introduction to Agentic Systems",
       "status": "planned",
       "syllabus": "Planned syllabus only. Activities and a journey are not yet available.",
+      "early_reading": {
+        "url": "/agent-basics",
+        "label": "Read the early reading on agents (optional)"
+      },
       "modules": [
         {
           "slug": "u2-basics",

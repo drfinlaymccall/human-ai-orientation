@@ -27,6 +27,24 @@ Keep the decisions already made: use Moodle and the current demo checkout, retai
 Do not add a backup audit, restore exercise, new LMS, formal assessment programme or mandatory embedded AI.
 Public enrolment must pass the existing email/recovery/support/operating checks before it opens. Preparing a launch does not send invitations, support replies or LinkedIn posts on Finlay's behalf.
 
+## Launch plan — 6 November decisions
+
+Finlay asked for an audit against the competency and evaluation frameworks and a plan to make the course public. He then made these decisions on 6 November 2026:
+
+- **Two-stage launch, approved.** Stage A opens the anonymous course to search and promotion with registration closed. Stage B opens registration after email, recovery, support and operating checks are recorded. This replaces the single launch point in the schedule below. Neither stage has been opened. Stage A still needs Finlay's go-ahead, the `X-Robots-Tag` change in `deploy/Caddyfile` and the Cloudflare rule in `deploy/cloudflare-ai-context-rule.json`.
+- **Agent material moved to Unit 2.** `CLAUDE.md`, memory and the "ghost" passage now sit in the optional [early reading](../../content/agent-basics.html). Finlay reviews that page. Unit 2 stays planned, with no activities, journey or completion change.
+- **No restore test.** The earlier acceptance of owner-reported Contabo backups stands for Stage B, with real learners' saved context and recordings included. No restore has been verified.
+- **Privacy policy.** Draft an Australian privacy policy and add it to sign-up. See the [compliance mapping](../operations/privacy-compliance.md) for what Finlay still has to confirm.
+
+| Phase | Owner | Work | State |
+| --- | --- | --- | --- |
+| 0 Consolidate | Claude | Review and merge the release stack to `main`, move the live checkout to `main`, commit the evaluation records. | See the [release record](../releases/2026-11-06-launch-readiness.md). |
+| 1 Content and access | Claude | Practice gaps (TALK-02, CHECK-03, TASK-03, LEARN-01, CONTEXT-02), one name per activity, access and relevance defects, free-tool recheck. | See the release record. |
+| 2 Human evidence | Finlay | His two queued page reviews, the Unit 2 reading and policy wording, and the 3–5 person pilot. | Finlay is starting this. |
+| 3 Stage A | Finlay decides | Open the anonymous course to search and promotion. | Not started. |
+| 4 Stage B gates | Finlay and Claude | Genuine mail and recovery receipts, support and operating sign-off, policy confirmations. | Not started. |
+| 5 Stage B | Finlay decides | Open registration. | Not started. |
+
 ## HOC improvement programme — 24 October triage
 
 [Programme parent #19](https://github.com/drfinlaymccall/human-ai-orientation/issues/19) indexes this existing plan. The plan remains canonical; issue bodies are dispatch cards and progress/evidence belongs in CONTROL.md, issues and dated receipts. Product Contract R1–R16 and settled decisions are preserved; R17 records the newly requested Claude/delegation method. The work below adds traceability and sequencing rather than reopening learner requirements.

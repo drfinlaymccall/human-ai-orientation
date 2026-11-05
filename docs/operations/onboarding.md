@@ -113,3 +113,7 @@ Moodle owns delivery on successful confirmed self-enrolment, the native “Welco
 An account confirmation is separate from a course welcome. Configuration, ordinary visits and password recovery do not enrol again or send another welcome. Removal/re-enrolment sends anew; repeated explicit enrolment API calls can also resend. No cross-lifecycle exactly-once delivery or custom deduplication service is claimed. Do not bulk-enrol existing students to distribute this message. Genuine receipt to a consenting mailbox remains a launch check; synthetic capture is separate.
 
 The bounded native welcome unit passed five captured-mail scenarios after reproducing and fixing the unexpected automatic activity link; 20 source assertions passed. WB10 owns final integrated first-visit/return/recovery and in-course welcome verification. This source implementation does not enable welcome delivery on production.
+
+## Sign-up collection notice
+
+`local_orientation_extend_signup_form()` adds the collection notice (`signupcollectionnotice`) above Moodle's site-policy agreement through the supported signup hook. `sitepolicy` still points to `/privacy.html`, and core's agreement tick box is unchanged. Publishing the new policy does not reset existing users' `policyagreed` value. If Finlay wants existing learners to agree again, that is a separate decision.

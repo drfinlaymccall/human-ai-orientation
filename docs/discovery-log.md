@@ -332,3 +332,14 @@ The current competency framework and visual-map briefs are included as a review 
 **Decision/change:** use the shared context stylesheet from 1100px, reserve the chosen page gutter and follow writing-field availability. Retain the existing responsive Tips component, respect Moodle’s open course index and keep narrow screens in normal flow. No core/plugin/schema or saved-work behaviour changes are needed.
 
 **Verification/limits:** two strengthened existing public layout checks reproduced the old placement before the CSS change, then passed. The existing native context layout check also exercises real Moodle portfolio/sidebar controls and no-JavaScript rendering. Exact final commands, screenshots and Claude CLI review refs belong in the PR. Physical-device and assistive-technology experience remain separate checks.
+
+## 6 November 2026 — launch readiness after the framework audit
+
+**Need:** Finlay asked for an audit against the competency and evaluation frameworks and a plan to make the course public. The audit found five competencies with no practice, several names for the same activity, removed defects still on some pages, and agent material inside a beginner module. These are audit findings, not learner observations.
+
+**Decision:** Finlay approved a two-stage launch and moved agent material to Unit 2. He accepted the owner-reported backups without a restore test. He asked for an Australian privacy policy in the sign-up flow.
+
+**Change and verification:** See the [launch readiness record](releases/2026-11-06-launch-readiness.md).
+
+**Remaining questions:** Do learners complete the new practice without help? Does the Unit 2 reading help the people it is for? Only Finlay's reviews and the pilot can answer these.
+

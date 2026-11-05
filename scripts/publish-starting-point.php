@@ -69,7 +69,7 @@ if ($action === 'disable') {
     $intro = '<p>Optional: six statements with two separate ratings each — twelve responses. No answer is preselected. Choose 1–5, Not sure, Skip this rating, or leave an item unanswered. These are subjective self-ratings, not a test of ability.</p>' .
         '<p>Moodle saves your answers and dated attempts, including unfinished work, on Finlay’s server. Finlay can access them for course support. Suggestions use your latest finished compatible check; an unfinished check does not replace it. Retakes retain earlier attempts. No ratings award completion or proficiency; no answers are sent to an AI provider.</p>' .
         '<p>Use Next page or Previous page to save before leaving. You can resume an unfinished attempt or submit a partly answered one. There is no timer and you can retake freely.</p>' .
-        '<p><a href="/local/orientation/index.php">Skip this check / Back to your course journey</a> · <a href="/privacy">About your information</a> · <a href="/help">Help or request a copy/deletion</a></p>';
+        '<p><a href="/local/orientation/index.php">Skip this check / Back to your course journey</a> · <a href="/privacy">Privacy policy</a> · <a href="/help">Help or request a copy/deletion</a></p>';
     $module = (object)[
         'modulename' => 'quiz', 'module' => $DB->get_field('modules', 'id', ['name' => 'quiz'], MUST_EXIST),
         'name' => $instrument['title'], 'cmidnumber' => $identity, 'section' => 1, 'visible' => 0,

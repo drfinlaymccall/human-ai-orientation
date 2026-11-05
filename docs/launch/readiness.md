@@ -2,6 +2,14 @@
 
 This is the operator handoff for the [forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md). The [dated release record](../releases/2026-10-23-launch-implementation.md) owns observed results. Prepared materials and synthetic checks do not establish human participation or mail receipt.
 
+## Two stages — approved 6 November 2026
+
+**Stage A: open the anonymous course.** Registration stays closed. Before opening, Finlay accepts the privacy policy wording and confirms the items in the [privacy compliance mapping](../operations/privacy-compliance.md) that apply to anonymous visitors, because the policy covers them too. He decides the date, then the operator removes `X-Robots-Tag "noindex, nofollow"` from `deploy/Caddyfile`, applies `deploy/cloudflare-ai-context-rule.json` and checks the public routes. Stage A collects no account data.
+
+**Stage B: open registration.** Open only after email, recovery, support and operating checks are recorded, and after Finlay confirms the items in the [privacy compliance mapping](../operations/privacy-compliance.md). Finlay accepted on 6 November that no restore test is required.
+
+The rest of this page is the Stage B record.
+
 ## Limited pilot
 
 The public course is readable without an account. Native registration may run in exact-address `pilot` mode for owner-controlled/consented mailboxes; this is distinct from broad registration. Follow [onboarding operations](../operations/onboarding.md) and [progress deployment](../operations/progress.md). Keep private review receipts, allowed addresses and observations under ignored `trial/`; never put passwords or confirmation/reset links in issues.

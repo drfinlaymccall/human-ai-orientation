@@ -37,13 +37,15 @@ The project should become a working public course on a subdomain of Finlay's web
 
 ## Implemented progression and evidence
 
+The approved course structure above is authoritative. Earlier structure notes in this brief, including “First module”, are history.
+
 | Step | Learner output | Current implementation |
 | --- | --- | --- |
-| Optional preparation | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
-| 1. Do one useful thing | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
-| 2. Give useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
-| Portfolio bridge within activity 2 | Working preferences, project context, knowledge/source notes | Portable builder plus private My context storage, Copy, optional Markdown, JSON backup/restore and AI interview |
-| 3. Check and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
+| Optional familiar-skills modules | Find/save a file; practise a useful AI instruction | Public and Moodle preparation, notes and input routes |
+| 1. Try AI on a useful task | Small task, criterion and initial attempt | New first-task Page, example and no-AI route; manual completion |
+| 2. Give AI useful context | Reviewed brief and tested instruction | Existing seven-page Moodle Lesson, public preview, interactive brief and try/check workspace |
+| 3. Save and reuse context | Working preferences, project context, knowledge/source notes | Portable builder plus private My context storage, Copy, optional Markdown, JSON backup/restore and AI interview |
+| 4. Check, improve and continue | Fresh-task result, correction/kept instruction, next goal, learning need and first step | New Page and private practice record; manual completion |
 
 The durable outcome is retrieval and selective reuse of reviewed context. Browser drafts are temporary; signed-in learners can deliberately save to My context, return across devices, edit and copy selected documents. Optional downloads belong to the learner. Moodle progress and the submitted lesson reflection are separate. Synthetic checks verify functionality, not learning. The [human pilot protocol](pilot/PROTOCOL.md) supplies the next evidence step. Current delivery details belong in CONTROL.md and the release record, rather than being inferred from older proposals below.
 

@@ -27,9 +27,9 @@ test('public introduction, reading route and mobile layout', async ({ page }) =>
     await page.screenshot({ path: `docs/trial/public-home-${width}.png`, fullPage: true });
     await page.getByRole('link', { name: 'Explore your course', exact: true }).click();
     await page.locator('[data-atlas-open="first-task"]').click();
-    await expect(page.getByRole('heading', { name: 'Get one useful result.', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Try AI on a useful task.', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Give your AI useful context', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Give AI useful context', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('7. Save what you learned');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
   }
@@ -386,7 +386,7 @@ test('account availability matches the expected release mode, recovery is clear 
 
 test('public AI context accepts plain HTTP clients without a bot challenge', async ({ request }) => {
   const headers = { 'User-Agent': 'Python-urllib/3.12' };
-  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2', '2026-10-24.1']
+  for (const path of ['/ai/context.md', ...['2026-10-13.1', '2026-10-13.2', '2026-10-13.3', '2026-10-23.1', '2026-10-23.2', '2026-10-24.1', '2026-11-06.1']
     .map(version => `/ai/releases/${version}/context.md`)]) {
     const response = await request.get(path, { headers });
     expect(response.status(), path).toBe(200);
@@ -449,7 +449,7 @@ test('portfolio journey works publicly and in Moodle with saved manual progress'
   const ids = JSON.parse(fs.readFileSync('trial/journey.json'));
   await page.goto('/journey');
   await page.locator('[data-atlas-choice="portfolio"]').click();
-  await page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true }).click();
+  await page.getByRole('link', { name: 'Open this activity: Save and reuse context', exact: true }).click();
   await expect(page.locator('[data-portfolio-field="about"]')).toBeVisible();
   await page.locator('[data-portfolio-field="about"]').fill('Synthetic learner: a neighbourhood book swap.');
   await page.goto('/login/index.php');
@@ -464,8 +464,8 @@ test('portfolio journey works publicly and in Moodle with saved manual progress'
     await page.getByRole('button', { name: 'Yes', exact: true }).click();
     await page.goto(`/mod/page/view.php?id=${ids.journey}`);
   }
-  await expect(page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true })).toHaveAttribute('href', `/mod/page/view.php?id=${ids.portfolio}`);
-  await page.getByRole('link', { name: 'Open this activity: Save your context for next time', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Open this activity: Save and reuse context', exact: true })).toHaveAttribute('href', `/mod/page/view.php?id=${ids.portfolio}`);
+  await page.getByRole('link', { name: 'Open this activity: Save and reuse context', exact: true }).click();
   await expect(page.locator('[data-portfolio-field="about"]')).toHaveValue('Synthetic learner: a neighbourhood book swap.');
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });
