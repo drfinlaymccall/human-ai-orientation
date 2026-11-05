@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, '../public');
 for (const javaScriptEnabled of [true, false]) {
   for (const width of [1280, 390]) {
     test(`catalogue and Unit 1 journey: JS=${javaScriptEnabled}, width=${width}`, async ({ browser }, info) => {
+      test.setTimeout(60000);
       const context = await browser.newContext({ javaScriptEnabled, viewport: {width, height: 900} });
       await context.route('http://curriculum.test/**', async route => {
         const url = new URL(route.request().url());

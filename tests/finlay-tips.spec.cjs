@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('every editable course box has voice help, without changing its value or sending its text', async ({ page }) => {
-  for (const route of ['/preview', '/portfolio', '/check-and-continue', '/before-you-start']) {
+  for (const route of ['/preview', '/portfolio', '/check-and-continue', '/desktop-workspace']) {
     await page.goto(route);
     const fields = page.locator('.finlay-writing-surface textarea:not([readonly]):not([disabled])');
     expect(await fields.count()).toBeGreaterThan(0);
@@ -62,7 +62,7 @@ test('blocked clipboard keeps a selectable prompt and the current draft', async 
 test('desktop context floats right or left beside tips; smaller screens keep panels clear of the boxes', async ({ page }, testInfo) => {
   for (const width of [1920, 1440, 1100, 390, 320]) {
     await page.setViewportSize({ width, height: 950 });
-    for (const route of ['/preview', '/portfolio', '/check-and-continue', '/before-you-start']) {
+    for (const route of ['/preview', '/portfolio', '/check-and-continue', '/desktop-workspace']) {
       await page.goto(route);
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     }
@@ -136,8 +136,8 @@ test('without JavaScript tips appear only beside available writing fields', asyn
       await expect(page.locator('.finlay-tips')).toBeHidden();
       await expect(page.locator('[data-portfolio-fallback]')).toBeVisible();
     }
-    await page.goto('/before-you-start');
-    const panel = page.locator('#finlay-before-you-start-tips');
+    await page.goto('/desktop-workspace');
+    const panel = page.locator('#finlay-desktop-workspace-tips');
     await expect(page.locator('textarea').first()).toBeVisible();
     await panel.getByText('How to start voice typing', { exact: true }).click();
     await expect(panel).toContainText('Windows key + H');
@@ -151,7 +151,7 @@ test('without JavaScript tips appear only beside available writing fields', asyn
 
 test('tips track hidden and unavailable fields, including a native editor outside the panel', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 950 });
-  await page.goto('/before-you-start');
+  await page.goto('/check-and-continue');
   const scope = page.locator('.finlay-writing-surface');
   const panel = scope.locator('.finlay-tips');
   await scope.locator('textarea').evaluateAll(fields => fields.forEach(f => f.readOnly = true));

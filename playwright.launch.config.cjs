@@ -2,7 +2,7 @@ const { defineConfig } = require('@playwright/test');
 const fs = require('node:fs');
 
 module.exports = defineConfig({
-  testDir: './tests', testMatch: 'launch-entry.spec.cjs', timeout: 30000,
+  testDir: './tests', testMatch: 'launch-entry.spec.cjs', timeout: 240000,
   workers: 1, retries: 0, outputDir: '/tmp/orientation-launch-results',
   use: {
     baseURL: 'http://127.0.0.1:18801',

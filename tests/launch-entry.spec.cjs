@@ -1,13 +1,9 @@
 const { test, expect } = require('@playwright/test');
 const welcome = require('../content/student-welcome.json');
 
-const activities = [
-  ['Try AI on a useful task', 'first-task', '/first-task'],
-  ['Give AI the right background', 'useful-context', '/preview'],
-  ['Save your context for next time', 'portfolio', '/portfolio'],
-  ['Check a result and plan your next step', 'check-and-continue', '/check-and-continue'],
-  ['Files, notes and AI basics — optional help', 'before-you-start', '/before-you-start'],
-];
+const courseMap = require('../content/course-map.json');
+// The published module list owns the atlas. Keep this suite aligned with it.
+const activities = courseMap.activities.map(activity => [activity.label, activity.slug, activity.public_url]);
 
 test('closed-registration splash leads to the public journey and complete activity sequence', async ({ page }) => {
   for (const width of [1440, 390, 320]) {
@@ -62,7 +58,7 @@ test('public purpose and six practice objectives remain available by keyboard wi
   }
 });
 
-test('public journey selects all five activities and opens their real destinations', async ({ page }) => {
+test('public journey selects every activity and opens its real destination', async ({ page }) => {
   for (const route of ['/journey']) {
     for (const [label, slug, destination] of activities) {
       await page.goto(route);
@@ -99,7 +95,7 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
     await expect(choice).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('[data-atlas-announcement]')).toContainText('Save your context for next time');
     const detail = page.locator('[data-atlas-detail="portfolio"]');
-    await expect(detail).toContainText('Part of activity 2');
+    await expect(detail).toContainText('Context practice');
     const geometry = await choice.evaluate(button => {
       const detail = document.querySelector('[data-atlas-detail="portfolio"]');
       const action = detail.querySelector('a.button');
@@ -113,13 +109,15 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
       expect(geometry.detailTop - geometry.buttonBottom).toBeLessThan(40);
     }
     expect(geometry.actionBottom).toBeLessThanOrEqual(geometry.viewport);
-    for (let tabs = 0; tabs < (width > 1000 ? 4 : 1); tabs++) await page.keyboard.press('Tab');
+    // Follow native tab order; the action comes after the remaining choices on wide screens.
+    const action = detail.locator('a.button');
+    for (let tabs = 0; tabs < 12 && !(await action.evaluate(el => el === document.activeElement)); tabs++) await page.keyboard.press('Tab');
     await expect(detail.locator('a.button')).toBeFocused();
     await detail.getByText('Check what I can do', { exact: true }).focus();
     await page.keyboard.press('Space');
     await expect(detail.getByRole('heading', { name: 'What I can do', exact: true })).toBeVisible();
     await page.locator('[data-atlas-choice="before-you-start"]').click();
-    await expect(page.locator('[data-atlas-detail="before-you-start"]')).toContainText('Optional preparation');
+    await expect(page.locator('[data-atlas-detail="before-you-start"]')).toContainText('Optional familiar-skills practice');
     await page.getByRole('link', { name: 'Set up your notes', exact: true }).click();
     await expect(page).toHaveURL(/\/notes$/);
     await page.goto('/journey');
@@ -128,7 +126,7 @@ test('atlas remains usable on narrow screens and with the keyboard', async ({ pa
   }
 });
 
-test('natural keyboard traversal reaches all five atlas choices and the selected action', async ({ page }) => {
+test('natural keyboard traversal reaches every atlas choice and the selected action', async ({ page }) => {
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 960 });
     await page.goto('/journey');
@@ -182,7 +180,7 @@ test('keyboard and no-JavaScript entry retain every activity, self-check and pub
     for (const route of ['/journey']) {
       await page.goto(route);
       await expect(page.locator('[data-atlas-controls]')).toBeHidden();
-      await expect(page.locator('[data-atlas-detail]:visible')).toHaveCount(5);
+      await expect(page.locator('[data-atlas-detail]:visible')).toHaveCount(activities.length);
       for (const [label, slug, destination] of activities) {
         const detail = page.locator(`[data-atlas-detail="${slug}"]`);
         await detail.getByText('Check what I can do', { exact: true }).click();
@@ -233,7 +231,7 @@ test('account state resolves safely on every public course header', async ({ pag
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/journey');
   for (const route of ['/journey', '/first-task', '/preview', '/portfolio', '/check-and-continue', '/before-you-start', '/notes', '/free-tools', '/deeper-courses', '/help', '/privacy']) {
     await page.goto(route);
-    await expect(page.locator('header').getByRole('link', { name: 'Course journey', exact: true })).toHaveAttribute('href', '/journey');
+    await expect(page.locator('header').getByRole('link', { name: 'Unit 1 journey', exact: true })).toHaveAttribute('href', '/journey');
     await expect(page.locator('header [data-account-link]')).toHaveText('Sign in');
   }
   expect(requests.length).toBeGreaterThanOrEqual(13);

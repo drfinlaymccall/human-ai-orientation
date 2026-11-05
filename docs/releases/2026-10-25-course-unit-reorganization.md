@@ -55,8 +55,22 @@ Public checks verified exact origin bytes for 22 of 23 changed assets. Public HT
 
 - The new context edition and schema work with browser/curl clients, but Python-urllib receives HTTP 403. The reviewed scoped Cloudflare rule still needs application and readback by an authorized operator. No connected Cloudflare update capability was available. The existing hostname, GET/HEAD and Browser Integrity Check-only scope must remain unchanged.
 - `/recovery` reaches Moodle login rather than the generated static recovery page. The reviewed route configuration was not changed without review. This is not a claim that native password recovery failed.
-- PR #36 remains open and stacked on PR #35. Application review covers the exact published commit; subsequent documentation-only receipt updates require review before merge.
+- At publication, PR #36 was open and stacked on PR #35. The consolidation section below replaces that status.
 
 Native integration and independent application review passed with the limits above. The learner-facing reorganization is live; universal machine-client retrieval is not complete. No source test establishes learner mastery or human-pilot success. Broad registration remains closed.
 
 Tracking: [journey issue #24](https://github.com/drfinlaymccall/human-ai-orientation/issues/24). This change builds on the existing source in PR #35; it does not merge or close that parent work.
+
+## Consolidation into main — 6 November 2026
+
+**Need:** Launch work could not start from a reliable base. The live site ran an uncommitted tree, `main` was far behind it, and PR #36 was still stacked.
+
+**Decision:** Finlay approved consolidation as Phase 0 of the launch plan. PR #36 now targets `main` and carries the reviewed course work plus the evaluation records.
+
+**Change:** No learner-facing content changed. Stale tests now use the current course map and AI context release, and the tips tests use the pages that hold the writing fields. The evaluation records joined the repository. The private Mac setup note stays ignored, and public records link to it by description only.
+
+**Verification on the test head:** Support, metadata (2), structure (4), entry (11), portfolio (8), tips (7), feedback (32), the native course-structure rules and the Python unit suites passed. The generated output had no drift. The host's load average was 11 to 32, so entry, structure and tips run with longer timeouts. In one feedback run, 7 of 32 tests failed at the configured 20-second limit. The same head passed 32 of 32 at 90 seconds.
+
+**Not run:** `npm test` needs the private `trial/public-qa.json` and checks the live site, so it is not a source check for this PR. The review receipt for this PR is recorded on the PR, outside the reviewed commit.
+
+**Remaining:** The Cloudflare and `/recovery` limits above remain open until a later change closes them.

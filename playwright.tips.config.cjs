@@ -1,6 +1,6 @@
 const { defineConfig } = require('@playwright/test');
 module.exports = defineConfig({
-  testDir: './tests', testMatch: 'finlay-tips.spec.cjs', timeout: 30000,
+  testDir: './tests', testMatch: 'finlay-tips.spec.cjs', timeout: 90000,
   workers: 1, retries: 0, outputDir: '/tmp/orientation-tips-results',
   use: {
     baseURL: 'http://127.0.0.1:18798',
