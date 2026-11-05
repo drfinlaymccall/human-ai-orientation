@@ -47,6 +47,13 @@ class PublicIntegration(unittest.TestCase):
         for required in ('Finlay McCall', 'Australia', 'username, name and email', 'pseudonym', '18 or over', '/journey', '/privacy'):
             self.assertIn(required, notice)
 
+    def test_login_forms_fit_narrow_screens_through_a_supported_hook(self):
+        hooks = (ROOT / 'moodle/local/orientation/db/hooks.php').read_text()
+        layout = (ROOT / 'moodle/local/orientation/classes/login_layout.php').read_text()
+        self.assertIn('before_standard_head_html_generation::class', hooks)
+        self.assertIn("$PAGE->pagelayout === 'login'", layout)
+        self.assertIn('.pagelayout-login .login-container{width:100%;max-width:min(100%,500px);min-width:0}', layout)
+
     def test_old_recovery_links_reach_the_native_form(self):
         caddy = (ROOT / 'deploy/Caddyfile').read_text()
         self.assertIn('@oldrecovery path /recovery /recovery.html', caddy)

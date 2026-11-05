@@ -2,5 +2,6 @@
 $callbacks = [
     ['hook' => \core\hook\navigation\primary_extend::class, 'callback' => [\local_orientation\navigation::class, 'primary']],
     ['hook' => \core_user\hook\extend_default_homepage::class, 'callback' => [\local_orientation\navigation::class, 'homepage']],
+    ['hook' => \core\hook\output\before_standard_head_html_generation::class, 'callback' => [\local_orientation\login_layout::class, 'head']],
     ['hook' => \core\hook\output\before_standard_top_of_body_html_generation::class, 'callback' => [\local_orientation\startingpoint::class, 'attempt_navigation']],
 ];
