@@ -1,0 +1,40 @@
+{
+  "rationale": "Learn to team with AI: choose a useful task, give context, check the result and keep what helps.",
+  "introduction": "Practise communicating what you need, giving useful background, checking results and keeping useful work. Leave with a reviewed context portfolio and a meaningful next goal. This orientation is useful on its own and prepares the ground for a broader human–AI education programme.",
+  "objectives": [
+    "Choose a worthwhile task and decide what a useful result would look like.",
+    "Explain your intention, notice a misunderstanding and clarify it.",
+    "Choose relevant context, leave out unnecessary private details and check what the AI actually received.",
+    "Check a result against your purpose and decide what to keep, correct or reject.",
+    "Save, find and selectively reuse reviewed context in another conversation.",
+    "Identify your own next learning need and choose a manageable next step."
+  ],
+  "email_paragraphs": [
+    "Welcome to Human AI Orientation.",
+    "Learn to team with AI: choose a useful task, give context, check the result and keep what helps. You will build a small context portfolio you can review and reuse.",
+    "Your course journey is your home base. Choose an activity or continue where you left off. If you are unsure where to begin, try a useful task; files and notes preparation is optional. Allow roughly 70–95 minutes, split into sessions that suit you.",
+    "When signed in, choose Save to My context to keep your documents in your course account. Open My context to edit or copy them later. Progress and submitted reflections are saved separately. Editing alone keeps a temporary tab draft; keep public reading work in your own notes or backup.",
+    "Use your own AI: a free tool is enough, and fictional examples are available. Share or paste only the relevant reviewed text. Saving in Moodle does not give your AI automatic access.",
+    "Need a hand? Open Help for account recovery and ways to contact Finlay. Keep passwords, confirmation links and private portfolio contents out of support messages.",
+    "This orientation stands on its own and prepares the ground for a broader human–AI education programme.",
+    "Finlay"
+  ],
+  "links": {
+    "journey": {
+      "label": "Open your course journey",
+      "path": "/local/orientation/index.php"
+    },
+    "context": {
+      "label": "Open My context",
+      "path": "/local/orientation/workspace.php"
+    },
+    "help": {
+      "label": "Help and account recovery",
+      "path": "/help"
+    },
+    "ai": {
+      "label": "Guide for your AI",
+      "path": "/ai/"
+    }
+  }
+}

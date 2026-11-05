@@ -1,0 +1,38 @@
+[
+  {
+    "prompt_id": "MD-PIN-v1",
+    "path": "prompts/MD-PIN.txt",
+    "sha256": "285520315b15ddf3aac21d0ded20406d2ad091efe58167de402401b845acaee2",
+    "bytes": 533
+  },
+  {
+    "prompt_id": "MD-NOW-v1",
+    "path": "prompts/MD-NOW.txt",
+    "sha256": "88e2ff645fc792ed6784c93e0cb781583edb163dd68e330d54036a8ea523a20d",
+    "bytes": 511
+  },
+  {
+    "prompt_id": "HTML-v1",
+    "path": "prompts/HTML.txt",
+    "sha256": "68f2c394cdf8c36f98acb19f79144a030efccecf96f5bb5bb33f0435cc4a03ff",
+    "bytes": 501
+  },
+  {
+    "prompt_id": "PASTE-v1",
+    "path": "prompts/PASTE.txt",
+    "sha256": "8d44721562233579177c058276e19f42c3b14b4074227a96b63734892d842cce",
+    "bytes": 7375
+  },
+  {
+    "prompt_id": "FACILITATE-1-v1",
+    "path": "prompts/FACILITATE-1.txt",
+    "sha256": "91479aee4f1f3f6a4b0161610ed6fc40dd1059ad3ffd929d256df503ff6410b9",
+    "bytes": 255
+  },
+  {
+    "prompt_id": "FACILITATE-2-v1",
+    "path": "prompts/FACILITATE-2.txt",
+    "sha256": "7dabf3e4bf15e942c8caec05b816e9ba79b8d295600b6c325997e4f0c4e166da",
+    "bytes": 334
+  }
+]

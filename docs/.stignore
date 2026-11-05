@@ -1,0 +1,14 @@
+// Local Syncthing rules: install these on every device before initial sync.
+// .stignore itself is never transferred by Syncthing.
+(?i)/private
+(?i).obsidian
+(?i).git
+(?i).DS_Store
+(?i).Trash
+(?i).trash
+(?i).env
+(?i).env.*
+(?i)*.pem
+(?i)*.key
+// Existing trial screenshots are ignored by Git and have not been reviewed for sharing.
+(?i)/trial/*.png

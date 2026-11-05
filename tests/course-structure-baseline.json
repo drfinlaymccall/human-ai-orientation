@@ -1,0 +1,51 @@
+{
+  "source_commit": "67d02e482145fe17c98ce4473242f598d374ec90",
+  "activities": [
+    {
+      "slug": "first-task",
+      "idnumber": "orientation:first-task",
+      "module_type": "page",
+      "public_url": "/first-task",
+      "baseline": true,
+      "optional": false
+    },
+    {
+      "slug": "useful-context",
+      "idnumber": "orientation:useful-context",
+      "module_type": "lesson",
+      "public_url": "/preview",
+      "baseline": true,
+      "optional": false
+    },
+    {
+      "slug": "portfolio",
+      "idnumber": "orientation:portfolio",
+      "module_type": "page",
+      "public_url": "/portfolio",
+      "baseline": false,
+      "optional": false
+    },
+    {
+      "slug": "check-and-continue",
+      "idnumber": "orientation:check-and-continue",
+      "module_type": "page",
+      "public_url": "/check-and-continue",
+      "baseline": true,
+      "optional": false
+    },
+    {
+      "slug": "before-you-start",
+      "idnumber": "orientation:before-you-start",
+      "module_type": "page",
+      "public_url": "/before-you-start",
+      "baseline": false,
+      "optional": true
+    }
+  ],
+  "baseline_slugs": [
+    "first-task",
+    "useful-context",
+    "check-and-continue"
+  ],
+  "baseline_version": 1
+}

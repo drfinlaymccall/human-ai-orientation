@@ -1,0 +1,18 @@
+{
+  "version": "starting-point-v1",
+  "rule_version": "starting-point-v1",
+  "title": "Find my starting point",
+  "statements": [
+    {"id":"SP1","text":"Choose a useful AI task and say what a good result would look like.","activity":"first-task"},
+    {"id":"SP2","text":"Give AI a clear instruction and clarify it when the response misses my meaning.","activity":"useful-context"},
+    {"id":"SP3","text":"Choose helpful background and leave out unnecessary or private details.","activity":"useful-context"},
+    {"id":"SP4","text":"Check an AI result and decide what to use, change or reject.","activity":"check-and-continue"},
+    {"id":"SP5","text":"Save useful context, find it again and adapt it for another task.","activity":"portfolio"},
+    {"id":"SP6","text":"Choose my next practice goal and a small step to work on it.","activity":"check-and-continue"}
+  ],
+  "dimensions": {
+    "understanding": {"label":"I understand this","anchors":["New to me","I recognise it but need an explanation","I understand the main idea","I can explain when to use it","I can explain its limits and apply the idea elsewhere"]},
+    "cando": {"label":"I can do this","anchors":["I have not tried this","I need step-by-step help","I can do parts with help","I can do it in a familiar task","I can adapt it to a new task"]}
+  },
+  "unknown_choices": [{"code":"unsure","label":"Not sure"},{"code":"skip","label":"Skip this rating"}]
+}

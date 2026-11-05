@@ -7,7 +7,7 @@ import argparse
 from urllib.parse import urlsplit
 
 PUBLIC = Path(__file__).resolve().parents[1] / 'public'
-ROUTES = {'preview', 'before-you-start', 'notes', 'free-tools', 'deeper-courses', 'journey', 'first-task', 'portfolio', 'check-and-continue', 'help', 'privacy'}
+ROUTES = {'catalogue', 'desktop-workspace', 'course-introduction', 'preview', 'before-you-start', 'notes', 'free-tools', 'deeper-courses', 'journey', 'first-task', 'portfolio', 'check-and-continue', 'help', 'privacy'}
 
 
 class CourseHandler(SimpleHTTPRequestHandler):

@@ -1,0 +1,81 @@
+record_id,provider,access_condition,case_id,repeat,run_state,entry_url,expected_edition,prerequisite
+chatgpt-anonymous-md-pin-1,ChatGPT,anonymous,MD-PIN,1,not_tested,https://chatgpt.com/,2026-10-13.3,Observe anonymous entry at run time
+chatgpt-anonymous-md-pin-2,ChatGPT,anonymous,MD-PIN,2,not_tested,https://chatgpt.com/,2026-10-13.3,Observe anonymous entry at run time
+chatgpt-anonymous-md-now-1,ChatGPT,anonymous,MD-NOW,1,not_tested,https://chatgpt.com/,capture_at_run,Observe anonymous entry at run time
+chatgpt-anonymous-md-now-2,ChatGPT,anonymous,MD-NOW,2,not_tested,https://chatgpt.com/,capture_at_run,Observe anonymous entry at run time
+chatgpt-anonymous-html-1,ChatGPT,anonymous,HTML,1,not_tested,https://chatgpt.com/,capture_at_run,Observe anonymous entry at run time
+chatgpt-anonymous-html-2,ChatGPT,anonymous,HTML,2,not_tested,https://chatgpt.com/,capture_at_run,Observe anonymous entry at run time
+chatgpt-anonymous-paste-1,ChatGPT,anonymous,PASTE,1,not_tested,https://chatgpt.com/,2026-10-13.3,Observe anonymous entry at run time
+chatgpt-anonymous-paste-2,ChatGPT,anonymous,PASTE,2,not_tested,https://chatgpt.com/,2026-10-13.3,Observe anonymous entry at run time
+chatgpt-signed_in_free-md-pin-1,ChatGPT,signed_in_free,MD-PIN,1,not_tested,https://chatgpt.com/,2026-10-13.3,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-md-pin-2,ChatGPT,signed_in_free,MD-PIN,2,not_tested,https://chatgpt.com/,2026-10-13.3,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-md-now-1,ChatGPT,signed_in_free,MD-NOW,1,not_tested,https://chatgpt.com/,capture_at_run,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-md-now-2,ChatGPT,signed_in_free,MD-NOW,2,not_tested,https://chatgpt.com/,capture_at_run,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-html-1,ChatGPT,signed_in_free,HTML,1,not_tested,https://chatgpt.com/,capture_at_run,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-html-2,ChatGPT,signed_in_free,HTML,2,not_tested,https://chatgpt.com/,capture_at_run,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-paste-1,ChatGPT,signed_in_free,PASTE,1,not_tested,https://chatgpt.com/,2026-10-13.3,Owner-operated existing eligible Free account
+chatgpt-signed_in_free-paste-2,ChatGPT,signed_in_free,PASTE,2,not_tested,https://chatgpt.com/,2026-10-13.3,Owner-operated existing eligible Free account
+gemini-anonymous-md-pin-1,Gemini,anonymous,MD-PIN,1,not_tested,https://gemini.google.com/,2026-10-13.3,Observe anonymous entry at run time
+gemini-anonymous-md-pin-2,Gemini,anonymous,MD-PIN,2,not_tested,https://gemini.google.com/,2026-10-13.3,Observe anonymous entry at run time
+gemini-anonymous-md-now-1,Gemini,anonymous,MD-NOW,1,not_tested,https://gemini.google.com/,capture_at_run,Observe anonymous entry at run time
+gemini-anonymous-md-now-2,Gemini,anonymous,MD-NOW,2,not_tested,https://gemini.google.com/,capture_at_run,Observe anonymous entry at run time
+gemini-anonymous-html-1,Gemini,anonymous,HTML,1,not_tested,https://gemini.google.com/,capture_at_run,Observe anonymous entry at run time
+gemini-anonymous-html-2,Gemini,anonymous,HTML,2,not_tested,https://gemini.google.com/,capture_at_run,Observe anonymous entry at run time
+gemini-anonymous-paste-1,Gemini,anonymous,PASTE,1,not_tested,https://gemini.google.com/,2026-10-13.3,Observe anonymous entry at run time
+gemini-anonymous-paste-2,Gemini,anonymous,PASTE,2,not_tested,https://gemini.google.com/,2026-10-13.3,Observe anonymous entry at run time
+gemini-signed_in_free-md-pin-1,Gemini,signed_in_free,MD-PIN,1,not_tested,https://gemini.google.com/,2026-10-13.3,Owner-operated existing eligible Free account
+gemini-signed_in_free-md-pin-2,Gemini,signed_in_free,MD-PIN,2,not_tested,https://gemini.google.com/,2026-10-13.3,Owner-operated existing eligible Free account
+gemini-signed_in_free-md-now-1,Gemini,signed_in_free,MD-NOW,1,not_tested,https://gemini.google.com/,capture_at_run,Owner-operated existing eligible Free account
+gemini-signed_in_free-md-now-2,Gemini,signed_in_free,MD-NOW,2,not_tested,https://gemini.google.com/,capture_at_run,Owner-operated existing eligible Free account
+gemini-signed_in_free-html-1,Gemini,signed_in_free,HTML,1,not_tested,https://gemini.google.com/,capture_at_run,Owner-operated existing eligible Free account
+gemini-signed_in_free-html-2,Gemini,signed_in_free,HTML,2,not_tested,https://gemini.google.com/,capture_at_run,Owner-operated existing eligible Free account
+gemini-signed_in_free-paste-1,Gemini,signed_in_free,PASTE,1,not_tested,https://gemini.google.com/,2026-10-13.3,Owner-operated existing eligible Free account
+gemini-signed_in_free-paste-2,Gemini,signed_in_free,PASTE,2,not_tested,https://gemini.google.com/,2026-10-13.3,Owner-operated existing eligible Free account
+claude-anonymous-md-pin-1,Claude,anonymous,MD-PIN,1,not_tested,https://claude.ai/,2026-10-13.3,Observe anonymous entry at run time
+claude-anonymous-md-pin-2,Claude,anonymous,MD-PIN,2,not_tested,https://claude.ai/,2026-10-13.3,Observe anonymous entry at run time
+claude-anonymous-md-now-1,Claude,anonymous,MD-NOW,1,not_tested,https://claude.ai/,capture_at_run,Observe anonymous entry at run time
+claude-anonymous-md-now-2,Claude,anonymous,MD-NOW,2,not_tested,https://claude.ai/,capture_at_run,Observe anonymous entry at run time
+claude-anonymous-html-1,Claude,anonymous,HTML,1,not_tested,https://claude.ai/,capture_at_run,Observe anonymous entry at run time
+claude-anonymous-html-2,Claude,anonymous,HTML,2,not_tested,https://claude.ai/,capture_at_run,Observe anonymous entry at run time
+claude-anonymous-paste-1,Claude,anonymous,PASTE,1,not_tested,https://claude.ai/,2026-10-13.3,Observe anonymous entry at run time
+claude-anonymous-paste-2,Claude,anonymous,PASTE,2,not_tested,https://claude.ai/,2026-10-13.3,Observe anonymous entry at run time
+claude-signed_in_free-md-pin-1,Claude,signed_in_free,MD-PIN,1,not_tested,https://claude.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+claude-signed_in_free-md-pin-2,Claude,signed_in_free,MD-PIN,2,not_tested,https://claude.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+claude-signed_in_free-md-now-1,Claude,signed_in_free,MD-NOW,1,not_tested,https://claude.ai/,capture_at_run,Owner-operated existing eligible Free account
+claude-signed_in_free-md-now-2,Claude,signed_in_free,MD-NOW,2,not_tested,https://claude.ai/,capture_at_run,Owner-operated existing eligible Free account
+claude-signed_in_free-html-1,Claude,signed_in_free,HTML,1,not_tested,https://claude.ai/,capture_at_run,Owner-operated existing eligible Free account
+claude-signed_in_free-html-2,Claude,signed_in_free,HTML,2,not_tested,https://claude.ai/,capture_at_run,Owner-operated existing eligible Free account
+claude-signed_in_free-paste-1,Claude,signed_in_free,PASTE,1,not_tested,https://claude.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+claude-signed_in_free-paste-2,Claude,signed_in_free,PASTE,2,not_tested,https://claude.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+grok-anonymous-md-pin-1,Grok,anonymous,MD-PIN,1,not_tested,https://grok.com/,2026-10-13.3,Observe anonymous entry at run time
+grok-anonymous-md-pin-2,Grok,anonymous,MD-PIN,2,not_tested,https://grok.com/,2026-10-13.3,Observe anonymous entry at run time
+grok-anonymous-md-now-1,Grok,anonymous,MD-NOW,1,not_tested,https://grok.com/,capture_at_run,Observe anonymous entry at run time
+grok-anonymous-md-now-2,Grok,anonymous,MD-NOW,2,not_tested,https://grok.com/,capture_at_run,Observe anonymous entry at run time
+grok-anonymous-html-1,Grok,anonymous,HTML,1,not_tested,https://grok.com/,capture_at_run,Observe anonymous entry at run time
+grok-anonymous-html-2,Grok,anonymous,HTML,2,not_tested,https://grok.com/,capture_at_run,Observe anonymous entry at run time
+grok-anonymous-paste-1,Grok,anonymous,PASTE,1,not_tested,https://grok.com/,2026-10-13.3,Observe anonymous entry at run time
+grok-anonymous-paste-2,Grok,anonymous,PASTE,2,not_tested,https://grok.com/,2026-10-13.3,Observe anonymous entry at run time
+grok-signed_in_free-md-pin-1,Grok,signed_in_free,MD-PIN,1,not_tested,https://grok.com/,2026-10-13.3,Owner-operated existing eligible Free account
+grok-signed_in_free-md-pin-2,Grok,signed_in_free,MD-PIN,2,not_tested,https://grok.com/,2026-10-13.3,Owner-operated existing eligible Free account
+grok-signed_in_free-md-now-1,Grok,signed_in_free,MD-NOW,1,not_tested,https://grok.com/,capture_at_run,Owner-operated existing eligible Free account
+grok-signed_in_free-md-now-2,Grok,signed_in_free,MD-NOW,2,not_tested,https://grok.com/,capture_at_run,Owner-operated existing eligible Free account
+grok-signed_in_free-html-1,Grok,signed_in_free,HTML,1,not_tested,https://grok.com/,capture_at_run,Owner-operated existing eligible Free account
+grok-signed_in_free-html-2,Grok,signed_in_free,HTML,2,not_tested,https://grok.com/,capture_at_run,Owner-operated existing eligible Free account
+grok-signed_in_free-paste-1,Grok,signed_in_free,PASTE,1,not_tested,https://grok.com/,2026-10-13.3,Owner-operated existing eligible Free account
+grok-signed_in_free-paste-2,Grok,signed_in_free,PASTE,2,not_tested,https://grok.com/,2026-10-13.3,Owner-operated existing eligible Free account
+meta-ai-anonymous-md-pin-1,Meta AI,anonymous,MD-PIN,1,not_tested,https://www.meta.ai/,2026-10-13.3,Observe anonymous entry at run time
+meta-ai-anonymous-md-pin-2,Meta AI,anonymous,MD-PIN,2,not_tested,https://www.meta.ai/,2026-10-13.3,Observe anonymous entry at run time
+meta-ai-anonymous-md-now-1,Meta AI,anonymous,MD-NOW,1,not_tested,https://www.meta.ai/,capture_at_run,Observe anonymous entry at run time
+meta-ai-anonymous-md-now-2,Meta AI,anonymous,MD-NOW,2,not_tested,https://www.meta.ai/,capture_at_run,Observe anonymous entry at run time
+meta-ai-anonymous-html-1,Meta AI,anonymous,HTML,1,not_tested,https://www.meta.ai/,capture_at_run,Observe anonymous entry at run time
+meta-ai-anonymous-html-2,Meta AI,anonymous,HTML,2,not_tested,https://www.meta.ai/,capture_at_run,Observe anonymous entry at run time
+meta-ai-anonymous-paste-1,Meta AI,anonymous,PASTE,1,not_tested,https://www.meta.ai/,2026-10-13.3,Observe anonymous entry at run time
+meta-ai-anonymous-paste-2,Meta AI,anonymous,PASTE,2,not_tested,https://www.meta.ai/,2026-10-13.3,Observe anonymous entry at run time
+meta-ai-signed_in_free-md-pin-1,Meta AI,signed_in_free,MD-PIN,1,not_tested,https://www.meta.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-md-pin-2,Meta AI,signed_in_free,MD-PIN,2,not_tested,https://www.meta.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-md-now-1,Meta AI,signed_in_free,MD-NOW,1,not_tested,https://www.meta.ai/,capture_at_run,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-md-now-2,Meta AI,signed_in_free,MD-NOW,2,not_tested,https://www.meta.ai/,capture_at_run,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-html-1,Meta AI,signed_in_free,HTML,1,not_tested,https://www.meta.ai/,capture_at_run,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-html-2,Meta AI,signed_in_free,HTML,2,not_tested,https://www.meta.ai/,capture_at_run,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-paste-1,Meta AI,signed_in_free,PASTE,1,not_tested,https://www.meta.ai/,2026-10-13.3,Owner-operated existing eligible Free account
+meta-ai-signed_in_free-paste-2,Meta AI,signed_in_free,PASTE,2,not_tested,https://www.meta.ai/,2026-10-13.3,Owner-operated existing eligible Free account

@@ -15,3 +15,11 @@ test-results/
 __pycache__/
 playwright-report/
 docs/trial/*.png
+
+# Local docs-vault metadata. Keep conflict copies visible for reconciliation.
+/docs/.stfolder/
+/docs/.stversions/
+/docs/.obsidian/
+/docs/.DS_Store
+# Private device and network details for the Mac vault.
+/docs/operations/mac-docs-vault.md

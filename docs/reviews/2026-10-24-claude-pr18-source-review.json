@@ -1,0 +1,80 @@
+{
+  "repo": "drfinlaymccall/human-ai-orientation",
+  "pr": 18,
+  "base": "6c0032890c9e5f4b42caa1a0cdab33df82a3c591",
+  "head": "c658603a189ae34df6b24d23717469e8a08aeb66",
+  "cli_version": "2.1.293",
+  "bundle_sha256": "1e566048ed7c4852be9d7f82bcdaad547d1425c54ea4306edde0b84b975b9ca5",
+  "status": "completed",
+  "model": "claude-sonnet-5-5",
+  "verdict": "no_findings",
+  "reviewed_files": [
+    "CONTROL.md",
+    "docs/curriculum/finlays-tips.md",
+    "docs/design-brief.md",
+    "public/assets/finlay-tips.css",
+    "public/preview.html",
+    "scripts/build-brief.py",
+    "tests/finlay-tips.spec.cjs"
+  ],
+  "findings": [],
+  "caveats": [
+    "Managed policy hooks/settings remain outside flag exclusion; trusted administrative policy not independently audited. Budget is estimated and can overshoot; subscription quota not known. No forced model; actual startup model must be recorded.",
+    "Source review only: no tests or browsers were run, so CSS :has()/:not() behavior, Moodle editor behavior and the live deployment were not verified.",
+    "Native Moodle essay rendering (the answer_editor[text] field name and its enabled state under the rich editor) is inferred from the supplied code and documentation, not from Moodle internals, which were not supplied.",
+    "Visibility of the enhanced builder controls, which depends on other course CSS and JS, was not supplied; this review assumes the author-reported checks for those controls are accurate.",
+    "The native lesson source for the reflection page keeps its panel, which matches the stated intent. Only the public preview omits it.",
+    "No findings does not prove correctness."
+  ],
+  "runtime_checks": {
+    "tools_empty": true,
+    "mcp_servers_empty": true,
+    "plugins_empty": false,
+    "loaded_builtin_plugins": [
+      "cc-plugin-agents-md",
+      "cc-plugin-plugin-authoring"
+    ],
+    "no_observed_hook_or_tool_events": true,
+    "local_schema_valid": true,
+    "skills_empty": true,
+    "slash_commands_empty": true,
+    "agents_empty": false,
+    "hook_events_requested": true,
+    "only_exact_disclosed_builtin_plugins": true
+  },
+  "source_coverage": {
+    "changed_file_patches_supplied": 7,
+    "exact_head_full_context_files_supplied": [
+      "public/assets/finlay-tips.css",
+      "scripts/build-brief.py",
+      "tests/finlay-tips.spec.cjs",
+      "scripts/course_tips.py",
+      "public/assets/finlay-tips.js",
+      "content/finlay-tips.html",
+      "docs/curriculum/finlays-tips.md",
+      "AGENTS.md",
+      "CONTRIBUTING.md"
+    ],
+    "generated_outputs_supplied_once_in_diff": [
+      "public/preview.html"
+    ],
+    "additional_exact_source_value": "content/useful-context.json /pages/6/html",
+    "bundle_bytes": 70978,
+    "scope_limit": "Other enhanced builder CSS/JS and Moodle core editor internals were not supplied; no browser or functional verification performed."
+  },
+  "refs_checked_before_and_after": "PR18 open/unmerged at the recorded exact base/head both before and after inference.",
+  "merge_approval": false,
+  "date": "2026-10-24",
+  "source_review_only": true,
+  "usage_summary": {
+    "elapsed_seconds": 14.35,
+    "estimated_list_cost_usd": 0.132,
+    "cost_basis": "reported list estimate; not subscription billing"
+  },
+  "merge_base": "6c0032890c9e5f4b42caa1a0cdab33df82a3c591",
+  "base_branch": "feat/public-launch",
+  "head_branch": "fix/preview-reflection-tips",
+  "reviewer": "Claude CLI (claude-sonnet-5-5)",
+  "operator": "Codex integrating agent",
+  "metadata_verification": "After inference, GitHub compare confirmed merge-base equals the recorded base; current PR base/head and branches matched the reviewed refs."
+}

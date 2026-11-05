@@ -2,8 +2,8 @@
 // Seed original lesson content using Moodle's native course/module APIs. Never overwrite learner attempts.
 define('CLI_SCRIPT', true);
 $root = dirname(__DIR__);
-require $root . '/trial/moodle/config.php';
-if ($CFG->wwwroot !== 'http://127.0.0.1:8787') {
+require __DIR__ . '/moodle-environment.php';
+if (!in_array($CFG->wwwroot, ['http://127.0.0.1:8787', 'http://127.0.0.1:18802', 'http://127.0.0.1:18842'], true)) {
     throw new RuntimeException('This seeds the private trial only. Do not replace public account settings.');
 }
 require_once $CFG->dirroot . '/course/lib.php';
@@ -120,5 +120,5 @@ $manifest = ['course_id' => $course->id, 'lesson_cmid' => (int)$cmid,
     'course_url' => $CFG->wwwroot . '/course/view.php?id=' . $course->id,
     'lesson_url' => $CFG->wwwroot . '/mod/lesson/view.php?id=' . $cmid];
 $manifestjson = json_encode($manifest, JSON_PRETTY_PRINT);
-file_put_contents($root . '/trial/course.json', $manifestjson);
+file_put_contents($orientationtrial . '/course.json', $manifestjson);
 echo $manifestjson . "\n";

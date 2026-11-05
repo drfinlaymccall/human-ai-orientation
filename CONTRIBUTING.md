@@ -10,8 +10,22 @@ Original educational materials and design documentation are CC BY 4.0; software 
 
 Before integrating third-party teaching material, record the exact asset's rights and changes in the relevant research ledger and carry its attribution/licence through every published format. For Day of AI, follow the [integration requirements](LICENSE-CONTENT.md#day-of-ai-materials--integration-requirements): covered adaptations retain CC BY-NC-SA 4.0 conditions, with separate checks for partner assets and intended use. Include the rights record and learner-visible credit location in the integration PR; the project's CC BY notice must not overwrite a third-party licence.
 
+## Learner-page relevance check
+
+For every learner-facing page created or revised, check each paragraph, example, link and notice against the current task: does it directly help the learner understand why it matters, do it or judge the result? Keep the course-rationale connection to one or two useful sentences. Move supporting research, product-licensing commentary, maintenance guidance and author verification dates to development/research records when they are not needed at this stage; preserve required attribution and licence notices. Record material removals and their retained reference location in the change's design record.
+
+Link cues belong only on text links within main-body paragraphs: a chain for links within this course, a globe for external websites. Menus, headings, buttons, activity cards and footer navigation use their existing affordances. Keep link names and destinations meaningful; decorative cues must work without JavaScript and add no text to accessible link names.
+
 ## Documentation travels with the change
+
+Use the approved **course -> unit -> module -> activity** hierarchy. The course catalogue lists units. Each unit has a syllabus and a journey; neither adds another nesting level. Keep labels and ordering separate from stable activity identities. Update the canonical course map and its public/native consumers together. Planned units must remain clearly labelled and must not add completion gates. See [course structure](docs/curriculum/course-structure.md).
 
 Every plan includes a documentation/status impact: which learner, author or operator guidance changes, what CONTROL.md must say, and what verification belongs in the PR or release record. If none changes, explain why. Make those updates in the same PR; a routine documentation update does not need a separate issue. Reuse an existing issue for the need and create a documentation issue only for a standalone task or deferred debt.
 
 CONTROL.md owns current priorities and dates; the design brief owns requirements and rationale; the README and case study explain the delivered product; dated release records retain what was checked at that time. Update current guidance rather than silently rewriting historical evidence. Close issues only after linking the delivered acceptance evidence, and explicitly retain any unfinished scope.
+
+## Claude review and delegated work
+
+Use a named work block from the [canonical HOC plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md), with issue, dependency, source/test/docs boundary and actual validation in the handoff. Keep shared builders/generated output, plugin registrations, live publication and final tracker updates with one integrator; coordinate mutable fixtures and overlapping files.
+
+Every PR needs an independent [Claude CLI source review](docs/operations/claude-pr-review.md) before merge, tied to current base/merge-base/head and complete covered scope. Resolve findings, test fixes and re-review changed candidates. Unavailable, incomplete or stale review leaves the PR unmerged. Attach redacted SHA/scope/model/result/triage evidence to the PR instead of committing a self-invalidating receipt. The rule is procedural until a trusted required check and GitHub protection are verified; CLI source review does not establish runtime behaviour or learning outcomes.

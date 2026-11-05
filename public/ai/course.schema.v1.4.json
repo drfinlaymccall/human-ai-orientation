@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orientation.finlaymccall.com/ai/course.schema.v1.4.json",
+  "title": "Human AI Orientation public context manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "id",
+    "title",
+    "context_version",
+    "updated",
+    "status",
+    "authentication_required",
+    "context_url",
+    "latest_context_url",
+    "human_guide_url",
+    "learner_lesson_url",
+    "saved_progress_url",
+    "github_url",
+    "content_license",
+    "license_scope_url",
+    "github_status",
+    "ai_browsing_required",
+    "fallback",
+    "learning_outcomes",
+    "steps",
+    "saved_progress_authentication_required",
+    "progress_description",
+    "baseline_version",
+    "baseline_slugs",
+    "activities",
+    "units",
+    "starting_point"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.4"
+    },
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "context_version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "authentication_required": {
+      "const": false
+    },
+    "context_url": {
+      "type": "string"
+    },
+    "latest_context_url": {
+      "type": "string"
+    },
+    "human_guide_url": {
+      "type": "string"
+    },
+    "learner_lesson_url": {
+      "type": "string"
+    },
+    "saved_progress_url": {
+      "type": "string"
+    },
+    "github_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content_license": {
+      "type": "string"
+    },
+    "license_scope_url": {
+      "type": "string"
+    },
+    "github_status": {
+      "type": "string"
+    },
+    "ai_browsing_required": {
+      "type": "boolean"
+    },
+    "fallback": {
+      "type": "string"
+    },
+    "learning_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "guidance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "guidance": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "saved_progress_authentication_required": {
+      "const": true
+    },
+    "progress_description": {
+      "type": "string"
+    },
+    "baseline_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "baseline_slugs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "activities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slug",
+          "label",
+          "public_url",
+          "version",
+          "updated_at",
+          "outcomes",
+          "role",
+          "baseline",
+          "optional",
+          "support_links"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "public_url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "updated_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "enum": [
+              "core",
+              "portfolio-bridge",
+              "familiar-skills"
+            ]
+          },
+          "baseline": {
+            "type": "boolean"
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "outcomes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "support_links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label",
+                "url"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "starting_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "authentication_required",
+        "optional",
+        "statement_count",
+        "dimensions",
+        "rating_min",
+        "rating_max",
+        "unknown_options",
+        "purpose",
+        "availability"
+      ],
+      "properties": {
+        "url": {
+          "const": "https://orientation.finlaymccall.com/local/orientation/startingpoint.php"
+        },
+        "authentication_required": {
+          "const": true
+        },
+        "optional": {
+          "const": true
+        },
+        "statement_count": {
+          "const": 6
+        },
+        "dimensions": {
+          "const": [
+            "understanding",
+            "can_do"
+          ]
+        },
+        "rating_min": {
+          "const": 1
+        },
+        "rating_max": {
+          "const": 5
+        },
+        "unknown_options": {
+          "const": [
+            "Not sure",
+            "Skip"
+          ]
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

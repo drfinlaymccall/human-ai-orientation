@@ -32,7 +32,7 @@
   }
   function save() {
     try { sessionStorage.setItem(storageKey, JSON.stringify({ source, edited, values: keys.map(key => field(key).value) })); }
-    catch { root.querySelector('[data-try-storage]').textContent = 'Temporary storage is unavailable. Copy your work before leaving or reloading. These fields are not submitted to the course.'; }
+    catch { root.querySelector('[data-try-storage]').textContent = 'Temporary storage is unavailable. Copy your work before leaving, or choose Save to My context when signed in. Typing alone does not save it to Moodle.'; }
   }
   function importLatest() {
     const bundle = latest();
