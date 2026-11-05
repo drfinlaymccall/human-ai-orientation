@@ -47,6 +47,11 @@ class PublicIntegration(unittest.TestCase):
         for required in ('Finlay McCall', 'Australia', 'username, name and email', 'pseudonym', '18 or over', '/journey', '/privacy'):
             self.assertIn(required, notice)
 
+    def test_old_recovery_links_reach_the_native_form(self):
+        caddy = (ROOT / 'deploy/Caddyfile').read_text()
+        self.assertIn('@oldrecovery path /recovery /recovery.html', caddy)
+        self.assertIn('redir @oldrecovery /login/forgot_password.php 302', caddy)
+
     def test_privacy_policy_covers_the_australian_collection_notice(self):
         policy = (ROOT / 'public/privacy.html').read_text()
         for required in ('Privacy policy', 'Office of the Australian Information Commissioner', 'overseas', '30 days', 'Cloudflare', '<!--email_off-->'):

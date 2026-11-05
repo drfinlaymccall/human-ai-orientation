@@ -44,7 +44,7 @@ Finlay decided the following on 6 November:
 
 **Removed from learner pages and kept in research.** Author verification dates on the tool and course tables moved to [the free tools research record](../research/free-ai-tools.md). The ChatGPT 101 row was replaced by AI Foundations, because the old row was stale.
 
-**Removed as a route.** The static `public/recovery.html` was deleted. The `/recovery` route never reached it: that route opens Moodle sign-in, which has the native recovery link. `/help` also links to native recovery.
+**Removed as a route.** The static `public/recovery.html` was deleted, so learners have one recovery path. `/recovery` and `/recovery.html` now redirect to Moodle's own recovery form, and `/help` links to it too. This closes the earlier `/recovery` limit.
 
 **Access.** Skip links and main landmarks were added on `/preview` and `/ai/`. The `/privacy` table scrolls inside its own keyboard-reachable region. Support addresses are excluded from Cloudflare's email obfuscation, so they work without JavaScript. The long copy and paste guide on `/preview` is now behind a choice.
 

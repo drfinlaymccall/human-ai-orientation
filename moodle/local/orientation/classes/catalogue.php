@@ -19,6 +19,7 @@ class catalogue {
             $unitids[] = $unit['slug'];
             if (!in_array($unit['status'], ['active', 'planned'], true)) throw new \RuntimeException('Invalid unit status.');
             if ($unit['status'] === 'planned' && isset($unit['journey_url'])) throw new \RuntimeException('Planned unit has a journey.');
+            if (isset($unit['early_reading']) && !preg_match('#^/(?!/)#', $unit['early_reading']['url'])) throw new \RuntimeException('Early reading must be a local page.');
             foreach ($unit['modules'] as $module) {
                 $moduleids[] = $module['slug'];
                 if ($unit['status'] === 'planned' && $module['activities']) throw new \RuntimeException('Planned unit has activities.');

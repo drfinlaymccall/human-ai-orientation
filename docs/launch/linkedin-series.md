@@ -1,6 +1,6 @@
 # Human AI Orientation: LinkedIn release series
 
-Drafts for Finlay to review and publish; see the [release handoff](readiness.md). Nothing is scheduled or sent. Let **T0** be the public launch date after verified onboarding, operating review and the human pilot; these are proposed intervals, not promised dates. The complete V1 is available together. Each later post offers another entry point, not a locked release of that activity.
+Drafts for Finlay to review and publish; see the [release handoff](readiness.md). Nothing is scheduled or sent. Any post that invites learners to save to My context needs an account, so publish it only after Stage B or reword it for the public portfolio route. Let **T0** be the public launch date after verified onboarding, operating review and the human pilot; these are proposed intervals, not promised dates. The complete V1 is available together. Each later post offers another entry point, not a locked release of that activity.
 
 Before publishing, verify its public link, phone layout, share title/description and account wording. Do not claim certificates or measured learning gains. Keep feedback private unless the learner explicitly permits a particular quotation. The course is an orientation to useful AI work; advanced autonomous-agent operation is not a promised outcome.
 

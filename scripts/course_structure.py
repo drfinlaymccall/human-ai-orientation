@@ -16,7 +16,8 @@ def validate_structure(course):
         assert unit['status'] in ('active', 'planned')
         if unit['status'] == 'planned':
             assert 'journey_url' not in unit, 'Planned unit cannot have a journey'
-            assert unit.get('early_reading', {'url': '/'})['url'].startswith('/'), 'Early reading must be a local page'
+            reading = unit.get('early_reading', {'url': '/'})['url']
+            assert reading.startswith('/') and not reading.startswith('//'), 'Early reading must be a local page'
         for module in unit['modules']:
             modules.append(module['slug'])
             groups.append(module.get('native_group_slug', module['slug']))

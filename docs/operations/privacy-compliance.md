@@ -20,7 +20,7 @@ This maps the draft [privacy policy](../../public/privacy.html) and the sign-up 
 | APP 7 direct marketing | Policy: no marketing email without asking first | Campaigns remain disabled in `configure-onboarding.php`. |
 | APP 8 cross-border disclosure | Policy: Who else handles it | The policy discloses overseas handling. Provider terms are not reviewed here. |
 | APP 10 and 13 quality and correction | Policy: Getting a copy | |
-| APP 11 security and retention | Policy: How long we keep it | Inactive-account and support deletion are manual promises. |
+| APP 11 security and retention | Partly met. Policy: How long we keep it | No task deletes inactive accounts or support email. Finlay must run the annual review and log it, or the policy must change before Stage B. |
 | Notifiable Data Breaches scheme | Policy: breach commitment | No breach runbook exists yet. |
 
 ## Finlay must confirm before Stage B
@@ -29,7 +29,7 @@ Each item is a proposal Claude wrote into the draft. None is confirmed.
 
 1. **Whether the Privacy Act applies.** A small business under the $3 million turnover threshold may be exempt, and could opt in under section 6EA. The policy is written as though the APPs apply. Confirm the position, ideally with a lawyer.
 2. **Aged 18 or over for accounts.** This avoids the Children's Online Privacy Code question. The sign-up form states it but does not check age. Recheck the Code once registered, due by 10 December 2026.
-3. **Retention periods.** 24 months for inactive accounts and support email, annual review. These create manual work that no task performs.
+3. **Retention periods.** 24 months for inactive accounts and support email, annual review. These create manual work that no task performs. Finlay owns this work. Confirm you will do it, or change the promise.
 4. **Server location.** The policy says network records place the server in New South Wales. Confirm in the Contabo account.
 5. **AI services for support drafting.** The policy names Anthropic and OpenAI. Confirm or correct.
 6. **30-day replies.** Access, correction and complaint replies within 30 days.

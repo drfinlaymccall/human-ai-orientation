@@ -104,7 +104,7 @@ Role: core | Baseline practice: true | Optional: false
 Public activity: https://orientation.finlaymccall.com/before-you-start
 Activity: before-you-start | Version: 1.1.0 | Updated: 2026-11-06
 Role: familiar-skills | Baseline practice: false | Optional: true
-- A file you can find again and a clear way to share its contents.
+- A practice file you can find and reopen, and a clear way to share its contents.
 Supporting guide: Set up your notes — https://orientation.finlaymccall.com/notes
 
 ### Desktop AI workspace

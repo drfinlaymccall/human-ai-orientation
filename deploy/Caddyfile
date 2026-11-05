@@ -22,6 +22,9 @@
 		respond "Not found" 404
 	}
 	redir /ai /ai/ 308
+	# The static recovery page is gone. Old links go to Moodle's own recovery form.
+	@oldrecovery path /recovery /recovery.html
+	redir @oldrecovery /login/forgot_password.php 302
 	@aiPublic path /ai/ /ai/context.md /ai/course.json /ai/course.schema.json /ai/course.schema.v1.1.json /ai/course.schema.v1.2.json /ai/course.schema.v1.3.json /ai/course.schema.v1.4.json /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md
 	handle @aiPublic {
 		root * /home/finlay/apps/human-ai-orientation/public

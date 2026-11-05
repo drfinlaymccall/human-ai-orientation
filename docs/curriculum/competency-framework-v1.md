@@ -210,7 +210,7 @@ The main atlas opens activity details with plain-language practice outcomes. A l
 
 ## Self-assessment and evidence
 
-**23 October entry-check decision:** Finlay chose six broad statements, each with separate **I understand this** and **I can do this** ratings from 1–5, plus uncertainty/skip. The [forward plan's instrument/rule contract](../plans/2026-10-23-002-feat-public-launch-plan.md#starting-point-instrument-and-recommendation-contract) supplies the implementation draft and versioning. This bounded optional native Moodle check is active U8 work; it is not yet delivered and does not assess all 18 bank competencies. Its ratings are self-report, separate from completed practice or demonstrated capability. The six-statement count and paired format are settled; wording/anchors remain subject to presentation review.
+**23 October entry-check decision:** Finlay chose six broad statements, each with separate **I understand this** and **I can do this** ratings from 1–5, plus uncertainty/skip. The [forward plan's instrument/rule contract](../plans/2026-10-23-002-feat-public-launch-plan.md#starting-point-instrument-and-recommendation-contract) supplies the implementation draft and versioning. This bounded optional native Moodle check does not assess all 18 bank competencies. Its delivery state is at the top of this document. Its ratings are self-report, separate from completed practice or demonstrated capability. The six-statement count and paired format are settled; wording/anchors remain subject to presentation review.
 
 The following older task-evidence response proposal remains a draft for richer later tracking; it does **not** define the new entry-check scale or reinterpret its numeric values:
 
@@ -240,7 +240,7 @@ Shared heading: **What would you like to do with AI?**
 
 Shared introduction: **Choose an activity to explore. See what you'll do, what you'll keep and what you can practise. You can return to any activity.**
 
-Places use the five activity labels from the opening table. Each opens the activity detail described there, followed by an **Open this activity** link. The atlas is implemented; the 23 October review plans nearby details and a personal progress overlay. **Find my starting point** is now active U8 work; a full **My skills** view remains later. Until the check is implemented and verified, prototype-only controls must be labelled as demonstrations rather than appearing to save live ratings.
+Places use the five activity labels from the opening table. Each opens the activity detail described there, followed by an **Open this activity** link. The atlas is implemented; the 23 October review plans nearby details and a personal progress overlay. **Find my starting point** is built, and its wording review is open; a full **My skills** view remains later. Until the check is implemented and verified, prototype-only controls must be labelled as demonstrations rather than appearing to save live ratings.
 
 ### A. The orientation atlas — recommended first visual prototype
 
