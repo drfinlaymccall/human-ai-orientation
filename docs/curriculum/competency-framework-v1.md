@@ -4,6 +4,8 @@ Date: 23 October 2026 (Australia/Sydney). Revision: **V1.2 — activity-led lear
 
 **Accepted direction:** Finlay approved the activity-led atlas preview and requested its inclusion in **HOC Forward plan**. The [canonical launch plan](../plans/2026-10-23-002-feat-public-launch-plan.md#accepted-atlas-presentation-and-implementation-reference) now schedules this navigation in U1/U3; detailed competency wording/assessment and saved personal tracking remain separate work. The [preview's inline source](../prototypes/orientation-activity-atlas.html) is preserved for implementation reference. This acceptance does not claim production deployment or validated assessment.
 
+**Delivery state — 6 November:** the six-pair `starting-point-v1` check is built and visible on the owner preview. Finlay has not yet accepted its wording. Older sentences below that call it “active” or “not yet delivered” describe earlier dates.
+
 ## Start here: what the learner sees
 
 **Bounded entry-check implementation:** the preview now implements U8's six plain-language statements, each with separate understanding/can-do 1–5 self-ratings, Not sure, Skip and unanswered responses. The current source is [`content/starting-point.json`](../../content/starting-point.json); [operator guidance](../operations/starting-point.md) explains immutable versions, native attempts and the exposure gate. This samples the six areas rather than assessing every bank competency. It does not validate the scale or deliver the later personal skills/evidence map. New saved-rating wording still needs Finlay's review before pilot/public exposure.
@@ -16,26 +18,26 @@ Proposed introduction: **Choose an activity to explore. See what you'll do, what
 
 | Label on the learner's atlas | What happens there | What the learner keeps | Existing course activity |
 | --- | --- | --- | --- |
-| **Try AI on a useful task** | Choose something that matters, decide what a useful result would look like and make a first attempt. | A first result and a way to judge it. | Do one useful thing — `/first-task` |
-| **Give AI the right background** | Select helpful details, explain the task and work through a misunderstanding. | A reusable context brief. | Give useful context — `/preview` and the existing Moodle Lesson |
-| **Save your context for next time** | Organise and review your notes, then save and reopen them. | Your own context portfolio. | Portfolio bridge within activity 2 — `/portfolio` |
-| **Check a result and plan your next step** | Test a result, make a correction and choose a next goal. | A checked result, an improvement and a next-step plan. | Check, improve and continue — `/check-and-continue` |
+| **Try AI on a useful task** | Choose something that matters, decide what a useful result would look like and make a first attempt. | A first result and a way to judge it. | Try AI on a useful task — `/first-task` |
+| **Give AI useful context** | Select helpful details, explain the task and work through a misunderstanding. | A reusable context brief. | Give AI useful context — `/preview` and the existing Moodle Lesson |
+| **Save and reuse context** | Organise and review your notes, then save and reopen them. | Your own context portfolio. | Portfolio bridge within activity 2 — `/portfolio` |
+| **Check, improve and continue** | Test a result, make a correction and choose a next goal. | A checked result, an improvement and a next-step plan. | Check, improve and continue — `/check-and-continue` |
 | **Files, notes and AI basics** — optional help | Practise finding files, keeping notes and using an available AI input. | A setup you know how to use again. | Preparation and notes — `/before-you-start`, `/notes` |
 
 These are proposed display labels for existing activities, not five newly implemented modules. The course still has three core activities, a portfolio bridge within the second activity, and optional preparation. Keeping the portfolio visible as its own place makes the takeaway easy to find. A task is a particular action inside an activity, such as selecting a relevant detail or reopening a saved brief.
 
 ### How activities, tasks and competencies connect
 
-- **Activity/module:** the place the learner chooses, such as “Give AI the right background”. It provides explanation, examples and practice.
+- **Activity/module:** the place the learner chooses, such as “Give AI useful context”. It provides explanation, examples and practice.
 - **Task:** what the learner actually does there, such as explaining an inclusion/omission choice or correcting an invented date.
 - **Competency:** what the learner learns to understand and do through those tasks. In the interface these appear as “What you'll practise” and “Check what I can do”.
 - **Capability grouping:** an author's way of organising related competencies across activities, such as communicating with AI or evaluating results. Several activities can develop the same capability.
 
-For example, “Give AI the right background” helps a learner select relevant information and communicate it. One task asks them to notice where the response conflicts with their instruction, clarify it and judge the revision. The associated knowledge check asks them to explain the mismatch and a suitable clarification strategy. “Check a result and plan your next step” revisits those skills in a fresh task. The same competency is referenced rather than duplicated.
+For example, “Give AI useful context” helps a learner select relevant information and communicate it. One task asks them to notice where the response conflicts with their instruction, clarify it and judge the revision. The associated knowledge check asks them to explain the mismatch and a suitable clarification strategy. “Check, improve and continue” revisits those skills in a fresh task. The same competency is referenced rather than duplicated.
 
 ### What opens when a learner selects a place
 
-Example selected place: **Give AI the right background**.
+Example selected place: **Give AI useful context**.
 
 **You'll do:** choose a useful detail, write a short brief, try it with your AI and work through anything it gets wrong about your intention.
 
@@ -196,13 +198,15 @@ The bank describes intended outcomes and usable evidence opportunities. It does 
 | Existing module/resource | Primary competencies | Supporting/revisited competencies | Evidence already afforded by the activity; additions needed |
 | --- | --- | --- | --- |
 | Optional preparation — `/before-you-start`, `/notes` | FOUND-01–04 | KEEP-02, TALK-01 | File/note retrieval and an input attempt; add explicit per-skill ratings and criteria. |
-| Do one useful thing — `/first-task` | TASK-01–03, TALK-01, LEARN-01 | CHECK-01 | Task, criterion, first attempt and reflection; make the human/AI division and evidence-based starting judgement explicit. |
-| Give useful context — `/preview` and the existing Moodle Lesson | CONTEXT-01–03, TALK-02–03 | TASK-02, CHECK-01–02 | Reviewed brief, inclusion/omission reasons, prediction and comparison; add a distinct access/context check where not already taught. |
-| Portfolio bridge — `/portfolio` | KEEP-01–02, CONTEXT-02 | CONTEXT-01, TASK-01–02 | Reviewed documents, source/limits fields and retrieval instructions; add competency-linked self-checks. |
+| Try AI on a useful task — `/first-task` | TASK-01–03, TALK-01, LEARN-01 | CHECK-01 | Task, criterion, first attempt and reflection; make the human/AI division and evidence-based starting judgement explicit. |
+| Give AI useful context — `/preview` and the existing Moodle Lesson | CONTEXT-01–03, TALK-02–03 | TASK-02, CHECK-01–02 | Reviewed brief, inclusion/omission reasons, prediction and comparison; add a distinct access/context check where not already taught. |
+| Save and reuse context — `/portfolio` | KEEP-01–02, CONTEXT-02 | CONTEXT-01, TASK-01–02 | Reviewed documents, source/limits fields and retrieval instructions; add competency-linked self-checks. |
 | Check, improve and continue — `/check-and-continue` | CHECK-01–03, KEEP-03, LEARN-01–03 | TALK-02, CONTEXT-03 | Fresh-task result, checked detail, correction, retained guidance, next goal and return/restore practice; add explicit use/reject/help judgement and ratings. |
 | `/free-tools`, `/deeper-courses`, proposed glossary | TASK-03, LEARN-01–03 or FOUND skills as relevant | TALK-03 | Supporting resources need their own specific objective and mapped practice invitation; following a link supplies no capability evidence. |
 
 The main atlas opens activity details with plain-language practice outcomes. A later secondary skills view can link the same competency to several supporting activities; it should not duplicate the skill or create extra course modules. Internal codes in this author table never replace readable activity or competency labels in either view.
+
+**6 November coverage update.** Practice now exists for the gaps found in the audit: TALK-02 (work out and repair a misunderstanding) in the `/preview` try/check step, CHECK-03 (use, revise, reject or seek help) in `/check-and-continue`, TASK-03 and LEARN-01 (your own part and help used) in `/first-task`, and CONTEXT-02 (where a changeable fact came from) in the `/portfolio` review. FOUND-04 practice is now in `/desktop-workspace`, with files and locations in `/before-you-start`. `/catalogue` is navigation only. The optional starting-point check supports self-rating and maps to no competency evidence. `/agent-basics` is an optional Unit 2 reading and maps to no Unit 1 competency.
 
 ## Self-assessment and evidence
 
@@ -240,7 +244,7 @@ Places use the five activity labels from the opening table. Each opens the activ
 
 ### A. The orientation atlas — recommended first visual prototype
 
-An illustrated landscape with four activity places: **Try AI on a useful task**, **Give AI the right background**, **Save your context for next time**, and **Check a result and plan your next step**. A smaller optional area is labelled **Files, notes and AI basics**. Each place shows a short takeaway; selecting it reveals what the learner will do, practise and keep. A central goal marker can orient the composition, but the interface must not invent a personal goal for a visitor.
+An illustrated landscape with four activity places: **Try AI on a useful task**, **Give AI useful context**, **Save and reuse context**, and **Check, improve and continue**. A smaller optional area is labelled **Files, notes and AI basics**. Each place shows a short takeaway; selecting it reveals what the learner will do, practise and keep. A central goal marker can orient the composition, but the interface must not invent a personal goal for a visitor.
 
 Earlier workshop/library/lookout place names and the six-capability layout are superseded as primary navigation. Let the illustration provide character while the visible text describes the activity directly. An attractive metaphor must not add another vocabulary the learner has to learn.
 
@@ -258,7 +262,7 @@ The atlas is the current proposed learner entry. Earlier capability-led constell
 
 ### One clickable area, in words
 
-> **Give AI the right background**\
+> **Give AI useful context**\
 > **You'll do:** choose helpful details, write a brief and try it with your AI.\
 > **You'll keep:** a brief you can reuse.\
 > **What you'll practise:** selecting information, explaining your intention and working through a misunderstanding.\

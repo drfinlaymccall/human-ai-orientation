@@ -2,6 +2,8 @@
 
 Design commitment, 13 October 2026. Requirements R22–R24 extend the bring-your-own-AI approach without adding an embedded chatbot or changing the orientation’s human-learning focus.
 
+**Current status — 6 November 2026:** the current edition is `2026-11-06.1`, schema 1.4. Sections below that name earlier editions or say “prepared, not deployed” are dated records. Publication state is in `CONTROL.md` and the release records. The noindex header stays until launch Stage A. Python-urllib access to new editions still needs the scoped Cloudflare rule to be applied and read back.
+
 ## Purpose
 
 The learner deliberately gives their AI a useful piece of course context, checks what it could access, and decides what to do next. The public material helps the AI support the learner with explanations, examples and one-step-at-a-time practice. The learner still sets goals, selects personal context, judges results and writes their reflection.

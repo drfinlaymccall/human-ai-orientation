@@ -130,7 +130,7 @@ test('without JavaScript tips appear only beside available writing fields', asyn
     await expect(page.locator('#finlay-brief-tips')).toBeHidden();
     await expect(page.locator('#finlay-try-tips')).toBeHidden();
     await expect(page.locator('[data-fallback]')).toBeVisible();
-    await expect(page.locator('#page-6')).toContainText('your reflection stays in your own notes');
+    await expect(page.locator('#page-6')).toContainText('Keep the full portfolio and private details in your own notes');
     for (const route of ['/portfolio', '/check-and-continue']) {
       await page.goto(route);
       await expect(page.locator('.finlay-tips')).toBeHidden();

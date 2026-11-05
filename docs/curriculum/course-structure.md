@@ -28,6 +28,8 @@ Files and notes are regular Unit 1 modules. Practice for familiar skills is opti
 
 Unit 2 has no active activities, journey link, completion requirements or native section. These headings do not represent complete lessons.
 
+On 6 November 2026 Finlay moved agent material out of Unit 1 into one optional early reading at `/agent-basics`. The unit's additive `early_reading` field in `content/course-map.json` links it from the public and native catalogue. It is a public reading with no activity, journey or completion, so Unit 2 stays planned.
+
 ## Canonical source
 
 `content/course-map.json` contains the additive `units[].modules[].activities` structure. Module activity lists contain stable activity slugs, not copies of activity records.

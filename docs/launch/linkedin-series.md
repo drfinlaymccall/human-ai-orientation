@@ -2,7 +2,7 @@
 
 Drafts for Finlay to review and publish; see the [release handoff](readiness.md). Nothing is scheduled or sent. Let **T0** be the public launch date after verified onboarding, operating review and the human pilot; these are proposed intervals, not promised dates. The complete V1 is available together. Each later post offers another entry point, not a locked release of that activity.
 
-Before publishing, verify its public link, phone layout, share title/description and account wording. Do not claim saved account portfolios, certificates or measured learning gains. Keep feedback private unless the learner explicitly permits a particular quotation. The course is an orientation to useful AI work; advanced autonomous-agent operation is not a promised outcome.
+Before publishing, verify its public link, phone layout, share title/description and account wording. Do not claim certificates or measured learning gains. Keep feedback private unless the learner explicitly permits a particular quotation. The course is an orientation to useful AI work; advanced autonomous-agent operation is not a promised outcome.
 
 ## T0: introduce the course
 
@@ -40,7 +40,7 @@ Useful context is easier to reuse when you can find it again.
 
 The portfolio practice in Human AI Orientation brings together three short documents: how you like to work, the context for a goal or project, and useful knowledge or examples.
 
-Review the content, remove guesses and download your own copy. You can select the relevant parts for a fresh conversation without assuming the AI remembers an earlier chat. The restore backup stays with you; a course login does not store your private portfolio.
+Review the content, remove guesses and download your own copy. You can select the relevant parts for a fresh conversation without assuming the AI remembers an earlier chat. The restore backup stays with you. If you have a course account, you can choose to save your documents to My context.
 
 Build your context portfolio: https://orientation.finlaymccall.com/portfolio
 

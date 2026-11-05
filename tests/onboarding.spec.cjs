@@ -52,6 +52,7 @@ async function ready(page) {
 }
 async function signup(page, user, acceptPolicy = true) {
   await page.goto('/login/signup.php'); await ready(page);
+  await expect(page.locator('[data-signup-collection-notice]')).toContainText('privacy policy (opens a new tab)');
   await fillSignup(page, user, acceptPolicy);
 }
 async function fillSignup(page, user, acceptPolicy = true) {
@@ -283,7 +284,7 @@ test.describe.serial('isolated native onboarding', () => {
       await enterFromHome(returning, password);
       await expect(returning.locator('[data-atlas-progress="first-task"]')).toHaveText('Completed');
       await expect(returning.locator('[data-starting-suggestion]')).toHaveText('Revisit: Try AI on a useful task');
-      await expect(returning.locator('#region-main a.btn-primary').filter({hasText:'Continue: Give AI the right background'})).toBeVisible();
+      await expect(returning.locator('#region-main a.btn-primary').filter({hasText:'Continue: Give AI useful context'})).toBeVisible();
       await signOut(returning);
       await returning.locator('header [data-account-link]').click();
       await ready(returning);

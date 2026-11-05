@@ -2,6 +2,7 @@
 // Standalone source checks only. No Moodle config, database or runtime is loaded.
 define('MOODLE_INTERNAL', true);
 function s($text) { return htmlspecialchars($text, ENT_QUOTES, 'UTF-8'); }
+class html_writer { public static function link($url, $text) { return '<a href="' . s($url) . '">' . $text . '</a>'; } }
 $root = dirname(__DIR__);
 require $root . '/scripts/course-module-identity.php';
 $map = json_decode(file_get_contents($root . '/content/course-map.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -21,7 +22,13 @@ try {
         }
     }
     $planned = explode('data-unit="agentic-systems"', $catalogue)[1];
-    if (str_contains($planned, '<a ') || !str_contains($planned, 'Planned — not yet available')) throw new RuntimeException('Planned unit has an active route.');
+    // A planned unit offers only its optional early reading, never a journey or activities.
+    if (substr_count($planned, '<a ') !== 1 || !str_contains($planned, 'href="/agent-basics"') || !str_contains($planned, 'Planned — not yet available')) throw new RuntimeException('Planned unit has an active route.');
+    $withoutreading = $map;
+    unset($withoutreading['units'][1]['early_reading']);
+    file_put_contents($temp . '/course-map.json', json_encode($withoutreading));
+    if (str_contains(explode('data-unit="agentic-systems"', \local_orientation\catalogue::syllabus())[1], '<a ')) throw new RuntimeException('Planned unit without a reading has a link.');
+    file_put_contents($temp . '/course-map.json', json_encode($map));
     $journey = \local_orientation\catalogue::syllabus([], true);
     if (str_contains($journey, 'Unit 2')) throw new RuntimeException('Planned unit in active journey.');
     foreach (['duplicate', 'missing', 'planned', 'baseline'] as $case) {

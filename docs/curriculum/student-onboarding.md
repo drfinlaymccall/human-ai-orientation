@@ -90,6 +90,8 @@ The native email renderer wraps prose in Moodle’s supported `nolink` class to 
 
 ## Course introduction and journey map — 25 October 2026
 
+This section and “First module” below are dated records. `docs/curriculum/course-structure.md` holds the current structure.
+
 Finlay found native Page 5 confusing beside the actual journey map. It had the same journey title and 17 body links, but its copied atlas fragment lacked the map script. The existing resource now reads **Course introduction**, with the rationale, collapsible practice objectives and one action to `/local/orientation/index.php`. It is an introduction rather than another activity/map. Its historical `orientation:journey` identity and module ID 5 remain for old links and records; no new module or completion requirement is added.
 
 `content/introduction.html` is the canonical native-only introduction. The journey builder renders it to `content/generated/introduction.html` using the shared welcome rationale/objectives. The supported journey publisher updates the existing native resource, localises other activities' journey links to the actual private map, and keeps their footer navigation to the journey and help. Public `/journey` retains the interactive atlas. The introduction omits My context like the preparation pages.

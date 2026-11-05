@@ -10,12 +10,21 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 module_intro = (ROOT / 'content/computer-use-introduction.html').read_text()
 (ROOT / 'content/generated').mkdir(exist_ok=True)
+# Unit 2 readings return to the catalogue instead of continuing Unit 1.
+ACTIONS = {'agent-basics': '<div class="actions"><a class="button" href="/catalogue">Back to the course catalogue</a><a class="button secondary" href="/journey">Open the Unit 1 journey</a></div>'}
+def default_actions(slug):
+    other = 'notes' if slug == 'before-you-start' else 'before-you-start'
+    label = 'Set up my notes' if slug == 'before-you-start' else 'Practise finding files'
+    return f'<div class="actions"><a class="button" href="/preview">Continue to the AI lesson</a><a class="button secondary" href="/{other}">{label}</a></div>'
+
+EYEBROW = {'deeper-courses': 'Optional next steps', 'agent-basics': 'Unit 2 · Early reading'}
 (ROOT / 'content/generated/computer-use.html').write_text(module_intro)
 for slug, source, title in [
     ('desktop-workspace', 'desktop-workspace', 'Desktop AI workspace'),
     ('before-you-start', 'computer-basics', 'Files, folders and locations'),
     ('notes', 'notes-guide', 'Notes as working context'),
     ('deeper-courses', 'deeper-courses', 'Go deeper: courses and videos'),
+    ('agent-basics', 'agent-basics', 'Agents: an early reading'),
 ]:
     body = (ROOT / 'content' / f'{source}.html').read_text()
     # Each regular Unit 1 module keeps its own teaching fragment.
@@ -31,10 +40,10 @@ for slug, source, title in [
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><a href="/">Human AI Orientation</a><a href="/preview">Go to the AI lesson</a></header>
-<main id="main" class="reading"><p class="eyebrow">{'Optional next steps' if slug == 'deeper-courses' else 'Unit 1 · Optional familiar-skills practice'} · At your own pace</p><h1>{escape(title)}</h1>
+<main id="main" class="reading"><p class="eyebrow">{EYEBROW.get(slug, 'Unit 1 · Optional familiar-skills practice')} · At your own pace</p><h1>{escape(title)}</h1>
 {body}
-<div class="actions"><a class="button" href="/preview">Continue to the AI lesson</a><a class="button secondary" href="/{'notes' if slug == 'before-you-start' else 'before-you-start'}">{'Set up my notes' if slug == 'before-you-start' else 'Practise finding files'}</a></div>
-</main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">About your information</a> · <a href="/deeper-courses">Go deeper: courses and videos</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>'''
+{ACTIONS.get(slug, default_actions(slug))}
+</main><footer><p>Designed and built by Finlay McCall · <a href="/privacy">Privacy policy</a> · <a href="/deeper-courses">Go deeper: courses and videos</a></p><p class="meta">Original course materials © 2026 Finlay McCall · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="/deeper-courses#course-licence">Scope and attribution</a>. Third-party materials retain their own licences.</p></footer></body></html>'''
     if 'class="finlay-writing-surface"' in body:
         page = page.replace('</head>', ASSETS + '</head>')
     (ROOT / 'public' / f'{slug}.html').write_text(decorate_feedback(course_context(page)))

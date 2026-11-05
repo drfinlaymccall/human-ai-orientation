@@ -19,9 +19,9 @@
       "public_url": "/first-task",
       "baseline": true,
       "optional": false,
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
-      "update_note": "Current launch edition; existing practice records are retained.",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
+      "update_note": "Added your own part and help used to the first attempt. Existing practice records are retained.",
       "outcomes": [
         "A first result and a way to judge it."
       ],
@@ -42,14 +42,14 @@
     {
       "slug": "useful-context",
       "idnumber": "orientation:useful-context",
-      "label": "Give AI the right background",
+      "label": "Give AI useful context",
       "module_type": "lesson",
       "public_url": "/preview",
       "baseline": true,
       "optional": false,
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
-      "update_note": "Current launch edition; existing practice records are retained.",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
+      "update_note": "Added diagnosing and repairing a misunderstanding; moved agent material to the Unit 2 early reading. Existing practice records are retained.",
       "outcomes": [
         "A reusable context brief."
       ],
@@ -70,14 +70,14 @@
     {
       "slug": "portfolio",
       "idnumber": "orientation:portfolio",
-      "label": "Save your context for next time",
+      "label": "Save and reuse context",
       "module_type": "page",
       "public_url": "/portfolio",
       "baseline": false,
       "optional": false,
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
-      "update_note": "Current launch edition; existing practice records are retained.",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
+      "update_note": "Added noting where changeable facts came from. Existing practice records are retained.",
       "outcomes": [
         "A reviewed personal context portfolio."
       ],
@@ -98,14 +98,14 @@
     {
       "slug": "check-and-continue",
       "idnumber": "orientation:check-and-continue",
-      "label": "Check a result and plan your next step",
+      "label": "Check, improve and continue",
       "module_type": "page",
       "public_url": "/check-and-continue",
       "baseline": true,
       "optional": false,
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
-      "update_note": "Current launch edition; existing practice records are retained.",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
+      "update_note": "Added the use, revise, reject or seek-help decision. Existing practice records are retained.",
       "outcomes": [
         "A checked result, an improvement and a next-step plan."
       ],
@@ -131,9 +131,9 @@
       "public_url": "/before-you-start",
       "baseline": false,
       "optional": true,
-      "version": "1.0.0",
-      "updated_at": "2026-10-23",
-      "update_note": "Current launch edition; existing practice records are retained.",
+      "version": "1.1.0",
+      "updated_at": "2026-11-06",
+      "update_note": "Moved agent material to the Unit 2 early reading. Existing practice records are retained.",
       "outcomes": [
         "A file you can find again and a clear way to share its contents."
       ],
@@ -146,7 +146,7 @@
       ],
       "role": "familiar-skills",
       "atlas": {
-        "duration": "20–30 minutes",
+        "duration": "10–15 minutes",
         "do": "Practise saving and finding a file, reading its location and sharing a useful excerpt.",
         "keep": "A practice file you can find and reopen.",
         "practise": [
@@ -289,6 +289,10 @@
       "label": "Unit 2: Introduction to Agentic Systems",
       "status": "planned",
       "syllabus": "Planned syllabus only. Activities and a journey are not yet available.",
+      "early_reading": {
+        "url": "/agent-basics",
+        "label": "Read the early reading on agents (optional)"
+      },
       "modules": [
         {
           "slug": "u2-basics",

@@ -77,12 +77,12 @@ class PublicContextTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-10-24.3/context.md').read_bytes()).hexdigest(), '83bed5b8371b2b2a464f8a05bbfefe91ce7941e78dfbf4de577cf6b3d65d97b0')
         source = self.read('content/ai/course-context.json')
         manifest = self.read('public/ai/course.json')
-        self.assertEqual(source['version'], '2026-10-25.1')
-        self.assertEqual(source['updated'], '2026-10-25')
+        self.assertEqual(source['version'], '2026-11-06.1')
+        self.assertEqual(source['updated'], '2026-11-06')
         self.assertEqual(manifest['context_version'], source['version'])
-        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-10-25.1/context.md')
+        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-11-06.1/context.md')
         self.assertEqual((self.root / 'public/ai/context.md').read_bytes(),
-                         (self.root / 'public/ai/releases/2026-10-25.1/context.md').read_bytes())
+                         (self.root / 'public/ai/releases/2026-11-06.1/context.md').read_bytes())
 
     def test_changed_activity_cannot_rewrite_published_context(self):
         course_map = self.read('content/course-map.json')

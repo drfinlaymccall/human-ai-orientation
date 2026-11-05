@@ -1,8 +1,10 @@
 # Project control and wishlist
 
-Updated: 2026-10-25. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-11-06. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
+
+**Launch plan — 6 November:** Finlay approved a two-stage launch: Stage A opens the anonymous course to search and promotion with registration closed; Stage B opens registration after email, recovery, support and operating checks are recorded. Neither stage is open. He also moved agent material to an optional [Unit 2 early reading](docs/releases/2026-11-06-launch-readiness.md), confirmed that no restore test is needed, and asked for an Australian privacy policy in the sign-up flow. The draft policy and sign-up notice are on the live preview; that does not establish wording approval or legal review. See the [plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md#launch-plan--6-november-decisions) and the [items Finlay must confirm](docs/operations/privacy-compliance.md). Finlay's two page reviews and the pilot are next.
 
 **Low-friction review queue:** [Review queue](docs/evaluation/Review%20queue.md) seeds the first two preparation-page reviews with verified public page names/links and blank review dates. Finlay can dictate brief observations and tick Ready for triage; the agent handles criterion mapping and register upkeep. Core Obsidian Templates supplies an explicit start-date command without a community plugin. Finlay reports the Mac setup is running; independent Mac end-to-end verification is not established by that report. No evaluation outcome or learner-facing change is implied.
 

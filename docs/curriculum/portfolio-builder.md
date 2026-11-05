@@ -40,6 +40,8 @@ This changes guidance, not the portfolio format: the same field IDs/keys, limits
 
 ## Storage, privacy and robustness
 
+This section describes current behaviour. The implementation record further down gives results from its own date.
+
 **23 October My context:** [issue #15](https://github.com/drfinlaymccall/human-ai-orientation/issues/15) and forward-plan U10 extend the existing local Moodle plugin with private account storage. Learners explicitly choose **Save to My context** in the portfolio or brief/practice builder; typing alone keeps a temporary tab draft. The course panel links the three documents, separate private practice, saved notes and source activities, plus actual Moodle progress/Continue. The normal private workspace works without JavaScript. **Copy** is the primary reuse action; **Download Markdown (.md)** is secondary. External drive integration remains optional later work. Saving context does not give any AI access or complete an activity.
 
 Signed-in temporary drafts use an account-scoped sessionStorage envelope; anonymous drafts retain the version 1 key. Fresh signed-in browsers load saved work. Writes require the current session key, matching opening account, expected row identity and revision. Conflicts preserve the draft instead of silently overwriting newer work. Account changes clear private presentation and invalidate old save controls and pending imports. The workspace uses supported Moodle enrolment/capability checks, privacy export/deletion and user/course-deletion observers. See [storage, limits, retention and operating checks](../operations/context-workspace.md).

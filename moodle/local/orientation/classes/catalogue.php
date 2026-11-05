@@ -36,8 +36,12 @@ class catalogue {
         foreach (self::map()['units'] as $unit) {
             if ($journey && $unit['status'] !== 'active') continue;
             $html .= '<section data-unit="' . s($unit['slug']) . '"><h2>' . s($unit['label']) . '</h2><p>' . s($unit['syllabus']) . '</p>';
-            if ($unit['status'] === 'planned') $html .= '<p><strong>Planned — not yet available</strong></p>';
-            else if (!$journey) $html .= '<p><a href="/local/orientation/index.php">Open Unit 1 journey</a></p>';
+            if ($unit['status'] === 'planned') {
+                $html .= '<p><strong>Planned — not yet available</strong></p>';
+                if (!empty($unit['early_reading'])) $html .= '<p>' . \html_writer::link($unit['early_reading']['url'], s($unit['early_reading']['label'])) . '</p>';
+            } else if (!$journey) {
+                $html .= '<p><a href="/local/orientation/index.php">Open Unit 1 journey</a></p>';
+            }
             $html .= '<ol>';
             foreach ($unit['modules'] as $module) {
                 $label = s($module['label']);

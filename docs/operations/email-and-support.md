@@ -29,3 +29,13 @@ For rehearsals, pass `--synthetic` to `draft`: dispatch captures locally and nev
 ## Remaining operating work
 
 For the demo baseline, Finlay accepts his owner-reported Contabo whole-server backup provision; account settings and whole-server recovery remain unverified, and no backup audit or restore exercise is required in this batch. Before broad registration: finish verified onboarding, support capacity/retention decisions, pilot feedback and a proportionate operating review. Do not enable bulk reminders by enabling SMTP; reminders and consent/frequency controls remain future work. No automatic agent reply or inbox monitor is configured.
+
+## Retention and the privacy policy
+
+The [privacy policy](../../public/privacy.html) states these periods. Each one needs Finlay's confirmation before Stage B; see the [compliance mapping](privacy-compliance.md).
+
+- Support email: 24 months, then manual deletion from the mailbox and `trial/support/`.
+- Inactive accounts: annual manual review; delete accounts inactive for 24 months. No Moodle task does this yet.
+- Voice and written feedback: 90 days through `local_orientationfeedback/retentiondays`. Update the policy if that setting changes.
+- Access, correction and deletion requests: reply within 30 days. Log the date and outcome privately.
+- Support drafting: the policy names Anthropic and OpenAI services. Update it if another AI service is used, and honour human-only requests.
