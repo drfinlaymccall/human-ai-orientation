@@ -116,6 +116,17 @@ test.describe.serial('isolated native onboarding', () => {
     expect(configure('open', ['--receipt='+receipt]).status).toBe(0);
     expect(configure('open', ['--receipt='+receipt]).status).toBe(0);
   });
+  test('sign-up and recovery forms fit a 320-pixel screen', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
+    for (const route of ['/login/signup.php', '/login/forgot_password.php']) {
+      await page.goto(route);
+      await expect(page.locator('.login-container form')).toBeVisible();
+      const fit = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, left: document.querySelector('.login-container').getBoundingClientRect().left }));
+      expect(fit.width, route).toBeLessThanOrEqual(320);
+      expect(fit.left, route).toBeGreaterThanOrEqual(0);
+    }
+  });
+
   test('signup sends captured confirmation and unconfirmed access is denied; missing mail can be resent', async ({ page }) => {
     await page.goto(course.lesson_url);
     await signup(page, learner, false);

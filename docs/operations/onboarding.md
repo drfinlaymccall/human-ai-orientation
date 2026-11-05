@@ -95,6 +95,8 @@ Native `/login/signup.php` creates an unconfirmed account and sends a confirmati
 
 ## Isolated synthetic verification
 
+The plugin's `login_layout` head hook keeps Moodle's sign-up and recovery forms inside narrow screens without changing core. The onboarding suite checks both forms at 320 pixels.
+
 Prepare the separate fixture with `scripts/prepare-launch-fixture.py`; do not clone the live database or mail credentials. The reproduction/deployment instructions describe starting its server with `scripts/fixture-php`, which sets PHP’s `sendmail_path` to the fixture-only capture. A Moodle `$CFG->sendmailpath` setting is insufficient: native `isMail()` uses PHP’s INI setting. The unchanged onboarding browser suite runs only at `http://127.0.0.1:18802` with `ORIENTATION_TRIAL_DIR` resolving to `trial/launch-fixture`; the suite refuses another target for synthetic receipts. The configuration tool also supports the separately marked, independently cloned 18812 fixture described in [reproduction](../REPRODUCING.md); its exact URL, database and private paths must pass the shared synthetic guard. No live acquisition/transport exception is widened.
 
 ```sh
