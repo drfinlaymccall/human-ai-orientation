@@ -66,6 +66,8 @@ A pre-deployment backup exists under `trial/backups/20261013T042037Z/`: custom-f
 
 This verifies the database restore and archive readability, not a complete replacement-host recovery. Backups remain on this server; off-server rotation is still required before inviting a wider audience. Later restoration must consider newly submitted learner records rather than overwrite them silently.
 
+**Outage, 7–8 November 2026.** From 07:10 AEDT on 7 November, Cloudflare returned error 521 for every page. The system Caddy service had stopped cleanly with exit code 0, so nothing listened on ports 80 and 443. The course services stayed running, and course modules, lesson pages, evidence counts and acquisition settings were unchanged after recovery. At the same minute, a Claude session in another project started test copies of Caddy. A `caddy stop` sent to the system Caddy's local admin port is the likely cause, but the system log was not readable to confirm it. The unit had no restart rule. Finlay started Caddy at 19:03 AEDT on 8 November and added `Restart=always`. A check after recovery found all course routes returning 200 and the old recovery link redirecting. Nothing alerted anyone during the 36 hours.
+
 To withdraw public access, remove only the orientation route from system Caddy, validate the remaining configuration, reload Caddy, and remove only this hostname's DNS record. Keep the private runtime and backups. A content or PHP problem can usually be fixed without removing DNS.
 
 ## Deployment evidence
