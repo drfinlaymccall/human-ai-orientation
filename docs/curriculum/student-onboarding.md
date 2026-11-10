@@ -33,7 +33,7 @@ These are practice goals, not a new pass/fail assessment. Use the existing compe
 
 | Stage | What the student needs | Delivered experience |
 | --- | --- | --- |
-| Arrive | Why this matters; whether it is for me; what next | **Human AI Orientation** heading, **Learn to team with AI** tagline, short rationale, objectives, current time estimate and primary **Explore your course** action. Show account state and the public reading option honestly. |
+| Arrive | Why this matters; whether it is for me; what next | **Human AI Orientation** heading, **Learn to team with AI** tagline, short rationale, objectives, current time estimate, primary **Start the course** action (step 1), the four steps in order and secondary **Explore your course** action. Show account state and the public reading option honestly. |
 | Join when registration is available | Clear account, confirmation and enrolment steps | Preserve native Moodle registration/confirmation/enrolment and a deliberately chosen activity destination. While broad registration is closed, retain existing pilot-access wording. |
 | Enter | Where everything is; a manageable first action | **Your course journey** is the normal hub. A short, collapsible **Welcome / Start here** section explains activities, progress, My context, Help and the public AI guide. No compulsory tour or extra completion requirement. |
 | Choose a starting point | Permission to begin at the appropriate place | The optional check—six statements, two ratings each—is integrated in source, with **Skip and explore** equally usable. Its production exposure still requires Finlay's saved-rating wording review; activity choices remain available when it is disabled. |
