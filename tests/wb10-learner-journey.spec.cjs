@@ -232,7 +232,7 @@ test.describe.serial('WB10 complete synthetic learner rehearsal', () => {
       const pending = page.waitForEvent('download');
       await page.getByRole('button', { name: 'Download Markdown (.md)', exact: true }).click();
       const download = await pending;
-      expect(download.suggestedFilename()).toBe('orientation-working.md');
+      expect(download.suggestedFilename()).toBe('working-with-me.md');
       expect(fs.readFileSync(await download.path(), 'utf8')).toBe(copied);
       await page.getByRole('link', { name: 'Private practice record', exact: true }).click();
       await expect(page.getByLabel('Observed result and one check', { exact: true })).toHaveValue(privateResult);

@@ -25,6 +25,8 @@ $note = $new || $item !== null;
 $definition = $document === 'practice' ? ['title' => 'My private practice record', 'fields' => context_store::PRACTICE] : context_store::DOCUMENTS[$document];
 $title = $note ? ($item->title ?? '') : $definition['title'];
 $body = $note ? ($item->body ?? '') : '';
+// File names match the portfolio builder, so a learner's folder holds the same three files from either route.
+$filename = $note ? 'orientation-note' : (['working' => 'working-with-me', 'projects' => 'my-goals-and-projects', 'knowledge' => 'useful-knowledge-and-examples'][$document] ?? 'orientation-' . $document);
 $source = $note ? ($item->source ?? optional_param('source', 'first-task', PARAM_ALPHANUMEXT)) : ($document === 'practice' ? 'check-and-continue' : 'portfolio');
 if (!isset(\local_orientation\catalogue::modules()[$source])) throw new moodle_exception('invalidparameter');
 $revision = $note ? (int)($item->revision ?? 0) : $portfolio['revision'];
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             if ($action === 'download') {
                 header('Content-Type: text/markdown; charset=utf-8');
-                header('Content-Disposition: attachment; filename="orientation-' . ($note ? 'note' : $document) . '.md"');
+                header('Content-Disposition: attachment; filename="' . $filename . '.md"');
                 header('X-Content-Type-Options: nosniff');
                 echo $markdown;
                 exit;
@@ -138,11 +140,11 @@ if ($confirmation) {
     echo '<button type="button" class="context-copy" data-context-copy hidden>Copy</button><p data-context-copy-status role="status"></p><noscript><p>Select the text above and use your device’s Copy command.</p></noscript>';
     if ($storagefailure) {
         echo '<p data-context-recovery-guide>Without JavaScript, the recovered text stays read-only so your copy and download match. Keep a copy before reopening this page to edit. You can retry saving this recovered version.</p>';
-        echo '<a class="context-download" download="orientation-' . ($note ? 'note' : s($document)) . '.md" href="data:text/markdown;charset=utf-8;base64,' . base64_encode($markdown) . '">Download Markdown (.md)</a>';
+        echo '<a class="context-download" download="' . s($filename) . '.md" href="data:text/markdown;charset=utf-8;base64,' . base64_encode($markdown) . '">Download Markdown (.md)</a>';
     } else {
         echo '<button type="submit" class="context-download" name="action" value="download">Download Markdown (.md)</button>';
     }
-    echo '<p class="context-small">Optional: save the .md file in your own notes folder. Downloading does not save edits to Moodle.</p></section>';
+    echo '<p class="context-small">' . (!$note && $document !== 'practice' ? 'Optional: keep the .md file in your my-context folder in your own notes.' : 'Optional: keep the .md file somewhere you control, apart from the context documents you share with an AI.') . ' Downloading does not save edits to Moodle.</p></section>';
     if ($revision) echo '<details><summary>Remove saved text</summary><button type="submit" class="context-remove" name="action" value="' . ($note ? 'delete' : 'clear') . '">' . ($note ? 'Delete saved note' : 'Clear saved document') . '</button></details>';
     echo '</form>';
 }

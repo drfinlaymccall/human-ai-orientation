@@ -6,9 +6,9 @@
   // Bound every field so even worst-case JSON escaping fits the backup size limit.
   const MAX_TEXT = 2000;
   const documents = {
-    working: { title: 'Working with me', fields: { about: 'Relevant background', preferences: 'How to communicate with me', boundaries: 'Boundaries', instruction: 'An instruction worth reusing' } },
-    projects: { title: 'My goals and projects', fields: { project: 'My current project', goal: 'Goal and success criterion', constraints: 'Constraints and unknowns', step: 'A useful project step' } },
-    knowledge: { title: 'Useful knowledge and examples', fields: { knowledge: 'Useful information', source: 'Source and date', limits: 'Why it helps and its limits', referenceExample: 'An example worth following' } },
+    working: { title: 'Working with me', file: 'working-with-me', fields: { about: 'Relevant background', preferences: 'How to communicate with me', boundaries: 'Boundaries', instruction: 'An instruction worth reusing' } },
+    projects: { title: 'My goals and projects', file: 'my-goals-and-projects', fields: { project: 'My current project', goal: 'Goal and success criterion', constraints: 'Constraints and unknowns', step: 'A useful project step' } },
+    knowledge: { title: 'Useful knowledge and examples', file: 'useful-knowledge-and-examples', fields: { knowledge: 'Useful information', source: 'Source and date', limits: 'Why it helps and its limits', referenceExample: 'An example worth following' } },
   };
   const practice = {
     testTask: 'Task and criterion', result: 'Observed result and one check', correction: 'Correction I tried and what changed', keep: 'Instruction worth keeping, and where it belongs', nextGoal: 'My next goal', learning: 'What I need to learn or decide myself', aiInformation: 'Information the AI will need', nextStep: 'First step and a checkable success criterion',
@@ -164,7 +164,7 @@
       const output = find('[data-portfolio-output]');
       if (output) output.value = contextText([...widget.querySelectorAll('[data-portfolio-select]:checked')].map(input => input.dataset.portfolioSelect));
     }
-    function download(text, filename, type) {
+    function download(text, filename, type, folder = false) {
       const url = URL.createObjectURL(new Blob([text], { type }));
       const anchor = document.createElement('a');
       anchor.href = url;
@@ -174,7 +174,7 @@
       anchor.click();
       anchor.remove();
       setTimeout(() => URL.revokeObjectURL(url), 10000);
-      announce('Download requested. Find the file in Downloads and check it opens; move it to your own notes folder if useful.');
+      announce(folder ? 'Download requested. Find the file in Downloads, check it opens and move it into your my-context folder.' : 'Download requested. Find the file in Downloads and check it opens; keep it somewhere you control.');
     }
     function replace(data, revision = savedRevision, itemid = savedItemId, fromServer = false) {
       if (accountChanged) return;
@@ -250,7 +250,7 @@
       const button = event.target.closest('button');
       if (!button || !widget.contains(button)) return;
       const doc = button.dataset.portfolioDownload;
-      if (doc) { download(contextText([doc]), `orientation-${doc}.md`, 'text/markdown;charset=utf-8'); return; }
+      if (doc) { download(contextText([doc]), `${documents[doc].file}.md`, 'text/markdown;charset=utf-8', true); return; }
       if (['example', 'clear', 'cancel'].includes(button.dataset.portfolioAction)) cancelImport();
       switch (button.dataset.portfolioAction) {
         case 'copy': {

@@ -92,6 +92,17 @@ test('example replacement, blocked storage and clipboard retain usable controls 
   }
 });
 
+test('each document downloads under the name it keeps in the my-context folder', async ({ page }) => {
+  await page.goto('/portfolio.html');
+  await field(page, 'about').fill('Synthetic context for a fictional book swap.');
+  await expect(page.locator('#keep-your-copy')).toContainText('my-context');
+  for (const [button, file] of [['Download working with me', 'working-with-me.md'], ['Download my goals and projects', 'my-goals-and-projects.md'], ['Download useful knowledge and examples', 'useful-knowledge-and-examples.md']]) {
+    const pending = page.waitForEvent('download');
+    await page.getByRole('button', { name: button, exact: true }).click();
+    expect((await pending).suggestedFilename()).toBe(file);
+  }
+});
+
 test('clear requires confirmation and removes same-tab content', async ({ page }) => {
   await page.goto('/portfolio.html');
   await field(page, 'about').fill('Temporary content');
