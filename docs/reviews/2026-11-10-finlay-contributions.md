@@ -18,7 +18,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 | Item 15 | Read `/agent-basics` and say keep, change or cut | 15 min |
 | Item 24 | Run `gh auth refresh -s workflow` (not a Stage A item; it unblocks #10) | 5 min |
 
-**Your Stage A set.** Stage A needs all of these from you: items 1, 2, 3, 9, 12, 15 and 23, then item 5 (the date). Item 4 (pilot order) affects when you choose the date. Items 25 and 31 are recommended before Stage A. This is the same set as package A7 and decision D9 in the audit.
+**Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) is a separate, final step after the set and the agent's packages A1–A6 are done. Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
 
 ## 1. Decisions and approvals
 

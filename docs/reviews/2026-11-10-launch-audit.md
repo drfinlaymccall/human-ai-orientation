@@ -4,11 +4,11 @@ Date: 10 November 2026 (Australia/Sydney). Auditor: Claude (AI agent), for Finla
 
 Scope: the live preview at `orientation.finlaymccall.com` (read-only requests), the source on `main` at `0920072`, the synthetic fixture, the project records and all 19 open issues. Nothing on the site, in Cloudflare or in Moodle settings was changed. Exact figures and paths for a few operational and security findings are kept in a private operator note under the ignored `trial/` folder, because this report is public. Privacy items are a mapping to the Australian Privacy Principles (APPs). They are not legal advice.
 
-File and line references are to `main` at `0920072`. Evidence labels: **V** = verified by reading the line or running the command on 10 November. **I** = inferred. **NT** = not tested.
+File and line references are to `main` at `0920072`. Evidence labels are the auditor's own and have not been independently confirmed: **V** = the auditor read the line or ran the command on 10 November. **I** = inferred. **NT** = not tested.
 
 ## 1. Verdict
 
-- **Stage A (anonymous course open to search and promotion): not ready.** The remaining work is small. Most of it is one agent PR series (packages A1–A6) plus Finlay's Stage A set: seven items and the date (package A7).
+- **Stage A (anonymous course open to search and promotion): not ready.** The remaining work is small. Most of it is one agent PR series (packages A1–A6) plus Finlay's Stage A set of seven items (package A7). He then chooses the date (package A8).
 - **Stage B (registration open): not ready.** It waits on genuine mail receipt by a consenting person, Finlay's privacy and retention confirmations, and operating procedures that do not exist yet.
 - The three things that matter most:
   1. The site still tells every search engine to stay away, and the replacement policy (which pages to index, a sitemap, share previews) is not built (F01–F04).
