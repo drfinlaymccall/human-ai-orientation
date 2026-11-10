@@ -16,7 +16,7 @@
 	}
 	@private {
 		path_regexp private (^|/)(\.[^/]*|vendor|node_modules|tests|fixtures|behat)(/|$)|(^|/)(config\.php|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml.*|README.*|UPGRADING.*|Gruntfile\.js|.*\.(md|txt|lock|dist|bak|sql))$|^/admin/cli(/|$)
-		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /downloads/orientation-practice.md
+		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /ai/releases/2026-11-10.1/context.md /downloads/orientation-practice.md
 	}
 	handle @private {
 		respond "Not found" 404
@@ -25,7 +25,7 @@
 	# The static recovery page is gone. Old links go to Moodle's own recovery form.
 	@oldrecovery path /recovery /recovery.html
 	redir @oldrecovery /login/forgot_password.php 302
-	@aiPublic path /ai/ /ai/context.md /ai/course.json /ai/course.schema.json /ai/course.schema.v1.1.json /ai/course.schema.v1.2.json /ai/course.schema.v1.3.json /ai/course.schema.v1.4.json /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md
+	@aiPublic path /ai/ /ai/context.md /ai/course.json /ai/course.schema.json /ai/course.schema.v1.1.json /ai/course.schema.v1.2.json /ai/course.schema.v1.3.json /ai/course.schema.v1.4.json /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /ai/releases/2026-11-10.1/context.md
 	handle @aiPublic {
 		root * /home/finlay/apps/human-ai-orientation/public
 		@aiMarkdown path /ai/context.md /ai/releases/*/context.md
