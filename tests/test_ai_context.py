@@ -76,14 +76,25 @@ class PublicContextTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-10-24.2/context.md').read_bytes()).hexdigest(), '8129600fef0992b6363b0fd2ddfe27ffc45732915f7f083bc5f8eb993034617d')
         self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-10-24.3/context.md').read_bytes()).hexdigest(), '83bed5b8371b2b2a464f8a05bbfefe91ce7941e78dfbf4de577cf6b3d65d97b0')
         self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-10-25.1/context.md').read_bytes()).hexdigest(), '54baf01644ab07b3fe35e5f5f6a5a69b5b1a6b63260c665174f3a484c78bd678')
+        self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-11-06.1/context.md').read_bytes()).hexdigest(), '98d63d54ef7cf3f92518436a695dd897ec0f75628ab34dd2a24f08d8eb9c452b')
+        self.assertEqual(hashlib.sha256((self.root / 'public/ai/releases/2026-11-10.1/context.md').read_bytes()).hexdigest(), '0e79b8acba2b396962d4633a6d277e59a48575eae65d6dea65656e410e713800')
         source = self.read('content/ai/course-context.json')
         manifest = self.read('public/ai/course.json')
-        self.assertEqual(source['version'], '2026-11-06.1')
-        self.assertEqual(source['updated'], '2026-11-06')
+        self.assertEqual(source['version'], '2026-11-10.1')
+        self.assertEqual(source['updated'], '2026-11-10')
         self.assertEqual(manifest['context_version'], source['version'])
-        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-11-06.1/context.md')
+        self.assertEqual(manifest['context_url'], BASE + '/ai/releases/2026-11-10.1/context.md')
         self.assertEqual((self.root / 'public/ai/context.md').read_bytes(),
-                         (self.root / 'public/ai/releases/2026-11-06.1/context.md').read_bytes())
+                         (self.root / 'public/ai/releases/2026-11-10.1/context.md').read_bytes())
+
+    def test_unmapped_guidance_step_stops_the_build(self):
+        source = self.read('content/ai/course-context.json')
+        source['version'] = '2099-01-01.1'
+        source['steps'].append({'id': 'unmapped', 'title': 'Synthetic', 'guidance': 'Synthetic.'})
+        self.write('content/ai/course-context.json', source)
+        result = self.build()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('need a course step', result.stderr)
 
     def test_changed_activity_cannot_rewrite_published_context(self):
         course_map = self.read('content/course-map.json')

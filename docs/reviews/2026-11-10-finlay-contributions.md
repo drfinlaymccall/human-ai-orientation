@@ -237,7 +237,7 @@ Answer by dictation. Each answer has a named place. The agent will tidy the tran
 
 ### 23. Apply the Cloudflare AI-context rule [A]
 
-- **What:** apply [`deploy/cloudflare-ai-context-rule.json`](../../deploy/cloudflare-ai-context-rule.json) and tell the agent, who reads it back.
+- **What:** apply [`deploy/cloudflare-ai-context-rule.json`](../../deploy/cloudflare-ai-context-rule.json) and tell the agent, who reads it back. The file was updated on 10 November to include edition `2026-11-10.1`; apply the current file.
 - **Why you:** your Cloudflare account.
 - **Unblocks:** F07.
 - **Effort:** 10 minutes.

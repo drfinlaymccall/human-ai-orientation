@@ -2,7 +2,7 @@
 
 Design commitment, 13 October 2026. Requirements R22–R24 extend the bring-your-own-AI approach without adding an embedded chatbot or changing the orientation’s human-learning focus.
 
-**Current status — 6 November 2026:** the current edition is `2026-11-06.1`, schema 1.4. Sections below that name earlier editions or say “prepared, not deployed” are dated records. Publication state is in `CONTROL.md` and the release records. The noindex header stays until launch Stage A. Python-urllib access to new editions still needs the scoped Cloudflare rule to be applied and read back.
+**Current status — 10 November 2026:** the current edition is `2026-11-10.1`, schema 1.4. It describes the four steps in order, the three context documents as the result, the `my-context` folder, the talk-it-through prompt and the next-goal step; see the [release record](../releases/2026-11-10-ai-context-edition.md). A new edition needs its path added to `deploy/Caddyfile` (two lists) and `deploy/cloudflare-ai-context-rule.json`, and a restart of the `orientation-web` user service. Sections below that name earlier editions or say “prepared, not deployed” are dated records. Publication state is in `CONTROL.md` and the release records. The noindex header stays until launch Stage A. Python-urllib access to new editions still needs the scoped Cloudflare rule to be applied and read back.
 
 ## Purpose
 

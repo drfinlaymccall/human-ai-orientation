@@ -43,6 +43,8 @@ Documentation/status updates are part of each change under AGENTS.md and CONTRIB
 
 **Agent material out of Unit 1 — 10 November:** Finlay said to cut the step 2 pointer to the Unit 2 early reading. The same kind of pointer on `/before-you-start` is cut too, and the publisher now updates section 5 of the Moodle Lesson, which still showed an older "supporting agent" block to signed-in learners. `/agent-basics` stays published, linked from the catalogue, and awaits his review. See the [release record](docs/releases/2026-11-10-cut-agent-pointers.md).
 
+**AI-context edition `2026-11-10.1` — 10 November:** the public context that a learner gives their AI now matches the course: four steps in order, three context documents as the result, the `my-context` folder, the talk-it-through prompt and the next-goal step. Earlier editions are unchanged. The prepared Cloudflare rule file includes the new path; applying the rule is still Finlay's (item 23). See the [release record](docs/releases/2026-11-10-ai-context-edition.md).
+
 **Set aside for a later unit (10 November):** Unit 2 activities, the linked glossary and workspace guides, audio walkthroughs and images, a built-in dictation or transcription feature, the personal learning map, side quizzes, certificates and reminders. They stay in the wishlist and brain-dump sections below and in their issues. None is deleted and no issue is closed by this decision.
 
 ## Public trial deployment — 13 October
