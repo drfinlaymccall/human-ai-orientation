@@ -55,7 +55,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
   - **Keep.** Draft sentence: "Cloudflare, which delivers this site, counts page views without cookies and without identifying you."
 - **Effort:** 5 minutes.
 
-### 3. Uptime alert as a Stage A gate, and which monitor [A]
+### 3. Uptime alert as a Stage A gate, and which monitor [A, if you accept D3]
 
 - **What:** decide that an outside alert must exist before promotion, and set one up.
 - **Why you:** it needs an account in your name and your email address. The agent must not sign up for services.
