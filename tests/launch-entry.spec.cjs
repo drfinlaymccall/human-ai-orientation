@@ -14,6 +14,8 @@ test('closed-registration splash leads to the public journey and complete activi
     await expect(page.locator('[data-activity-atlas]')).toHaveCount(0);
     const start = page.getByRole('link', { name: 'Explore your course', exact: true });
     await expect(start).toHaveAttribute('href', '/journey');
+    await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/first-task');
+    await expect(page.locator('#course-path li a')).toHaveCount(4);
     await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
     await expect(page.locator('#account-status')).toContainText('Public registration is currently closed');
     await expect(page.locator('main')).toContainText('70–95 minutes');
@@ -22,7 +24,7 @@ test('closed-registration splash leads to the public journey and complete activi
     await start.click();
     await page.locator('[data-atlas-detail="first-task"] a.button').click();
     await expect(page.getByRole('heading', { name: 'Try AI on a useful task.', exact: true })).toBeVisible();
-    await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
+    await page.getByRole('link', { name: 'Continue: Give AI useful context', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Give AI useful context', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Build your three reusable context documents', exact: true }).click();
     await expect(page).toHaveURL(/\/portfolio$/);
@@ -171,6 +173,8 @@ test('keyboard and no-JavaScript entry retain every activity, self-check and pub
     await expect(page.getByRole('link', { name: 'Skip to content', exact: true })).toBeFocused();
     await page.keyboard.press('Enter');
     await page.keyboard.press('Tab');
+    await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab');
     await expect(page.getByRole('link', { name: 'Explore your course', exact: true })).toBeFocused();
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL(/\/journey$/);
@@ -224,8 +228,13 @@ test('account state resolves safely on every public course header', async ({ pag
   await expect(page.locator('[data-journey-primary]')).toHaveText('Your course journey');
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/local/orientation/index.php');
   await expect(page.locator('[data-account-state]')).toHaveText('Signed in');
+  // A signed-in learner's step links open the native activities, where practice is recorded.
+  await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/local/orientation/index.php?module=first-task');
+  await expect(page.locator('#course-path [data-native-module="useful-context"]')).toHaveAttribute('href', '/local/orientation/index.php?module=useful-context');
   response = { state: 'signed-out', journey_url: '/local/orientation/index.php' };
   await page.evaluate(() => dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/first-task');
+  await expect(page.locator('#course-path [data-native-module="useful-context"]')).toHaveAttribute('href', '/preview');
   await expect(page.locator('header [data-account-link]')).toHaveText('Sign in');
   await expect(page.locator('[data-journey-primary]')).toHaveText('Explore your course');
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/journey');

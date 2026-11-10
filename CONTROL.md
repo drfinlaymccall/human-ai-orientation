@@ -35,6 +35,10 @@ Finlay authorises work in the current demo checkout. Separate integration worktr
 
 Documentation/status updates are part of each change under AGENTS.md and CONTRIBUTING.md, rather than a new documentation issue for every edit. Existing local checks remain the baseline; GitHub Actions activation is tracked separately in [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) because current publishing access lacks workflow permission.
 
+**Minimum viable course — 10 November:** Finlay approved merging the audit and asked for the course to be finished as a minimum viable product: a learner can go through it and leave with three context documents and a next goal to complete with AI. The extras are set aside for a later unit. The first change makes one path the front door; see the [release record](docs/releases/2026-11-10-mvp-one-path.md). It changes wording, links and one page heading. It does not change module IDs, completion rules, saved work or acquisition settings. Finlay's instruction covers the direction; it is not approval of the new wording, which he sees on the preview.
+
+**Set aside for a later unit (10 November):** Unit 2 activities, the linked glossary and workspace guides, audio walkthroughs and images, a built-in dictation or transcription feature, the personal learning map, side quizzes, certificates and reminders. They stay in the wishlist and brain-dump sections below and in their issues. None is deleted and no issue is closed by this decision.
+
 ## Public trial deployment — 13 October
 
 **25 October first-task examples:** Finlay requested examples that reflect uses his initial cohort has already brought to him: feedback/complaint letters, social media posts, practical advice on fixing something or completing an everyday task, and recipes. Activity 1's opening suggestions now use those examples. The fictional book-swap worked example remains available. Publication and verification are recorded in the [course review log](docs/reviews/course-review.md#25-october-2026--practical-first-task-examples).

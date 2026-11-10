@@ -110,7 +110,8 @@ foreach ($definitions as $slug => $definition) {
     $html = $compiled[$slug];
     if ($slug === 'before-you-start') $html .= '<p>Next module: <a href="/notes">Set up your notes and context store</a>.</p>';
     if ($slug !== 'deeper-courses') { $html .= '<p><a href="/deeper-courses">Go deeper: courses and videos</a></p>'; }
-    $html .= '<p><a href="/preview">Continue to the AI lesson</a> · <a href="/course/view.php?id=' . $course->id . '">Return to the course</a></p>';
+    $start = $slug === 'deeper-courses' ? '' : '<a href="/local/orientation/index.php?module=first-task">Start the course: Try AI on a useful task</a> · ';
+    $html .= '<p>' . $start . '<a href="/course/view.php?id=' . $course->id . '">Return to the course</a></p>';
     $record->page = ['text' => $localise($html), 'format' => FORMAT_HTML, 'itemid' => 0];
     if ($record->content !== $record->page['text'] || $resources[$slug]['record']->intro !== $record->intro) {
         page_update_instance($record, null);

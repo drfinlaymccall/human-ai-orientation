@@ -4,6 +4,8 @@
   const links = [...document.querySelectorAll('[data-account-link]')];
   const primary = [...document.querySelectorAll('[data-journey-primary]')];
   const labels = [...document.querySelectorAll('[data-account-state]')];
+  // Step links open the native activity for a verified session, so practice is recorded there.
+  const steps = [...document.querySelectorAll('a[data-native-module]')].map(link => ({ link, open: link.getAttribute('href') }));
   let requestNumber = 0;
   function show(state) {
     for (const link of links) {
@@ -13,6 +15,9 @@
     for (const link of primary) {
       link.href = state === 'signed-in' ? journey : '/journey';
       link.textContent = state === 'signed-in' ? 'Your course journey' : 'Explore your course';
+    }
+    for (const { link, open } of steps) {
+      link.setAttribute('href', state === 'signed-in' ? journey + '?module=' + encodeURIComponent(link.dataset.nativeModule) : open);
     }
     let message = 'Sign-in state unavailable. Check sign-in / Your course journey, or explore the public activities.';
     if (state === 'signed-in') message = 'Signed in';

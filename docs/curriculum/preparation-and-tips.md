@@ -9,7 +9,7 @@ Decision: 13 October 2026. Finlay requested computer/file foundations before the
 3. A real fictional Markdown download: locate, copy, rename, open, close and find again. Success is demonstrated through the learner's own action rather than merely recognising terminology.
 4. Transfer to AI: distinguish pasted content, attachments and an agent with workspace access. Locate and open an output rather than accepting a claim that it was saved.
 5. Three self-checks with answer explanations. Learners decide whether to revisit or continue. No score, hidden tracking, enforced gate or claim of verified mastery.
-6. Optional Obsidian setup: open the same practice folder as a vault, create a context note, find it in the file manager and selectively share text. Then continue to the existing AI lesson.
+6. Optional Obsidian setup: open the same practice folder as a vault, create a context note, find it in the file manager and selectively share text. The page then offers **Start the course: Try AI on a useful task** (step 1), since 10 November 2026.
 
 This is a scaffold for the existing task-based course, using prior-knowledge diagnosis, a worked example, practice and metacognitive checking. It does not introduce a second theoretical framework or require every learner to repeat familiar basics. Phone/restricted-device learners have an explicit read-through route and can defer desktop practice; this is not reported as equivalent evidence of practical performance.
 

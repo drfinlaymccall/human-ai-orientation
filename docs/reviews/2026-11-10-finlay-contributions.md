@@ -321,4 +321,5 @@ An agent cannot honestly do these.
 
 ## Done
 
-Nothing yet.
+- **10 November 2026 — merge the audit.** Finlay said to merge the audit PR. [PR #40](https://github.com/drfinlaymccall/human-ai-orientation/pull/40) is merged.
+- **10 November 2026 — course direction.** Finlay accepted the agent's suggestions for a minimum viable course: one path as the front door, the portfolio as the result, a short step that teaches the next goal, one way to keep your work, and a prompt for talking the portfolio through with your own AI. He asked for the extras to be set aside for a later unit. The first change is in the [release record](../releases/2026-11-10-mvp-one-path.md). This answers the direction only. It does not approve the wording (items in sections 1 and 2 stay open), and items 17–20 (Finlay's own words) still need him.
