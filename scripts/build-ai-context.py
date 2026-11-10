@@ -71,7 +71,7 @@ if unmapped:
 count_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
 step_two = sum(1 for step in source['steps'] if course_step[step['id']] == 2)
 lines += ['', '## Guidance for each course step', '',
-          f'Each section below is labelled with the course step it belongs to. Step 2, Give AI useful context, has {count_words[step_two]} sections, in page order.']
+          f'Each section below is labelled with the course step it belongs to. Step 2, Give AI useful context, has {count_words[step_two] if step_two < len(count_words) else step_two} sections, in page order.']
 for step in source['steps']:
     lines += ['', f"### Step {course_step[step['id']]}: {step['title']}", '', step['guidance']]
 lines += ['', '## Fictional worked example', '']

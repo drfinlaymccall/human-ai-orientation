@@ -22,11 +22,11 @@ In `content/ai/course-context.json`:
 - **Agent material:** "Instruction files are an optional extension" is removed from the step guidance. One guidance line says Unit 1 does not teach agent tools; the Unit 2 early reading is offered only if the learner asks.
 - **Names:** "Files, folders and locations" for the files page; "Give AI useful context at /preview" for "the public lesson". The guidance sections in the text are labelled with their course step (Step 1, seven sections for Step 2, Step 3, Step 4) and no longer numbered 1–10, and the `/ai/` page labels step 3 "Step 3: your three context documents" (review findings, accepted).
 
-In `scripts/build-ai-context.py`: the activity-map introduction states the order; "Course journey" replaces "Public lesson"; the `/ai/` page says "the course".
+In `scripts/build-ai-context.py`: the activity-map introduction states the order; "Course journey" replaces "Public lesson"; the `/ai/` page says "the course". Each guidance step id is mapped to its course step explicitly; an unmapped id stops the build, so a later edition cannot be mislabelled silently (review finding, accepted).
 
 Serving: `deploy/Caddyfile` lists the new edition path in both places. `deploy/cloudflare-ai-context-rule.json` lists it too; applying that rule is Finlay's (item 23 in [his list](../reviews/2026-11-10-finlay-contributions.md)).
 
-Tests: `tests/test_ai_context.py` pins the bytes of `2026-11-06.1` and expects the new edition as current. `tests/public.spec.cjs` lists the new path (edited, not run).
+Tests: `tests/test_ai_context.py` pins the bytes of `2026-11-06.1` and of the new edition, expects the new edition as current, and checks that an unmapped guidance step stops the build. `tests/public.spec.cjs` lists the new path (edited, not run).
 
 Not changed: the manifest schema, the course map, activity roles (the map still uses the role name `portfolio-bridge`), the plugin, the database and every learner record.
 
@@ -34,9 +34,9 @@ Not changed: the manifest schema, the course map, activity roles (the map still 
 
 All tests are synthetic.
 
-- **Python tests:** 28 passed. Metadata: 7 Python and 2 browser tests passed, including the immutable-edition checks.
+- **Python tests:** 29 passed. Metadata: 8 Python and 2 browser tests passed, including the immutable-edition checks and the new build guard.
 - **Entry 11 and feedback 32 passed.** Build leaves no uncommitted change.
-- **Earlier edition:** `public/ai/releases/2026-11-06.1/context.md` is unchanged (SHA-256 `98d63d54…eb9c452b`).
+- **Earlier edition:** `public/ai/releases/2026-11-06.1/context.md` is unchanged (SHA-256 `98d63d54…eb9c452b`). The new edition is `0e79b8ac…0e713800`.
 - **Web-server configuration:** `caddy validate` reports a valid configuration.
 - **Not tested with a real AI service.** Whether a given AI follows the text is not verified.
 
