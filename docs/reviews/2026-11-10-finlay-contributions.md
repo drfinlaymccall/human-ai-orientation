@@ -123,7 +123,7 @@ One line each; answer when convenient.
 - **Feedback and sign-up notice wording** (F15). The agent will draft two-line notices for you to approve.
 - **Whether other learners may see names** (F17). Recommendation: no.
 - **CAPTCHA on sign-up** (F47). Recommendation: decide after the pilot.
-- **Pilot invitation list** (F19). Accept that the sign-up form reveals whether an address is invited, or have accounts created by hand.
+- **Pilot invitation list** (F19). Accept the small disclosure limit described in the private operator note, or have pilot accounts created by hand.
 - **Course name in Moodle** (F26). The welcome email says "A useful start with AI". Rename to "Human AI Orientation"?
 - **Merge-gate runbook** (D8). Allow the agent to re-audit and accept the CLI's third built-in plugin.
 - **Support capacity** (F27). How often will you check the inbox, and what reply time may `/help` state? Draft: "I usually reply within three working days."
