@@ -41,6 +41,8 @@ Documentation/status updates are part of each change under AGENTS.md and CONTRIB
 
 **Step 2 wording, header and progress tests — 10 November:** step 2 and the optional pages no longer call the activity a "lesson"; the stale saved-progress link on `/preview` now goes to the signed-in activity; the public header has two links (Course journey, and Sign in or open your course) and the catalogue is linked from the journey page; the native progress suite is repaired and passes (16 tests, synthetic). See the [release record](docs/releases/2026-11-10-step2-header-progress.md). The Tips panel still shows beside both writing areas on `/preview`; that is kept by decision. No ID, completion rule, stored field or setting changes.
 
+**Agent material out of Unit 1 — 10 November:** Finlay said to cut the step 2 pointer to the Unit 2 early reading. The same kind of pointer on `/before-you-start` is cut too, and the publisher now updates section 5 of the Moodle Lesson, which still showed an older "supporting agent" block to signed-in learners. `/agent-basics` stays published, linked from the catalogue, and awaits his review. See the [release record](docs/releases/2026-11-10-cut-agent-pointers.md).
+
 **Set aside for a later unit (10 November):** Unit 2 activities, the linked glossary and workspace guides, audio walkthroughs and images, a built-in dictation or transcription feature, the personal learning map, side quizzes, certificates and reminders. They stay in the wishlist and brain-dump sections below and in their issues. None is deleted and no issue is closed by this decision.
 
 ## Public trial deployment — 13 October
