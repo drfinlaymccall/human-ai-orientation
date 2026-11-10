@@ -86,6 +86,15 @@ class PublicContextTests(unittest.TestCase):
         self.assertEqual((self.root / 'public/ai/context.md').read_bytes(),
                          (self.root / 'public/ai/releases/2026-11-10.1/context.md').read_bytes())
 
+    def test_unmapped_guidance_step_stops_the_build(self):
+        source = self.read('content/ai/course-context.json')
+        source['version'] = '2099-01-01.1'
+        source['steps'].append({'id': 'unmapped', 'title': 'Synthetic', 'guidance': 'Synthetic.'})
+        self.write('content/ai/course-context.json', source)
+        result = self.build()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('need a course step', result.stderr)
+
     def test_changed_activity_cannot_rewrite_published_context(self):
         course_map = self.read('content/course-map.json')
         course_map['activities'][0]['label'] += ' revised'

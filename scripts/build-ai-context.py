@@ -61,12 +61,19 @@ for activity in activities:
               f"Role: {activity['role']} | Baseline practice: {str(activity['baseline']).lower()} | Optional: {str(activity['optional']).lower()}"]
     lines += ['- ' + outcome for outcome in activity['outcomes']]
     lines += [f"Supporting guide: {link['label']} — {link['url']}" for link in activity['support_links']]
-lines += ['', '## Guidance for each course step', '',
-          'Each section below is labelled with the course step it belongs to. Step 2, Give AI useful context, has seven sections, in page order.']
 # Label by course step, so sections are not confused with the four steps or the activity map.
-course_step = {'first-task': 1, 'portfolio': 3, 'continue': 4}
+# Every id must be mapped: an unknown id stops the build rather than being mislabelled in an immutable edition.
+course_step = {'first-task': 1, 'choose': 2, 'understand': 2, 'brief': 2, 'try': 2, 'reuse': 2, 'check': 2,
+               'reflect': 2, 'portfolio': 3, 'continue': 4}
+unmapped = [step['id'] for step in source['steps'] if step['id'] not in course_step]
+if unmapped:
+    raise ValueError(f'Guidance steps need a course step: {unmapped}')
+count_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+step_two = sum(1 for step in source['steps'] if course_step[step['id']] == 2)
+lines += ['', '## Guidance for each course step', '',
+          f'Each section below is labelled with the course step it belongs to. Step 2, Give AI useful context, has {count_words[step_two]} sections, in page order.']
 for step in source['steps']:
-    lines += ['', f"### Step {course_step.get(step['id'], 2)}: {step['title']}", '', step['guidance']]
+    lines += ['', f"### Step {course_step[step['id']]}: {step['title']}", '', step['guidance']]
 lines += ['', '## Fictional worked example', '']
 for key, value in source['worked_example'].items():
     lines += [f"{key.replace('_', ' ').capitalize()}: {value}", '']
