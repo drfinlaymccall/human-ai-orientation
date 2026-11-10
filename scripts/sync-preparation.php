@@ -120,7 +120,8 @@ foreach ($definitions as $slug => $definition) {
 orientation_publish_structure($course, $map);
 // Update authored content and reflection guidance; preserve question types, IDs,
 // ordering, branching and every answer/attempt, including existing essays.
-foreach ([0, 1, 2, 3, 6] as $index) {
+// Page 5 (index 4) is a content page; index 5 is the question page and is left alone.
+foreach ([0, 1, 2, 3, 4, 6] as $index) {
     $item = $spec['pages'][$index];
     $page = $DB->get_record('lesson_pages', ['lessonid' => $lesson->id, 'title' => $item['title']], '*', MUST_EXIST);
     if ((int)$page->qtype !== ($item['type'] === 'essay' ? 10 : 20)) {
