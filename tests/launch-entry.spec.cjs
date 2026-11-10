@@ -16,7 +16,7 @@ test('closed-registration splash leads to the public journey and complete activi
     await expect(start).toHaveAttribute('href', '/journey');
     await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/first-task');
     await expect(page.locator('#course-path li a')).toHaveCount(4);
-    await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
+    await expect(page.locator('header [data-account-link]')).toHaveText('Sign in or open your course');
     await expect(page.locator('#account-status')).toContainText('Public registration is currently closed');
     await expect(page.locator('main')).toContainText('70–95 minutes');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
@@ -168,7 +168,7 @@ test('keyboard and no-JavaScript entry retain every activity, self-check and pub
     const page = await context.newPage();
     await page.goto('/');
     await expect(page.locator('[data-activity-atlas]')).toHaveCount(0);
-    await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
+    await expect(page.locator('header [data-account-link]')).toHaveText('Sign in or open your course');
     await page.keyboard.press('Tab');
     await expect(page.getByRole('link', { name: 'Skip to content', exact: true })).toBeFocused();
     await page.keyboard.press('Enter');
@@ -240,7 +240,7 @@ test('account state resolves safely on every public course header', async ({ pag
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/journey');
   for (const route of ['/journey', '/first-task', '/preview', '/portfolio', '/check-and-continue', '/before-you-start', '/notes', '/free-tools', '/deeper-courses', '/help', '/privacy']) {
     await page.goto(route);
-    await expect(page.locator('header').getByRole('link', { name: 'Unit 1 journey', exact: true })).toHaveAttribute('href', '/journey');
+    await expect(page.locator('header').getByRole('link', { name: 'Course journey', exact: true })).toHaveAttribute('href', '/journey');
     await expect(page.locator('header [data-account-link]')).toHaveText('Sign in');
   }
   expect(requests.length).toBeGreaterThanOrEqual(13);
@@ -256,7 +256,7 @@ test('slow, failed and invalid account responses retain an honest public fallbac
   });
   await page.goto('/');
   await expect(page.locator('[data-journey-primary]')).toHaveText('Explore your course');
-  await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
+  await expect(page.locator('header [data-account-link]')).toHaveText('Sign in or open your course');
   await expect(page.locator('header [data-account-link]')).toHaveAttribute('href', '/local/orientation/index.php');
   release();
   await expect(page.locator('[data-account-state]')).toContainText('unavailable');
@@ -265,7 +265,7 @@ test('slow, failed and invalid account responses retain an honest public fallbac
   await page.route('**/local/orientation/state.php', route => route.abort());
   await page.reload();
   await expect(page.locator('[data-account-state]')).toContainText('unavailable');
-  await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
+  await expect(page.locator('header [data-account-link]')).toHaveText('Sign in or open your course');
 });
 
 
@@ -284,7 +284,7 @@ test('restoring a signed-in page clears stale state while the next probe is pend
   await page.goto('/');
   await expect(page.locator('[data-journey-primary]')).toHaveText('Your course journey');
   await page.evaluate(() => dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
-  await expect(page.locator('header [data-account-link]')).toHaveText('Check sign-in / Your course journey');
+  await expect(page.locator('header [data-account-link]')).toHaveText('Sign in or open your course');
   await expect(page.locator('[data-journey-primary]')).toHaveText('Explore your course');
   pending();
   await expect(page.locator('[data-account-state]')).toHaveText('Signed out');
