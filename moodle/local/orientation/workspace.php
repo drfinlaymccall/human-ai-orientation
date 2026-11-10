@@ -144,7 +144,7 @@ if ($confirmation) {
     } else {
         echo '<button type="submit" class="context-download" name="action" value="download">Download Markdown (.md)</button>';
     }
-    echo '<p class="context-small">Optional: keep the .md file in your my-context folder in your own notes. Downloading does not save edits to Moodle.</p></section>';
+    echo '<p class="context-small">' . (!$note && $document !== 'practice' ? 'Optional: keep the .md file in your my-context folder in your own notes.' : 'Optional: keep the .md file somewhere you control, apart from the context documents you share with an AI.') . ' Downloading does not save edits to Moodle.</p></section>';
     if ($revision) echo '<details><summary>Remove saved text</summary><button type="submit" class="context-remove" name="action" value="' . ($note ? 'delete' : 'clear') . '">' . ($note ? 'Delete saved note' : 'Clear saved document') . '</button></details>';
     echo '</form>';
 }

@@ -19,7 +19,7 @@ The agent recommended two small additions. Finlay answered "Yes, do it" on 10 No
 ## Change
 
 - **Step 3, "Keep it in one folder you can find again"** (`content/portfolio.html`): make a folder called my-context; copy each document into its own note named working-with-me, my-goals-and-projects and useful-knowledge-and-examples. One sentence gives the reason. One sentence covers notes apps without folders. The check now asks the learner to reopen the folder and read the first line of each note.
-- **Download names:** the three Download buttons in the builder (`public/assets/portfolio.js`) and the Markdown download in My context (`moodle/local/orientation/workspace.php`) now give `working-with-me.md`, `my-goals-and-projects.md` and `useful-knowledge-and-examples.md`. The combined download, the backup, the practice record and saved notes keep their names.
+- **Download names:** the three Download buttons in the builder (`public/assets/portfolio.js`) and the Markdown download in My context (`moodle/local/orientation/workspace.php`) now give `working-with-me.md`, `my-goals-and-projects.md` and `useful-knowledge-and-examples.md`. The combined download, the backup, the practice record and saved notes keep their names, and their hints do not point to the folder: the private practice record and the backup stay outside it (review finding, accepted).
 - **Step 4** (`content/check-and-continue.html`): the finish check names the my-context folder. "What next?" gains the sentence about the next unit.
 - **Notes guide** (`content/notes-guide.html`): one sentence says the folder is added in step 3.
 - **Operator record** (`docs/operations/context-workspace.md`): the download step names the folder.

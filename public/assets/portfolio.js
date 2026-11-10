@@ -164,7 +164,7 @@
       const output = find('[data-portfolio-output]');
       if (output) output.value = contextText([...widget.querySelectorAll('[data-portfolio-select]:checked')].map(input => input.dataset.portfolioSelect));
     }
-    function download(text, filename, type) {
+    function download(text, filename, type, folder = false) {
       const url = URL.createObjectURL(new Blob([text], { type }));
       const anchor = document.createElement('a');
       anchor.href = url;
@@ -174,7 +174,7 @@
       anchor.click();
       anchor.remove();
       setTimeout(() => URL.revokeObjectURL(url), 10000);
-      announce('Download requested. Find the file in Downloads, check it opens and move it into your my-context folder.');
+      announce(folder ? 'Download requested. Find the file in Downloads, check it opens and move it into your my-context folder.' : 'Download requested. Find the file in Downloads and check it opens; keep it somewhere you control.');
     }
     function replace(data, revision = savedRevision, itemid = savedItemId, fromServer = false) {
       if (accountChanged) return;
@@ -250,7 +250,7 @@
       const button = event.target.closest('button');
       if (!button || !widget.contains(button)) return;
       const doc = button.dataset.portfolioDownload;
-      if (doc) { download(contextText([doc]), `${documents[doc].file}.md`, 'text/markdown;charset=utf-8'); return; }
+      if (doc) { download(contextText([doc]), `${documents[doc].file}.md`, 'text/markdown;charset=utf-8', true); return; }
       if (['example', 'clear', 'cancel'].includes(button.dataset.portfolioAction)) cancelImport();
       switch (button.dataset.portfolioAction) {
         case 'copy': {
