@@ -8,7 +8,7 @@ Marks: **[A]** blocks Stage A. **[B]** blocks Stage B. **[+]** optional, but add
 
 ## Do these first
 
-Five quick items, about 90 minutes in total. They are the fastest way to unblock the agent's work. They do not clear Stage A on their own; the full Stage A set is listed below.
+Five quick items, about 80 minutes in total. They are the fastest way to unblock the agent's work. They do not clear Stage A on their own; the full Stage A set is listed below.
 
 | Item | What | Time |
 |---|---|---|

@@ -8,7 +8,7 @@ File and line references are to `main` at `0920072`. Evidence labels: **V** = ve
 
 ## 1. Verdict
 
-- **Stage A (anonymous course open to search and promotion): not ready.** The remaining work is small. Most of it is one agent PR series plus four actions by Finlay.
+- **Stage A (anonymous course open to search and promotion): not ready.** The remaining work is small. Most of it is one agent PR series (packages A1–A6) plus Finlay's Stage A set: seven items and the date (package A7).
 - **Stage B (registration open): not ready.** It waits on genuine mail receipt by a consenting person, Finlay's privacy and retention confirmations, and operating procedures that do not exist yet.
 - The three things that matter most:
   1. The site still tells every search engine to stay away, and the replacement policy (which pages to index, a sitemap, share previews) is not built (F01–F04).
