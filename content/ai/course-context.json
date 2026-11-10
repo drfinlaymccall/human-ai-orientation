@@ -91,7 +91,7 @@
     "response_to_check": "Join us this Saturday at Riverside Hall for a free community gathering!",
     "prompt_for_learner": "Which details were invented? Rewrite the invitation using placeholders and explain what you changed."
   },
-  "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in step 2 of the course. Neither AI browsing nor a GitHub account is a completion requirement.",
+  "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in Give AI useful context at /preview. Neither AI browsing nor a GitHub account is a completion requirement.",
   "learner_lesson_url": "https://orientation.finlaymccall.com/journey",
   "saved_progress_url": "https://orientation.finlaymccall.com/local/orientation/index.php"
 }

@@ -20,7 +20,7 @@ In `content/ai/course-context.json`:
 - **Talk it through:** if a learner pastes that prompt, the AI interviews one question at a time, uses only what they say and returns three plain-text documents to correct.
 - **Next goal:** the four parts taught in step 4, chosen by the human, and the finish check.
 - **Agent material:** "Instruction files are an optional extension" is removed from the step guidance. One guidance line says Unit 1 does not teach agent tools; the Unit 2 early reading is offered only if the learner asks.
-- **Names:** "Files, folders and locations" for the files page; "step 2 of the course" for "the public lesson".
+- **Names:** "Files, folders and locations" for the files page; "Give AI useful context at /preview" for "the public lesson". The practice sections in the text are no longer numbered 1–10, so they cannot be mistaken for the four course steps, and the `/ai/` page labels step 3 "Step 3: your three context documents" (review findings, accepted).
 
 In `scripts/build-ai-context.py`: the activity-map introduction states the order; "Course journey" replaces "Public lesson"; the `/ai/` page says "the course".
 

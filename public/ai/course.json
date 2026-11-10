@@ -17,7 +17,7 @@
   "license_scope_url": "https://orientation.finlaymccall.com/deeper-courses#course-licence",
   "github_status": "Public source, design history and issue tracking.",
   "ai_browsing_required": false,
-  "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in step 2 of the course. Neither AI browsing nor a GitHub account is a completion requirement.",
+  "fallback": "If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in Give AI useful context at /preview. Neither AI browsing nor a GitHub account is a completion requirement.",
   "learning_outcomes": [
     "Choose a worthwhile task and decide what a useful result would look like.",
     "Explain your intention, notice a misunderstanding and clarify it.",

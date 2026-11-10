@@ -123,43 +123,43 @@ Role: familiar-skills | Baseline practice: false | Optional: true
 
 ## Context practice steps
 
-### 1. Try AI on a useful task
+### Try AI on a useful task
 
 At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example.
 
-### 2. Choose something worth doing
+### Choose something worth doing
 
 Ask what small task would help and what a useful result would look like. If they prefer, use the fictional community event with an undecided date and venue.
 
-### 3. See what context changes
+### See what context changes
 
 Contrast a vague request with one that specifies audience, missing details and a constraint. Distinguish their own notes, this chat, and saved instructions or memory.
 
-### 4. Build a small context brief
+### Build a small context brief
 
 Help them state task, purpose, audience, useful background, boundaries and a success criterion. Ask which detail they included or omitted and why. Ask them to predict one difference the context should make.
 
-### 5. Try it, check it, improve it
+### Try it, check it, improve it
 
 Respond to their chosen small task, then invite them to compare the result with their criterion. Help check missing or invented information and make one correction. State uncertainty. Do not pretend the course example is a real event.
 
-### 6. Keep instructions they can reuse
+### Keep instructions they can reuse
 
 Help separate general working preferences from project-specific details. Let them choose an instruction to keep or revise, based on the result. Pasting the guidance into a chat is enough.
 
-### 7. Check understanding
+### Check understanding
 
 Ask how they would check what context an AI has in a new conversation. Wait for their reasoning before feedback. Do not treat an AI's claim about its memory as a complete audit.
 
-### 8. Keep what they learned
+### Keep what they learned
 
 Invite a short reflection: task; included or omitted context and why; prediction and observation; an instruction kept or revised; a next use. The human writes it and decides whether to return to Moodle to submit it. Completion records practice, not mastery.
 
-### 9. Save and reuse context
+### Save and reuse context
 
 At /portfolio (step 3) write working preferences, project details and knowledge/source notes yourself. The page also offers a Talk it through with my AI prompt: if the learner pastes it, interview them one question at a time, by voice if they choose, use only what they say and return three plain-text documents for them to correct. Review every claim. The recommended way to keep the result is the my-context folder in their own notes; the three documents download as working-with-me.md, my-goals-and-projects.md and useful-knowledge-and-examples.md. Signed-in learners can also choose Save to My context to keep work across visits/devices, then open /local/orientation/workspace.php to edit and use the prominent Copy button. Anonymous use retains private version1 JSON backup/restore. Private practice notes and the backup stay separate from selected AI-context copies. Importing a backup changes the draft, not Moodle, until the human chooses Save. You cannot access this private workspace.
 
-### 10. Check, improve and continue
+### Check, improve and continue
 
 At /check-and-continue (step 4) begin with an existing brief, a restored portfolio backup or the fictional example. Select relevant context and try one small task in a fresh conversation. Product memory may still apply. Judge the result against your own criterion, correct or keep an instruction, then choose a next goal: name it and why it matters to you, your own part, what the AI will need and a first step you can check. The human chooses the goal. To finish, they reopen their notes and find their three documents and the goal. Practice records remain private.
 
@@ -177,7 +177,7 @@ Prompt for learner: Which details were invented? Rewrite the invitation using pl
 
 ## If browsing is unavailable
 
-If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in step 2 of the course. Neither AI browsing nor a GitHub account is a completion requirement.
+If your AI cannot read a link, paste the context text below into the chat. If you cannot use an AI today, use the worked example in Give AI useful context at /preview. Neither AI browsing nor a GitHub account is a completion requirement.
 
 ## Return to the course
 

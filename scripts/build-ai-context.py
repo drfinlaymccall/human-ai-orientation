@@ -62,8 +62,9 @@ for activity in activities:
     lines += ['- ' + outcome for outcome in activity['outcomes']]
     lines += [f"Supporting guide: {link['label']} — {link['url']}" for link in activity['support_links']]
 lines += ['', '## Context practice steps']
-for i, step in enumerate(source['steps'], 1):
-    lines += ['', f"### {i}. {step['title']}", '', step['guidance']]
+# Unnumbered, so these sections are not confused with the four course steps.
+for step in source['steps']:
+    lines += ['', f"### {step['title']}", '', step['guidance']]
 lines += ['', '## Fictional worked example', '']
 for key, value in source['worked_example'].items():
     lines += [f"{key.replace('_', ' ').capitalize()}: {value}", '']
@@ -161,7 +162,7 @@ metadata = {'@context': 'https://schema.org', '@type': 'Course', 'name': source[
                          'url': activity['public_url'], 'version': activity['version'], 'dateModified': activity['updated_at'],
                          'learningResourceType': activity['role'], 'teaches': activity['outcomes']} for activity in activities]}
 escape = html.escape
-role_labels = {'core': 'Core practice', 'portfolio-bridge': 'Part of the context activity',
+role_labels = {'core': 'Core practice', 'portfolio-bridge': 'Step 3: your three context documents',
                'familiar-skills': 'Optional help'}
 activity_links = ''.join(
     f'<li><a href="{escape(activity["public_url"])}">{escape(activity["label"])}</a>'
