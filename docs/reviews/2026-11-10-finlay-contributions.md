@@ -8,15 +8,17 @@ Marks: **[A]** blocks Stage A. **[B]** blocks Stage B. **[+]** optional, but add
 
 ## Do these first
 
-About 90 minutes in total. Together they clear every Stage A item that is yours.
+Five quick items, about 90 minutes in total. They are the fastest way to unblock the agent's work. They do not clear Stage A on their own; the full Stage A set is listed below.
 
-| # | Item | Time |
+| Item | What | Time |
 |---|---|---|
-| 1 | Read `/privacy` and answer the three Stage A questions | 30 min |
-| 2 | Turn off Cloudflare Web Analytics, and apply the AI-context rule | 15 min |
-| 3 | Set up the uptime monitor | 15 min |
-| 4 | Read `/agent-basics` and say keep, change or cut | 15 min |
-| 5 | Run `gh auth refresh -s workflow` | 5 min |
+| Item 1 | Read `/privacy` and answer the three Stage A questions | 30 min |
+| Items 2 and 23 | Turn off Cloudflare Web Analytics, and apply the AI-context rule | 15 min |
+| Item 3 | Set up the uptime monitor | 15 min |
+| Item 15 | Read `/agent-basics` and say keep, change or cut | 15 min |
+| Item 24 | Run `gh auth refresh -s workflow` (not a Stage A item; it unblocks #10) | 5 min |
+
+**Your Stage A set.** Stage A needs all of these from you: items 1, 2, 3, 9, 12, 15 and 23, then item 5 (the date). Item 4 (pilot order) affects when you choose the date. Items 25 and 31 are recommended before Stage A. This is the same set as package A7 and decision D9 in the audit.
 
 ## 1. Decisions and approvals
 
@@ -75,7 +77,7 @@ About 90 minutes in total. Together they clear every Stage A item that is yours.
 - **What:** choose the date.
 - **Why you:** your decision by project rule.
 - **Unblocks:** Stage A (D9).
-- **Prepared:** the agent will post a one-page check list on #9 when packages A1–A6 are live and items 1–4, 9 and 15 here are done.
+- **Prepared:** the agent will post a one-page check list on #9 when packages A1–A6 are live and the rest of your Stage A set (see "Do these first") is done.
 - **Effort:** 5 minutes, later.
 
 ### 6. Retention promise [B]
@@ -276,7 +278,7 @@ Answer by dictation. Each answer has a named place. The agent will tidy the tran
 
 ### 29. Server housekeeping
 
-- **What:** the disk is 88 % full and the server hosts other projects. Decide what can go.
+- **What:** free disk space is limited (figure in the private operator note) and the server hosts other projects. Decide what can go.
 - **Why you:** the agent should not delete files from other projects.
 - **Unblocks:** F23.
 - **Effort:** 30 minutes.
