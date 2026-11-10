@@ -68,7 +68,7 @@ test('saved portfolio returns in a fresh browser and large Copy excludes private
   const downloaded = returning.waitForEvent('download');
   await returning.getByRole('button', { name: 'Download Markdown (.md)', exact: true }).click();
   const file = await downloaded;
-  expect(file.suggestedFilename()).toBe('orientation-working.md');
+  expect(file.suggestedFilename()).toBe('working-with-me.md');
   expect(fs.readFileSync(await file.path(), 'utf8')).toBe(copied);
   await returning.goto('/portfolio');
   await expect(returning.locator('[data-portfolio-field="about"]')).toHaveValue('Synthetic context for a fictional book swap.');
