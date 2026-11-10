@@ -30,7 +30,7 @@
     {
       "id": "first-task",
       "title": "Try AI on a useful task",
-      "guidance": "At /first-task choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example."
+      "guidance": "At /first-task (step 1) choose a small worthwhile task, a checkable criterion and a first attempt. Use your own notes or the fictional example."
     },
     {
       "id": "choose",

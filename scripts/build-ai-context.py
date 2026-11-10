@@ -61,10 +61,12 @@ for activity in activities:
               f"Role: {activity['role']} | Baseline practice: {str(activity['baseline']).lower()} | Optional: {str(activity['optional']).lower()}"]
     lines += ['- ' + outcome for outcome in activity['outcomes']]
     lines += [f"Supporting guide: {link['label']} — {link['url']}" for link in activity['support_links']]
-lines += ['', '## Context practice steps']
-# Unnumbered, so these sections are not confused with the four course steps.
+lines += ['', '## Guidance for each course step', '',
+          'Each section below is labelled with the course step it belongs to. Step 2, Give AI useful context, has seven sections, in page order.']
+# Label by course step, so sections are not confused with the four steps or the activity map.
+course_step = {'first-task': 1, 'portfolio': 3, 'continue': 4}
 for step in source['steps']:
-    lines += ['', f"### {step['title']}", '', step['guidance']]
+    lines += ['', f"### Step {course_step.get(step['id'], 2)}: {step['title']}", '', step['guidance']]
 lines += ['', '## Fictional worked example', '']
 for key, value in source['worked_example'].items():
     lines += [f"{key.replace('_', ' ').capitalize()}: {value}", '']
