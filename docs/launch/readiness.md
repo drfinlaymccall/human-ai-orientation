@@ -1,6 +1,6 @@
 # Pilot and public-release handoff
 
-This is the operator handoff for the [forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md). The [dated release record](../releases/2026-10-23-launch-implementation.md) owns observed results. Prepared materials and synthetic checks do not establish human participation or mail receipt.
+This is the operator handoff for the [forward plan](../plans/2026-10-23-002-feat-public-launch-plan.md). Observed results are owned by the dated release records; the newest are listed in the status block of [`CONTROL.md`](../../CONTROL.md), and the [10 November launch audit](../reviews/2026-11-10-launch-audit.md) lists what each stage still needs. The [23 October record](../releases/2026-10-23-launch-implementation.md) holds the original implementation results. Prepared materials and synthetic checks do not establish human participation or mail receipt.
 
 ## Two stages — approved 6 November 2026
 

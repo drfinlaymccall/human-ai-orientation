@@ -11,6 +11,8 @@ execution: code
 
 # Human AI Orientation: HOC improvement plan
 
+**Status note — 10 November 2026:** this plan was last revised on 24 October, with the two-stage launch decisions added on 6 November. Its header and several status paragraphs predate PR #36 and the 10 November minimum-viable-course work. For the current state read the status block in [`CONTROL.md`](../../CONTROL.md) and the [launch audit](../reviews/2026-11-10-launch-audit.md); for what remains, the audit's work packages. The plan is kept as the record of intent.
+
 ## Goal Capsule
 
 Make the existing course easy to understand, join, use and return to; verify the complete experience with a small human pilot; then launch it with a course-and-module LinkedIn series.

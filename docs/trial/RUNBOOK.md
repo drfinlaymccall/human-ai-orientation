@@ -56,12 +56,14 @@ For a fresh project checkout on **Ubuntu 24.04 amd64**, run `python3 scripts/boo
 
 Browser tests use the existing Chromium path in `playwright.config.cjs`. On another machine set `ORIENTATION_CHROMIUM` to a compatible installed Chromium executable.
 
+**Do not run bare `npm test`.** Since the public deployment it targets the live site with an old private account and would write synthetic data there. It now refuses to start unless `ORIENTATION_ALLOW_LIVE_TEST=1` is set. Run native and account tests only on the synthetic fixture with captured mail (port 18802); the commands are in the [course-review guide](../qa/course-review-agent.md) and [reproduction notes](../REPRODUCING.md). Public pages are checked with `npm run check:public`.
+
 ```sh
-npm test
-scripts/php tests/check-evidence.php
+npm run check:public
+ORIENTATION_FIXTURE_URL=http://127.0.0.1:18802 npm run test:progress
 ```
 
-Tests create synthetic `@example.test` accounts and preserve their evidence. They do not submit prompts to real AI providers. Browser tests use desktop and narrow mobile viewports; this does not replace physical-phone, screen-reader or human usability testing. The final evidence command checks actual saved reflection and activity-completion records.
+Fixture tests create synthetic `@example.test` accounts and preserve their evidence. They do not submit prompts to real AI providers. Browser tests use desktop and narrow mobile viewports; this does not replace physical-phone, screen-reader or human usability testing.
 
 ## Logs and operation
 

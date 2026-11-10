@@ -1,5 +1,7 @@
 # Native account onboarding
 
+**Current state — 10 November 2026:** broad registration is closed; the exact-address pilot gate is enabled on the live preview (acquisition mode `pilot`), and the native enrolment welcome mail is enabled. Only owner-controlled mail has been received; no other person has confirmed, been welcomed or recovered an account. The rest of this paragraph is the record as first written.
+
 Broad registration is closed. The implementation supports an exact-address pilot gate and synthetic rehearsal; it is not evidence of genuine mail delivery or permission to open broad enrolment. Finlay accepted the pilot information/support position on 23 October, with retention to be revisited before broader launch. The pilot operating review must still be recorded privately before enabling its gate. Finlay reviews information-use/support/operating wording and representative consenting recipients test confirmation and recovery before opening. See [email and support](email-and-support.md) for the existing transport and exact approval boundary for support replies.
 
 ## Additive configuration
@@ -114,7 +116,7 @@ Moodle owns delivery on successful confirmed self-enrolment, the native “Welco
 
 An account confirmation is separate from a course welcome. Configuration, ordinary visits and password recovery do not enrol again or send another welcome. Removal/re-enrolment sends anew; repeated explicit enrolment API calls can also resend. No cross-lifecycle exactly-once delivery or custom deduplication service is claimed. Do not bulk-enrol existing students to distribute this message. Genuine receipt to a consenting mailbox remains a launch check; synthetic capture is separate.
 
-The bounded native welcome unit passed five captured-mail scenarios after reproducing and fixing the unexpected automatic activity link; 20 source assertions passed. WB10 owns final integrated first-visit/return/recovery and in-course welcome verification. This source implementation does not enable welcome delivery on production.
+The bounded native welcome unit passed five captured-mail scenarios after reproducing and fixing the unexpected automatic activity link; 20 source assertions passed. WB10 owns final integrated first-visit/return/recovery and in-course welcome verification. This source implementation did not itself enable welcome delivery on production; it was enabled later and is on as of 10 November 2026 (see the current-state note at the top).
 
 ## Sign-up collection notice
 

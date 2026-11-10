@@ -10,13 +10,20 @@
 
 **Unit 2: Introduction to Agentic Systems** is a planned syllabus, not a delivered set of lessons. It covers agent basics, context and memory, instruction files, skills and plugins. [Course structure](docs/curriculum/course-structure.md) explains the hierarchy and preservation rules. There is no programme layer or separate Moodle course per unit.
 
-1. **Do one useful thing.** Choose a meaningful task, decide what a useful result would look like, and try it.
-2. **Give AI useful context.** Select relevant background, test a better brief, and build a reviewed personal context portfolio.
-3. **Check, improve and continue.** Retrieve that context, use it on a fresh task, correct the result and choose a next goal.
+The learner works through four steps, in order the first time:
+
+1. **Try AI on a useful task.** Choose a meaningful task, decide what a useful result would look like, and try it.
+2. **Give AI useful context.** Select relevant background and test a better brief.
+3. **Save and reuse context.** Build three reviewed context documents and keep them in one folder of plain-text files.
+4. **Check, improve and continue.** Use that context on a fresh task, correct the result and choose a next goal.
 
 Files, folders, notes and AI interfaces are modules within the orientation unit. Guided practice can be skipped through the familiar-skills route. The previous author estimate for the core activities and portfolio was 70–95 minutes, excluding this foundational practice; it is not a measured duration for the reorganized unit. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
-## Launch status — 6 November 2026
+## Current status — 10 November 2026
+
+A minimum viable course is on the owner preview: four steps, three context documents and a next goal. It is not open. The preview still tells search engines to stay away, registration is closed, and no person other than Finlay has used it. Wording is not yet approved by Finlay. [`CONTROL.md`](CONTROL.md) has the full status and the [launch audit](docs/reviews/2026-11-10-launch-audit.md) lists what each stage needs. The sections below are dated records.
+
+## Launch plan — 6 November 2026
 
 Two-stage launch approved. Neither stage is open. Stage A opens the anonymous course to search and promotion with registration closed. Stage B opens registration after email, recovery, support and operating checks are recorded. See the [launch plan](docs/plans/2026-10-23-002-feat-public-launch-plan.md#launch-plan--6-november-decisions) and the [launch readiness record](docs/releases/2026-11-06-launch-readiness.md).
 

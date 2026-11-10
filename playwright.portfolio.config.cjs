@@ -1,5 +1,6 @@
 const { defineConfig } = require('@playwright/test');
-const port = process.env.ORIENTATION_PORTFOLIO_PORT || '8796';
+// 18816 is the default: another project's service holds 8796 on this server (audit F51).
+const port = process.env.ORIENTATION_PORTFOLIO_PORT || '18816';
 if (!['8796', '18816', '18852'].includes(port)) throw new Error('Use a supported loopback portfolio preview port.');
 const baseURL = `http://127.0.0.1:${port}`;
 module.exports = defineConfig({
