@@ -50,7 +50,7 @@ Do not run the private `seed-course.php` or development-server launcher against 
 
 Before public DNS, desktop and mobile-width landing/preview checks passed. Initial checks caught forwarded-host routing, Moodle's server-name handling and a private-path handler ordering issue; these were corrected before exposure. The final public HTTPS checks passed (see the deployment evidence below).
 
-Run a synthetic public journey with:
+**Retired (10 November 2026): do not run this sequence.** It creates a synthetic account and reflection on the live site, whose accounts, saved work and activity history must be preserved. Native and account behaviour is tested on the synthetic fixture with captured mail (port 18802; see the [course-review guide](../qa/course-review-agent.md)). The live site is checked with read-only requests and a before-and-after structural snapshot, as each release record describes. The original sequence is kept here as history:
 
 ```sh
 scripts/php scripts/public-qa-user.php
@@ -58,13 +58,13 @@ npm test
 scripts/php scripts/public-qa-user.php suspend
 ```
 
-Only run this deliberately: it creates a synthetic account and reflection in the live trial. `ORIENTATION_LOCAL_ORIGIN=1` intercepts requests to the prepared local origin; that mode is not proof of public DNS or TLS. Public receipts go to `trial/public-test-report.json`; screenshots contain synthetic data only.
+It created a synthetic account and reflection in the live trial. `ORIENTATION_LOCAL_ORIGIN=1` intercepts requests to the prepared local origin; that mode is not proof of public DNS or TLS. Public receipts go to `trial/public-test-report.json`; screenshots contain synthetic data only.
 
 ## Backup and recovery
 
 A pre-deployment backup exists under `trial/backups/20261013T042037Z/`: custom-format PostgreSQL dump, original Moodle config, and the data directory archive. The database dump was restored into a temporary database and all seven lesson pages verified; the complete data archive was read successfully. The scratch database was then removed. The receipt is `trial/backup-verification.json`.
 
-This verifies the database restore and archive readability, not a complete replacement-host recovery. Backups remain on this server; off-server rotation is still required before inviting a wider audience. Later restoration must consider newly submitted learner records rather than overwrite them silently.
+This verifies the database restore and archive readability, not a complete replacement-host recovery. Backups made by this project remain on this server. The earlier requirement for off-server rotation is replaced by Finlay's later decisions: he reports paid whole-server Contabo backups and accepts that provision for now, and on 6 November he confirmed that no restore test is required (see `CONTROL.md`). Those backups' settings and recoverability are not independently verified. Later restoration must consider newly submitted learner records rather than overwrite them silently.
 
 **Outage, 7–8 November 2026.** From 07:10 AEDT on 7 November, Cloudflare returned error 521 for every page. The system Caddy service had stopped cleanly with exit code 0, so nothing listened on ports 80 and 443. The course services stayed running, and course modules, lesson pages, evidence counts and acquisition settings were unchanged after recovery. At the same minute, a Claude session in another project started test copies of Caddy. A `caddy stop` sent to the system Caddy's local admin port is the likely cause, but the system log was not readable to confirm it. The unit had no restart rule. Finlay started Caddy at 19:03 AEDT on 8 November and added `Restart=always`. A check after recovery found the 10 course routes checked returning 200 and the old recovery link redirecting. Nothing alerted anyone during the 36 hours.
 
