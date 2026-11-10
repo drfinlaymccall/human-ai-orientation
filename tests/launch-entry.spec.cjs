@@ -228,8 +228,13 @@ test('account state resolves safely on every public course header', async ({ pag
   await expect(page.locator('[data-journey-primary]')).toHaveText('Your course journey');
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/local/orientation/index.php');
   await expect(page.locator('[data-account-state]')).toHaveText('Signed in');
+  // A signed-in learner's step links open the native activities, where practice is recorded.
+  await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/local/orientation/index.php?module=first-task');
+  await expect(page.locator('#course-path [data-native-module="useful-context"]')).toHaveAttribute('href', '/local/orientation/index.php?module=useful-context');
   response = { state: 'signed-out', journey_url: '/local/orientation/index.php' };
   await page.evaluate(() => dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await expect(page.getByRole('link', { name: 'Start the course', exact: true })).toHaveAttribute('href', '/first-task');
+  await expect(page.locator('#course-path [data-native-module="useful-context"]')).toHaveAttribute('href', '/preview');
   await expect(page.locator('header [data-account-link]')).toHaveText('Sign in');
   await expect(page.locator('[data-journey-primary]')).toHaveText('Explore your course');
   await expect(page.locator('[data-journey-primary]')).toHaveAttribute('href', '/journey');

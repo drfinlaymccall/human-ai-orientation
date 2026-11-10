@@ -22,6 +22,7 @@ On 10 November Finlay asked for the course to be finished as a minimum viable pr
 Learner pages (shared fragments in `content/`, then `npm run build`):
 
 - **Home:** the main button is "Start the course" and opens step 1. "Explore your course" stays as the second button. A new list names the four steps in order with times. "Keep your work" now leads with your own notes. The word "pilot" is gone.
+- **Signed-in learners:** on the home page and the public journey, the start button and the four step links open the native Moodle activity when the sign-in check confirms a session, so their practice is recorded there. Without a confirmed session, and without JavaScript, the links open the public pages.
 - **Journey:** the four steps and "Start step 1" come before the activity map. The map text says the three other modules are optional practice. The starting-point check is one sentence.
 - **Step labels:** "Activity 1" to "Activity 4" are now "Step 1 of 4" to "Step 4 of 4". The portfolio label no longer says "not needed for Unit 1 completion".
 - **Next buttons:** the three optional practice pages and `/free-tools` now lead to step 1. "Go deeper" leads back to the journey. Step 1 leads to "Give AI useful context" by its own name.

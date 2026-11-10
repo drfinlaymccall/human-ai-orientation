@@ -23,13 +23,13 @@ JOURNEY = '''<p class="eyebrow">Human AI Orientation · Free public activities</
 <p class="intro" id="course-rationale"><!-- student-rationale --></p>
 <p>Work through four steps, in order the first time. Allow roughly 70–95 minutes in total, split across visits if useful. Times are guides, not deadlines. A free AI tool is enough; fictional examples let you practise without an AI account.</p>
 <ol data-course-path>
-<li><a href="/first-task"><strong>Try AI on a useful task.</strong></a> Pick something small that matters to you and decide what a useful result looks like. 10–15 minutes.</li>
-<li><a href="/preview"><strong>Give AI useful context.</strong></a> Tell the AI what it needs to know, then fix one thing it gets wrong. 25–30 minutes.</li>
-<li><a href="/portfolio"><strong>Save and reuse context.</strong></a> Write your three context documents and keep them in your own notes. 20–30 minutes.</li>
-<li><a href="/check-and-continue"><strong>Check, improve and continue.</strong></a> Test your documents in a fresh conversation and choose your next goal. 15–20 minutes.</li>
+<li><a href="/first-task" data-native-module="first-task"><strong>Try AI on a useful task.</strong></a> Pick something small that matters to you and decide what a useful result looks like. 10–15 minutes.</li>
+<li><a href="/preview" data-native-module="useful-context"><strong>Give AI useful context.</strong></a> Tell the AI what it needs to know, then fix one thing it gets wrong. 25–30 minutes.</li>
+<li><a href="/portfolio" data-native-module="portfolio"><strong>Save and reuse context.</strong></a> Write your three context documents and keep them in your own notes. 20–30 minutes.</li>
+<li><a href="/check-and-continue" data-native-module="check-and-continue"><strong>Check, improve and continue.</strong></a> Test your documents in a fresh conversation and choose your next goal. 15–20 minutes.</li>
 </ol>
 <p>You finish with three context documents you can reuse with any AI, and one goal you want to complete with its help.</p>
-<div class="actions"><a class="button" href="/first-task">Start step 1</a><a class="button secondary" href="#atlas-heading">Choose an activity</a></div>
+<div class="actions"><a class="button" href="/first-task" data-native-module="first-task">Start step 1</a><a class="button secondary" href="#atlas-heading">Choose an activity</a></div>
 <!-- student-objectives -->
 <p class="meta">Not sure where to begin? If you have a course account, <a href="/local/orientation/startingpoint.php">Find my starting point</a> asks a few optional questions and suggests an activity. Without an account, start at step 1. Public registration is currently closed.</p>
 <p class="account-state meta" data-account-state role="status">Check sign-in to see your account state.</p>
