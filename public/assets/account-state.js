@@ -10,7 +10,7 @@
   function show(state) {
     for (const link of links) {
       link.href = journey;
-      link.textContent = state === 'signed-in' ? 'Your course journey' : state === 'signed-out' ? 'Sign in' : 'Check sign-in / Your course journey';
+      link.textContent = state === 'signed-in' ? 'Your course journey' : state === 'signed-out' ? 'Sign in' : 'Sign in or open your course';
     }
     for (const link of primary) {
       link.href = state === 'signed-in' ? journey : '/journey';
@@ -19,7 +19,7 @@
     for (const { link, open } of steps) {
       link.setAttribute('href', state === 'signed-in' ? journey + '?module=' + encodeURIComponent(link.dataset.nativeModule) : open);
     }
-    let message = 'Sign-in state unavailable. Check sign-in / Your course journey, or explore the public activities.';
+    let message = 'Sign-in state unavailable. Choose Sign in or open your course, or explore the public activities.';
     if (state === 'signed-in') message = 'Signed in';
     else if (state === 'signed-out') message = 'Signed out';
     else if (state === 'checking') message = 'Checking sign-in… Public activities are available.';

@@ -138,12 +138,12 @@ test.describe.serial('native current-user activity progress',()=>{
   await login(page,users[0]);
   await expect(page.getByRole('heading',{name:'Your course journey',exact:true})).toBeVisible();
   await expect(primaryLink(page,'Continue: Try AI on a useful task')).toBeVisible();
-  await expect(page.locator('#region-main')).toContainText('Portfolio practice within activity 2');
+  await expect(page.locator('#region-main')).toContainText('Save and reuse context');
   await expect(page.locator('#region-main')).toContainText('Choose Save to My context');
   await expect(page.locator('#region-main').locator('[data-atlas-open="useful-context"]')).toHaveAttribute('href',course.lesson_url);
   await expect(page.locator('[data-activity-atlas]')).toBeVisible();
   await expect(page.getByRole('button',{name:'Close course index',exact:true})).toHaveCount(0);
-  await expect(page.locator('[data-atlas-choice]')).toHaveCount(5);
+  await expect(page.locator('[data-atlas-choice]')).toHaveCount(7);
   await expect(page.locator('[data-atlas-progress="first-task"]')).toHaveText('Not yet complete');
   await expect(page.locator('link[href$="/assets/site.css"]')).toHaveCount(0);
   await expect(page.locator('#region-main')).not.toContainText('COMP-');
@@ -154,7 +154,7 @@ test.describe.serial('native current-user activity progress',()=>{
  test('the private atlas remains a complete readable native activity list without JavaScript',async({browser})=>{
   const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
   await page.goto(overview);await page.locator('#username').fill(users[0].username);await page.locator('#password').fill(password);await page.locator('#loginbtn').click({timeout:30000});
-  await expect(page.locator('[data-atlas-detail]')).toHaveCount(5);
+  await expect(page.locator('[data-atlas-detail]')).toHaveCount(7);
   for(const link of await page.locator('[data-atlas-open]').all()){await expect(link).toBeVisible();await expect(link).toHaveAttribute('href',/\/mod\/(page|lesson)\/view\.php\?id=/);}
   await expect(page.getByRole('link',{name:'Set up your notes',exact:true})).toHaveAttribute('href',/\/mod\/page\/view\.php\?id=/);
   await context.close();
@@ -250,10 +250,12 @@ test.describe.serial('native current-user activity progress',()=>{
   const before=state();const mapfile=path.join(fixture,'moodle/local/orientation/course-map.json');const original=fs.readFileSync(mapfile,'utf8');
   try {
    const changed=JSON.parse(original);changed.activities[0].version='1.1.0';changed.activities[0].update_note='Synthetic current-version display check.';
-   changed.activities.push({slug:'notes',idnumber:'orientation:notes',label:'Synthetic optional new practice',module_type:'page',public_url:'/notes',baseline:false,optional:true,version:'1.0.0',updated_at:'2026-10-23',update_note:'Synthetic optional addition.',outcomes:['Optional notes practice.']});
+   // Notes is now a mapped activity; use a published page outside the map as the synthetic optional addition.
+   changed.units[0].modules[changed.units[0].modules.length-1].activities.push('deeper-courses');
+   changed.activities.push({slug:'deeper-courses',idnumber:'orientation:deeper-courses',label:'Synthetic optional new practice',module_type:'page',public_url:'/deeper-courses',baseline:false,optional:true,version:'1.0.0',updated_at:'2026-10-23',update_note:'Synthetic optional addition.',outcomes:['Optional notes practice.']});
    fs.writeFileSync(mapfile,JSON.stringify(changed));await page.goto(overview);
-   await expect(page.locator('[data-journey-extra="notes"]')).toContainText('Synthetic optional new practice');
-   await expect(page.locator('[data-journey-extra="notes"] a')).toHaveAttribute('href',/\/mod\/page\/view\.php\?id=/);
+   await expect(page.locator('[data-journey-extra="deeper-courses"]')).toContainText('Synthetic optional new practice');
+   await expect(page.locator('[data-journey-extra="deeper-courses"] a')).toHaveAttribute('href',/\/mod\/page\/view\.php\?id=/);
    await expect(page.locator('#region-main')).toContainText('Current version 1.1.0');await expect(page.locator('#region-main')).toContainText('Synthetic optional new practice');
    await expect(page.locator('#region-main')).toContainText('Your three core activities are recorded as complete');expect(state()).toEqual(before);
    changed.activities[changed.activities.length-1].baseline=true;fs.writeFileSync(mapfile,JSON.stringify(changed));

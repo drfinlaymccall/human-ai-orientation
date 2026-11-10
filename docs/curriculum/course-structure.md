@@ -57,7 +57,7 @@ The new AI context edition is `2026-10-25.1`, with schema `1.4`. Earlier edition
 
 | Purpose | Public route | Native route |
 | --- | --- | --- |
-| Course catalogue | `/catalogue` | `/local/orientation/index.php?view=catalogue` |
+| Course catalogue (linked from the journey page, not the public header) | `/catalogue` | `/local/orientation/index.php?view=catalogue` |
 | Unit 1 journey | `/journey` | `/local/orientation/index.php` |
 | Legacy introduction | `/course-introduction` | Existing `orientation:journey` Page |
 | Desktop module | `/desktop-workspace` | New `orientation:desktop-workspace` Page |

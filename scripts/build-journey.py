@@ -32,7 +32,7 @@ JOURNEY = '''<p class="eyebrow">Human AI Orientation · Free public activities</
 <div class="actions"><a class="button" href="/first-task" data-native-module="first-task">Start step 1</a><a class="button secondary" href="#atlas-heading">Choose an activity</a></div>
 <!-- student-objectives -->
 <p class="meta">Not sure where to begin? If you have a course account, <a href="/local/orientation/startingpoint.php">Find my starting point</a> asks a few optional questions and suggests an activity. Without an account, start at step 1. Public registration is currently closed.</p>
-<p class="account-state meta" data-account-state role="status">Check sign-in to see your account state.</p>
+<p class="account-state meta" data-account-state role="status">Sign in to open your saved course work.</p>
 <!-- activity-atlas -->
 <!-- orientation-return-guidance --><aside class="note"><h2>Returning to your work?</h2><p>Signed-in learners can open <a href="/local/orientation/workspace.php">My context</a> to edit and copy work they deliberately saved to Moodle, including on another device. <a href="/local/orientation/index.php">Your Unit 1 progress</a> keeps activity completion separate from your documents. In anonymous use, <a href="/portfolio">open the portfolio builder</a> in the same tab to resume its temporary draft, or restore your private JSON backup.</p><p>The outcome is practical: retrieve your reviewed documents, select relevant context and use it to begin a worthwhile task.</p></aside><!-- /orientation-return-guidance -->
 <nav class="actions" aria-label="Start the course"><a class="button" href="/first-task">Start with a useful task</a><a class="button secondary" href="/before-you-start">Explore files and locations</a></nav>'''
@@ -68,7 +68,7 @@ def activity_atlas():
 <details><summary>Check what I can do</summary><div class="atlas-detail-grid"><div><h4>What I understand</h4><p>{escape(atlas['knowledge_check'])}</p></div><div><h4>What I can do</h4><p>{escape(atlas['performance_check'])}</p></div></div><p class="meta">Use these questions for your own reflection. No answer or assessment is saved here.</p></details>
 {supporting}</section>''')
     return f'''<section class="activity-atlas" data-activity-atlas aria-labelledby="atlas-heading">
-<div class="atlas-heading"><p class="eyebrow">Explore your course</p><h2 id="atlas-heading">What would you like to do with AI?</h2><p>The four steps come first. Three more modules give optional practice with files, notes and your AI app; use them if you need them. Bring your own task or use a fictional example. You can return to any activity. For signed-in learners, Unit 1 completion comes from three activities: Try AI on a useful task, Give AI useful context, and Check, improve and continue.</p></div>
+<div class="atlas-heading"><p class="eyebrow">Explore your course</p><h2 id="atlas-heading">What would you like to do with AI?</h2><p>The four steps come first. Three more modules give optional practice with files, notes and your AI app; use them if you need them. Bring your own task or use a fictional example. You can return to any activity. For signed-in learners, Unit 1 completion comes from three activities: Try AI on a useful task, Give AI useful context, and Check, improve and continue. <a href="/catalogue">See every unit in the course catalogue</a>.</p></div>
 <div class="atlas-layout"><div class="atlas-controls" data-atlas-controls hidden><div class="atlas-map"><svg class="atlas-paths" viewBox="0 0 800 470" preserveAspectRatio="none" aria-hidden="true"><path d="M195 105 C370 100 430 110 605 105 M195 105 C100 210 320 225 195 310 M605 105 C700 210 480 225 605 310 M195 310 C360 400 440 220 605 310"/></svg><div class="atlas-places">{''.join(buttons)}</div></div><p class="atlas-suggestion">New to AI? Start with <button type="button" data-atlas-start>Try AI on a useful task</button>.</p><p class="atlas-announcement" data-atlas-announcement role="status" aria-live="polite"></p></div>
 <div class="atlas-panels">{''.join(panels)}</div></div></section>'''
 
@@ -144,7 +144,7 @@ def main():
     # Earlier builders own these pages' teaching content; normalise only public navigation.
     for path in (ROOT / 'public').glob('*.html'):
         html = path.read_text()
-        header = '<header><a class="brand" href="/">Human AI Orientation</a><nav aria-label="Main navigation"><a href="/catalogue">Course catalogue</a><a href="/journey">Unit 1 journey</a><a data-account-link href="/local/orientation/index.php">Check sign-in / Your course journey</a></nav></header>'
+        header = '<header><a class="brand" href="/">Human AI Orientation</a><nav aria-label="Main navigation"><a href="/journey">Course journey</a><a data-account-link href="/local/orientation/index.php">Sign in or open your course</a></nav></header>'
         if '<header>' in html:
             html = re.sub(r'<header>.*?</header>', lambda match: header, html, count=1, flags=re.S)
         elif '<main' in html:
