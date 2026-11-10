@@ -25,7 +25,7 @@ Learner pages (shared fragments in `content/`, then `npm run build`):
 - **Journey:** the four steps and "Start step 1" come before the activity map. The map text says the three other modules are optional practice. The starting-point check is one sentence.
 - **Step labels:** "Activity 1" to "Activity 4" are now "Step 1 of 4" to "Step 4 of 4". The portfolio label no longer says "not needed for Unit 1 completion".
 - **Next buttons:** the three optional practice pages and `/free-tools` now lead to step 1. "Go deeper" leads back to the journey. Step 1 leads to "Give AI useful context" by its own name.
-- **Portfolio (step 3):** a "Talk it through with my AI" prompt covers all three documents and asks the AI for plain text to copy. The dictation tip that appeared twice now appears once, in the tips panel. "Keep it somewhere you can find again" leads with copying into your own notes and reopening the note.
+- **Portfolio (step 3):** a "Talk it through with my AI" prompt covers all three documents and asks the AI for plain text to copy. Dictation help appeared twice: a tip in the page, which the builder moved into the tips panel as "More voice-input options", and the panel's own "Say it first, then check it" guide with Windows, Mac and phone steps. The first is removed. The panel's own guide stays. "Keep it somewhere you can find again" leads with copying into your own notes and reopening the note.
 - **Last step (step 4):** a new section, "Choose your next goal", gives four prompts and a fictional example. The page ends with "Finish: check you can return" and "What next?" (start the goal, go deeper, keep in touch, give feedback).
 
 Native Moodle (plugin `local_orientation`, no version change and no schema change):
