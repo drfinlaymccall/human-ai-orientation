@@ -28,7 +28,7 @@ test('public introduction, reading route and mobile layout', async ({ page }) =>
     await page.getByRole('link', { name: 'Explore your course', exact: true }).click();
     await page.locator('[data-atlas-open="first-task"]').click();
     await expect(page.getByRole('heading', { name: 'Try AI on a useful task.', exact: true })).toBeVisible();
-    await page.getByRole('link', { name: 'Continue: give useful context', exact: true }).click();
+    await page.getByRole('link', { name: 'Continue: Give AI useful context', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Give AI useful context', exact: true })).toBeVisible();
     await expect(page.locator('body')).toContainText('7. Save what you learned');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
@@ -106,8 +106,8 @@ test('deeper courses are public, readable without scripts and distinguish reuse 
       else expect(await region.evaluate(el => el.scrollWidth > el.clientWidth + 1)).toBe(false);
       await page.screenshot({ path: `docs/trial/deeper-courses-${width}.png`, fullPage: true });
     }
-    await page.getByRole('link', { name: 'the context lesson', exact: true }).click();
-    await expect(page).toHaveURL(/preview$/);
+    await page.getByRole('link', { name: 'your course journey', exact: true }).click();
+    await expect(page).toHaveURL(/journey$/);
   } finally { await context.close(); }
 });
 
@@ -273,8 +273,9 @@ test('pilot login, policy, lesson completion and saved return visit', async ({ p
   await page.getByRole('link', { name: 'Set up Obsidian with the step-by-step guide', exact: true }).click();
   await expect(page).toHaveURL(/\/mod\/page\/view.php\?id=/);
   await expect(page.locator('#region-main')).toContainText('3. Make one useful note');
-  await page.getByRole('link', { name: 'Continue to the AI lesson', exact: true }).click();
-  await expect(page).toHaveURL(/\/mod\/lesson\/view.php\?id=1/);
+  await page.getByRole('link', { name: 'Start the course: Try AI on a useful task', exact: true }).click();
+  await expect(page).toHaveURL(/\/mod\/page\/view.php\?id=/);
+  await expect(page.locator('#region-main')).toContainText('Step 1 of 4');
   const cookie = (await context.cookies()).find(c => c.name.startsWith('MoodleSession'));
   expect(cookie.secure).toBe(true);
   expect(cookie.httpOnly).toBe(true);
@@ -361,8 +362,8 @@ test('preparation and notes guide work without JavaScript and provide a real pra
       await expect(page.getByRole('heading', { name: 'A home for your notes with Obsidian', exact: true })).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
       await page.screenshot({ path: `docs/trial/notes-${width}.png`, fullPage: true });
-      await page.getByRole('link', { name: 'Continue to the AI lesson', exact: true }).click();
-      await expect(page.locator('.finlay-tip').filter({ hasText: 'Keep notes you can reuse' })).toBeVisible();
+      await page.getByRole('link', { name: 'Start the course: Try AI on a useful task', exact: true }).click();
+      await expect(page.getByRole('heading', { name: 'Try AI on a useful task.', exact: true })).toBeVisible();
     }
   } finally { await context.close(); }
 });

@@ -11,11 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 module_intro = (ROOT / 'content/computer-use-introduction.html').read_text()
 (ROOT / 'content/generated').mkdir(exist_ok=True)
 # Unit 2 readings return to the catalogue instead of continuing Unit 1.
-ACTIONS = {'agent-basics': '<div class="actions"><a class="button" href="/catalogue">Back to the course catalogue</a><a class="button secondary" href="/journey">Open the Unit 1 journey</a></div>'}
+ACTIONS = {'deeper-courses': '<div class="actions"><a class="button" href="/journey">Back to the course journey</a><a class="button secondary" href="/#keep-in-touch">Keep in touch</a></div>',
+           'agent-basics': '<div class="actions"><a class="button" href="/catalogue">Back to the course catalogue</a><a class="button secondary" href="/journey">Open the Unit 1 journey</a></div>'}
 def default_actions(slug):
     other = 'notes' if slug == 'before-you-start' else 'before-you-start'
     label = 'Set up my notes' if slug == 'before-you-start' else 'Practise finding files'
-    return f'<div class="actions"><a class="button" href="/preview">Continue to the AI lesson</a><a class="button secondary" href="/{other}">{label}</a></div>'
+    return f'<div class="actions"><a class="button" href="/first-task">Start the course: Try AI on a useful task</a><a class="button secondary" href="/{other}">{label}</a></div>'
 
 EYEBROW = {'deeper-courses': 'Optional next steps', 'agent-basics': 'Unit 2 · Early reading'}
 (ROOT / 'content/generated/computer-use.html').write_text(module_intro)
@@ -39,7 +40,7 @@ for slug, source, title in [
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} — Human AI Orientation</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/ai-interface.css"><script src="/assets/ai-interface.js" defer></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header><a href="/">Human AI Orientation</a><a href="/preview">Go to the AI lesson</a></header>
+<body><a class="skip" href="#main">Skip to content</a><header><a href="/">Human AI Orientation</a><a href="/journey">Course journey</a></header>
 <main id="main" class="reading"><p class="eyebrow">{EYEBROW.get(slug, 'Unit 1 · Optional familiar-skills practice')} · At your own pace</p><h1>{escape(title)}</h1>
 {body}
 {ACTIONS.get(slug, default_actions(slug))}

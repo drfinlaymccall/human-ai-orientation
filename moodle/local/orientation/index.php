@@ -19,7 +19,7 @@ $PAGE->set_context($context);
 $PAGE->set_course($course);
 $PAGE->set_pagelayout('incourse');
 $PAGE->set_show_course_index(false);
-$title = $iscatalogue ? 'Course catalogue' : 'Unit 1: Human–AI Orientation — journey';
+$title = $iscatalogue ? 'Course catalogue' : 'Your course journey';
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->set_cacheable(false);
@@ -90,7 +90,7 @@ if (is_string($next)) {
     echo html_writer::tag('p', html_writer::link($rows[$next]['cm']->url, 'Continue: ' . s($activities[$next]['label']), ['class' => 'btn btn-primary']));
     echo html_writer::tag('p', 'This suggests your first unfinished core activity. You can choose any available activity below. The context Lesson offers its own resume choice when you return.');
 } else if ($next === null) {
-    echo html_writer::tag('p', 'Your three core activities are recorded as complete. Revisit any activity or try optional practice. This is activity progress, not a claim of course mastery.');
+    echo html_writer::tag('p', 'Your three core activities are recorded as complete. Your portfolio is the result to keep: open My context below to check your three documents and your next goal, and keep a copy in your own notes. Revisit any activity when it helps. This is activity progress, not a claim of course mastery.');
 } else {
     echo html_writer::tag('p', 'A core activity is currently unavailable. Your existing records are retained; choose an available activity or ask Finlay for help.');
 }
