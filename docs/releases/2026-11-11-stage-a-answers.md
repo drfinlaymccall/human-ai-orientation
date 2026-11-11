@@ -13,20 +13,21 @@ Finlay's words are recorded in [his list](../reviews/2026-11-10-finlay-contribut
 - `/privacy` wording for people who only read: "Looks great. 30 days is fine".
 - Cloudflare Web Analytics: keep it.
 - Uptime alert: a Stage A gate.
-- Crawlers: search, AI input and AI training are all allowed.
+- Crawlers: asked "search yes, AI input yes (both recommended), AI training yes or no", he replied "yes". Read as yes to all three. The exact `robots.txt` lines will be shown to him before the Stage A switch.
 - Share image: the journey map; a photo of him as well.
 - `/agent-basics`: keep. He also asked for a way to be told when Unit 2 is ready.
 
 ## Change
 
-- `/privacy`: one sentence for every visitor: "Cloudflare also counts page views for us, without cookies and without identifying you." The policy still says, correctly, that the course uses no advertising or analytics cookies.
+- `/privacy`: one sentence for every visitor: "Cloudflare also counts page views for us. It does not use cookies to do this." The draft he was shown also said "without identifying you"; that claim was dropped at review because it could not be checked from here. The policy still says, correctly, that the course uses no advertising or analytics cookies.
 - `/help`: the sentence about response time now says it applies to support questions, and that privacy requests get a reply within 30 days. This removes the conflict with `/privacy` (audit F11).
 - Records: his list, the compliance record and the readiness page.
 
 ## Verification
 
 - Build ran with no other generated changes; Python tests and `npm run check:public` results are on the pull request.
-- The audit observed the analytics script in a browser on 10 November. A plain `curl` on 11 November did not show it in the page source, which is expected for a script the browser is told to load at the edge; it was not re-observed in a browser for this change.
+- Observed in a headless browser on the live home page, 11 November: the page loads `static.cloudflareinsights.com/beacon.min.js` and reports to `/cdn-cgi/rum`; the only cookie set was `MoodleSession`. No analytics cookie was set. The Cloudflare dashboard setting itself was not inspected.
+- Also observed: `MoodleSession` is set for a visitor who has not signed in. The policy describes it as the cookie that keeps you signed in. Left for a later wording check.
 
 ## Remaining questions
 
