@@ -23,6 +23,21 @@ This maps the draft [privacy policy](../../public/privacy.html) and the sign-up 
 | APP 11 security and retention | Partly met. Policy: How long we keep it | No task deletes inactive accounts or support email. Finlay must run the annual review and log it, or the policy must change before Stage B. |
 | Notifiable Data Breaches scheme | Policy: breach commitment | No breach runbook exists yet. |
 
+## Notify list — added 11 November 2026
+
+Finlay asked for a way to tell people when Unit 2 is ready. People without an account can now leave an email address ([how it works](notify-list.md)). This is the first personal information the course collects from people who have no account, and it is live on the preview.
+
+| Requirement | Where it is met | Limit |
+| --- | --- | --- |
+| APP 3 collection | Only an email address, the topic and the date | Someone can type another person's address. |
+| APP 5 collection notice | A short notice under the form on `/agent-basics`, with a link to the policy | |
+| APP 6 use | Policy: used only for the thing asked about | Finlay sends the message by hand; nothing in the code limits what he sends. |
+| APP 7 direct marketing | A requested notice, with a removal link in every message | The removal link must be pasted into each message by hand. |
+| APP 11 retention | Policy: removed by link or on request; the rest within 24 months | No task deletes old rows. Finlay owns this. |
+| APP 12 and 13 access and correction | By email to Finlay | Moodle's privacy export does not cover these rows. |
+
+**Finlay has not read or approved this wording.** He reads the form notice and the three changed policy passages before the Stage A switch. Not legal advice.
+
 ## Finlay must confirm before Stage B
 
 Each item is a proposal Claude wrote into the draft. Items 6 and 8 were confirmed on 11 November 2026 (see below); the others are not confirmed.

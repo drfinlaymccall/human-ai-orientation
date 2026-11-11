@@ -6,6 +6,10 @@ $string['registrationunavailable'] = 'Registration is currently limited to invit
 $string['privacy:metadata'] = 'This plugin stores site configuration and immutable instrument mappings only. It displays the signed-in learner’s native Moodle activity completion and Quiz self-rating attempts, and uses Moodle’s existing intended-destination preference. Answers and dated attempts, including unfinished work, are stored by native Quiz; the local plugin separately stores context documents deliberately saved by their owner.';
 
 $string['privacy:metadata:context'] = 'Private context documents, portfolio fields and practice notes deliberately saved by the learner.';
+$string['privacy:metadata:notify'] = 'People who asked for one notice about a named topic, such as a new unit. These rows are not linked to accounts; a person leaves the list with their removal link or by asking the course owner.';
+$string['privacy:metadata:notify:email'] = 'The email address to notify.';
+$string['privacy:metadata:notify:topic'] = 'What the person asked to be told about.';
+$string['privacy:metadata:notify:timecreated'] = 'When the person asked.';
 $string['privacy:metadata:userid'] = 'The account that owns this document.';
 $string['privacy:metadata:courseid'] = 'The course where the document is kept.';
 $string['privacy:metadata:itemkey'] = 'The document identity within the learner’s workspace.';
