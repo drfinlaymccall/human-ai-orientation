@@ -32,7 +32,8 @@ if ($method === 'POST' && optional_param('remove', '', PARAM_ALPHANUM) !== '') {
 if ($method === 'POST') {
     $topic = optional_param('topic', '', PARAM_ALPHANUMEXT);
     // The "website" field is hidden from people. Only automated form-fillers complete it; they get the same answer and nothing is kept.
-    $result = optional_param('website', '', PARAM_RAW) !== '' ? 'added' : notify::add(optional_param('email', '', PARAM_RAW_TRIMMED), $topic);
+    if (!isset(notify::TOPICS[$topic])) $result = 'invalid';
+    else $result = optional_param('website', '', PARAM_RAW) !== '' ? 'added' : notify::add(optional_param('email', '', PARAM_RAW_TRIMMED), $topic);
     if ($result === 'invalid') {
         $page('Please check your email address', '<p>We could not use that address. Go back and type it again, for example <code>name@example.com</code>.</p>'
             . '<p class="actions"><a class="button" href="/agent-basics#notify">Try again</a></p>', 400);

@@ -16,7 +16,9 @@ class notify {
     /** Normalise an address; null when it is not a usable email address. */
     public static function clean(string $email): ?string {
         $email = \core_text::strtolower(trim($email));
-        return ($email !== '' && \core_text::strlen($email) <= 255 && validate_email($email)) ? $email : null;
+        // An address that starts with =, + or - could be read as a formula when the administrator opens the list in a spreadsheet.
+        if ($email === '' || \core_text::strlen($email) > 255 || strpbrk($email[0], '=+-@') !== false) return null;
+        return validate_email($email) ? $email : null;
     }
 
     /** @return string added|exists|invalid|busy */
@@ -24,9 +26,10 @@ class notify {
         global $DB;
         $email = self::clean($email);
         if ($email === null || !isset(self::TOPICS[$topic])) return 'invalid';
-        if ($DB->record_exists(self::TABLE, ['email' => $email, 'topic' => $topic])) return 'exists';
         $now ??= time();
+        // The limit is checked first, so the answer never depends on whether the address is already listed.
         if ($DB->count_records_select(self::TABLE, 'timecreated > ?', [$now - HOURSECS]) >= self::HOURLY_LIMIT) return 'busy';
+        if ($DB->record_exists(self::TABLE, ['email' => $email, 'topic' => $topic])) return 'exists';
         try {
             $DB->insert_record(self::TABLE, ['email' => $email, 'topic' => $topic, 'token' => random_string(40), 'timecreated' => $now]);
         } catch (\dml_write_exception $e) {

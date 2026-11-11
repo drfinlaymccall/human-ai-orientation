@@ -23,7 +23,8 @@ The CSV holds personal information. Keep it only as long as you need it to send 
 - Only topics named in `notify::TOPICS` are accepted. To offer a new topic, add it there first, then add a form with that topic to a page.
 - The answer is the same whether or not the address was already listed, so the form cannot be used to check whether someone signed up.
 - A hidden field catches automated form-fillers; they get the ordinary answer and nothing is kept.
-- At most 60 new addresses are accepted in an hour across the site. After that the form says "try again later" and keeps nothing.
+- At most 60 new addresses are accepted in an hour across the site. After that the form says "try again later" to everyone, listed or not, and keeps nothing. The limit is site-wide because the table stores no IP address; a script could therefore block new sign-ups for a while. That is accepted for a small list. If it happens, the server log shows it.
+- An address that starts with `=`, `+`, `-` or `@` is refused, so the downloaded list is safe to open in a spreadsheet.
 - Opening a removal link only asks; removal needs the button. A mail scanner that opens links cannot remove anyone.
 - The list page and the download need the site administrator capability `moodle/site:config`. The download also needs the administrator's session key.
 

@@ -60,6 +60,11 @@ test('the form works without JavaScript; bad input and automated form-fillers st
   expect(await response.text()).toContain('Please check your email address');
   response = await post({ topic: 'no-such-topic', email: address('topic') });
   expect(response.status()).toBe(400);
+  response = await post({ topic: 'no-such-topic', email: address('topic'), website: 'x' });
+  expect(response.status()).toBe(400);
+  // An address a spreadsheet could read as a formula is refused.
+  response = await post({ topic: 'unit-2', email: '=cmd' + address('formula') });
+  expect(response.status()).toBe(400);
   response = await post({ topic: 'unit-2', email: address('robot'), website: 'https://example.test' });
   expect(response.status()).toBe(200);
   expect(await response.text()).toContain('You are on the list');
@@ -99,9 +104,10 @@ test('the hourly limit refuses new addresses without losing existing ones', asyn
   expect(response.status()).toBe(429);
   expect(await response.text()).toContain('Nothing was saved');
   expect(total()).toBe(before);
-  // Someone already listed still gets the ordinary answer.
+  // Someone already listed gets the same answer, so the limit cannot be used to find out who is on the list.
   const again = await request.post('/local/orientation/notify.php', { form: { topic: 'unit-2', email: `notify-${stamp}-fill0@example.test` } });
-  expect(again.status()).toBe(200);
+  expect(again.status()).toBe(429);
+  expect(await again.text()).toBe(await response.text());
   php(`$DB->delete_records_select('local_orientation_notify', $DB->sql_like('email', '?'), ['notify-${stamp}-fill%']);`);
 });
 
