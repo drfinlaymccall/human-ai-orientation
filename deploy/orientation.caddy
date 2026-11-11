@@ -3,7 +3,8 @@ orientation.finlaymccall.com {
 	encode zstd gzip
 	header {
 		Strict-Transport-Security "max-age=31536000"
-		Cache-Control "no-store"
+		# Caching is decided by the course web server (deploy/Caddyfile): public pages say no-store,
+		# Moodle's versioned files keep Moodle's own caching.
 		-Server
 	}
 	reverse_proxy 127.0.0.1:8789

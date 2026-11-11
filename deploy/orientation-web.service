@@ -5,7 +5,8 @@ After=orientation-php.service
 
 [Service]
 ExecStart=/usr/bin/caddy run --config /home/finlay/apps/human-ai-orientation/deploy/Caddyfile --adapter caddyfile
-Restart=on-failure
+# always: a clean stop (exit 0) must also restart. `systemctl --user stop` still stops it.
+Restart=always
 RestartSec=5
 UMask=0077
 NoNewPrivileges=true
