@@ -1,4 +1,4 @@
-// End-of-unit game. Reads its content from the JSON the build embeds in the page.
+// End-of-unit quiz. Reads its content from the JSON the build embeds in the page.
 // Nothing is stored and no request is made. Without this script the page shows the paper version.
 (function () {
   'use strict';
@@ -11,7 +11,7 @@
   let game;
   try { game = JSON.parse(source.textContent); } catch (error) { return; }
 
-  const ROUNDS = ['Set the criterion', 'Choose the context', 'Check the reply', 'Keep what worked'];
+  const ROUNDS = game.stages.map(entry => entry.title);
   const MAX = 3;
   let state;
 
@@ -53,14 +53,23 @@
     return sentences.map(sentence => sentence.text).join(' ').trim().split(/\s+/).length;
   }
 
-  // Each round replaces the stage and moves focus to its heading, so keyboard and screen-reader users follow.
+  // What the stage practises or checks, with the step it comes from, then the scenario it uses.
+  function purpose(index) {
+    const entry = game.stages[index];
+    return [
+      el('p', { class: 'game-purpose' }, [el('strong', { text: entry.label + ': ' }), entry.purpose + ' From ', el('a', { href: entry.href, text: entry.step }), '.']),
+      el('p', { class: 'game-scenario' }, [el('strong', { text: 'The example: ' }), game.scenario]),
+    ];
+  }
+
+  // Each stage replaces the last and moves focus to its heading, so keyboard and screen-reader users follow.
   function show(index, body) {
     const earned = state.stars.reduce((sum, value) => sum + (value || 0), 0);
     const heading = el('h2', { tabindex: '-1', text: index < ROUNDS.length ? (index + 1) + '. ' + ROUNDS[index] : 'Your result' });
     const progress = index < ROUNDS.length
-      ? el('p', { class: 'game-progress' }, [el('span', { text: 'Round ' + (index + 1) + ' of ' + ROUNDS.length + ' · ' }), stars(earned, MAX * ROUNDS.length)])
+      ? el('p', { class: 'game-progress' }, [el('span', { text: 'Stage ' + (index + 1) + ' of ' + ROUNDS.length + ' · ' }), stars(earned, MAX * ROUNDS.length)])
       : null;
-    stage.replaceChildren(el('section', { class: 'game-round', 'data-game-round': String(index + 1) }, [progress, heading].concat(body)));
+    stage.replaceChildren(el('section', { class: 'game-round', 'data-game-round': String(index + 1) }, [progress, heading].concat(index < ROUNDS.length ? purpose(index) : [], body)));
     heading.focus();
   }
 
@@ -122,7 +131,7 @@
       return el('label', { class: 'game-card', for: 'game-card-' + card.id }, [box, el('span', { text: card.text })]);
     });
     show(1, [
-      el('p', { text: 'These are ' + game.cards.length + ' of ' + game.person + '’s notes. Tick each note the AI should get for this task. Leave out what is unrelated or private.' }),
+      el('p', { text: 'These are ' + game.cards.length + ' of ' + game.person + '’s notes. Tick each note the AI should get to write this ' + game.product + '. Leave out what is unrelated or private.' }),
       el('p', { class: 'game-criterion' }, [el('strong', { text: 'Criterion: ' }), game.criterion]),
       el('fieldset', { class: 'game-cards' }, [el('legend', { text: game.person + '’s notes' })].concat(cards)),
       count,
@@ -173,17 +182,17 @@
       after.append(quiz('game-correction', game.correction.question, game.correction.options, wrongTries => {
         state.stars[2] = flags + (wrongTries === 0 ? 1 : 0);
         fixed.append(
-          el('p', { text: fromBrief ? 'If the AI had only the four helpful notes, that correction would give this notice:' : 'With that correction, the notice reads:' }),
+          el('p', { text: fromBrief ? 'If the AI had only the four helpful notes, that correction would give this ' + game.product + ':' : 'With that correction, the ' + game.product + ' reads:' }),
           el('blockquote', { class: 'game-reply' }, [el('p', { text: game.correction.fixed })]),
           button('Next: keep what worked', roundFour));
         fixed.lastChild.focus();
       }), fixed);
     });
     show(2, [
-      el('p', { text: 'The AI replied. Tick each sentence ' + game.person + ' should not send as it is: anything made up, guessed, unrelated or private.' }),
+      el('p', { text: 'This is the AI’s reply to the notes you chose. Tick each sentence ' + game.person + ' should not send as it is: anything made up, guessed, unrelated or private.' }),
       el('p', { class: 'game-criterion' }, [el('strong', { text: 'Criterion: ' }), game.criterion]),
       el('div', { class: 'game-reply' }, [
-        el('p', { class: 'meta', text: 'Invented reply, written for this game' }),
+        el('p', { class: 'meta', text: 'Invented reply, written for this quiz' }),
         el('ol', { class: 'game-sentences' }, rows),
         el('p', { class: 'meta', 'data-game-words': String(total), text: total + ' words. ' + (total < game.word_limit ? 'That is under ' + game.word_limit + '.' : 'That is not under ' + game.word_limit + '.') }),
       ]),
@@ -219,25 +228,27 @@
       after.firstChild.focus();
     });
     show(3, [
-      el('p', { text: game.person + ' keeps three documents she can use again with any AI. Choose where each note goes. One note should not be kept in them at all.' }),
+      el('p', { text: game.person + ' keeps three documents she can use again with any AI:' }),
+      el('ul', {}, filing.documents.map((name, index) => el('li', {}, [el('strong', { text: name + ': ' }), filing.about[index] + '.']))),
+      el('p', { text: 'Choose where each note goes. One note should not be kept in them at all.' }),
     ].concat(rows, [check, status, after]));
   }
 
   function result() {
     const earned = state.stars.reduce((sum, value) => sum + (value || 0), 0);
     const total = MAX * ROUNDS.length;
-    const line = earned === total ? 'A full score. You briefed, checked and kept like someone who has done this before.'
-      : earned >= 8 ? 'Good work. Play again to see how the reply changes with a different brief.'
-        : 'Play again and watch how each note you choose changes the reply.';
+    const line = earned === total ? 'A full score. You set a criterion, chose the context, checked the reply and kept what worked.'
+      : earned >= 8 ? 'Good work. Try again to see how the reply changes with a different brief.'
+        : 'Try again and watch how each note you choose changes the reply.';
     show(ROUNDS.length, [
       el('p', { class: 'game-score' }, [stars(earned, total), el('span', { text: ' ' + earned + ' of ' + total + ' stars' })]),
       el('p', { text: line }),
-      el('h3', { text: 'What the game shows' }),
+      el('h3', { text: 'What the quiz covered' }),
       el('ul', {}, game.takeaways.map((entry, index) => el('li', {}, [
         el('a', { href: entry.href, text: entry.step }), ': ' + entry.text + ' ', stars(state.stars[index] || 0, MAX),
       ]))),
       el('p', { text: 'The next goal you choose is yours. Use the same four moves on it.' }),
-      button('Play again', start, true),
+      button('Try again', start, true),
     ]);
   }
 
@@ -250,8 +261,8 @@
   stage.hidden = false;
   state = { stars: [0, 0, 0, 0], packed: new Set(), order: shuffled(game.cards) };
   const intro = [
-    el('p', { text: 'Four short rounds. You get up to three stars in each.' }),
-    button('Start the game', start),
+    el('p', { text: 'Four short stages. Each one says which skill from this unit it practises or checks, then uses ' + game.person + '’s ' + game.product + ' as the example. You get up to three stars in each.' }),
+    button('Start the quiz', start),
   ];
   stage.replaceChildren(el('section', { class: 'game-round' }, [el('h2', { text: 'Ready?' })].concat(intro)));
 })();

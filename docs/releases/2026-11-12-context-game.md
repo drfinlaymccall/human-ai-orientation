@@ -1,4 +1,4 @@
-# End-of-unit game: Pack the brief
+# End-of-unit quiz: Pack the brief
 
 Date: 12 November 2026 (Australia/Sydney). Tracking: [#53](https://github.com/drfinlaymccall/human-ai-orientation/issues/53). Status: merged ([#54](https://github.com/drfinlaymccall/human-ai-orientation/pull/54)) and published to the live preview on 12 November 2026, after Finlay said "merge and publish". Wording is not approved.
 
@@ -69,6 +69,28 @@ The steps:
 2. Restart `orientation-web`, so the web server reads the new route. Until then `/context-game` returns the not-found page.
 3. Run `scripts/sync-journey.php` on the live site, so the signed-in Moodle copy of step 4 gets the same sentence. The script reports module IDs and learner records before and after.
 4. Check `/context-game` and the step 4 link on the live site, signed out and signed in.
+
+## Revision after Finlay's feedback (12 November)
+
+The sections above describe the first version. Where they name the garden notice, "morning tea", "game" or "rounds", this section replaces them.
+
+**Feedback.** After using the live page, Finlay wrote:
+
+- "It's not really a game, more of a quiz or roleplay. and the instructions can be a bit confusing/lack context but I guess it'll do"
+- "Its more that it's unclear what each stage int he quiz is trying to do or check, make that explicit then use the example scenario to test or practice it. Also, the scenario kind of sucks and is unrealistic. We don't organise stuff like that. It's probably more likely that people would use AI to generate invitation emails to a party or something,"
+
+**Decisions.**
+
+- **Each stage states its purpose first.** A stage opens with "What this stage checks" or "What this stage practises", in one sentence, with a link to the step it comes from. A second line names the example. The question follows. The start screen and the page introduction say the same. The paper version carries the same purpose lines.
+- **New example: a party invitation email.** Mina has moved and wants an AI to draft the invitation to her housewarming. The mechanics are unchanged: four helpful notes, two unrelated, two private; the reply is put together from the notes ticked; one detail ("There is plenty of parking on the street.") is always invented.
+- **It is called a quiz.** The page, the step 4 link, the search description and the buttons say "quiz" and "stage". The name "Pack the brief" and the address `/context-game` are kept, so existing links work.
+- **Stage 4 says what each of the three documents is for** before it asks where a note goes.
+
+**Change.** `content/context-game.json` (new `stages`, `scenario`, `product`, `filing.about`, `correction.paper_question`; all scenario text), `scripts/build-game.py`, `public/assets/context-game.js`, `public/assets/context-game.css`, the step 4 sentence in `content/check-and-continue.html`, `content/discovery.json`, `tests/context-game.spec.cjs`, the route table and `CONTROL.md`. Scoring, storage, routes and completion are unchanged.
+
+**Verification (synthetic, local static server).** `npm run test:game`: 5 passed. The tests now also check each stage's purpose line, its step link and its example line in the interactive version, the purpose lines in the paper version, and the document descriptions in stage 4. `npm run check:public` result and the live checks after publication are recorded on [#53](https://github.com/drfinlaymccall/human-ai-orientation/issues/53).
+
+**Remaining.** The new wording and example are again the agent's and are not approved. Finlay has not seen this version. The limits below still apply.
 
 ## Remaining limits and questions
 
