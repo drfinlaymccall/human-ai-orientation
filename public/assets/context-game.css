@@ -1,4 +1,4 @@
-/* End-of-unit game. The paper version uses the ordinary reading styles. */
+/* End-of-unit quiz. The paper version uses the ordinary reading styles. */
 .context-game { margin: 2rem 0; }
 .context-game [hidden] { display: none !important; }
 .game-round { padding: 1.2rem clamp(1rem, 3vw, 1.6rem); border: 1px solid #b7c9c2; border-radius: .7rem; background: #fff; }
@@ -9,6 +9,8 @@
 .game-progress { margin: 0; font-size: .9rem; font-weight: 650; color: #485b55; }
 .game-stars { color: #8a5a00; letter-spacing: .08em; white-space: nowrap; }
 .game-score { font-size: 1.4rem; font-weight: 700; }
+.game-purpose { margin: .6rem 0 .4rem; padding: .6rem .9rem; background: #fdf3e3; border-left: 3px solid #b96622; }
+.game-scenario { margin: .4rem 0 1rem; font-size: .95rem; color: #485b55; }
 .game-criterion { padding: .6rem .9rem; background: #edf4f1; border-left: 3px solid #176b60; }
 .game-quiz, .game-cards { min-width: 0; margin: 1rem 0; padding: 0; border: 0; }
 .game-quiz legend, .game-cards legend { padding: 0; font-weight: 700; margin-bottom: .5rem; }
