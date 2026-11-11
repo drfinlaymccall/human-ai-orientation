@@ -99,7 +99,7 @@ class Server(unittest.TestCase):
         config = (ROOT / 'deploy/Caddyfile').read_text()
         config = config.replace(':8789 {', f':{port} {{').replace('127.0.0.1:8788', '127.0.0.1:9')
         config = config.replace(LIVE_ROOT + '/trial/moodle', str(moodle)).replace(LIVE_ROOT + '/public', str(ROOT / 'public'))
-        config, switched = re.subn(r'import robots-(preview|stage-a)\.caddy', f'import {ROOT}/deploy/robots-{policy}.caddy', config)
+        config, switched = re.subn(r'(?m)^(\s*)import robots-(?:preview|stage-a)\.caddy$', rf'\1import {ROOT}/deploy/robots-{policy}.caddy', config)
         self.assertEqual(switched, 1)
         self.assertNotIn(LIVE_ROOT + '/trial', config)
         (work / 'Caddyfile').write_text(config)
