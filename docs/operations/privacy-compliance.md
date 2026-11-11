@@ -36,7 +36,7 @@ Finlay asked for a way to tell people when Unit 2 is ready. People without an ac
 | APP 11 retention | Policy: removed by link or on request; the rest within 24 months | No task deletes old rows. Finlay owns this. |
 | APP 12 and 13 access and correction | By email to Finlay | Moodle's privacy export does not cover these rows. |
 
-**Finlay has not read or approved this wording.** He reads the form notice and the three changed policy passages before the Stage A switch. Not legal advice.
+**Read and approved by Finlay, 11 November 2026** ("read and approved", for the form notice and for the changed policy passages). He was not asked again about deleting old addresses by hand within 24 months. Not legal advice.
 
 ## Finlay must confirm before Stage B
 
