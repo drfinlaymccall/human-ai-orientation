@@ -26,7 +26,7 @@ Before setting T0, record:
 - Finlay's review of the course promise, support ownership/capacity, information-use wording and the retention position for broader registration.
 - Actual pilot participation/findings, fixes and remaining physical-device/assistive-technology coverage limits. If unavailable, describe the release as a limited beta.
 - Current local checks, matching source/generated content and AI-context versions, working public/signed-in links, and private-path protection.
-- An external uptime check that alerts Finlay when the site stops responding. The [7–8 November outage](../trial/PUBLIC-DEPLOYMENT.md#backup-and-recovery) went unnoticed for 36 hours.
+- An external uptime check that alerts Finlay when the site stops responding. Finlay agreed on 11 November 2026 that this is also a Stage A gate; the monitor is not set up yet. The [7–8 November outage](../trial/PUBLIC-DEPLOYMENT.md#backup-and-recovery) went unnoticed for 36 hours.
 
 Only then use the separately gated `open` operation. Update homepage/help/privacy/login wording together so it matches observed account availability. Choose and record T0; publish the whole V1 together. The [five LinkedIn drafts](linkedin-series.md) use relative intervals and await Finlay's review/publication.
 

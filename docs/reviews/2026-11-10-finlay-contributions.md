@@ -18,11 +18,15 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 | Item 15 | Read `/agent-basics` and say keep, change or cut | 15 min |
 | Item 24 | Run `gh auth refresh -s workflow` (not a Stage A item; it unblocks #10) | 5 min |
 
+**Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15 (see **Done**). Still open in your Stage A set: item 3 (you agreed the uptime alert is a gate; the monitor account is still to be created, in your name) and item 23 (the Cloudflare rule).
+
 **Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. Item 3 (the uptime alert) is in the set on the audit's recommendation; it becomes a gate only if you agree (decision D3). This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) is a separate, final step after the set and the agent's packages A1–A6 are done. Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
 
 ## 1. Decisions and approvals
 
 ### 1. Privacy policy wording for anonymous visitors [A]
+
+**Answered 11 November 2026 — see Done.**
 
 - **What:** accept or correct the [`/privacy`](https://orientation.finlaymccall.com/privacy) wording as it applies to people who only read.
 - **Why you:** it is your promise, published under your name. Publication on the preview is not your approval.
@@ -46,6 +50,8 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 ### 2. Cloudflare Web Analytics: off, or disclosed [A]
 
+**Answered 11 November 2026 — see Done.**
+
 - **What:** every public page loads Cloudflare's analytics script. The policy says the course uses no analytics cookies.
 - **Why you:** it is a setting in your Cloudflare account.
 - **Where it goes:** Cloudflare dashboard → the zone for this site → Web Analytics. Then `public/privacy.html`.
@@ -56,6 +62,8 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 - **Effort:** 5 minutes.
 
 ### 3. Uptime alert as a Stage A gate, and which monitor [A, if you accept D3]
+
+**Part answered 11 November 2026:** you agreed it is a Stage A gate ("yeah, do it, I spose. For the cake of completeness"). The monitor itself is not set up. The agent cannot create the account.
 
 - **What:** decide that an outside alert must exist before promotion, and set one up.
 - **Why you:** it needs an account in your name and your email address. The agent must not sign up for services.
@@ -108,6 +116,8 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 ### 9. Content signals in `robots.txt` [A]
 
+**Answered 11 November 2026 — see Done.**
+
 - **What:** Cloudflare serves a `robots.txt` that states no rules. Decide what crawlers may do: search indexing, use as AI input, AI training.
 - **Why you:** it is your licence position. The course is CC BY 4.0 and its AI-context pack exists to be read by AI tools.
 - **Where it goes:** the new `robots.txt` in package A2.
@@ -142,6 +152,8 @@ The agent offers options; you choose.
 
 ### 12. Share image [A, small]
 
+**Answered 11 November 2026 — see Done.**
+
 - **What:** the picture shown when the course is shared on LinkedIn or in a chat.
 - **Why you:** look and feel.
 - **Where it goes:** one image, 1200 × 630, referenced from every page (F04).
@@ -169,6 +181,8 @@ Answer by dictation. Each answer has a named place. The agent will tidy the tran
 - **Effort:** an afternoon, including finding someone.
 
 ### 15. Review of the Unit 2 early reading [A]
+
+**Answered 11 November 2026 — see Done.**
 
 - **What:** read [`/agent-basics`](https://orientation.finlaymccall.com/agent-basics) and say keep, change or cut.
 - **Why you:** you moved this material on 6 November and said you would review the page.
@@ -325,3 +339,10 @@ An agent cannot honestly do these.
 - **10 November 2026 — course direction.** Finlay accepted the agent's suggestions for a minimum viable course: one path as the front door, the portfolio as the result, a short step that teaches the next goal, one way to keep your work, and a prompt for talking the portfolio through with your own AI. He asked for the extras to be set aside for a later unit. The first change is in the [release record](../releases/2026-11-10-mvp-one-path.md). This answers the direction only. It does not approve the wording (items in sections 1 and 2 stay open), and items 17–20 (Finlay's own words) still need him.
 - **10 November 2026 — one folder, three files.** Finlay said "Yes, do it" to keeping the portfolio as one `my-context` folder with three named files, and to one sentence at the finish about the next unit. See the [release record](../releases/2026-11-10-one-folder-three-files.md). This answers the direction only. It does not approve the wording.
 - **10 November 2026 — agent pointer.** Finlay said "Yes, cut it" to removing the step 2 pointer to the Unit 2 early reading. See the [release record](../releases/2026-11-10-cut-agent-pointers.md). The agent also cut the same kind of pointer on `/before-you-start`; that one was not put to him and is flagged in the record.
+- **11 November 2026 — privacy wording for people who only read (item 1, D1).** Asked the three Stage A questions, Finlay replied "Looks great. 30 days is fine". Recorded as acceptance of the wording, the way he is named, and the 30-day promise. He did not separately confirm the server location against the Contabo account. Detail in the [compliance record](../operations/privacy-compliance.md). No lawyer has reviewed the policy.
+- **11 November 2026 — Cloudflare Web Analytics (item 2, D2).** "keep it, I want the info". The policy now says Cloudflare counts page views without cookies and without identifying you. He has not read that sentence on the page.
+- **11 November 2026 — uptime alert is a Stage A gate (item 3, D3).** Agreed. Setting up the monitor is still open.
+- **11 November 2026 — crawlers (item 9).** "yes" to search indexing, use as AI input and AI training. This goes into the `robots.txt` in the search-and-sharing package.
+- **11 November 2026 — share image (item 12).** "journey map looks good, photo of me too". The agent builds the journey-map image; a version with his photo needs a photo from him.
+- **11 November 2026 — Unit 2 early reading (item 15).** "keep, looks good." He also asked for a "notify me when unit 2 is ready" button linked to a system that does that. That is new work: it collects email addresses from people without accounts, so it needs a design and a privacy-policy change before it is built. Tracked on #9.
+
