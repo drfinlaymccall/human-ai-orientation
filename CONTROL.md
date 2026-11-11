@@ -1,10 +1,10 @@
 # Project control and wishlist
 
-Updated: 2026-11-10. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-11-11. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
-**Current status — 10 November 2026.** Read this block first. The paragraphs after it are dated records, newest near the top, and each describes the day it names.
+**Current status — 10 November 2026, with one addition dated 11 November.** Read this block first. The paragraphs after it are dated records, newest near the top, and each describes the day it names.
 
 - **What it is:** a minimum viable course. A learner works through four steps in order (Try AI on a useful task; Give AI useful context; Save and reuse context; Check, improve and continue) and leaves with three context documents in a `my-context` folder and a next goal. Three optional modules give practice with files, notes and an AI app.
 - **Where it is:** the owner preview at `orientation.finlaymccall.com`, published from `main`. It still sends `noindex, nofollow`. Registration is closed to the public; the acquisition mode is `pilot` (exact-address gate). No person other than Finlay has used it.
