@@ -1,0 +1,2 @@
+# Written by scripts/build-discovery.py. Preview: nothing is offered to search.
+header X-Robots-Tag "noindex, nofollow"

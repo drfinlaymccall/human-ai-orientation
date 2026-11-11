@@ -6,6 +6,7 @@ git diff --exit-code -- content public moodle/local/orientation/student-welcome.
 test -z "$(git status --porcelain --untracked-files=all -- content public moodle/local/orientation/student-welcome.json)"
 npm run test:support
 python3 -m unittest discover -s tests -p test_deploy.py
+python3 -m unittest discover -s tests -p test_discovery.py
 node tests/journey-lifecycle.test.cjs
 npm run test:entry
 npm run test:metadata

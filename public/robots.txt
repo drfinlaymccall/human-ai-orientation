@@ -1,0 +1,7 @@
+# Human AI Orientation. Course materials are CC BY 4.0.
+# Account and sign-in pages are kept out of search by a response header, not here.
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+Sitemap: https://orientation.finlaymccall.com/sitemap.xml

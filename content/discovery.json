@@ -1,0 +1,26 @@
+{
+  "origin": "https://orientation.finlaymccall.com",
+  "site_name": "Human AI Orientation",
+  "share_image": "/assets/share.png",
+  "share_image_alt": "Human AI Orientation: a free course in four steps. Try AI on a useful task, give AI useful context, save and reuse context, then check, improve and continue.",
+  "content_signals": {"search": "yes", "ai-input": "yes", "ai-train": "yes"},
+  "pages": [
+    {"file": "index.html", "path": "/"},
+    {"file": "journey.html", "path": "/journey"},
+    {"file": "first-task.html", "path": "/first-task"},
+    {"file": "preview.html", "path": "/preview"},
+    {"file": "portfolio.html", "path": "/portfolio"},
+    {"file": "check-and-continue.html", "path": "/check-and-continue"},
+    {"file": "catalogue.html", "path": "/catalogue"},
+    {"file": "desktop-workspace.html", "path": "/desktop-workspace", "description": "Optional practice: use your own AI tool beside your notes. Copy, switch windows, paste and come back."},
+    {"file": "before-you-start.html", "path": "/before-you-start", "description": "Optional practice: find your way around files, folders and locations, so you can give an AI the right material and find what it makes."},
+    {"file": "notes.html", "path": "/notes", "description": "Optional practice: keep your goals, useful background and checked results in your own notes, so you can reuse them with any AI."},
+    {"file": "free-tools.html", "path": "/free-tools"},
+    {"file": "deeper-courses.html", "path": "/deeper-courses", "description": "Optional next steps: free courses and short videos about working with AI, with a suggestion for where to start."},
+    {"file": "agent-basics.html", "path": "/agent-basics", "description": "An optional early reading for Unit 2: what an AI agent on your computer is, and the plain-text instruction files that agent tools read."},
+    {"file": "help.html", "path": "/help"},
+    {"file": "privacy.html", "path": "/privacy", "description": "What personal information Human AI Orientation collects, why, and the choices you have."},
+    {"file": "ai/index.html", "path": "/ai/", "description": "Give your own AI a short, public description of this course, so it can help you work through it."},
+    {"file": "course-introduction.html", "path": "/course-introduction", "canonical": "/journey", "sitemap": false}
+  ]
+}
