@@ -20,6 +20,8 @@ class PublicContextTests(unittest.TestCase):
         (self.root / 'scripts').mkdir()
         (self.root / 'content/ai').mkdir(parents=True)
         shutil.copy(ROOT / 'scripts/build-ai-context.py', self.root / 'scripts')
+        shutil.copy(ROOT / 'scripts/discovery.py', self.root / 'scripts')
+        shutil.copy(ROOT / 'content/discovery.json', self.root / 'content')
         shutil.copy(ROOT / 'content/course-map.json', self.root / 'content')
         shutil.copy(ROOT / 'content/ai/course-context.json', self.root / 'content/ai')
         shutil.copytree(ROOT / 'public/ai', self.root / 'public/ai')
