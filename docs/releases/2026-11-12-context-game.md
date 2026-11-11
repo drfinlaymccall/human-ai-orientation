@@ -1,6 +1,6 @@
 # End-of-unit game: Pack the brief
 
-Date: 12 November 2026 (Australia/Sydney). Status when written: built and tested on a branch; not merged and not on the live preview.
+Date: 12 November 2026 (Australia/Sydney). Tracking: [#53](https://github.com/drfinlaymccall/human-ai-orientation/issues/53). Status when written: built and tested on a branch; not merged and not on the live preview.
 
 ## Need
 
