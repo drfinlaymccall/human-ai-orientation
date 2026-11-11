@@ -4,8 +4,8 @@
 .game-round { padding: 1.2rem clamp(1rem, 3vw, 1.6rem); border: 1px solid #b7c9c2; border-radius: .7rem; background: #fff; }
 .reading .game-round { margin: 0; }
 .game-round h2 { margin-top: .3rem; }
-.game-round h2:focus { outline: none; }
-.game-round h2:focus-visible { outline: 3px solid #b96622; outline-offset: 5px; }
+.game-round h2:focus, .game-feedback:focus { outline: none; }
+.game-round h2:focus-visible, .game-feedback:focus-visible { outline: 3px solid #b96622; outline-offset: 5px; }
 .game-progress { margin: 0; font-size: .9rem; font-weight: 650; color: #485b55; }
 .game-stars { color: #8a5a00; letter-spacing: .08em; white-space: nowrap; }
 .game-score { font-size: 1.4rem; font-weight: 700; }

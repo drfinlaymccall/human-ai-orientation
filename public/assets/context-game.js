@@ -145,7 +145,7 @@
       boxes.push(box);
       return el('li', {}, [el('label', { class: 'game-sentence', for: 'game-sentence-' + index }, [box, el('span', { text: sentence.text })])]);
     });
-    const summary = el('p', { class: 'game-feedback', role: 'status' });
+    const summary = el('p', { class: 'game-feedback', role: 'status', tabindex: '-1' });
     const after = el('div');
     const check = button('Check my ticks', () => {
       let wrong = 0;
@@ -162,6 +162,7 @@
       const flags = wrong === 0 ? 2 : wrong === 1 ? 1 : 0;
       summary.textContent = wrong === 0 ? 'You judged every sentence correctly.' : wrong === 1 ? 'You judged all but one sentence correctly.' : 'You judged ' + (sentences.length - wrong) + ' of ' + sentences.length + ' sentences correctly.';
       check.remove();
+      summary.focus(); // The button had focus; keep keyboard users at the result, just above the next question.
       const fromBrief = sentences.filter(sentence => sentence.why).length > 1;
       if (fromBrief) {
         after.append(

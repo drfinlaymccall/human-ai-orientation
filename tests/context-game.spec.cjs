@@ -113,9 +113,16 @@ test('the game can be played with the keyboard and fits narrow screens', async (
     await expect(page.getByText('1 note is in the brief.')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.screenshot({ path: `/tmp/orientation-game-pack-${width}.png`, fullPage: true });
-    await page.getByRole('button', { name: 'Ask the AI' }).click();
+    await page.getByRole('button', { name: 'Ask the AI' }).focus();
+    await page.keyboard.press('Enter');
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
     await page.screenshot({ path: `/tmp/orientation-game-reply-${width}.png`, fullPage: true });
+    // Removing the pressed button must not drop focus to the top of the page.
+    await page.getByRole('button', { name: 'Check my ticks' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[data-game-round="3"] > .game-feedback')).toBeFocused();
+    await page.keyboard.press('Tab');
+    expect(await page.evaluate(() => document.activeElement.closest('[data-game-round="3"]') !== null)).toBe(true);
   }
 });
 
