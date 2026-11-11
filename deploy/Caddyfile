@@ -8,8 +8,8 @@
 	header {
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
-		# The microphone is for the course's own voice feedback only.
-		Permissions-Policy "microphone=(self), camera=(), geolocation=(), payment=(), usb=()"
+		# The microphone and camera work for this site only: voice feedback, and Moodle's own editor recording.
+		Permissions-Policy "microphone=(self), camera=(self), geolocation=(), payment=(), usb=()"
 		-Server
 	}
 	# Two defaults, each in its own directive: in one block, Caddy applies defaults only when all of them are missing.

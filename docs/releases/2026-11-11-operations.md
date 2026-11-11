@@ -17,7 +17,7 @@ The audit found that a course service which stopped cleanly would stay stopped (
 - `deploy/orientation-web.service`, `-php.service`, `-db.service`: `Restart=always`. `systemctl --user stop` still stops a service.
 - `deploy/Caddyfile`:
   - `Content-Security-Policy: frame-ancestors 'self'` on every response that does not set its own policy;
-  - `Permissions-Policy: microphone=(self), camera=(), geolocation=(), payment=(), usb=()`. The microphone stays available to the course's own voice feedback;
+  - `Permissions-Policy: microphone=(self), camera=(self), geolocation=(), payment=(), usb=()`. The microphone and camera stay available to this site only (voice feedback, and Moodle's own editor recording); other sites in a frame get neither. Location, payment and USB are off;
   - `Cache-Control: no-store` as a default for responses with no caching header;
   - refused with 404: `cli` folders anywhere, `config-dist.php`, `install.php`, and files ending `.orig`, `.old`, `.save`, `.swp` or `~`.
 - `deploy/orientation.caddy`: the blanket `Cache-Control "no-store"` line is removed in the repository. **The installed copy is unchanged until Finlay applies it.**

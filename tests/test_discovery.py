@@ -167,7 +167,7 @@ class Server(unittest.TestCase):
             with self.subTest(path=path):
                 headers = fetch(port, path)[1]
                 self.assertEqual(headers['Content-Security-Policy'], "frame-ancestors 'self'")
-                self.assertEqual(headers['Permissions-Policy'], 'microphone=(self), camera=(), geolocation=(), payment=(), usb=()')
+                self.assertEqual(headers['Permissions-Policy'], 'microphone=(self), camera=(self), geolocation=(), payment=(), usb=()')
                 self.assertEqual(headers['X-Content-Type-Options'], 'nosniff')
                 self.assertIsNone(headers['Server'])
         # Public pages and their files are never cached, so a published change shows at once.

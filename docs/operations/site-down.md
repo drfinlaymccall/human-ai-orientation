@@ -41,7 +41,7 @@ You should see `active` three times. If not, restart all three in this order:
 systemctl --user restart orientation-db orientation-php orientation-web
 ```
 
-Since 11 November 2026 each of these restarts by itself within five seconds if it stops for any reason other than you stopping it.
+Each of these is set to restart by itself within five seconds if it stops for any reason other than you stopping it. If one is not `active`, that did not work this time; restart it by hand as above.
 
 ## 4. Does the course answer on the server itself?
 
