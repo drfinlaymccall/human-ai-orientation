@@ -18,7 +18,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 | Item 15 | Read `/agent-basics` and say keep, change or cut | 15 min |
 | Item 24 | Run `gh auth refresh -s workflow` (not a Stage A item; it unblocks #10) | 5 min |
 
-**Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15 (see **Done**). Still open in your Stage A set: item 3 (you agreed the uptime alert is a gate; the monitor account is still to be created, in your name) and item 23 (the Cloudflare rule).
+**Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15 (see **Done**). Also to read before the switch: the notify-list wording (see **Done**, last entry). Still open in your Stage A set: item 3 (you agreed the uptime alert is a gate; the monitor account is still to be created, in your name) and item 23 (the Cloudflare rule).
 
 **Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. Item 3 (the uptime alert) is in the set on the audit's recommendation; you agreed on 11 November 2026 that it is a gate (decision D3). This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) is a separate, final step after the set and the agent's packages A1–A6 are done. Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
 
@@ -353,4 +353,4 @@ An agent cannot honestly do these.
 - **11 November 2026 — crawlers (item 9).** asked "search yes, AI input yes (both recommended), AI training yes or no", he replied "yes". Read as yes to all three; the exact lines will be shown to him before the Stage A switch. This goes into the `robots.txt` in the search-and-sharing package.
 - **11 November 2026 — share image (item 12).** "journey map looks good, photo of me too". The agent builds the journey-map image; a version with his photo needs a photo from him.
 - **11 November 2026 — Unit 2 early reading (item 15).** "keep, looks good." He also asked for a "notify me when unit 2 is ready" button linked to a system that does that. That is new work: it collects email addresses from people without accounts, so it needs a design and a privacy-policy change before it is built. Tracked on #9.
-
+- **11 November 2026 — notify list.** Asked whether to start with an email link, Finlay replied "Yeah, build a sign-up list, and it might be useful for other things as well." Built: see the [release record](../releases/2026-11-11-notify-list.md) and [how to use it](../operations/notify-list.md). Still for him: read the notice under the form on `/agent-basics` and the three passages on `/privacy` (the table row, the paragraph under the table, and the line under "How long we keep it"); accept that he deletes old addresses by hand within 24 months, or change the promise.

@@ -14,3 +14,4 @@
 @media(max-width:480px){header{flex-wrap:wrap}header nav{flex-direction:row;justify-content:flex-start;flex-shrink:1}.hero{padding-bottom:1rem}.hero-layout{gap:1rem}.hero-tagline{font-size:1.35rem}}
 
 .table-wrap{overflow-x:auto;max-width:100%}
+.notify label{display:block;font-weight:650;margin-bottom:.3rem}.notify input[type=email]{font:inherit;padding:.6rem .7rem;border:1px solid #b7c9c2;border-radius:.4rem;width:24rem;max-width:100%;background:white;color:inherit}.notify input[type=email]:focus-visible,.notify button:focus-visible{outline:3px solid #b96622;outline-offset:3px}.notify button.button{border:0;font:inherit;font-weight:650;cursor:pointer}

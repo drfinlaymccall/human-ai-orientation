@@ -13,6 +13,9 @@ class provider implements \core_privacy\local\metadata\provider,
             $fields[$field] = 'privacy:metadata:' . $field;
         }
         $collection->add_database_table(context_store::TABLE, $fields, 'privacy:metadata:context');
+        // The notify list is not linked to accounts: a person leaves it with their removal link or by asking Finlay.
+        $collection->add_database_table(\local_orientation\notify::TABLE, ['email' => 'privacy:metadata:notify:email',
+            'topic' => 'privacy:metadata:notify:topic', 'timecreated' => 'privacy:metadata:notify:timecreated'], 'privacy:metadata:notify');
         return $collection;
     }
     public static function get_contexts_for_userid(int $userid): contextlist {

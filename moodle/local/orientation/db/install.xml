@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/orientation/db" VERSION="20261023" COMMENT="Private learner context workspace">
+<XMLDB PATH="local/orientation/db" VERSION="20261111" COMMENT="Private learner context workspace and the notify list">
   <TABLES>
     <TABLE NAME="local_orientation_context" COMMENT="Learner-owned context documents and versioned portfolio snapshots">
       <FIELDS>
@@ -20,6 +20,23 @@
         <KEY NAME="course" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
       </KEYS>
       <INDEXES><INDEX NAME="owneritem" UNIQUE="true" FIELDS="userid,courseid,itemkey"/></INDEXES>
+    </TABLE>
+    <TABLE NAME="local_orientation_notify" COMMENT="People who asked for one notice about a named topic; not linked to accounts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="email" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="topic" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="token" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="emailtopic" UNIQUE="true" FIELDS="email,topic"/>
+        <INDEX NAME="token" UNIQUE="true" FIELDS="token"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
     </TABLE>
   </TABLES>
 </XMLDB>
