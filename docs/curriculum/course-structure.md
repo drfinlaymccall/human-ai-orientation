@@ -61,6 +61,7 @@ The new AI context edition is `2026-10-25.1`, with schema `1.4`. Earlier edition
 | Unit 1 journey | `/journey` | `/local/orientation/index.php` |
 | Legacy introduction | `/course-introduction` | Existing `orientation:journey` Page |
 | Desktop module | `/desktop-workspace` | New `orientation:desktop-workspace` Page |
+| End-of-unit game (optional; not an activity, no completion) | `/context-game` | None. The native step 4 Page links to the public page |
 
 The legacy introduction Page now contains the Unit 1 journey. Its existing URL and ID remain valid. Its rationale is part of that journey.
 

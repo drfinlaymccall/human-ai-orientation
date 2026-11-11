@@ -1,0 +1,83 @@
+{
+  "person": "Mina",
+  "task": "Mina helps at a community garden on Wattle Street. She wants an AI to draft a short notice that invites her neighbours to a garden tidy-up morning. Mina is fictional, and so is every AI reply in this game.",
+  "criteria": {
+    "question": "Before Mina asks, she decides what a useful notice looks like. Which of these can she check?",
+    "options": [
+      {"text": "It should be really good.", "correct": false, "feedback": "Mina cannot check “really good”. Any fluent reply would seem to pass. Try another."},
+      {"text": "Under 80 words, friendly, says what to bring, and leaves a placeholder for the date, which is not decided.", "correct": true, "feedback": "Yes. Mina can count the words, look for what to bring and look for the placeholder."},
+      {"text": "It should sound like something I would write.", "correct": false, "feedback": "That matters to Mina, but she cannot check it until she says what her writing is like. Try another."}
+    ]
+  },
+  "criterion": "Under 80 words, friendly, says what to bring, and leaves a placeholder for the date.",
+  "word_limit": 80,
+  "cards": [
+    {"id": "audience", "kind": "helpful", "text": "The notice is for neighbours on Wattle Street. Many have not met each other."},
+    {"id": "bring", "kind": "helpful", "text": "People should bring gloves and a water bottle. Tools are provided."},
+    {"id": "date", "kind": "helpful", "text": "The date is not decided. Leave a placeholder."},
+    {"id": "tone", "kind": "helpful", "text": "Keep it plain and friendly. No shouting."},
+    {"id": "birthday", "kind": "unrelated", "text": "I am also planning my sister’s birthday in March."},
+    {"id": "printer", "kind": "unrelated", "text": "My printer is low on ink."},
+    {"id": "neighbour", "kind": "private", "text": "Mrs Alvarez at number 12 has been unwell and cannot lift things."},
+    {"id": "code", "kind": "private", "text": "The code for the shed key safe is 4471."}
+  ],
+  "kinds": {
+    "helpful": "Helps with this task",
+    "unrelated": "Not about this task",
+    "private": "Private: leave it out"
+  },
+  "reply": [
+    {"card": "audience",
+     "packed": {"text": "Hello, Wattle Street neighbours. Come and meet the people next door at our garden tidy-up morning."},
+     "unpacked": {"text": "Dear valued community stakeholders, you are invited to a garden tidy-up.", "why": "The AI was not told who the notice is for, so it guessed. The result is not friendly."}},
+    {"card": "date",
+     "packed": {"text": "Date: [to be confirmed]."},
+     "unpacked": {"text": "See you this Saturday at 9 am.", "why": "The AI was not told the date is undecided, so it made one up."}},
+    {"card": "bring",
+     "packed": {"text": "Please bring gloves and a water bottle. Tools are provided."},
+     "unpacked": {"text": "Bring your own spade and wheelbarrow.", "why": "The AI guessed what to bring. Mina’s note says gloves and a water bottle, and that tools are provided."}},
+    {"card": "tone",
+     "packed": null,
+     "unpacked": {"text": "It is going to be ABSOLUTELY AMAZING!!!", "why": "The AI was not told how the notice should sound, so it chose for itself."}},
+    {"card": null,
+     "packed": {"text": "Morning tea will be provided.", "why": "None of Mina’s notes mentions morning tea. An AI can add a detail that sounds right even when the context is good. That is why you check."}},
+    {"card": "birthday",
+     "packed": {"text": "P.S. Happy birthday in March to Mina’s sister.", "why": "The birthday note had nothing to do with this task, and the AI used it anyway."},
+     "unpacked": null},
+    {"card": "printer",
+     "packed": {"text": "Sorry if this notice looks faint. The printer is low on ink.", "why": "The printer note had nothing to do with this task, and the AI used it anyway."},
+     "unpacked": null},
+    {"card": "neighbour",
+     "packed": {"text": "Mrs Alvarez at number 12 has been unwell, so please do her lifting for her.", "why": "This is another person’s private information. Once it is in the conversation, it can appear in the result."},
+     "unpacked": null},
+    {"card": "code",
+     "packed": {"text": "The code for the shed key safe is 4471.", "why": "The code was private. The AI did not need it, and now it is in a public notice."},
+     "unpacked": null}
+  ],
+  "correction": {
+    "question": "Morning tea is still in the notice. What should Mina say next?",
+    "options": [
+      {"text": "Make it better.", "correct": false, "feedback": "The AI cannot tell what “better” means to Mina. It may change the wrong thing. Try another."},
+      {"text": "You added morning tea. I did not say that. Remove it, and do not add arrangements I have not given you.", "correct": true, "feedback": "Yes. Mina names the problem, says what to change and gives a rule that will help next time."},
+      {"text": "Say nothing. Ask the same question again in a new conversation.", "correct": false, "feedback": "The AI would know nothing more than before, so the same kind of guess is likely. Try another."}
+    ],
+    "fixed": "Hello, Wattle Street neighbours. Come and meet the people next door at our garden tidy-up morning. Date: [to be confirmed]. Please bring gloves and a water bottle. Tools are provided."
+  },
+  "filing": {
+    "documents": ["Working with me", "My goals and projects", "Useful knowledge and examples"],
+    "leave_out": "Leave it out",
+    "items": [
+      {"text": "Do not add arrangements I have not given you. Ask me instead.", "answer": 0, "why": "This is how Mina wants an AI to work with her on any task."},
+      {"text": "Goal: 15 neighbours at the garden tidy-up. Next step: agree the date with the garden committee.", "answer": 1, "why": "This is a goal and its next step."},
+      {"text": "What to bring: gloves and a water bottle; tools are provided. From the garden committee’s list, checked on 3 May.", "answer": 2, "why": "This is a fact with its source and the date Mina checked it."},
+      {"text": "The code for the shed key safe is 4471.", "answer": "out", "why": "Private details do not belong in notes Mina will paste into an AI conversation."}
+    ]
+  },
+  "takeaways": [
+    {"step": "Step 1", "href": "/first-task", "text": "Decide what a useful result looks like before you ask."},
+    {"step": "Step 2", "href": "/preview", "text": "Give the AI what helps with this task. Leave out what is unrelated or private."},
+    {"step": "Step 4", "href": "/check-and-continue", "text": "Check the result against your criterion, and correct it with a specific instruction."},
+    {"step": "Step 3", "href": "/portfolio", "text": "Keep what worked in your three documents, so you can use it again."}
+  ],
+  "fallback_pack": ["audience", "birthday", "code"]
+}
