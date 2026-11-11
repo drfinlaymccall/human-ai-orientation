@@ -21,7 +21,7 @@
   "word_limit": 80,
   "cards": [
     {"id": "audience", "kind": "helpful", "text": "The email goes to my close friends. Most of them know each other."},
-    {"id": "when", "kind": "helpful", "text": "The party is on Saturday 21 June from 6 pm at my new flat. Leave a placeholder for the address. I will add it myself."},
+    {"id": "when", "kind": "helpful", "text": "The party is on 21 June from 6 pm at my new flat. Leave a placeholder for the address. I will add it myself."},
     {"id": "bring", "kind": "helpful", "text": "People should bring a drink to share. I am providing the food."},
     {"id": "tone", "kind": "helpful", "text": "Keep it plain and friendly. No shouting."},
     {"id": "dentist", "kind": "unrelated", "text": "I also need to book a dentist appointment."},
@@ -39,7 +39,7 @@
      "packed": {"text": "Hi everyone, I have moved, and I would love you to come to my housewarming."},
      "unpacked": {"text": "Dear valued guests, you are cordially invited to a housewarming celebration.", "why": "The AI was not told who the email is for, so it guessed. The result is not friendly."}},
     {"card": "when",
-     "packed": {"text": "It is on Saturday 21 June from 6 pm at my new flat. Address: [to be added]."},
+     "packed": {"text": "It is on 21 June from 6 pm at my new flat. Address: [to be added]."},
      "unpacked": {"text": "It is this Saturday at 7 pm.", "why": "The AI was not told the date or the time, so it made them up."}},
     {"card": "bring",
      "packed": {"text": "Please bring a drink to share. Food is provided."},
@@ -70,7 +70,7 @@
       {"text": "You said there is plenty of parking. I did not say that. Remove it, and do not add details I have not given you.", "correct": true, "feedback": "Yes. Mina names the problem, says what to change and gives a rule that will help next time."},
       {"text": "Say nothing. Ask the same question again in a new conversation.", "correct": false, "feedback": "The AI would know nothing more than before, so the same kind of guess is likely. Try another."}
     ],
-    "fixed": "Hi everyone, I have moved, and I would love you to come to my housewarming. It is on Saturday 21 June from 6 pm at my new flat. Address: [to be added]. Please bring a drink to share. Food is provided."
+    "fixed": "Hi everyone, I have moved, and I would love you to come to my housewarming. It is on 21 June from 6 pm at my new flat. Address: [to be added]. Please bring a drink to share. Food is provided."
   },
   "filing": {
     "documents": ["Working with me", "My goals and projects", "Useful knowledge and examples"],
@@ -78,7 +78,7 @@
     "leave_out": "Leave it out",
     "items": [
       {"text": "Do not add details I have not given you. Ask me instead.", "answer": 0, "why": "This is how Mina wants an AI to work with her on any task."},
-      {"text": "Goal: housewarming party on Saturday 21 June. Next step: send the invitation this week.", "answer": 1, "why": "This is a goal and its next step."},
+      {"text": "Goal: housewarming party on 21 June. Next step: send the invitation this week.", "answer": 1, "why": "This is a goal and its next step."},
       {"text": "An invitation that worked: short and friendly, with the date and time first and what to bring last.", "answer": 2, "why": "This is an example of what worked. Mina can use it again for her next invitation."},
       {"text": "The door code for my building is 4471.", "answer": "out", "why": "Private details do not belong in notes Mina will paste into an AI conversation."}
     ]
