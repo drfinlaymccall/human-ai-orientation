@@ -19,7 +19,7 @@ The agent listed the six items. Finlay's replies, in his words:
 | Does "yes" to crawlers include AI training (item 9) | "yes" |
 | Wording of the 10 November course changes | "read and approved" |
 
-He added: "Right, I think we're good to go."
+He added: "Right, I think we're good to go." This is not the Stage A switch decision and does not waive the open gates.
 
 ## Change
 
@@ -33,6 +33,6 @@ Records only: [his list](../reviews/2026-11-10-finlay-contributions.md#done), `C
 ## Remaining questions
 
 - **Cloudflare rule and uptime alert: not done.** The agent's Cloudflare connection reported that it needs Finlay to sign in again. Both remain Stage A gates.
-- His replies do not cover: the not-found page; the cut pointer on `/before-you-start`; deleting old notify-list addresses by hand within 24 months; the server location.
+- His replies do not cover: the not-found page; the cut pointer on `/before-you-start`; the server location (a Stage B confirmation); deleting old notify-list addresses by hand within 24 months. The last is a promise in the policy that no task performs. It is kept as an open item, not a Stage A gate, because no address can be 24 months old before November 2028.
 - No lawyer has reviewed the policy. This record is not legal advice.
 - The Stage A switch and its date remain Finlay's decision.
