@@ -1,4 +1,4 @@
-# Stage A switch — 11 November 2026
+# Stage A switch — 12 November 2026
 
 Tracking: [#9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9).
 
@@ -8,7 +8,9 @@ The anonymous course was ready to be found by search and shared, with registrati
 
 ## Decision
 
-Asked "Once both Cloudflare jobs pass, shall I switch Stage A on today?", Finlay replied "Yes, today" (11 November 2026). The evidence that both gates passed is on #9, posted before this change was merged.
+- 11 November: asked "Once both Cloudflare jobs pass, shall I switch Stage A on today?", Finlay replied "Yes, today". The jobs could not be done that day: the agent's Cloudflare connection lacked permissions.
+- 12 November: the rule was applied in Finlay's signed-in Cloudflare dashboard and read back. The uptime alert could not be built as recommended, because his free Cloudflare plan refuses health checks. The agent created a Cloudflare notification (Passive Origin Monitoring) that emails him when Cloudflare cannot reach the server for about five minutes, and told him the limits: it does not notice PHP or the database being down, it covers every site on his account, and no test alert was possible.
+- Told this and the agent's recommendation to accept it for Stage A, he replied "Yes, proceed. Give me the prompt for my local agent to set the robot up". The switch followed the same day. The evidence for both jobs is on #9, posted before this change was merged.
 
 ## Change
 
@@ -31,4 +33,5 @@ Change the line back to `import robots-preview.caddy`, update the test assertion
 
 - Stage B (registration) is separate and stays closed. Nobody has been invited and nothing has been posted.
 - Not put to Finlay: the not-found page; the cut pointer on `/before-you-start`. Open: his answer on deleting old notify-list addresses by hand within 24 months; item 25 (front-server cache line).
+- The fuller outside checks (home page text, sign-in page text, AI context) are not set up. Finlay asked for instructions to do this with UptimeRobot through his own agent. They are needed before Stage B.
 - No pilot and no legal review have taken place.
