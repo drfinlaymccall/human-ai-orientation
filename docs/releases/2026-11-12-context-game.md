@@ -42,7 +42,15 @@ Not changed: the plugin, the database schema, the course map, module IDs, comple
 
 All tests are synthetic and ran on the branch against the local static server. No learner has played the game.
 
-VERIFICATION_PLACEHOLDER
+- **`npm run check:public`:** passed to the end. It rebuilds every page and confirms the build leaves no uncommitted change. Python: support 6, deploy 3, discovery 11 (these start a throwaway web server from `deploy/Caddyfile` and fetch every listed page, so the new route is covered), AI context 8, public integration 6. Browser: entry 11, game 5, metadata 2, portfolio 9, feedback 32.
+- **Game suite (`npm run test:game`, 5 tests):**
+  - a careful player gets 12 of 12 stars; the page makes no request after the game starts and leaves no local storage, session storage or cookie;
+  - a careless brief puts the made-up date, the unrelated notes and the private notes into the reply; the player changes the brief and the reply changes; a wrong answer explains itself and allows another try; the score matches the rules;
+  - the game is played by keyboard through the first two rounds, and nothing overflows at 1280, 390 and 320 pixels wide;
+  - without JavaScript the paper version shows every note, the sample reply and all five answers;
+  - step 4 links to the game.
+- **Screenshots** at 1280 and 390 pixels wide were looked at by the agent.
+- **Not run:** the fixture suites (progress, onboarding, welcome, WB10, starting point, notify). No plugin or Moodle code changed. `scripts/sync-journey.php` was not run on the fixture with this content; its only change is one more sentence in the step 4 Page text.
 
 ## Publication
 
