@@ -18,7 +18,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 | Item 15 | Read `/agent-basics` and say keep, change or cut | 15 min |
 | Item 24 | Run `gh auth refresh -s workflow` (not a Stage A item; it unblocks #10) | 5 min |
 
-**Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15 (see **Done**). Also to read before the switch: the notify-list wording (see **Done**, last entry). Still open in your Stage A set: item 3 (you agreed the uptime alert is a gate; the monitor account is still to be created, in your name) and item 23 (the Cloudflare rule).
+**Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15, and you have read and approved the changed `/privacy` passages, the sign-up form and the 10 November course wording (see **Done**, last entry). Still open in your Stage A set: item 3 (the uptime alert) and item 23 (the Cloudflare rule). You told the agent to do both through your Cloudflare connection; it needs you to sign that connection in again first.
 
 **Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. Item 3 (the uptime alert) is in the set on the audit's recommendation; you agreed on 11 November 2026 that it is a gate (decision D3). This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) is a separate, final step after the set and the agent's packages A1–A6 are done. Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
 
@@ -116,7 +116,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 ### 9. Content signals in `robots.txt` [A]
 
-**Answered 11 November 2026, to confirm.** The lines now published at `/robots.txt` are:
+**Answered and confirmed 11 November 2026** (AI training: "yes"). The lines now published at `/robots.txt` are:
 
 ```
 User-agent: *
@@ -124,7 +124,7 @@ Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 ```
 
-Say if `ai-train=yes` is not what you meant. See Done.
+See Done.
 
 - **What:** Cloudflare serves a `robots.txt` that states no rules. Decide what crawlers may do: search indexing, use as AI input, AI training.
 - **Why you:** it is your licence position. The course is CC BY 4.0 and its AI-context pack exists to be read by AI tools.
@@ -372,3 +372,4 @@ An agent cannot honestly do these.
 - **11 November 2026 — share image (item 12).** "journey map looks good, photo of me too". The agent builds the journey-map image; a version with his photo needs a photo from him.
 - **11 November 2026 — Unit 2 early reading (item 15).** "keep, looks good." He also asked for a "notify me when unit 2 is ready" button linked to a system that does that. That is new work: it collects email addresses from people without accounts, so it needs a design and a privacy-policy change before it is built. Tracked on #9.
 - **11 November 2026 — notify list.** Asked whether to start with an email link, Finlay replied "Yeah, build a sign-up list, and it might be useful for other things as well." Built: see the [release record](../releases/2026-11-11-notify-list.md) and [how to use it](../operations/notify-list.md). Still for him: read the notice under the form on `/agent-basics` and the three passages on `/privacy` (the table row, the paragraph under the table, and the line under "How long we keep it"); accept that he deletes old addresses by hand within 24 months, or change the promise.
+- **11 November 2026 — reads and approvals before Stage A.** The agent listed six items for him. His replies, in order: uptime monitor through Cloudflare, "yes, d o it"; the Cloudflare AI-context rule (item 23), "apply it"; the changed `/privacy` passages (analytics, the session cookie, the sign-up list), "read and approved"; the sign-up form on `/agent-basics`, "read and approved"; whether "yes" to crawlers includes AI training (item 9), "yes"; the wording of the 10 November course changes, "read and approved". He added: "Right, I think we're good to go." See the [record](../releases/2026-11-11-finlay-approvals.md). Not covered by these replies: the not-found page; deleting old notify-list addresses by hand within 24 months; the server location; the cut pointer on `/before-you-start`. No lawyer has reviewed the policy. The Cloudflare rule and the monitor are not done yet: the agent's Cloudflare connection needs him to sign in again.
