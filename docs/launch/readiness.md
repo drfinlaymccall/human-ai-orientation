@@ -32,7 +32,7 @@ Only then use the separately gated `open` operation. Update homepage/help/privac
 
 ## Discoverability and maintenance
 
-The demo-wide `noindex, nofollow` policy remains deliberate until the public V1 decision. At that release, allow discovery only for intended public reading routes, public assets and the curated AI pack. Keep account/login/enrolment and private/runtime routes excluded; search directives do not replace access controls. Update the public test's header expectation alongside a reviewed Caddy change, validate and restart only the orientation web service, then check signed-out pages, metadata and private denials. Do not remove the global header without adding the intended scoped policy.
+Until the Stage A switch on 12 November 2026 every response sent `noindex, nofollow`; the policy is now scoped (see "Switched" below). The rule for any later change stays the same: allow discovery only for intended public reading routes, public assets and the curated AI pack. Keep account/login/enrolment and private/runtime routes excluded; search directives do not replace access controls. Update the public test's header expectation alongside a reviewed Caddy change, validate and restart only the orientation web service, then check signed-out pages, metadata and private denials. Do not remove the global header without adding the intended scoped policy.
 
 **Prepared 11 November 2026.** The scoped policy exists as `deploy/robots-stage-a.caddy`: every response keeps `noindex, nofollow` except the public course pages listed in `content/discovery.json`. `tests/test_discovery.py` checks both policies on a throwaway local server and fails if the switch line changes without the test being updated.
 

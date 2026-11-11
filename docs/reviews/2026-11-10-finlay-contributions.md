@@ -20,7 +20,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 **Status, 11 November 2026.** Answered: items 1, 2, 9, 12 and 15, and you have read and approved the changed `/privacy` passages, the sign-up form and the 10 November course wording (see **Done**, last entry). Still open in your Stage A set: item 3 (the uptime alert) and item 23 (the Cloudflare rule). Both were dealt with on 12 November (see **Done**, last entry): the rule is applied; the alert is a narrower Cloudflare notification, and the fuller UptimeRobot checks are still yours to set up.
 
-**Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. Item 3 (the uptime alert) is in the set on the audit's recommendation; you agreed on 11 November 2026 that it is a gate (decision D3). This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) is a separate, final step after the set and the agent's packages A1–A6 are done. Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
+**Your Stage A set.** Seven items: 1, 2, 3, 9, 12, 15 and 23. Item 3 (the uptime alert) is in the set on the audit's recommendation; you agreed on 11 November 2026 that it is a gate (decision D3). This is package A7 in the audit. Choosing the date (item 5, decision D9, package A8) was a separate, final step after the set and the agent's packages A1–A6; you chose it and Stage A was switched on 12 November 2026 (see **Done**). Item 4 (pilot order) is not a gate; it only affects when you choose the date. Items 25 and 31 are recommended before Stage A, not required.
 
 ## 1. Decisions and approvals
 
