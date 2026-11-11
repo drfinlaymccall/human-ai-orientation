@@ -116,7 +116,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 ### 9. Content signals in `robots.txt` [A]
 
-**Answered and confirmed 11 November 2026** (AI training: "yes"). The lines now published at `/robots.txt` are:
+**Answered 11 November 2026; AI training confirmed** ("yes"). He confirmed the choice, not the file text; the exact lines are repeated in the switch check list. The lines now published at `/robots.txt` are:
 
 ```
 User-agent: *
