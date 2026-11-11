@@ -46,6 +46,7 @@ test('a careful player scores every star and nothing is stored or sent', async (
   await expect(page.getByRole('button', { name: 'Change the brief and ask again' })).toHaveCount(0);
   await answer(page, 'game-correction', game.correction.options);
   await expect(page.locator('blockquote.game-reply')).toHaveText(game.correction.fixed);
+  await expect(page.getByText('With that correction, the notice reads:')).toBeVisible();
   await page.getByRole('button', { name: 'Next: keep what worked' }).click();
 
   for (const [index, item] of game.filing.items.entries()) await page.locator(`#game-file-${index}`).selectOption(String(item.answer));
@@ -73,6 +74,9 @@ test('a careless brief shows up in the reply, and the player can change it', asy
   await expect(page.locator('.game-verdict[data-result="wrong"]')).toHaveCount(8);
   await expect(page.locator('.game-verdict').filter({ hasText: 'made one up' })).toBeVisible();
 
+  // Going on without changing the brief must not say the player gave the helpful notes.
+  await answer(page, 'game-correction', game.correction.options);
+  await expect(page.getByText('If the AI had only the four helpful notes, that correction would give this notice:')).toBeVisible();
   await page.getByRole('button', { name: 'Change the brief and ask again' }).click();
   await expect(page.locator('#game-card-code')).toBeChecked();
   await pack(page, helpful);

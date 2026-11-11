@@ -172,7 +172,7 @@
       after.append(quiz('game-correction', game.correction.question, game.correction.options, wrongTries => {
         state.stars[2] = flags + (wrongTries === 0 ? 1 : 0);
         fixed.append(
-          el('p', { text: 'With the four helpful notes and that correction, the notice reads:' }),
+          el('p', { text: fromBrief ? 'If the AI had only the four helpful notes, that correction would give this notice:' : 'With that correction, the notice reads:' }),
           el('blockquote', { class: 'game-reply' }, [el('p', { text: game.correction.fixed })]),
           button('Next: keep what worked', roundFour));
         fixed.lastChild.focus();

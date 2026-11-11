@@ -49,6 +49,7 @@ All tests are synthetic and ran on the branch against the local static server. N
   - the game is played by keyboard through the first two rounds, and nothing overflows at 1280, 390 and 320 pixels wide;
   - without JavaScript the paper version shows every note, the sample reply and all five answers;
   - step 4 links to the game.
+- **Independent source review:** one finding (P3), accepted and fixed. After the correction, the page said "With the four helpful notes…" even when the player's brief was different. It now says so only when that is true; the game suite checks both sentences. The receipt is on the pull request.
 - **Screenshots** at 1280 and 390 pixels wide were looked at by the agent.
 - **Not run:** the fixture suites (progress, onboarding, welcome, WB10, starting point, notify). No plugin or Moodle code changed. `scripts/sync-journey.php` was not run on the fixture with this content; its only change is one more sentence in the step 4 Page text.
 
