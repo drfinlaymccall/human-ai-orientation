@@ -67,7 +67,7 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 - **What:** decide that an outside alert must exist before promotion, and set one up.
 - **Why you:** it needs an account in your name and your email address. The agent must not sign up for services.
-- **Where it goes:** [`readiness.md`](../launch/readiness.md); a new `docs/operations/site-down.md`.
+- **Where it goes:** [`readiness.md`](../launch/readiness.md); [`docs/operations/site-down.md`](../operations/site-down.md) (written 11 November 2026).
 - **Unblocks:** Stage A (F20, D3, D4).
 - **Prepared:** the recommended service and three exact checks are in [section 6 of the audit](2026-11-10-launch-audit.md#6-uptime-monitor-recommendation).
 - **Effort:** 15 minutes.
@@ -273,10 +273,28 @@ Answer by dictation. Each answer has a named place. The agent will tidy the tran
 
 ### 25. System Caddy changes
 
-- **What:** copy the updated `deploy/orientation.caddy` into `/etc/caddy/conf.d/` and reload Caddy, when package A6 is ready.
+- **What:** in the system Caddy configuration, remove one line from the orientation site block: `Cache-Control "no-store"`. The matching file in the repository is [`deploy/orientation.caddy`](../../deploy/orientation.caddy). **Ready since 11 November 2026. Not a Stage A gate.**
+- **What it does:** sign-in, sign-up and recovery pages stop re-downloading 1–2 MB of Moodle's own scripts and styles on every view. Public course pages stay uncached, because the course web server now says so itself.
+- **Risk:** low. Moodle's files carry a version number in their address, so a new version is always fetched. If anything looks stale afterwards, put the line back and reload.
 - **Why you:** needs sudo.
 - **Unblocks:** F44.
-- **Prepared:** the agent will give the three exact commands and the check to run afterwards.
+- **Prepared:** the agent could not read the system Caddy folder, so the first command finds the file.
+
+  ```bash
+  sudo grep -rln "orientation.finlaymccall.com" /etc/caddy
+  ```
+
+  Open that file with `sudo nano`, delete the line `Cache-Control "no-store"` inside the orientation block, save, then:
+
+  ```bash
+  sudo caddy validate --config /etc/caddy/Caddyfile
+  ```
+
+  ```bash
+  sudo systemctl reload caddy
+  ```
+
+  Check: tell the agent, who reads the headers back. A public page must still say `no-store`; a Moodle script must say `max-age`.
 - **Effort:** 10 minutes.
 
 ### 26. One consenting mail recipient [B]

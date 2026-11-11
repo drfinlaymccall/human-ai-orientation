@@ -5,7 +5,8 @@ Description=Orientation PostgreSQL (private Unix socket)
 Type=simple
 Environment=LD_LIBRARY_PATH=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/lib/x86_64-linux-gnu
 ExecStart=/home/finlay/apps/human-ai-orientation/trial/runtime/usr/lib/postgresql/16/bin/postgres -D /home/finlay/apps/human-ai-orientation/trial/postgres
-Restart=on-failure
+# always: a clean stop (exit 0) must also restart. `systemctl --user stop` still stops it.
+Restart=always
 RestartSec=5
 KillSignal=SIGINT
 TimeoutStopSec=60

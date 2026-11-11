@@ -160,6 +160,43 @@ class Server(unittest.TestCase):
         self.assertEqual(fetch(port, '/assets/favicon.svg')[0], 200)
         self.assertEqual(fetch(port, '/assets/share.png')[0], 200)
 
+    def test_every_response_carries_the_protective_headers_and_private_files_are_refused(self):
+        port = self.serve('preview')
+        # This test has no PHP, so it cannot show the headers on a Moodle page; that is checked on the server after publication.
+        for path in ('/', '/journey', '/assets/site.css', '/no-such-page'):
+            with self.subTest(path=path):
+                headers = fetch(port, path)[1]
+                self.assertEqual(headers['Content-Security-Policy'], "frame-ancestors 'self'")
+                self.assertEqual(headers['Permissions-Policy'], 'microphone=(self), camera=(), geolocation=(), payment=(), usb=()')
+                self.assertEqual(headers['X-Content-Type-Options'], 'nosniff')
+                self.assertIsNone(headers['Server'])
+        # Public pages and their files are never cached, so a published change shows at once.
+        for path in ('/', '/journey', '/assets/site.css', '/robots.txt', '/ai/context.md'):
+            with self.subTest(path=path):
+                self.assertEqual(fetch(port, path)[1]['Cache-Control'], 'no-store')
+        for path in ('/config.php', '/config-dist.php', '/install.php', '/admin/cli/cron.php', '/admin/tool/task/cli/run.php',
+                     '/login/index.php~', '/login/index.php.orig', '/notes.old', '/x.save', '/y.swp', '/.git/config', '/composer.json'):
+            with self.subTest(path=path):
+                status, _, body = fetch(port, path)
+                self.assertEqual((status, body), (404, 'Not found'))
+
+
+class Services(unittest.TestCase):
+    def test_course_services_restart_after_any_stop_they_were_not_asked_to_make(self):
+        for name in ('web', 'php', 'db'):
+            with self.subTest(service=name):
+                unit = (ROOT / f'deploy/orientation-{name}.service').read_text()
+                self.assertEqual(re.findall(r'^Restart=(\S+)$', unit, re.M), ['always'])
+                self.assertIn('RestartSec=5', unit)
+
+    def test_the_front_server_file_leaves_caching_to_the_course_server(self):
+        front = (ROOT / 'deploy/orientation.caddy').read_text()
+        self.assertNotIn('Cache-Control "no-store"', front)
+        course = (ROOT / 'deploy/Caddyfile').read_text()
+        # Each default needs its own directive, or one present header switches off the other default.
+        self.assertIn('\theader ?Cache-Control "no-store"\n', course)
+        self.assertIn('\theader ?Content-Security-Policy "frame-ancestors \'self\'"\n', course)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -8,8 +8,16 @@
 	header {
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
+		# The microphone is for the course's own voice feedback only.
+		Permissions-Policy "microphone=(self), camera=(), geolocation=(), payment=(), usb=()"
 		-Server
 	}
+	# Two defaults, each in its own directive: in one block, Caddy applies defaults only when all of them are missing.
+	# No other site may show these pages inside a frame. Moodle frames only its own pages.
+	header ?Content-Security-Policy "frame-ancestors 'self'"
+	# Public pages and their files are not cached, so a published change shows at once.
+	# Moodle sets its own caching on its pages and versioned files; this default leaves those alone.
+	header ?Cache-Control "no-store"
 	# Search policy. Preview: every response says noindex. Stage A: change this one line to
 	# `import robots-preview.caddy`, which keeps noindex on everything except the public course pages.
 	# Both files are written by scripts/build-discovery.py. Finlay decides when to switch.
@@ -18,7 +26,7 @@
 		max_size 16MB
 	}
 	@private {
-		path_regexp private (^|/)(\.[^/]*|vendor|node_modules|tests|fixtures|behat)(/|$)|(^|/)(config\.php|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml.*|README.*|UPGRADING.*|Gruntfile\.js|.*\.(md|txt|lock|dist|bak|sql))$|^/admin/cli(/|$)
+		path_regexp private (^|/)(\.[^/]*|vendor|node_modules|tests|fixtures|behat|cli)(/|$)|(^|/)(config\.php|config-dist\.php|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml.*|README.*|UPGRADING.*|Gruntfile\.js|.*\.(md|txt|lock|dist|bak|sql|orig|old|save|swp)|.*~)$|^/install\.php$
 		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /ai/releases/2026-11-10.1/context.md /downloads/orientation-practice.md /robots.txt
 	}
 	handle @private {

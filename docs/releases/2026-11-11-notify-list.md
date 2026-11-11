@@ -32,7 +32,8 @@ Results for the merged head are on the pull request and on #9. Planned checks:
 
 - Synthetic fixture (port 18802, captured mail, fictional addresses): `npm run test:notify`, plus the existing progress and starting-point suites after the upgrade.
 - Public checks: `npm run check:public` and the Python tests.
-- Live: structural snapshots before and after the upgrade must be identical apart from the plugin version and the new empty table; one synthetic sign-up and removal with a fictional `@example.test` address, labelled synthetic and removed afterwards.
+- Live: structural snapshots before and after the upgrade must be identical apart from the plugin version and the new empty table. Checks that store nothing: bad input refused, an unknown removal link, no session cookie, the list page closed to signed-out visitors.
+- **Correction, 11 November:** this record first listed a synthetic sign-up and removal on the live site. That was not done and will not be: account and native tests run only on the synthetic fixture. The results are on [#9](https://github.com/drfinlaymccall/human-ai-orientation/issues/9#issuecomment-6785921920).
 
 ## Remaining questions
 
