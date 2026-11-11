@@ -36,7 +36,7 @@
 	# Old or mistyped forms of the public addresses go to the one real address.
 	redir /index.html / 308
 	redir /favicon.ico /assets/favicon.svg 308
-	@alias path_regexp alias ^/(catalogue|agent-basics|desktop-workspace|journey|first-task|preview|portfolio|check-and-continue|before-you-start|notes|free-tools|deeper-courses|help)(\.html|/)$
+	@alias path_regexp alias ^/(catalogue|agent-basics|desktop-workspace|journey|first-task|preview|portfolio|check-and-continue|context-game|before-you-start|notes|free-tools|deeper-courses|help)(\.html|/)$
 	redir @alias /{re.alias.1} 308
 	@discovery path /robots.txt /sitemap.xml
 	handle @discovery {
@@ -58,7 +58,7 @@
 		rewrite * /index.html
 		file_server
 	}
-	@journey path /catalogue /agent-basics /desktop-workspace /course-introduction /journey /first-task /portfolio /check-and-continue /help
+	@journey path /catalogue /agent-basics /desktop-workspace /course-introduction /journey /first-task /portfolio /check-and-continue /context-game /help
 	handle @journey {
 		root * /home/finlay/apps/human-ai-orientation/public
 		rewrite * {path}.html

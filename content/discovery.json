@@ -11,6 +11,7 @@
     {"file": "preview.html", "path": "/preview"},
     {"file": "portfolio.html", "path": "/portfolio"},
     {"file": "check-and-continue.html", "path": "/check-and-continue"},
+    {"file": "context-game.html", "path": "/context-game", "description": "A five-minute game to finish Unit 1: set a criterion, choose the context for a fictional task, check the reply and keep what worked."},
     {"file": "catalogue.html", "path": "/catalogue"},
     {"file": "desktop-workspace.html", "path": "/desktop-workspace", "description": "Optional practice: use your own AI tool beside your notes. Copy, switch windows, paste and come back."},
     {"file": "before-you-start.html", "path": "/before-you-start", "description": "Optional practice: find your way around files, folders and locations, so you can give an AI the right material and find what it makes."},

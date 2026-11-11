@@ -1,0 +1,39 @@
+/* End-of-unit game. The paper version uses the ordinary reading styles. */
+.context-game { margin: 2rem 0; }
+.context-game [hidden] { display: none !important; }
+.game-round { padding: 1.2rem clamp(1rem, 3vw, 1.6rem); border: 1px solid #b7c9c2; border-radius: .7rem; background: #fff; }
+.reading .game-round { margin: 0; }
+.game-round h2 { margin-top: .3rem; }
+.game-round h2:focus { outline: none; }
+.game-round h2:focus-visible { outline: 3px solid #b96622; outline-offset: 5px; }
+.game-progress { margin: 0; font-size: .9rem; font-weight: 650; color: #485b55; }
+.game-stars { color: #8a5a00; letter-spacing: .08em; white-space: nowrap; }
+.game-score { font-size: 1.4rem; font-weight: 700; }
+.game-criterion { padding: .6rem .9rem; background: #edf4f1; border-left: 3px solid #176b60; }
+.game-quiz, .game-cards { min-width: 0; margin: 1rem 0; padding: 0; border: 0; }
+.game-quiz legend, .game-cards legend { padding: 0; font-weight: 700; margin-bottom: .5rem; }
+.game-choice, .game-card, .game-sentence { display: flex; align-items: flex-start; gap: .7rem; margin: .5rem 0; padding: .7rem .9rem; border: 1px solid #b7c9c2; border-radius: .5rem; background: #f6f7f4; cursor: pointer; }
+.game-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.game-cards legend { grid-column: 1 / -1; }
+.game-card { margin: 0; transition: transform .15s ease, background-color .15s ease; }
+.game-card.is-picked { background: #e0efe9; border-color: #176b60; box-shadow: inset 4px 0 0 #176b60; transform: translateY(-2px); }
+.context-game input[type="checkbox"], .context-game input[type="radio"] { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin-top: .35rem; accent-color: #176b60; }
+.context-game input:focus-visible, .context-game select:focus-visible, .game-button:focus-visible { outline: 3px solid #b96622; outline-offset: 3px; }
+.game-button { display: inline-block; margin: .6rem .5rem .6rem 0; padding: .7rem 1.1rem; border: 1px solid #176b60; border-radius: .4rem; background: #176b60; color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
+.game-button:hover { background: #104f47; }
+.game-button.secondary { background: #fff; color: #176b60; }
+.game-button.secondary:hover { background: #edf4f1; }
+.game-feedback, .game-count { min-height: 1.6em; font-weight: 600; }
+.game-feedback[data-result="wrong"] { color: #8a3b12; }
+.game-reply { margin: 1rem 0; padding: .8rem 1rem; border: 1px solid #d6dfd9; border-radius: .5rem; background: #fbfaf5; }
+.game-reply .meta { margin: .2rem 0; }
+.game-sentences { list-style: none; margin: 0; padding: 0; }
+.reading .game-sentences li { margin: 0; }
+.game-sentence { background: #fff; }
+.game-verdict { margin: 0 0 .8rem; padding-left: .9rem; border-left: 3px solid #176b60; font-size: .95rem; }
+.game-verdict[data-result="wrong"] { border-left-color: #b96622; }
+.game-file { margin: 1rem 0; padding-bottom: .4rem; border-bottom: 1px solid #d6dfd9; }
+.game-file label { display: block; margin-bottom: .4rem; }
+.game-file select { max-width: 100%; padding: .5rem .6rem; border: 1px solid #7d948b; border-radius: .3rem; background: #fff; color: inherit; font: inherit; }
+@media (max-width: 650px) { .game-cards { grid-template-columns: 1fr; } .game-button { width: 100%; margin-right: 0; } .game-file select { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .game-card { transition: none; } .game-card.is-picked { transform: none; } }

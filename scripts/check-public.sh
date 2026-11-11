@@ -9,6 +9,7 @@ python3 -m unittest discover -s tests -p test_deploy.py
 python3 -m unittest discover -s tests -p test_discovery.py
 node tests/journey-lifecycle.test.cjs
 npm run test:entry
+npm run test:game
 npm run test:metadata
 npm run test:portfolio
 npm run test:feedback
