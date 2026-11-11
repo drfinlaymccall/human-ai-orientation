@@ -1,17 +1,18 @@
 # Project control and wishlist
 
-Updated: 2026-11-10. Owner: Finlay McCall. All dates use Australia/Sydney time.
+Updated: 2026-11-11. Owner: Finlay McCall. All dates use Australia/Sydney time.
 
 ## Outcome and dates
 
-**Current status — 10 November 2026.** Read this block first. The paragraphs after it are dated records, newest near the top, and each describes the day it names.
+**Current status — 10 November 2026, with one addition dated 11 November.** Read this block first. The paragraphs after it are dated records, newest near the top, and each describes the day it names.
 
 - **What it is:** a minimum viable course. A learner works through four steps in order (Try AI on a useful task; Give AI useful context; Save and reuse context; Check, improve and continue) and leaves with three context documents in a `my-context` folder and a next goal. Three optional modules give practice with files, notes and an AI app.
 - **Where it is:** the owner preview at `orientation.finlaymccall.com`, published from `main`. It still sends `noindex, nofollow`. Registration is closed to the public; the acquisition mode is `pilot` (exact-address gate). No person other than Finlay has used it.
 - **Versions live:** orientation plugin `2026110601`; AI-context edition `2026-11-10.1` (schema 1.4); Moodle 4.5.15, unmodified.
 - **Changes of 10 November:** audit ([PR #40](https://github.com/drfinlaymccall/human-ai-orientation/pull/40)); [one path](docs/releases/2026-11-10-mvp-one-path.md); [one folder, three files](docs/releases/2026-11-10-one-folder-three-files.md); [step 2 wording, header, progress suite](docs/releases/2026-11-10-step2-header-progress.md); [agent material out of Unit 1](docs/releases/2026-11-10-cut-agent-pointers.md); [AI-context edition](docs/releases/2026-11-10-ai-context-edition.md); [records brought up to date](docs/releases/2026-11-10-records.md). Each was published to the preview with learner records unchanged.
-- **Not established:** Finlay's approval of any wording; genuine mail to a person other than Finlay; a human pilot; legal review of the privacy policy.
-- **Stage A (open the anonymous course to search):** not ready. It needs the scoped search policy and share metadata (agent, audit package A2) and Finlay's Stage A items, then his date. See [what only Finlay can add](docs/reviews/2026-11-10-finlay-contributions.md).
+- **11 November:** Finlay answered five of his seven Stage A items ([record](docs/releases/2026-11-11-stage-a-answers.md)): he accepted the `/privacy` wording for people who only read, as it stood before two cookie sentences were changed, and the 30-day promise; the server location was not separately confirmed. He kept Cloudflare Web Analytics. Before the Stage A switch he reads the two changed sentences and confirms the exact `robots.txt` lines. He also agreed the uptime alert is a Stage A gate, answered "yes" on crawlers (read as search, AI input and AI training), chose the journey map as the share image, and kept `/agent-basics`. Open: the uptime monitor and the Cloudflare AI-context rule.
+- **Not established:** Finlay's approval of any other wording; genuine mail to a person other than Finlay; a human pilot; legal review of the privacy policy.
+- **Stage A (open the anonymous course to search):** not ready. It needs the scoped search policy and share metadata (agent, audit package A2), an outside uptime alert (agreed as a gate on 11 November; not set up) and the rest of Finlay's Stage A items, then his date. See [what only Finlay can add](docs/reviews/2026-11-10-finlay-contributions.md).
 - **Stage B (open registration):** not ready. It needs genuine mail receipt, the privacy confirmations and operating procedures.
 - **Direction after this unit:** Unit 2 will teach the folder system that AI agent tools use and their instruction and skill files. None of that is in Unit 1.
 

@@ -25,13 +25,15 @@ This maps the draft [privacy policy](../../public/privacy.html) and the sign-up 
 
 ## Finlay must confirm before Stage B
 
-Each item is a proposal Claude wrote into the draft. None is confirmed.
+Each item is a proposal Claude wrote into the draft. Items 6 and 8 were confirmed on 11 November 2026 (see below); the others are not confirmed.
+
+**11 November 2026 — Stage A answers.** Asked whether the server is in New South Wales, whether "Finlay McCall, Australia, email contact only" is how he wants to be named, and whether he will answer privacy requests within 30 days, Finlay read `/privacy` and replied: "Looks great. 30 days is fine". Recorded as: the wording for people who only read is accepted (item 8) and the 30-day promise is accepted (item 6). He did not separately say that he checked the server location in the Contabo account (item 4); the policy keeps its "network records place this server" wording. He chose to keep Cloudflare Web Analytics; the policy now says that Cloudflare counts page views and that this counting does not set a cookie, and that Moodle sets one essential session cookie when you visit. Both sentences were changed after his acceptance and he has not read them on the page; he reads them before the Stage A switch. Basis: one browser observation of the live home page on 11 November (beacon loaded; only `MoodleSession` set). The Cloudflare dashboard setting was not inspected. This is not legal advice and no lawyer has reviewed the policy.
 
 1. **Whether the Privacy Act applies.** A small business under the $3 million turnover threshold may be exempt, and could opt in under section 6EA. The policy is written as though the APPs apply. Confirm the position, ideally with a lawyer.
 2. **Aged 18 or over for accounts.** This avoids the Children's Online Privacy Code question. The sign-up form states it but does not check age. Recheck the Code once registered, due by 10 December 2026.
 3. **Retention periods.** 24 months for inactive accounts and support email, annual review. These create manual work that no task performs. Finlay owns this work. Confirm you will do it, or change the promise.
 4. **Server location.** The policy says network records place the server in New South Wales. Confirm in the Contabo account.
 5. **AI services for support drafting.** The policy names Anthropic and OpenAI. Confirm or correct.
-6. **30-day replies.** Access, correction and complaint replies within 30 days.
+6. **30-day replies.** Access, correction and complaint replies within 30 days. **Confirmed by Finlay, 11 November 2026.**
 7. **Existing learners.** Their earlier agreement is not reset. Decide whether to tell them or ask them to agree again.
-8. **Trading identity.** The policy names Finlay McCall in Australia with an email contact only.
+8. **Trading identity.** The policy names Finlay McCall in Australia with an email contact only. **Accepted by Finlay, 11 November 2026.**
