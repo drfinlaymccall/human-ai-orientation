@@ -85,7 +85,7 @@ test('example replacement, blocked storage and clipboard retain usable controls 
   expect(await download(page, 'Download all context documents')).toContain('Fictional practice example');
   // Account state and explicitly requested saved context are permitted background reads; editable text must never be submitted.
   for (const request of sent) {
-    expect(['/local/orientation/state.php', '/local/orientation/context.php'].map(path => new URL(path, page.url()).href)).toContain(request.url());
+    expect(['/local/orientation/state.php', '/local/orientation/context.php', '/assets/favicon.svg'].map(path => new URL(path, page.url()).href)).toContain(request.url());
     expect(request.method()).toBe('GET');
     expect(request.postData()).toBeNull();
     expect(JSON.stringify(await request.allHeaders())).not.toContain('LOCAL-ONLY-CONTENT');
