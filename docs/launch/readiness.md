@@ -4,7 +4,7 @@ This is the operator handoff for the [forward plan](../plans/2026-10-23-002-feat
 
 ## Two stages — approved 6 November 2026
 
-**Stage A: open the anonymous course.** Registration stays closed. Before opening, Finlay accepts the privacy policy wording and confirms the items in the [privacy compliance mapping](../operations/privacy-compliance.md) that apply to anonymous visitors, because the policy covers them too. He decides the date, then the operator removes `X-Robots-Tag "noindex, nofollow"` from `deploy/Caddyfile`, applies `deploy/cloudflare-ai-context-rule.json` and checks the public routes. Stage A collects no account data.
+**Stage A: open the anonymous course.** Registration stays closed. Before opening, Finlay accepts the privacy policy wording and confirms the items in the [privacy compliance mapping](../operations/privacy-compliance.md) that apply to anonymous visitors, because the policy covers them too. He decides the date, then the operator changes one line in `deploy/Caddyfile` from `import robots-preview.caddy` to `import robots-stage-a.caddy` (prepared on 11 November 2026; see the [release record](../releases/2026-11-11-search-and-sharing.md)), applies `deploy/cloudflare-ai-context-rule.json` and checks the public routes. Stage A collects no account data.
 
 **Stage B: open registration.** Open only after email, recovery, support and operating checks are recorded, and after Finlay confirms the items in the [privacy compliance mapping](../operations/privacy-compliance.md). Finlay accepted on 6 November that no restore test is required.
 
@@ -33,6 +33,8 @@ Only then use the separately gated `open` operation. Update homepage/help/privac
 ## Discoverability and maintenance
 
 The demo-wide `noindex, nofollow` policy remains deliberate until the public V1 decision. At that release, allow discovery only for intended public reading routes, public assets and the curated AI pack. Keep account/login/enrolment and private/runtime routes excluded; search directives do not replace access controls. Update the public test's header expectation alongside a reviewed Caddy change, validate and restart only the orientation web service, then check signed-out pages, metadata and private denials. Do not remove the global header without adding the intended scoped policy.
+
+**Prepared 11 November 2026.** The scoped policy exists as `deploy/robots-stage-a.caddy`: every response keeps `noindex, nofollow` except the public course pages listed in `content/discovery.json`. The preview still imports `deploy/robots-preview.caddy`, so nothing is offered to search yet. `tests/test_discovery.py` checks both policies on a throwaway local server and fails if the switch line changes without the test being updated. The switch is one reviewed line; then validate, restart only `orientation-web`, and check the routes.
 
 GitHub Actions activation stays [issue #10](https://github.com/drfinlaymccall/human-ai-orientation/issues/10) until an authorised login publishes the prepared workflow and an actual run succeeds. This does not require production credentials. The owner-reported paid Contabo backup position is accepted; no new provider or restore exercise is part of this work. GitHub preserves product sources and design history, while private runtime/learner data remains outside the repository.
 

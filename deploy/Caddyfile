@@ -8,20 +8,33 @@
 	header {
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
-		X-Robots-Tag "noindex, nofollow"
 		-Server
 	}
+	# Search policy. Preview: every response says noindex. Stage A: change this one line to
+	# `import robots-preview.caddy`, which keeps noindex on everything except the public course pages.
+	# Both files are written by scripts/build-discovery.py. Finlay decides when to switch.
+	import robots-preview.caddy
 	request_body {
 		max_size 16MB
 	}
 	@private {
 		path_regexp private (^|/)(\.[^/]*|vendor|node_modules|tests|fixtures|behat)(/|$)|(^|/)(config\.php|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml.*|README.*|UPGRADING.*|Gruntfile\.js|.*\.(md|txt|lock|dist|bak|sql))$|^/admin/cli(/|$)
-		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /ai/releases/2026-11-10.1/context.md /downloads/orientation-practice.md
+		not path /ai/context.md /ai/releases/2026-10-13.1/context.md /ai/releases/2026-10-13.2/context.md /ai/releases/2026-10-13.3/context.md /ai/releases/2026-10-23.1/context.md /ai/releases/2026-10-23.2/context.md /ai/releases/2026-10-24.1/context.md /ai/releases/2026-10-24.2/context.md /ai/releases/2026-10-24.3/context.md /ai/releases/2026-10-25.1/context.md /ai/releases/2026-11-06.1/context.md /ai/releases/2026-11-10.1/context.md /downloads/orientation-practice.md /robots.txt
 	}
 	handle @private {
 		respond "Not found" 404
 	}
 	redir /ai /ai/ 308
+	# Old or mistyped forms of the public addresses go to the one real address.
+	redir /index.html / 308
+	redir /favicon.ico /assets/favicon.svg 308
+	@alias path_regexp alias ^/(catalogue|agent-basics|desktop-workspace|journey|first-task|preview|portfolio|check-and-continue|before-you-start|notes|free-tools|deeper-courses|help)(\.html|/)$
+	redir @alias /{re.alias.1} 308
+	@discovery path /robots.txt /sitemap.xml
+	handle @discovery {
+		root * /home/finlay/apps/human-ai-orientation/public
+		file_server
+	}
 	# The static recovery page is gone. Old links go to Moodle's own recovery form.
 	@oldrecovery path /recovery /recovery.html
 	redir @oldrecovery /login/forgot_password.php 302
@@ -83,6 +96,22 @@
 	handle /assets/* {
 		root * /home/finlay/apps/human-ai-orientation/public
 		file_server
+	}
+	# An address that is neither a public page nor anything in Moodle gets a real "not found" page.
+	# Moodle addresses are files, folders, or a .php file followed by a path.
+	@unknown {
+		not path_regexp \.php(/|$)
+		not file {
+			root /home/finlay/apps/human-ai-orientation/trial/moodle
+			try_files {path} {path}/
+		}
+	}
+	handle @unknown {
+		root * /home/finlay/apps/human-ai-orientation/public
+		rewrite * /errors/not-found.html
+		file_server {
+			status 404
+		}
 	}
 	handle {
 		root * /home/finlay/apps/human-ai-orientation/trial/moodle

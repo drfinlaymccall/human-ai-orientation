@@ -116,7 +116,15 @@ Five quick items, about 80 minutes in total. They are the fastest way to unblock
 
 ### 9. Content signals in `robots.txt` [A]
 
-**Answered 11 November 2026, to confirm:** you will be shown the exact lines, in particular AI training, before the Stage A switch. See Done.
+**Answered 11 November 2026, to confirm.** The lines now published at `/robots.txt` are:
+
+```
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+```
+
+Say if `ai-train=yes` is not what you meant. See Done.
 
 - **What:** Cloudflare serves a `robots.txt` that states no rules. Decide what crawlers may do: search indexing, use as AI input, AI training.
 - **Why you:** it is your licence position. The course is CC BY 4.0 and its AI-context pack exists to be read by AI tools.
@@ -152,7 +160,7 @@ The agent offers options; you choose.
 
 ### 12. Share image [A, small]
 
-**Answered 11 November 2026 — see Done.**
+**Answered 11 November 2026 — see Done.** The image is built: [`/assets/share.png`](https://orientation.finlaymccall.com/assets/share.png). It shows the course name and the four steps. Look at it and say if it should change. A version with your photo needs a photo from you.
 
 - **What:** the picture shown when the course is shared on LinkedIn or in a chat.
 - **Why you:** look and feel.
