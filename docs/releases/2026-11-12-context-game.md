@@ -1,6 +1,6 @@
 # End-of-unit game: Pack the brief
 
-Date: 12 November 2026 (Australia/Sydney). Tracking: [#53](https://github.com/drfinlaymccall/human-ai-orientation/issues/53). Status when written: built and tested on a branch; not merged and not on the live preview.
+Date: 12 November 2026 (Australia/Sydney). Tracking: [#53](https://github.com/drfinlaymccall/human-ai-orientation/issues/53). Status: merged ([#54](https://github.com/drfinlaymccall/human-ai-orientation/pull/54)) and published to the live preview on 12 November 2026, after Finlay said "merge and publish". Wording is not approved.
 
 ## Need
 
@@ -19,7 +19,7 @@ Finlay asked on 12 November for "a short interactive and enjoyable in-browser ga
 
 - **The reply depends on the brief.** The invented reply is put together from the notes the player ticked. A missing note gives a made-up date or a guess. An unrelated or private note appears in the notice. The player can change the brief and ask again. This is the main point of the game: the player sees context change the result.
 - **One problem is always there.** The reply always adds "Morning tea will be provided", which no note mentions. A perfect brief still needs a check.
-- **No AI, no storage, no personal information.** The replies were written for the course and are labelled as invented. The page stores nothing and makes no request after it loads. The player types nothing.
+- **No AI, no storage, no personal information.** The replies were written for the course and are labelled as invented. The game stores nothing and makes no request once it starts. Like every public page, the page asks the site for sign-in state when it loads. The player types nothing.
 - **A page beside the course, not an activity in it.** `/context-game` is a public page. It is not in `content/course-map.json`, is not a Moodle activity, and has no completion. Unit 1 completion is unchanged. Stars are for the player only and are not kept.
 - **A paper version without JavaScript.** The same questions and answers are plain HTML with answers the reader opens.
 - **A new fictional person (Mina, a garden tidy-up)** and not the book swap, so the player uses the four steps on a task they have not seen.
@@ -55,7 +55,15 @@ All tests are synthetic and ran on the branch against the local static server. N
 
 ## Publication
 
-Not published. To publish after merge:
+Published on 12 November 2026 at merge commit `50e7957`, by the four steps below. Results:
+
+- the live checkout was fast-forwarded to `50e7957` and `orientation-web` restarted;
+- `scripts/sync-journey.php` reported "Journey published; existing evidence unchanged", with module IDs 5, 6, 7 and 8 as before;
+- signed out, `/context-game`, its script and its stylesheet returned 200; the public step 4 page carries the link; the sitemap lists the page;
+- in headless Chromium, the step 4 link opened the live game, the interactive version replaced the paper version and the start button showed. The only failed request was the signed-out sign-in state request (401), which `/journey` makes too;
+- the Moodle step 4 Page (module 8) was read from the database and contains the link. No one signed in to look at it in a browser.
+
+The steps:
 
 1. Pull `main` in the live checkout. This publishes the static page, its files and the public step 4 page.
 2. Restart `orientation-web`, so the web server reads the new route. Until then `/context-game` returns the not-found page.
