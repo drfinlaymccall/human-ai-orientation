@@ -67,9 +67,9 @@ class Pages(unittest.TestCase):
         self.assertIn(f'Sitemap: {ORIGIN}/sitemap.xml', robots)
         self.assertNotIn('Disallow', robots)
 
-    def test_the_search_switch_is_off_and_the_prepared_policy_matches_the_sitemap(self):
+    def test_the_search_switch_is_on_stage_a_and_the_policy_matches_the_sitemap(self):
         caddy = (ROOT / 'deploy/Caddyfile').read_text()
-        self.assertEqual(re.findall(r'^\s*import (\S+)$', caddy, re.M), ['robots-preview.caddy'])
+        self.assertEqual(re.findall(r'^\s*import (\S+)$', caddy, re.M), ['robots-stage-a.caddy'])
         self.assertNotIn('X-Robots-Tag', caddy)
         self.assertIn('header X-Robots-Tag "noindex, nofollow"\n', (ROOT / 'deploy/robots-preview.caddy').read_text())
         stage_a = (ROOT / 'deploy/robots-stage-a.caddy').read_text()
@@ -99,7 +99,8 @@ class Server(unittest.TestCase):
         config = (ROOT / 'deploy/Caddyfile').read_text()
         config = config.replace(':8789 {', f':{port} {{').replace('127.0.0.1:8788', '127.0.0.1:9')
         config = config.replace(LIVE_ROOT + '/trial/moodle', str(moodle)).replace(LIVE_ROOT + '/public', str(ROOT / 'public'))
-        config = config.replace('import robots-preview.caddy', f'import {ROOT}/deploy/robots-{policy}.caddy')
+        config, switched = re.subn(r'(?m)^(\s*)import robots-(?:preview|stage-a)\.caddy$', rf'\1import {ROOT}/deploy/robots-{policy}.caddy', config)
+        self.assertEqual(switched, 1)
         self.assertNotIn(LIVE_ROOT + '/trial', config)
         (work / 'Caddyfile').write_text(config)
         process = subprocess.Popen(['caddy', 'run', '--config', str(work / 'Caddyfile'), '--adapter', 'caddyfile'],
