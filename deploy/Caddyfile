@@ -18,10 +18,10 @@
 	# Public pages and their files are not cached, so a published change shows at once.
 	# Moodle sets its own caching on its pages and versioned files; this default leaves those alone.
 	header ?Cache-Control "no-store"
-	# Search policy. Preview: every response says noindex. Stage A: change this one line to
-	# `import robots-preview.caddy`, which keeps noindex on everything except the public course pages.
-	# Both files are written by scripts/build-discovery.py. Finlay decides when to switch.
-	import robots-preview.caddy
+	# Search policy. Stage A (since 11 November 2026): noindex on everything except the public course pages.
+	# To go back to the preview, where every response says noindex, change this one line to
+	# `import robots-preview.caddy`. Both files are written by scripts/build-discovery.py. Finlay decides.
+	import robots-stage-a.caddy
 	request_body {
 		max_size 16MB
 	}
