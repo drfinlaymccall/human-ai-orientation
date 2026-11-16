@@ -19,9 +19,9 @@ The learner works through four steps, in order the first time:
 
 Files, folders, notes and AI interfaces are modules within the orientation unit. Guided practice can be skipped through the familiar-skills route. The previous author estimate for the core activities and portfolio was 70–95 minutes, excluding this foundational practice; it is not a measured duration for the reorganized unit. Free tools, fictional examples, copy/paste and no-JavaScript reading routes are supported. Practical tasks and reflections record experience rather than certify mastery.
 
-## Current status — 10 November 2026
+## Current status — 12 November 2026
 
-A minimum viable course is on the owner preview: four steps, three context documents and a next goal. It is not open. The preview still tells search engines to stay away, registration is closed, and no person other than Finlay has used it. Wording is not yet approved by Finlay. [`CONTROL.md`](CONTROL.md) has the full status and the [launch audit](docs/reviews/2026-11-10-launch-audit.md) lists what each stage needs. The sections below are dated records.
+A minimum viable course is public: four steps, three context documents in a `my-context` folder and a next goal. Since 12 November the course pages can be found by search and shared (Stage A). Anyone can read the course and build the three documents without an account. Registration is closed, so new accounts and saved progress are not available yet (Stage B). On 12 November no person other than Finlay had used the course, and there has been no human pilot. Finlay approved the wording of the 10 November course changes; the wording of the end-of-unit quiz added on 12 November is not approved. [`CONTROL.md`](CONTROL.md) has the full status and the [launch audit](docs/reviews/2026-11-10-launch-audit.md) lists what each stage needs. The sections below are dated records; each describes the day it names.
 
 ## Launch plan — 6 November 2026
 
